@@ -1,0 +1,3791 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>超级个人交互桥</title>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --surface: #f5f5f7;
+        --surface-2: #eef0f2;
+        --text: #1d1d1f;
+        --text-2: #6e6e73;
+        --line: #e3e3e6;
+        --accent: #0a6cff;
+        --accent-soft: rgba(10, 108, 255, 0.08);
+        --good: #1a9e54;
+        --warn: #d97706;
+        --danger: #d92d20;
+        --bar-track: #e8e8ec;
+        --radius: 14px;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0b0b0d;
+          --surface: #17171a;
+          --surface-2: #1f1f23;
+          --text: #f5f5f7;
+          --text-2: #9a9aa0;
+          --line: #2a2a2f;
+          --accent: #4d9fff;
+          --accent-soft: rgba(77, 159, 255, 0.12);
+          --good: #3ecf7d;
+          --warn: #f5a623;
+          --danger: #ff6b5e;
+          --bar-track: #26262b;
+        }
+      }
+      * { box-sizing: border-box; }
+      html { -webkit-text-size-adjust: 100%; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+      }
+      .wrap { max-width: 780px; margin: 0 auto; padding: 0 20px 80px; }
+
+      /* Tabs */
+      .tabs {
+        display: flex; gap: 4px;
+        overflow-x: auto; scrollbar-width: none;
+        position: sticky; top: 0; z-index: 10;
+        background: var(--bg);
+        padding: 18px 0 12px;
+        border-bottom: 1px solid var(--line);
+      }
+      .tabs::-webkit-scrollbar { display: none; }
+      .tab {
+        flex: 1 0 auto; white-space: nowrap;
+        appearance: none; border: 0; cursor: pointer;
+        background: transparent; color: var(--text-2);
+        font: inherit; font-size: 15px; font-weight: 600;
+        padding: 9px 4px; border-radius: 999px;
+        transition: background .15s ease, color .15s ease;
+      }
+      .tab:hover { color: var(--text); }
+      .tab[aria-selected="true"] { background: var(--surface-2); color: var(--text); }
+      .tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+      @media (max-width: 560px) {
+        .tabs { flex-wrap: wrap; overflow-x: visible; row-gap: 2px; }
+        .tab { flex: 1 0 22%; }
+      }
+
+      section.panel { display: none; padding-top: 36px; }
+      section.panel.active { display: block; }
+
+      h1 { font-size: 15px; font-weight: 600; color: var(--text-2); margin: 0 0 6px; letter-spacing: .02em; }
+      h2 { font-size: 20px; font-weight: 700; margin: 40px 0 14px; }
+      h2:first-of-type { margin-top: 8px; }
+      p { margin: 0; }
+      .muted { color: var(--text-2); font-size: 14px; }
+
+      /* Big number */
+      .big { font-size: clamp(44px, 9vw, 64px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; font-variant-numeric: tabular-nums; }
+      .big .unit { font-size: .45em; font-weight: 600; color: var(--text-2); margin-right: 4px; }
+      .progress-row { display: flex; justify-content: space-between; align-items: baseline; margin: 18px 0 8px; font-size: 14px; color: var(--text-2); }
+      .progress-row strong { color: var(--text); font-size: 15px; }
+      .bar { height: 10px; border-radius: 999px; background: var(--bar-track); overflow: hidden; }
+      .bar > div { height: 100%; width: 0%; background: var(--accent); border-radius: 999px; transition: width .45s ease; }
+
+      /* Breakdown */
+      .breakdown { margin-top: 28px; display: grid; gap: 10px; }
+      .bd-row {
+        display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+        background: var(--surface); border-radius: var(--radius); padding: 14px 18px;
+      }
+      .bd-row .name { font-weight: 600; }
+      .bd-row .sub { display: block; font-weight: 400; font-size: 13px; color: var(--text-2); margin-top: 2px; }
+      .bd-row .amt { font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
+      .bd-row .amt small { display: block; text-align: right; font-weight: 400; font-size: 13px; color: var(--text-2); }
+
+      /* Facts list */
+      .facts { margin-top: 28px; display: grid; gap: 0; border-top: 1px solid var(--line); }
+      .facts div { display: flex; gap: 16px; padding: 12px 2px; border-bottom: 1px solid var(--line); font-size: 15px; }
+      .facts dt { flex: 0 0 108px; color: var(--text-2); }
+      .facts dd { margin: 0; }
+
+      /* Forms */
+      form { margin-top: 16px; display: grid; gap: 12px; }
+      .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      @media (max-width: 560px) { .grid2 { grid-template-columns: 1fr; } }
+      label { display: block; font-size: 13px; color: var(--text-2); margin-bottom: 5px; }
+      input, select, textarea {
+        width: 100%; font: inherit; font-size: 15px; color: var(--text);
+        background: var(--surface); border: 1px solid transparent; border-radius: 10px;
+        padding: 10px 12px; outline: none;
+      }
+      input:focus, select:focus, textarea:focus { border-color: var(--accent); background: var(--bg); }
+      textarea { resize: vertical; min-height: 64px; }
+      .btn {
+        appearance: none; border: 0; cursor: pointer; font: inherit; font-weight: 600;
+        background: var(--accent); color: #fff; border-radius: 999px; padding: 11px 22px;
+        justify-self: start;
+      }
+      .btn:active { transform: scale(.98); }
+      .seg { display: flex; gap: 6px; flex-wrap: wrap; }
+      .seg button {
+        appearance: none; cursor: pointer; font: inherit; font-size: 14px;
+        border: 1px solid var(--line); background: var(--bg); color: var(--text-2);
+        border-radius: 999px; padding: 7px 14px;
+      }
+      .seg button.on { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+
+      /* Entries */
+      .entries { margin-top: 18px; display: grid; gap: 10px; }
+      .entry {
+        display: flex; gap: 14px; align-items: flex-start;
+        background: var(--surface); border-radius: var(--radius); padding: 14px 18px;
+      }
+      .entry .main { flex: 1; min-width: 0; }
+      .entry .top { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+      .entry .date { font-size: 13px; color: var(--text-2); font-variant-numeric: tabular-nums; }
+      .entry .cat { font-weight: 600; }
+      .entry .amt { font-weight: 700; font-variant-numeric: tabular-nums; }
+      .entry .note { font-size: 14px; color: var(--text-2); margin-top: 3px; overflow-wrap: anywhere; }
+      .del {
+        appearance: none; border: 0; cursor: pointer; background: transparent;
+        color: var(--text-2); font-size: 18px; line-height: 1; padding: 4px 6px; border-radius: 8px;
+      }
+      .del:hover { color: var(--danger); }
+      .empty { color: var(--text-2); font-size: 14px; padding: 18px 2px; }
+      .tag { font-size: 12px; font-weight: 600; border-radius: 999px; padding: 2px 9px; }
+      .tag.long { background: rgba(26,158,84,.14); color: var(--good); }
+      .tag.short { background: rgba(217,45,32,.12); color: var(--danger); }
+      .tag.done { background: rgba(26,158,84,.14); color: var(--good); }
+      .tag.late { background: rgba(217,119,6,.14); color: var(--warn); }
+      .tag.yes { background: var(--accent-soft); color: var(--accent); }
+      .tag.no { background: rgba(217,45,32,.12); color: var(--danger); }
+      .tag.doing { background: var(--accent-soft); color: var(--accent); }
+
+      /* Reverse decision chain */
+      .stage-label { font-size: 14px; font-weight: 700; margin-top: 6px; }
+      .stage-label span { font-weight: 400; color: var(--text-2); font-size: 13px; }
+      .chain { margin-top: 10px; display: grid; gap: 7px; }
+      .chain-row { display: flex; gap: 10px; align-items: baseline; font-size: 14px; }
+      .chain-stage {
+        flex: 0 0 auto; font-size: 12px; font-weight: 600; color: var(--text-2);
+        background: var(--surface-2); border-radius: 999px; padding: 2px 9px;
+      }
+      .chain-row.now .chain-stage { background: var(--accent-soft); color: var(--accent); }
+      .chain-row.now .chain-text { font-weight: 600; }
+      .chain-text { min-width: 0; overflow-wrap: anywhere; }
+      .chain-text .k2 { color: var(--text-2); }
+      .linklike {
+        appearance: none; background: none; border: 0; padding: 0; cursor: pointer;
+        font: inherit; color: var(--accent); text-align: left;
+      }
+
+      /* Rules */
+      .rules { display: grid; gap: 10px; }
+      .rule { background: var(--surface); border-radius: var(--radius); padding: 16px 18px; }
+      .rule h3 { margin: 0 0 6px; font-size: 16px; }
+      .rule p { font-size: 15px; color: var(--text); }
+      .rule p + p { margin-top: 4px; }
+      .rule .k { color: var(--accent); font-weight: 700; }
+
+      .stat-row { display: flex; gap: 28px; flex-wrap: wrap; margin-top: 6px; }
+      .stat b { font-size: 26px; font-variant-numeric: tabular-nums; display: block; line-height: 1.2; }
+      .stat span { font-size: 13px; color: var(--text-2); }
+
+      /* Documents */
+      .doc { margin-top: 44px; }
+      .doc-title { font-size: 20px; font-weight: 700; margin: 0 0 4px; }
+      .doc-date { font-size: 13px; color: var(--text-2); margin: 0 0 14px; }
+      .doc-body {
+        background: var(--surface); border-radius: var(--radius);
+        padding: 20px; font-size: 14.5px; line-height: 1.75;
+        white-space: pre-wrap; overflow-wrap: anywhere;
+      }
+      .doc-table-wrap {
+        background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius);
+        padding: 6px 18px 12px; margin: 12px 0;
+      }
+      .doc-table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 13.5px; line-height: 1.6; }
+      .doc-table th, .doc-table td {
+        padding: 8px 10px; text-align: left; vertical-align: top;
+        border-bottom: 1px solid var(--line); overflow-wrap: anywhere;
+      }
+      .doc-table thead th { font-weight: 700; border-bottom: 2px solid var(--line); }
+      .doc-table tbody tr:last-child td { border-bottom: 0; }
+      .doc-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+      .doc-table thead th.num { text-align: right; }
+      .doc-table tbody tr.total td { font-weight: 700; }
+      @media (max-width: 560px) {
+        .doc-table-wrap { padding: 4px 10px 8px; }
+        .doc-table { font-size: 12.5px; }
+        .doc-table th, .doc-table td { padding: 7px 6px; }
+        .doc-table-wrap.dense { padding: 4px 6px 8px; }
+        .doc-table-wrap.dense .doc-table { font-size: 12px; }
+        .doc-table-wrap.dense th, .doc-table-wrap.dense td { padding: 7px 4px; }
+      }
+      .doc-rules {
+        background: var(--accent-soft); border-radius: var(--radius);
+        padding: 16px 20px; font-size: 14.5px; line-height: 1.75;
+        display: grid; gap: 8px; margin-bottom: 4px;
+      }
+      .doc-rules p { margin: 0; }
+      .doc-part { font-size: 17px; font-weight: 700; margin: 30px 0 10px; }
+      .doc-part-main { font-size: 19px; margin-top: 46px; padding-top: 28px; border-top: 1px solid var(--line); }
+      .doc-module { font-size: 16px; font-weight: 700; margin: 26px 0 10px; scroll-margin-top: 12px; }
+      .doc-part[id] { scroll-margin-top: 12px; }
+      .doc-sub { font-size: 15px; font-weight: 700; margin: 24px 0 8px; scroll-margin-top: 12px; }
+      .doc-nav.sub { margin: 10px 0 2px; gap: 6px; }
+      .doc-nav.sub a { font-size: 12.5px; padding: 5px 10px; }
+      .doc-nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 2px; }
+      .doc-nav a {
+        font-size: 13.5px; line-height: 1.3; padding: 6px 12px; border-radius: 999px;
+        background: var(--surface); border: 1px solid var(--line);
+        color: var(--text); text-decoration: none;
+      }
+      .doc-nav a:active { background: var(--accent-soft); }
+
+      .intro { padding: 36px 2px 28px; }
+      .intro p { font-size: 16.5px; line-height: 1.9; margin: 0 0 12px; max-width: 46em; }
+      .intro p:last-child { margin-bottom: 0; }
+      .intro .intro-title { font-size: 28px; font-weight: 800; line-height: 1.3; letter-spacing: -0.01em; margin-bottom: 16px; }
+      .intro .intro-h { font-size: 18px; font-weight: 700; line-height: 1.5; margin: 24px 0 8px; }
+      .intro ol, .intro ul { font-size: 16.5px; line-height: 1.9; margin: 0 0 6px; padding-left: 1.7em; max-width: 46em; }
+      .intro li { margin: 1px 0; }
+
+      footer { margin-top: 64px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--text-2); font-size: 13px; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="intro">
+        <p class="intro-title">超级个人交互桥</p>
+        <p>这是 Lin志锋 的个人数据中枢，用来管理我的钱、身体、目标和个人资料，让分散的信息能够连接起来。</p>
+        <p class="intro-h">九个核心模块</p>
+        <ol>
+          <li>还款记账：记录每笔还款、当前欠款和剩余债务。</li>
+          <li>个人盈利：记录每一笔实际到账的收入。</li>
+          <li>开支复盘：导入账单，分析每月支出和资金去向。</li>
+          <li>交易参考：保存交易系统规则、交易记录和复盘。</li>
+          <li>健身打卡：记录训练、休息、体重和身体变化。</li>
+          <li>睡眠记录：记录入睡、起床、睡眠质量和白天精神状态。</li>
+          <li>逆向决策：把长期目标拆解成今天可以执行的行动。</li>
+          <li>每周复盘：对比数据变化，总结问题并确定下一步行动。</li>
+          <li>我的文档：保存完整的《个人交互数据桥》档案、规则和说明。</li>
+        </ol>
+        <p class="intro-h">数据管理规则</p>
+        <ul>
+          <li>钱到账才计入实际收入，未到账的款项单独标记，不当作现有资金。</li>
+          <li>所有记录尽可能标明日期，保留历史数据，不随意覆盖或删除。</li>
+          <li>区分实际发生的事情、预计发生的事情和个人判断，不把猜测当成事实。</li>
+          <li>有新数据就及时登记，定期核对数据，确保记录真实、完整。</li>
+          <li>每周复盘一次，让数据帮助我发现问题、调整计划、落实行动。</li>
+        </ul>
+        <p>最终目标：建立一个属于自己的个人数据中枢，让过去有记录、现在看得清、未来有方向。</p>
+      </header>
+
+      <nav class="tabs" role="tablist" aria-label="模块切换">
+        <button class="tab" role="tab" aria-selected="true" data-tab="debt">还款记账</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="expense">开支复盘</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="income">个人盈利</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="trade">交易参考</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="life">健身打卡</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="sleep">睡眠记录</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="reverse">逆向决策</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="review">每周复盘</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="docs">我的文档</button>
+      </nav>
+
+      <!-- ============ 还款记账 ============ -->
+      <section class="panel active" id="panel-debt" role="tabpanel">
+        <h1>剩余债务</h1>
+        <div class="big"><span class="unit">¥</span><span id="remainNum">19,697</span></div>
+        <div class="progress-row">
+          <span>目标：2027 年 3 月前还清</span>
+          <span>已还 <strong id="paidNum">¥0</strong> · <strong id="pctNum">0%</strong></span>
+        </div>
+        <div class="bar" aria-hidden="true"><div id="barFill"></div></div>
+
+        <p class="muted" style="margin-top:14px;">每还一笔，就在下方「记一笔还款」里添加记录（日期、类别：网贷 / 融资租赁 / 欠朋友、金额），剩余债务会自动减少；也可以直接在聊天里告诉我，我帮你记。</p>
+
+        <div class="breakdown" id="breakdown"></div>
+
+        <dl class="facts">
+          <div><dt>工资</dt><dd>¥6,500 / 月，每月 1 号左右到账</dd></div>
+          <div><dt>10 月还款</dt><dd>约 ¥3,674（融资租赁 ¥2,474 + 网贷及分期约 ¥1,200）</dd></div>
+          <div><dt>融资租赁</dt><dd>2026 年 11 月 25 日最后一笔，之后每月还款降至约 ¥1,200</dd></div>
+          <div><dt>朋友欠款</dt><dd>约好过年还；谁着急，先还谁</dd></div>
+          <div><dt>基数说明</dt><dd>¥19,697 为历史估算，未逐笔重新核账</dd></div>
+        </dl>
+
+        <h2>记一笔还款</h2>
+        <form id="debtForm">
+          <div class="grid2">
+            <div>
+              <label for="dDate">日期</label>
+              <input type="date" id="dDate" required />
+            </div>
+            <div>
+              <label for="dCat">类别</label>
+              <select id="dCat">
+                <option value="loan">网贷</option>
+                <option value="lease">融资租赁</option>
+                <option value="friend">欠朋友</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid2">
+            <div>
+              <label for="dAmt">金额（元）</label>
+              <input type="number" id="dAmt" min="0.01" step="0.01" inputmode="decimal" placeholder="例如 1200" required />
+            </div>
+            <div>
+              <label for="dNote">备注（可选）</label>
+              <input type="text" id="dNote" placeholder="例如 10 月月供" />
+            </div>
+          </div>
+          <button class="btn" type="submit">添加</button>
+        </form>
+
+        <h2>还款记录</h2>
+        <div class="entries" id="debtEntries"></div>
+        <p class="empty" id="debtEmpty">还没有记录。在上面记下第一笔还款，剩余债务和进度会立刻更新。</p>
+      </section>
+
+      <!-- ============ 开支复盘 ============ -->
+      <section class="panel" id="panel-expense" role="tabpanel">
+        <h1>开支复盘</h1>
+        <p style="font-size:22px;font-weight:700;line-height:1.4;">不记每天的，每月看一次账单。</p>
+        <p class="muted" style="margin-top:8px;">2026-10-18 本人决定：不再记每日开支，改为按月复盘——每月把账单流水导出来，看一次总支出和分类合计。流水口径约 ¥9,500 与开支表的差约 ¥2,372 已于 2026-10-18 核对清楚：是找别人借又还给别人的周转，流水虚高，实际开支按开支表 ¥7,128 算。</p>
+
+        <div class="stat-row" style="margin-top:24px;">
+          <div class="stat"><b id="erCount">0</b><span>已复盘月份</span></div>
+          <div class="stat"><b id="erLatest">—</b><span>最近一月总支出</span></div>
+          <div class="stat"><b>¥7,128</b><span>10 月基准（本人开支表）</span></div>
+        </div>
+
+        <h2>10 月基准参考（本人 2026-10-12 开支表，合计约 ¥7,128/月）</h2>
+        <div class="breakdown" id="expenseBaseline"></div>
+
+        <h2>记一次月度复盘</h2>
+        <form id="expenseForm">
+          <div class="grid2">
+            <div>
+              <label for="erMonth">月份</label>
+              <input type="month" id="erMonth" required />
+            </div>
+            <div>
+              <label for="erTotal">账单总支出（¥）</label>
+              <input type="number" id="erTotal" min="0.01" step="0.01" inputmode="decimal" placeholder="例如 7128" required />
+            </div>
+          </div>
+          <p class="muted" style="margin-top:14px;">分类合计（按账单流水归类，没有的留空）</p>
+          <div class="grid2" id="erCats"></div>
+          <div style="margin-top:12px;">
+            <label for="erNote">本月说明（可选）</label>
+            <textarea id="erNote" placeholder="例如 哪类花超了、下个月注意什么"></textarea>
+          </div>
+          <button class="btn" type="submit">添加</button>
+        </form>
+
+        <h2>复盘记录</h2>
+        <div class="entries" id="expenseEntries"></div>
+        <p class="empty" id="expenseEmpty">还没有复盘记录。等月底导出账单流水后，在上面记第一次。</p>
+      </section>
+
+      <!-- ============ 个人盈利 ============ -->
+      <section class="panel" id="panel-income" role="tabpanel">
+        <h1>个人盈利</h1>
+        <p style="font-size:22px;font-weight:700;line-height:1.4;">到账了，才算数。</p>
+        <p class="muted" style="margin-top:8px;">规矩：只记已到账的钱，没到账的一律不记（第一原则）。工资每月 1 号左右到账；2026 年 10 月暂无已到账收入，10 月工资是否到账待本人确认。</p>
+
+        <div class="stat-row" style="margin-top:24px;">
+          <div class="stat"><b id="iMonthTotal">¥0</b><span>本月总收入</span></div>
+          <div class="stat"><b id="iAllTotal">¥0</b><span>累计总收入</span></div>
+          <div class="stat"><b id="iAllCount">0</b><span>全部记录</span></div>
+        </div>
+
+        <h2>记一笔收入</h2>
+        <form id="incomeForm">
+          <div class="grid2">
+            <div>
+              <label for="iDate">日期</label>
+              <input type="date" id="iDate" required />
+            </div>
+            <div>
+              <label for="iSrc">来源</label>
+              <select id="iSrc">
+                <option>工资</option>
+                <option>交易盈利</option>
+                <option>卖手机</option>
+                <option>其他</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid2">
+            <div>
+              <label for="iAmt">金额（¥）</label>
+              <input type="number" id="iAmt" min="0.01" step="0.01" inputmode="decimal" placeholder="例如 6500" required />
+            </div>
+            <div>
+              <label for="iNote">备注（可选）</label>
+              <input type="text" id="iNote" placeholder="例如 10 月工资，已到账" />
+            </div>
+          </div>
+          <button class="btn" type="submit">添加</button>
+        </form>
+
+        <h2>收入记录</h2>
+        <div class="entries" id="incomeEntries"></div>
+        <p class="empty" id="incomeEmpty">还没有收入记录。钱到账了，在上面记第一笔。</p>
+      </section>
+
+      <!-- ============ 交易参考 ============ -->
+      <section class="panel" id="panel-trade" role="tabpanel">
+        <h1>我的交易系统</h1>
+        <p style="font-size:22px;font-weight:700;line-height:1.4;">轻仓，顺势，止损。<br />盈利单绝不变成亏损单。</p>
+        <p class="muted" style="margin-top:8px;">交易是概率游戏。尽量少做，多做多错。不清楚，就不做。</p>
+
+        <h2>规则</h2>
+        <div class="rules">
+          <div class="rule">
+            <h3>轻仓</h3>
+            <p>单笔保证金占总资金 <span class="k">10%</span>，杠杆 <span class="k">5 倍</span>（名义仓位 50%）。</p>
+            <p>单笔止损亏损控制在总资金的 <span class="k">1%</span>。</p>
+          </div>
+          <div class="rule">
+            <h3>顺势：只做突破</h3>
+            <p>周线判断方向，日线找入场点。</p>
+            <p>价格突破前高阻力 → 试多；跌破前低支撑 → 试空。</p>
+            <p>方向不清楚，不做。</p>
+          </div>
+          <div class="rule">
+            <h3>止损</h3>
+            <p>价格 <span class="k">2%</span> 硬止损，触发就走，<span class="k">绝不放宽</span>。</p>
+          </div>
+          <div class="rule">
+            <h3>止盈</h3>
+            <p>盈利 2% → 止损移到保本，盈利单绝不变成亏损单。</p>
+            <p>盈利 4% → 先出一半，剩余用跟踪止损。</p>
+            <p>周线方向反转 → 全部出场。最长持仓 1 个月。</p>
+          </div>
+          <div class="rule">
+            <h3>资金隔离</h3>
+            <p>交易资金与还款、生活资金 <span class="k">100% 隔离</span>。</p>
+            <p>绝不用还款的钱、生活的钱、借来的钱交易。只用闲钱。</p>
+          </div>
+          <div class="rule">
+            <h3>不看指标</h3>
+            <p>不看均线、MACD、斐波那契等任何指标线，不用成交量等附加过滤。只看价格与前高前低。</p>
+          </div>
+        </div>
+
+        <h2>交易日记</h2>
+        <div class="stat-row">
+          <div class="stat"><b id="tCount">0</b><span>已记录</span></div>
+          <div class="stat"><b id="tFollow">—</b><span>按系统执行</span></div>
+        </div>
+        <form id="tradeForm">
+          <div class="grid2">
+            <div>
+              <label for="tDate">日期</label>
+              <input type="date" id="tDate" required />
+            </div>
+            <div>
+              <label for="tMarket">市场 / 品种</label>
+              <input type="text" id="tMarket" placeholder="例如 BTC、黄金、纳指" required />
+            </div>
+          </div>
+          <div>
+            <label>方向</label>
+            <div class="seg" id="tDirSeg">
+              <button type="button" class="on" data-dir="做多">做多</button>
+              <button type="button" data-dir="做空">做空</button>
+            </div>
+          </div>
+          <div>
+            <label for="tReason">入场理由</label>
+            <textarea id="tReason" placeholder="例如 日线突破前高阻力，周线方向向上" required></textarea>
+          </div>
+          <div class="grid2">
+            <div>
+              <label for="tResult">结果</label>
+              <input type="text" id="tResult" placeholder="例如 +4% 出一半 / 止损 -2% / 持仓中" />
+            </div>
+            <div>
+              <label>是否按系统执行</label>
+              <div class="seg" id="tFollowSeg">
+                <button type="button" class="on" data-follow="是">是</button>
+                <button type="button" data-follow="否">否</button>
+              </div>
+            </div>
+          </div>
+          <button class="btn" type="submit">添加</button>
+        </form>
+
+        <h2>日记记录</h2>
+        <div class="entries" id="tradeEntries"></div>
+        <p class="empty" id="tradeEmpty">还没有日记。每笔交易记下来：为什么进、结果如何、有没有按系统执行。</p>
+      </section>
+
+      <!-- ============ 健身打卡 ============ -->
+      <section class="panel" id="panel-life" role="tabpanel">
+        <h1>健身 / 生活打卡</h1>
+        <p style="font-size:22px;font-weight:700;line-height:1.4;">固定节奏：周一、周二、周四。</p>
+        <p class="muted" style="margin-top:8px;">也可以记其他日子的活动。完成就记完成，排不开就记推迟，不用补、不用欠。</p>
+
+        <div class="stat-row" style="margin-top:24px;">
+          <div class="stat"><b id="lDone">0</b><span>完成次数</span></div>
+          <div class="stat"><b id="lLate">0</b><span>推迟次数</span></div>
+          <div class="stat"><b id="lMins">0</b><span>累计分钟</span></div>
+        </div>
+
+        <h2>记一次</h2>
+        <form id="lifeForm">
+          <div class="grid2">
+            <div>
+              <label for="lDate">日期</label>
+              <input type="date" id="lDate" required />
+            </div>
+            <div>
+              <label>安排</label>
+              <div class="seg" id="lDaySeg">
+                <button type="button" class="on" data-day="周一">周一</button>
+                <button type="button" data-day="周二">周二</button>
+                <button type="button" data-day="周四">周四</button>
+                <button type="button" data-day="自定义">自定义</button>
+              </div>
+            </div>
+          </div>
+          <div class="grid2">
+            <div>
+              <label>状态</label>
+              <div class="seg" id="lStatusSeg">
+                <button type="button" class="on" data-status="完成">完成</button>
+                <button type="button" data-status="推迟">推迟</button>
+              </div>
+            </div>
+            <div>
+              <label for="lMinsInput">时长（分钟，可选）</label>
+              <input type="number" id="lMinsInput" min="0" step="1" inputmode="numeric" placeholder="例如 45" />
+            </div>
+          </div>
+          <div>
+            <label for="lNote">备注（可选）</label>
+            <input type="text" id="lNote" placeholder="例如 跑步 5 公里 / 力量训练" />
+          </div>
+          <button class="btn" type="submit">添加</button>
+        </form>
+
+        <h2>打卡记录</h2>
+        <div class="entries" id="lifeEntries"></div>
+        <p class="empty" id="lifeEmpty">还没有打卡记录。</p>
+      </section>
+
+      <!-- ============ 睡眠记录 ============ -->
+      <section class="panel" id="panel-sleep" role="tabpanel">
+        <h1>睡眠记录</h1>
+        <p style="font-size:22px;font-weight:700;line-height:1.4;">目标：每晚睡够约 8 小时。</p>
+        <p class="muted" style="margin-top:8px;">睡眠目标约 8 小时，来自档案模块四 4.1。填入睡和起床时间，时长自动算。</p>
+        <p class="muted" style="margin-top:8px;">2026-10-14 至 10-18 的 5 晚记录已预填在下方（原文见<button type="button" class="linklike" id="sDocLink">《个人交互数据桥》第六部分</button>），新数据继续往下记。</p>
+
+        <div class="stat-row" style="margin-top:24px;">
+          <div class="stat"><b id="sAvg">—</b><span>近 7 天平均时长</span></div>
+          <div class="stat"><b id="sQuality">—</b><span>近 7 天平均质量</span></div>
+          <div class="stat"><b id="sCount">0</b><span>已记录晚数</span></div>
+        </div>
+
+        <h2>记一晚</h2>
+        <form id="sleepForm">
+          <div>
+            <label for="sDate">日期（起床日）</label>
+            <input type="date" id="sDate" required />
+          </div>
+          <div class="grid2">
+            <div>
+              <label for="sStart">入睡时间</label>
+              <input type="time" id="sStart" required />
+            </div>
+            <div>
+              <label for="sEnd">起床时间</label>
+              <input type="time" id="sEnd" required />
+            </div>
+          </div>
+          <p class="muted">睡眠时长：<strong id="sDurPreview" style="color:var(--text);">—</strong>（跨过零点自动按第二天算）</p>
+          <div>
+            <label>睡眠质量</label>
+            <div class="seg" id="sQualitySeg">
+              <button type="button" class="on" data-quality="好">好</button>
+              <button type="button" data-quality="一般">一般</button>
+              <button type="button" data-quality="差">差</button>
+            </div>
+          </div>
+          <div>
+            <label for="sNote">备注（可选）</label>
+            <input type="text" id="sNote" placeholder="例如 夜里醒了两次 / 被闹钟叫醒" />
+          </div>
+          <button class="btn" type="submit">添加</button>
+        </form>
+
+        <h2>睡眠记录</h2>
+        <div class="entries" id="sleepEntries"></div>
+        <p class="empty" id="sleepEmpty">还没有睡眠记录。</p>
+      </section>
+
+      <!-- ============ 逆向决策 ============ -->
+      <section class="panel" id="panel-reverse" role="tabpanel">
+        <h1>逆向决策</h1>
+        <p style="font-size:22px;font-weight:700;line-height:1.4;">想不清第一步怎么走，<br />先定终点，倒着往前推。</p>
+        <p class="muted" style="margin-top:8px;">决策公式：现在的价值 = 眼前的收获 + 之后的价值。放弃眼前的局部最优，只选对终点有积累、对全局有价值的那一步。</p>
+
+        <h2>我的拆解模型</h2>
+        <div class="rules">
+          <div class="rule">
+            <h3>终点目标</h3>
+            <p>摆脱高强度劳动，建立持续的个人系统与时间自主权。</p>
+          </div>
+          <div class="rule">
+            <h3>阶段三 · 终点前一步</h3>
+            <p>前置必要条件：能够自由选择工作或尝试新方向。</p>
+            <p>关键指标：拥有 <span class="k">3–6 个月</span>的生存应急缓冲金，且无任何消费类网贷 / 高息负债催缴。</p>
+          </div>
+          <div class="rule">
+            <h3>阶段二 · 中期过渡</h3>
+            <p>前置必要条件：债务规模持续缩减，现金流恢复健康。</p>
+            <p>关键指标：变现闲置或分期资产优先清算网贷；固定开支严格控制；不增加新的借贷。</p>
+          </div>
+          <div class="rule">
+            <h3>阶段一 · 当前脚下唯一动作</h3>
+            <p>前置必要条件：保护基本盘与体力。</p>
+            <p>关键指标：守住固定工资收入，不无准备裸辞；手机到货后第一时间卖掉清算网贷；保证睡眠与健身恢复，不盲目同时开启多个副业或高风险交易。</p>
+          </div>
+          <div class="rule">
+            <h3>行动心法</h3>
+            <p>拒绝盲目试错：不贪图眼前的短期快感，只做对终点有积累的事。</p>
+            <p>记录最优节点：把每一步的确定性拿到手——<span class="k">不把口头承诺和未到账的收入算作已有资产</span>（第一原则）。</p>
+          </div>
+        </div>
+
+        <div class="stat-row" style="margin-top:28px;">
+          <div class="stat"><b id="rCount">0</b><span>已拆解</span></div>
+          <div class="stat"><b id="rDone">0</b><span>当前步已完成</span></div>
+        </div>
+
+        <h2>拆一个目标</h2>
+        <form id="reverseForm">
+          <div>
+            <label for="rDate">日期</label>
+            <input type="date" id="rDate" required />
+          </div>
+          <div>
+            <label for="rGoal">终点目标</label>
+            <input type="text" id="rGoal" placeholder="例如 2027 年 3 月前还清全部债务" required />
+          </div>
+          <p class="stage-label">倒推阶段三 <span>终点前一步</span></p>
+          <div class="grid2">
+            <div>
+              <label for="rS3Cond">前置必要条件</label>
+              <input type="text" id="rS3Cond" placeholder="例如 能自由选择工作或尝试新方向" />
+            </div>
+            <div>
+              <label for="rS3Key">关键指标</label>
+              <input type="text" id="rS3Key" placeholder="例如 有 3–6 个月应急缓冲金，无高息负债" />
+            </div>
+          </div>
+          <p class="stage-label">倒推阶段二 <span>中期过渡</span></p>
+          <div class="grid2">
+            <div>
+              <label for="rS2Cond">前置必要条件</label>
+              <input type="text" id="rS2Cond" placeholder="例如 债务持续缩减，现金流恢复健康" />
+            </div>
+            <div>
+              <label for="rS2Key">关键指标</label>
+              <input type="text" id="rS2Key" placeholder="例如 固定开支受控，不新增借贷" />
+            </div>
+          </div>
+          <p class="stage-label">倒推阶段一 <span>当前脚下唯一动作</span></p>
+          <div class="grid2">
+            <div>
+              <label for="rS1Act">这一步做什么</label>
+              <input type="text" id="rS1Act" placeholder="例如 守住工资收入，手机到货先卖掉清网贷" required />
+            </div>
+            <div>
+              <label for="rS1Key">关键指标</label>
+              <input type="text" id="rS1Key" placeholder="例如 本月不新增任何借贷" />
+            </div>
+          </div>
+          <div>
+            <label>当前步状态</label>
+            <div class="seg" id="rStatusSeg">
+              <button type="button" class="on" data-status="进行中">进行中</button>
+              <button type="button" data-status="已完成">已完成</button>
+            </div>
+          </div>
+          <button class="btn" type="submit">添加</button>
+        </form>
+
+        <h2>我的拆解</h2>
+        <div class="entries" id="reverseEntries"></div>
+        <p class="empty" id="reverseEmpty">还没有拆解。在上面写下一个终点目标，从终点倒推到脚下这一步。</p>
+
+        <p class="muted" style="margin-top:28px;">完整原文：<button type="button" class="linklike" id="rDocLink">《个人交互数据桥》第三部分｜动态规划思维：从终点倒推的逆向决策法</button></p>
+      </section>
+
+      <!-- ============ 每周复盘 ============ -->
+      <section class="panel" id="panel-review" role="tabpanel">
+        <h1>每周复盘</h1>
+        <p style="font-size:22px;font-weight:700;line-height:1.4;">按档案里的复盘模板，一周对一次。</p>
+        <p class="muted" style="margin-top:8px;">模板来自主档案模块一 1.2「每周复盘模板」：本周完成了什么？有什么可验证的结果？最大的阻碍是什么？哪个任务应停止、缩减或继续？下周最重要的 1–3 件事是什么？</p>
+
+        <div class="stat-row" style="margin-top:24px;">
+          <div class="stat"><b id="wCount">0</b><span>已复盘周数</span></div>
+        </div>
+
+        <h2>写本周复盘</h2>
+        <form id="reviewForm">
+          <div>
+            <label for="wDate">周次（选这周任意一天）</label>
+            <input type="date" id="wDate" required />
+          </div>
+          <div>
+            <label for="wDone">本周完成了什么（可验证的结果）</label>
+            <textarea id="wDone" placeholder="例如 融资租赁 10 月这一期已还，有扣款记录" required></textarea>
+          </div>
+          <div>
+            <label for="wBlock">最大的阻碍是什么（可选）</label>
+            <textarea id="wBlock" placeholder="例如 加班太多，健身和睡眠都被挤掉"></textarea>
+          </div>
+          <div class="grid2">
+            <div>
+              <label for="wTask">哪个任务（可选）</label>
+              <input type="text" id="wTask" placeholder="例如 抖音账号" />
+            </div>
+            <div>
+              <label>应该怎么处理</label>
+              <div class="seg" id="wAdjustSeg">
+                <button type="button" data-adjust="停止">停止</button>
+                <button type="button" data-adjust="缩减">缩减</button>
+                <button type="button" class="on" data-adjust="继续">继续</button>
+              </div>
+            </div>
+          </div>
+          <div>
+            <label for="wNext">下周最重要的 1–3 件事（可选）</label>
+            <textarea id="wNext" placeholder="例如 1. 联系租赁机构 2. 手机到货就挂出售 3. 睡够 8 小时"></textarea>
+          </div>
+          <button class="btn" type="submit">添加</button>
+        </form>
+
+        <h2>复盘记录</h2>
+        <div class="entries" id="reviewEntries"></div>
+        <p class="empty" id="reviewEmpty">还没有复盘记录。</p>
+      </section>
+
+      <!-- ============ 我的文档 ============ -->
+      <section class="panel" id="panel-docs" role="tabpanel">
+        <h1>我的文档</h1>
+        <p style="font-size:22px;font-weight:700;line-height:1.4;">我发过的文档，已全部合并成一份主文档。</p>
+        <p class="muted" style="margin-top:8px;">主文档《个人交互数据桥》共六部分：第一部分主档案（v4 纯正版，七个模块，含 2026-10-15 核对记录与 2026-10-17 更新），其后依次为交易系统定稿、逆向决策、思维系统、健身档案与训练日志、睡眠记录。全部原文收录，一字未改。</p>
+                <article class="doc">
+          <h2 class="doc-title">个人交互数据桥</h2>
+          <p class="doc-date">全部文档合并为一份主文档：第一部分主档案 · 第二部分交易系统定稿 · 第三部分逆向决策 · 第四部分思维系统 · 第五部分健身档案与训练日志 · 第六部分睡眠记录</p>
+          <nav class="doc-nav" aria-label="个人交互数据桥部分导航">
+            <a href="#part-1">第一部分｜主档案</a>
+            <a href="#part-2">第二部分｜交易系统</a>
+            <a href="#part-3">第三部分｜逆向决策</a>
+            <a href="#part-4">第四部分｜思维系统</a>
+            <a href="#part-5">第五部分｜健身档案与训练日志</a>
+            <a href="#part-6">第六部分｜睡眠记录</a>
+          </nav>
+          <h3 class="doc-part doc-part-main" id="part-1">第一部分｜个人全景数字分身｜主档案（v4 纯正版，含 2026-10-17 更新）</h3>
+          <p class="doc-date">v4 纯正版（2026-10-14）为底；2026-10-15 的核对记录与 2026-10-17 的更新已按更新规则逐条并入正文对应位置——旧值保留并标日期，新值追加并标日期，保留的文字一字未改</p>
+          <p class="doc-date"><strong>版本说明：</strong>纯正版只有 v4（2026-10-14）；v6、v7 是其他 AI 重排的衍生版，独立版本已撤销，其新增内容已全部并入本档案正文。</p>
+          <div class="doc-rules">
+            <p><strong>第一原则：</strong>任何人答应我的都不能算数，只有我自己给自己的才算真的有或者已经完成的。</p>
+            <p><strong>更新规则：</strong>每次更新数据都保留旧数据，并标上时间段，让我能看出从前和现在；不直接覆盖旧值。</p>
+            <p><strong>标注规则：</strong>全文区分「当前已确认」「历史记录」「推测」「待确认」四类；同一事项冲突时以本人最新明确说明为准，同时保留旧值及变更原因；重复内容保留，并标注来源版本。</p>
+            <p><strong>入账口径：</strong>只有实际到账、实际持有，或本人明确确认已经完成的，才记为已有；承诺、预计收入、未完成的出售计划不计入。</p>
+          </div>
+          <div class="doc-rules" style="margin-top:12px;">
+            <p><strong>整合说明（2026-10-18 整理）：</strong>本档案是一份从 2026-10-14 写到 2026-10-17 的连续档案，以纯正版 v4 为唯一底本。v6、v7 两份衍生版的独立版本已撤销；其中 2026-10-15 的核对记录与 2026-10-17 的全部更新，已按更新规则逐条并入正文对应模块：旧口径（2026-10-14）原样保留，新口径紧跟其后并标注（2026-10-17），新旧并列，顺着读就能看出这几天什么变了、为什么变。</p>
+            <p><strong>标注方式：</strong>正文每条内容都标有日期：v4 原文已有日期的保留原日期，原未标日期的条目已逐条补注（2026-10-14）；2026-10-15、2026-10-17 的新增与变更均在条目内标明日期，新旧对照处两条分别标日期。本轮数据变化对照在模块一，当前待确认事项在 1.3，变更日志在 7.4，2026-10-15 核对记录全文在附录 J。</p>
+            <p><strong>文字原则：</strong>保留下来的文字全部是原文，一字未改；撤销的只是 v6、v7 的独立版本形式，其新增内容没有丢弃，已全部并入正文。</p>
+          </div>
+          <nav class="doc-nav" aria-label="主档案章节导航">
+            <a href="#doc-front">档案说明</a>
+            <a href="#doc-m1">模块一｜总览</a>
+            <a href="#doc-m2">模块二｜财务</a>
+            <a href="#doc-m3">模块三｜工作与事业</a>
+            <a href="#doc-m4">模块四｜身体、生活与学习</a>
+            <a href="#doc-m5">模块五｜家庭与关系</a>
+            <a href="#doc-m6">模块六｜背景、价值观与探索</a>
+            <a href="#doc-m7">模块七｜规则与记录</a>
+            <a href="#doc-appx">附录｜核对记录与流水明细</a>
+          </nav>
+          <h4 class="doc-module" id="doc-front">档案说明｜第一原则与使用规则</h4>
+          <div class="doc-body">  第一原则： 任何人答应我的都不能算数，只有我自己给自己的才算真的有或者已经完成的。
+
+  更新规则： 每次更新数据都保留旧数据，并标上时间段，让我能看出从前和现在。
+
+个人全景数字分身｜主档案（合并版 v4）
+版本： 4.0（三份档案合并整合）｜最后更新： 2026-10-14（此前 2026-10-12）
+合并来源： 主档案 v3（2026-10-12）、AI 交接完整版 v2.0（2026-10-10）、个人数字分身档案·迁移版（2026-10-11）
+
+  使用规则：本档案区分「当前已确认」「历史记录」「推测」「待确认」。旧信息不自动视为当前事实；冲突时以
+  本人最新明确说明为准，并在变更记录中保留旧值。没有实际保存或确认的事，不得声称已完成。
+
+模块： 一 总览｜二 财务｜三 工作与事业｜四 身体、生活与学习｜五 家庭与关系｜六 背景、价值观与探索｜七 规则与
+记录｜附录 核对记录。经常更新的是二、三。</div>
+          <h4 class="doc-module" id="doc-m1">模块一｜总览</h4>
+          <nav class="doc-nav sub" aria-label="模块一小节导航"><a href="#doc-m1-1">1.1 当前状态总览</a><a href="#doc-m1-2">一页汇总</a><a href="#doc-m1-3">数据变化对照</a><a href="#doc-m1-4">待确认缺口</a><a href="#doc-m1-5">1.2 优先级建议</a><a href="#doc-m1-6">1.3 待确认清单</a></nav>
+          <h5 class="doc-sub" id="doc-m1-1">1.1 当前状态总览（截至 2026-10-12）</h5>
+          <div class="doc-body">当前已确认
+
+  ● 工作： 仍在原来的工厂上班。（2026-10-14）
+
+  ● 每月工资： ¥6,500（本人 2026-10-12 说明；此前记录为约 ¥6,500–9,000；2026-10-13 流水核对：固定
+    ¥6,500 属实，过去 12 个月实际从公司收到月均约 ¥8,900，扣除 2 月一笔 ¥20,000 后约 ¥7,300，高出部分的
+    来源待确认）。
+    （2026-10-17 更新：本人说明工资通常在每月 1 号左右发放；发薪日为“左右”，不是保证精确到账日
+    期；金额沿用此前确认的固定工资约 ¥6,500/月。）
+
+  ● 总负债： 约 ¥20,000（本人 2026-10-12 最新说明，含网贷约 ¥5,000、车贷约 ¥5,000 和欠朋友的钱；此前同
+    日曾记为约 ¥15,000；手机分期 ¥10,999 是为了先还别人，本人 2026-10-13 说明总负债没变）。
+
+  ● 每月现金结余： 本人说「没剩，还欠」，即还完贷款、生活费和必要开支后基本没有剩余，债务仍在。（
+    10-11 版曾记为剩余约 ¥500–1,500，已被此说法取代。）（2026-10-14）
+
+  ● 当前首要目标： 摆脱高强度工作，争取时间自由。（2026-10-14）
+
+  ● 长期项目目标： 建立持续更新的个人全景数字档案，帮助管理财务、分析选择、减少试错，逐步建立时间自主
+    权。（2026-10-14）
+
+个人全景数字分身｜主档案 · 2026-10-14                                                  第1页
+</div>
+          <h5 class="doc-sub" id="doc-m1-2">一页汇总（2026-10-13，来自四个账户流水和本人说明）</h5>
+<div class="doc-table-wrap"><table class="doc-table">
+<colgroup><col style="width:20%" /><col style="width:30%" /><col style="width:50%" /></colgroup>
+<thead><tr><th>项目</th><th>数字</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>固定工资</td><td class="num">¥6,500/月</td><td>过去 12 个月公司实际月均约 ¥8,933（含 2 月一笔 ¥20,000），不含约 ¥7,267</td></tr>
+<tr><td>其他收款</td><td class="num">约 ¥1,600/月</td><td>「收钱码」来自个人的收款，来源未说明</td></tr>
+<tr><td>每月花销（不含还款）</td><td class="num">约 ¥9,500</td><td>2026-04 至 09 月均，含房租电费、家里、女友、日常消费、油费</td></tr>
+<tr><td>每月还款</td><td class="num">10 月约 ¥3,900；2026-11-25 后约 ¥1,400</td><td>融资租赁 ¥2,474 + 网贷约 ¥1,400；小米已结清</td></tr>
+<tr><td>总负债</td><td class="num">约 ¥19,697</td><td>网贷 ¥5,684 + 融资租赁 ¥4,947 + 朋友 ¥9,066；手机分期 ¥10,999 是先还别人，本人说明总负债没变</td></tr>
+<tr><td>手头现金</td><td class="num">约 ¥0</td><td>招行卡 ¥0、农行卡 ¥6.70，交易所已清空；另有小荷包 ¥300（2026-10-14）</td></tr>
+<tr><td>其他资产</td><td>摩托车（租赁中）；国金证券账户 ¥1,016.96（2026-10-14）；支付宝小荷包 ¥300（2026-10-14）</td><td>证券账户几乎都是 ETF，可取只有 ¥18.26，不能当现金用</td></tr>
+<tr><td>年终奖</td><td class="num">去年 2026-02-14 收到约 ¥20,000</td><td>今年的时间和金额待确认</td></tr>
+<tr><td>手机</td><td>iPhone 18 Pro Max，¥10,999，12 期，每月约 ¥917</td><td>还没发货，到货后当全新机卖掉，所得先还网贷；按本人原则，没卖出前这笔钱不算已有</td></tr>
+</tbody>
+</table></div>
+<div class="doc-body">（2026-10-17 更新：网贷与消费分期月供合计约 ¥1,200/月，本人确认；本行约 ¥1,400 为 2026-10-14 口径，保留为历史记录。）
+
+（时间线：2026-10-15 核对时当前可用现金 ¥0；2026-10-17 本人确认准备了 ¥1,000，不足以覆盖网贷及消费分期月供，日常生活主要依靠京东白条；小荷包 ¥300（2026-10-14）是否包含在 ¥1,000 内未确认，不相加。）
+个人全景数字分身｜主档案 · 2026-10-14                                                              第2页
+</div>
+          <h5 class="doc-sub" id="doc-m1-3">数据变化对照（从前 → 现在）</h5>
+<div class="doc-table-wrap"><table class="doc-table">
+<colgroup><col style="width:13%" /><col style="width:29%" /><col style="width:29%" /><col style="width:29%" /></colgroup>
+<thead><tr><th>项目</th><th>现在</th><th>从前</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>总负债</td><td>约 ¥19,697（2026-10-13：网贷 5,684 + 租赁 4,947 + 朋友 9,066）</td><td>约 ¥20,000（2026-10-12 以前）→ 约 ¥15,000（2026-10-12 本人更正）→ 约 ¥20,000（2026-10-13，含朋友）</td><td>手机分期 ¥10,999 是先还别人，本人说明总负债没变</td></tr>
+<tr><td>每月工资</td><td>¥6,500，固定（2026-10-12 说明，流水核对属实）</td><td>约 ¥6,500–9,000（2026-10-12 以前）</td><td>2025-10 至 2026-09 实际月均约 ¥8,933</td></tr>
+<tr><td>每月现金结余</td><td>没剩，还欠（2026-10-12）</td><td>剩余约 ¥500–1,500（2026-10-11 版本）</td><td>已被取代</td></tr>
+<tr><td>房租</td><td>约 ¥1,450/月（2026-08 至 10 账单）</td><td>¥1,400（2026-10-12 本人说）</td><td>7 月以前的房租在流水里看不到</td></tr>
+<tr><td>水电</td><td>约 ¥400/月（2026-10-12 说明）</td><td>至少约 ¥300/月（更早记录）</td><td></td></tr>
+<tr><td>烟</td><td>约 ¥600/月（2026-10-12 说明）</td><td>约 ¥300/月（2026-10-12 较早）</td><td>流水里超市约 ¥600/月，相符</td></tr>
+<tr><td>女友花费</td><td>至少 ¥1,000/月（2026-10-12 说明）</td><td>待确认（2026-10-12 较早）</td><td>流水 2026-07 至 09 月均约 ¥1,470</td></tr>
+<tr><td>车贷月供</td><td>¥2,473.50（融资租赁，2025-12 至 2026-11）</td><td>约 ¥2,500（2026-10-12 本人说）</td><td>剩2期</td></tr>
+<tr><td>欠朋友的钱</td><td>¥9,066（2026-10-13 逐个列出）</td><td>约 ¥9,400（2026-10-13 按总额推算）</td><td></td></tr>
+<tr><td>体重</td><td>约 111 斤（2026-10-12）</td><td>约 108 斤（更早记录）</td><td>身高 178 cm</td></tr>
+<tr><td>健身</td><td>计划每周 3 次，实际基本推迟（2026-10-14）</td><td>计划每周 3 次（2026-10-12）</td><td>没练完的不算已完成</td></tr>
+<tr><td>驾照</td><td>有摩托车驾照（2026-10-13）</td><td>记录为无驾照（更早）</td><td>汽车驾照仍记为无</td></tr>
+<tr><td>证券账户</td><td>¥1,016.96（2026-10-14；ETF 市值 ¥998.70，可取 ¥18.26）</td><td>约 ¥1,000（S&amp;P 500 ETF 历史记录；2026-08-31 转入 ¥1,000）</td><td>标普 500 ETF 300 份 + 纳指 ETF 100 份，总盈亏 +¥6.80</td></tr>
+<tr><td>支付宝小荷包</td><td>¥300（2026-10-14）</td><td>约 ¥200（更早记录，自动存 ¥100/月）</td><td>本人自己存的</td></tr>
+</tbody>
+</table></div>
+<div class="doc-body">
+2026-10-17 本轮数据变化对照
+</div>
+<div class="doc-table-wrap"><table class="doc-table">
+<colgroup><col style="width:16%" /><col style="width:34%" /><col style="width:28%" /><col style="width:22%" /></colgroup>
+<thead><tr><th>项目</th><th>前后对照（时间）</th><th>变化说明</th><th>来源／状态</th></tr></thead>
+<tbody>
+<tr><td>网贷及消费分期月供</td><td>旧：约 ¥1,400/月（2026-10-14）→新：合计约 ¥1,200/月（2026-10-17）</td><td>当前口径下调约 ¥200；以本人最新明确确认值为准。</td><td>用户本轮明确确认</td></tr>
+<tr><td>错误月供数字</td><td>助手曾写 ¥3,200/月 → 撤销</td><td>不是用户确认值，不作为财务事实；明确记录为助手错误。</td><td>纠错记录</td></tr>
+<tr><td>手头准备资金</td><td>旧：截至 2026-10-15 曾说现金 ¥0；小荷包 ¥300（2026-10-14）→新：准备了 ¥1,000（2026-10-17）</td><td>是否包含小荷包 ¥300 尚未确认，暂不相加；银行卡余额未实时核对。</td><td>用户确认／部分待确认</td></tr>
+<tr><td>日常生活资金来源</td><td>旧档案未记录 → 新：生活主要依靠京东白条（2026-10-17）</td><td>白条额度不是现金；后续需核对账单、到期日及最低应还。</td><td>用户本轮明确确认</td></tr>
+<tr><td>工资发放时间</td><td>旧：固定工资约 ¥6,500/月 → 新：通常每月 1 号左右发放（2026-10-17）</td><td>“左右”不是保证精确到账日；不能提前当作已到账。</td><td>时间由用户确认；金额沿用旧档案</td></tr>
+<tr><td>融资租赁／摩托车分期</td><td>旧：2026-10-25 到期约 ¥2,473.50 → 新：仍无确定方案（2026-10-17）</td><td>未确认已还款、已借到钱或已与平台协商。</td><td>用户本轮明确确认</td></tr>
+<tr><td>待出售手机</td><td>旧：iPhone 18 Pro Max，购买价 ¥10,999，等待发货 → 新：确认到货后尝试出售（2026-10-17）</td><td>售价、成交时间、到账金额未知；未到账前不计入现金。若卖机仍不够，再考虑借钱。</td><td>计划已确认；出售结果待确认</td></tr>
+<tr><td>电费</td><td>旧档案已有约 ¥300 等历史记录，并有日期不同的调整记录 → 本轮未新增金额</td><td>不作为本轮新增数据；保留原档案日期与变更轨迹，不能写成用户本轮新提供。</td><td>用户纠正来源归类</td></tr>
+</tbody>
+</table></div>
+<h5 class="doc-sub" id="doc-m1-4">最关键的待确认缺口（一次只问一个）（2026-10-14）</h5>
+          <div class="doc-body">
+  1 每月必须还款的总额，以及各笔债务的余额、利率、到期日。（2026-10-14）
+
+  2 每月必要开支的构成。（2026-10-14）
+
+  3 手头现金和应急储备：本人说明手头没钱（2026-10-13）。
+
+  4 当前工时、休息安排，是否在找替代工作。（2026-10-14）
+
+  5 年终奖是否确定、金额和发放条件。（2026-10-14）
+
+个人全景数字分身｜主档案 · 2026-10-14                                                                 第3页
+</div>
+          <h5 class="doc-sub" id="doc-m1-5">1.2 当前优先级建议</h5>
+          <div class="doc-body">  1 弄清现金流： 逐笔确认约 ¥20,000 债务（网贷、车贷、朋友）的余额、月供和利率。（2026-10-14）
+
+  2 保护基本生活： 明确每月必要开支和手头现金，避免新债务。（2026-10-14）
+
+  3 工作过渡： 继续工作期间评估可行的替代岗位，不无准备裸辞。（2026-10-14）
+
+  4 低成本试验个人 IP： 只做一个账号，观察真实反馈。（2026-10-14）
+
+  5 交易风险控制： 不把交易当作短期清债工具。（2026-10-14）
+
+  6 身体与休息： 不让副业和交易挤压睡眠与恢复。（2026-10-14）
+
+  7 数字与语言基础： 用小步骤熟悉 Mac、拼音和英语。（2026-10-14）
+
+  8 海外计划先做信息验证： 明确签证路径、预算、资格和工作权利，再决定是否投入大额费用。（2026-10-14）
+
+不建议同时启动： 三个定位不同的账号；未验证个人 IP 就租办公室或注册公司；债务和现金流未确认前增加高风险
+交易资金；同时追逐多个副业、海外申请、证书和复杂工具。（2026-10-14）
+
+每周复盘模板： 本周完成了什么？有什么可验证的结果？最大的阻碍是什么？哪个任务应停止、缩减或继续？下周
+最重要的 1–3 件事是什么？（2026-10-14）
+
+</div>
+          <h5 class="doc-sub" id="doc-m1-6">1.3 待确认清单</h5>
+          <div class="doc-body">  ● 当前岗位、月收入、工时、是否准备离职；现居住地。（2026-10-14）
+
+  ● 所有债务的余额、利率、月供和预计清偿日期；每月必要开支。（2026-10-14）
+
+  ● 年终奖是否确定、金额和发放条件；朋友欠款的实际回款。（2026-10-14）
+
+  ● 花呗的现状（证券账户、小荷包 2026-10-14 已确认；手头现金本人说明没有）。
+
+  ● 家庭支持的当前金额。（2026-10-14）
+
+  ● BTC 交易系统的规则、风险上限、实盘/模拟验证情况。（2026-10-14）
+
+  ● 抖音账号现状：是否已发布、是否稳定更新。（2026-10-14）
+
+  ● 健身：训练进度、饮食与睡眠。（2026-10-14）
+
+  ● 海外学习/工作是否仍是目标，预算是否变化。（2026-10-14）
+
+  ● 征信与账单核对新增：融资租赁到期（2026-11-25）后的留购价和过户安排；2026-09 结清小米消费金融
+    ¥17,000 的资金来源；ADA、ETHFI、STRK 去了哪里（卖出还是转出）；账单 2026-07-10 之后是否还有交易；
+    《天命》规范里行情数据的来源。（2026-10-14）
+
+  ● 流水核对新增：抖音月付、微信分付、京东白条/金条、借呗、花呗各自的剩余待还和月供；公司月均多出的约
+    ¥800 和 2026-02-14 的 ¥20,000 是什么钱；今年年终奖大概的时间和金额。（2026-10-14）
+
+
+  ● 当前待确认事项（2026-10-17，只列未解决项）：
+• 1. 2026-10-25 融资租赁／摩托车分期约 ¥2,473.50 的实际处理结果。
+• 2. 准备的 ¥1,000 是否包含旧档案记录的支付宝小荷包 ¥300。
+• 3. iPhone 18 Pro Max 实际发货、出售价格、成交时间与实际到账金额。
+• 4. 京东白条及各债务的最新账单、最低应还、到期日和实时余额。
+• 5. 银行卡当前余额是否有变化。</div>
+          <h4 class="doc-module" id="doc-m2">模块二｜财务</h4>
+          <nav class="doc-nav sub" aria-label="模块二小节导航"><a href="#doc-m2-1">2.1 财务、债务与现金流</a><a href="#doc-m2-2">债务构成</a><a href="#doc-m2-3">每月固定开支</a><a href="#doc-m2-4">手机分期与还债计划</a><a href="#doc-m2-5">目标与计划</a><a href="#doc-m2-6">历史费用与资产</a><a href="#doc-m2-7">摩托车</a><a href="#doc-m2-8">资产</a><a href="#doc-m2-9">财务管理原则</a><a href="#doc-m2-10">每月实际花销</a><a href="#doc-m2-11">2.5 近期现金流判断</a><a href="#doc-m2-12">2.2 投资与交易</a><a href="#doc-m2-13">历史经历与想法</a><a href="#doc-m2-14">风险规则</a><a href="#doc-m2-15">《天命》规范（已废弃）</a></nav>
+          <div class="doc-body">个人全景数字分身｜主档案 · 2026-10-14                                          第4页
+</div>
+          <h5 class="doc-sub" id="doc-m2-1">2.1 财务、债务与现金流</h5>
+          <div class="doc-body">当前已确认
+
+  ● 总负债约 ¥20,000（构成见下表）；每月必要开支后「没剩，还欠」；月工资 ¥6,500（2026-10-12）。
+
+  ● 现阶段数据不完整，暂时不能据此算出准确的清债日期。（2026-10-14）
+
+</div>
+          <h5 class="doc-sub" id="doc-m2-2">债务构成（本人 2026-10-12 说明）</h5>
+<div class="doc-table-wrap"><table class="doc-table">
+<colgroup><col style="width:13%" /><col style="width:18%" /><col style="width:10%" /><col style="width:59%" /></colgroup>
+<thead><tr><th>项目</th><th>余额（¥）</th><th>有无利息</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>网络贷款</td><td class="num">约 5,684</td><td>有</td><td>征信 6 个未结清账户余额合计；月供、利率待确认</td></tr>
+<tr><td>车贷</td><td class="num">约 4,947</td><td>待确认</td><td>融资租赁；剩余 2 期，每月约 ¥2,474，2026-11-25 到期（征信核对）</td></tr>
+<tr><td>欠朋友的钱</td><td class="num">约 9,066</td><td>待确认</td><td>本人 2026-10-13 逐个列出：小宇 ¥5,000、蛋 ¥1,400、奕铠 ¥1,000、马 ¥666、猪 ¥500、肉 ¥500，共 ¥9,066，本人说目前没有别的；与之前按总额推算的约 ¥9,400 基本吻合</td></tr>
+<tr class="total"><td>合计</td><td class="num">约 20,000</td><td></td><td>三项相加约 ¥19,697，与本人说的约 2 万吻合；手机分期 ¥10,999 是为了先还别人而买，本人说明总负债没变（约 2 万）；卖出前账面欠款约 ¥30,700，卖出后抵掉约等于卖价的部分</td></tr>
+</tbody>
+</table></div>
+<div class="doc-body">
+  ● 网贷月供更新（2026-10-17）：最新口径为网贷与消费分期合计约 ¥1,200/月（本人 2026-10-17 明
+    确确认）；约 ¥1,400/月为 2026-10-14 口径，保留为历史记录。2026-10-15 核对：本月网贷月供
+    具体金额及还款状态不确定，不得直接标记为已还或逾期，待账单/支付记录核实。纠错（2026-10-17）
+    ：本轮对话中助手曾错误写成 ¥3,200/月；该数字不是本人确认值，现明确撤销，不作为财务事实使用。
+</div>
+          <h5 class="doc-sub" id="doc-m2-3">当前每月固定开支（本人 2026-10-12 说明）</h5>
+<div class="doc-table-wrap"><table class="doc-table">
+<colgroup><col style="width:24%" /><col style="width:15%" /><col style="width:61%" /></colgroup>
+<thead><tr><th>项目</th><th>每月金额（¥）</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>房租</td><td class="num">约 1,450</td><td>固定</td></tr>
+<tr><td>水电</td><td class="num">约 400</td><td></td></tr>
+<tr><td>烟</td><td class="num">约 600</td><td></td></tr>
+<tr><td>话费</td><td class="num">40</td><td></td></tr>
+<tr><td>汽水音乐</td><td class="num">8</td><td></td></tr>
+<tr><td>每天水费</td><td class="num">约 300</td><td>每天约 ¥10，按 30 天算</td></tr>
+<tr><td>给家里</td><td class="num">2,000</td><td>固定，用于还房子的债；房子的债总额和还款期限本人不清楚（2026-10-13）；是否计入本人约 ¥20,000 负债待确认</td></tr>
+<tr><td>吃饭</td><td class="num">约 1,000</td><td>本人 2026-10-12 说明</td></tr>
+<tr><td>女友（送礼、请吃饭等）</td><td class="num">至少 1,000</td><td>本人 2026-10-12 说明：每月至少 1,000，已计入合计</td></tr>
+<tr><td>油费（摩托车）</td><td class="num">约 330</td><td>流水核对：2025-12 至 2026-09 月均；本人此前不清楚</td></tr>
+<tr class="total"><td>合计（已列项目）</td><td class="num">约 7,128</td><td>尚未含车贷、保养（金额不清楚）、其他交通和网贷月供（网贷月还款 9 月合计约 ¥1,400）；车贷（融资租赁）约 ¥2,474/月，剩余2期</td></tr>
+</tbody>
+</table></div>
+<div class="doc-body">
+个人全景数字分身｜主档案 · 2026-10-14                                                               第5页
+</div>
+          <h5 class="doc-sub" id="doc-m2-4">手机分期与还债计划（本人 2026-10-12 说明）</h5>
+          <div class="doc-body">
+  ● 已分 12 期购买 iPhone 18 Pro Max，总价 ¥10,999，免息分期（本人说明），每月约 ¥917（10,999÷12 估算）
+    ；通过抖音分期，本人说明没有手续费，可以直接卖出（2026-10-13）。
+
+  ● 打算到货后当全新机卖掉：先还有利息的网络贷款，再还欠朋友的钱，剩下的用于生活和还车贷。卖出后仍需按
+    期还完 12 期分期。本人说明：这笔钱既要用来维持生活，也要还债；不卖的话连生活都过不下去（2026-10-12）
+    。手机还没发货，到货时间未知。本人决定到货卖掉后，把网络贷款全部还清，不留（2026-10-13）。
+
+  ● 注意：这里是本人欠朋友的钱，与历史记录里朋友欠本人约 ¥8,000 的应收款是两回事。（2026-10-14）
+
+  ● 待确认：网络贷款的月供和利率；手机的发货和到货时间；手机分期是否算进总负债：本人说明买手机是为了先
+    还别人，总负债没变。（2026-10-14）
+
+  ● 旧估算（2026-10-13，按本人列的开支，没用流水里的实际花销，偏乐观）：假设手机卖约 ¥10,500，还完网
+    络贷款约 ¥5,684 后手里约 ¥4,800；10–12 月按已列开支、车贷和手机月供估算合计约差 ¥7,500（未含油费和
+    保养），到 12 月底约差 ¥2,700。卖价和年终奖都未确定，仅为估算。
+
+  ● 更新（2026-10-15）：本人确认 iPhone 18 Pro Max 当前未到货、未出售。出售前，预期卖款不计
+    入可用现金。
+
+  ● 更新（2026-10-17）：仍在等待手机发货；计划收到后尝试出售，所得资金拟用于缓解债务压力。出
+    售价格、实际成交时间、到账金额均未知；手机未收到、未卖出前，出售款不得计入现有现金。本人表示
+    ：若卖手机所得仍无法解决问题，再考虑找人借钱。当前只是备用想法，尚未确认已借款。
+</div>
+          <h5 class="doc-sub" id="doc-m2-5">目标与计划（本人主观估计，需重新评估）</h5>
+          <div class="doc-body">
+  ● 希望 2026 年内还清全部债务，曾估计成功概率约 90%；期待老板年终奖约 ¥20,000，但此为预期，未兑现前
+    不算现金。（2026-10-14）
+
+  ● 还清后希望留 ¥10,000–20,000 储蓄；曾考虑约 ¥5,000 作 BTC 交易试验资金，其余保留流动性，并配置 ETF/
+    精选股票。（2026-10-14）
+
+  ● 早期对财务自由的设想：有房有车、有足够的低维护收入，示例为每年支出约 ¥200,000、年收入约 ¥400,000。
+    这是愿景，不是已验证的计划。（2026-10-14）
+
+</div>
+          <h5 class="doc-sub" id="doc-m2-6">历史费用与资产（不代表当前余额或账单）（2026-10-14）</h5>
+          <div class="doc-body">
+  ● 车贷约 ¥2,500/月；本人 2026-10-12 说明车贷剩余约 ¥5,000、剩余 2 期；征信核对为融资租赁，月供约
+    ¥2,474，2026-11-25 到期。
+
+  ● 给母亲的支持预算约 ¥2,000/月；父亲约 ¥100–200/月，近期有一次 ¥300。金额需核实。（2026-10-14）
+
+  ● 水电等固定开销至少约 ¥300/月，另有空调等费用。（2026-10-14）
+
+  ● 牙科费用曾有两笔各约 ¥1,500，后来本人表示已全部付清，不再当作未偿债务，除非本人更新。（2026-10-14）
+
+  ● 女友来访会增加餐饮等支出；某次夏天曾转约 ¥1,000 给她吃饭。（2026-10-14）
+
+  ● 朋友/同学欠款合计至少约 ¥8,000：这是应收款，不是现金，回款时间不确定。（2026-10-14）
+
+  ● S&amp;P 500 ETF 约 ¥1,000（本人专门纠正过此前被误记的更高数字）；当前持仓见「资产」（2026-10-14 已确
+    认）。
+
+  ● 支付宝储蓄（小花/小火花）曾设置自动存 ¥100/月，余额约 ¥200。（2026-10-14）
+
+  ● 花呗额度曾降至约 ¥200，称无利息；还债后不想再用抖音「放心付/放心借」等借贷功能。（2026-10-14）
+
+  ● 曾担心支出把现金慢慢耗掉，想建立开销记录系统。（2026-10-14）
+
+个人全景数字分身｜主档案 · 2026-10-14                                                      第6页
+</div>
+          <h5 class="doc-sub" id="doc-m2-7">摩托车（本人 2026-10-12 提供截图）</h5>
+          <div class="doc-body">
+  ● 车型：跑车 500RR，25 款（型号 LL500GS），闪光黑。（2026-10-14）
+
+  ● 总里程 13,098 km，总行驶时长 208 h；距下次保养剩余 728 km；车联网服务有效期至 2026-12-01。
+
+  ● 截图里的车架号和车牌号出于隐私没有收录。油费和保养费每月多少，本人 2026-10-13 说明暂时不清楚。
+
+  ● 车贷：这台车就是车贷对应的车，剩余 2 期（本人 2026-10-12 确认）；征信核对为融资租赁，到期后是否另付
+    留购价、何时过户待确认。
+
+  ● 融资租赁更新（2026-10-15）：2026-10-25 到期款约 ¥2,473.50，截至 2026-10-15 尚未还款，
+    且尚未联系机构询问延期。当前处理优先级：先联系融资租赁机构，核实到期金额、延期/调整还款日的正
+    式流程、费用和后果；在机构明确确认前，不将延期视为已获批。
+
+  ● 融资租赁更新（2026-10-17）：本人本轮确认：目前还没想好如何处理，暂时没有确定方案。当前状态
+    ：待解决；未确认已还款、已借到钱或已与平台协商。不得将计划当作已完成。
+
+  ● 融资租赁更新（2026-10-18）：10-25 这期 ¥2,473.50 暂无确定方案。本人今晚的考虑：①如果网贷
+    能借的话，再借出来先还；②如果借不出来，就逾期约 5 天，会跟客服说一下、沟通一下，实在没办
+    法也管不了。手机（iPhone 18 Pro Max）还没有发货，显示最晚 2026-10-30 才发货，赶不上 10-25 这期。
+</div>
+          <h5 class="doc-sub" id="doc-m2-8">资产（本人 2026-10-14 提供截图和说明）</h5>
+          <div class="doc-body">
+  ● 国金证券账户（A 股，人民币，2026-10-14 15:28）：总资产 ¥1,016.96，总市值 ¥998.70，可用和可取
+    ¥18.26，仓位 98.2%；总盈亏 +¥6.80，当日参考盈亏 ¥3.40。账户号未收录。
+
+  ● 持仓：标普 500 ETF 300 份（成本 2.712，现价 2.740，市值 ¥822.00，盈亏 +¥3.50）；纳指 ETF 100 份（
+    成本 1.684，现价 1.767，市值 ¥176.70，盈亏 +¥3.30）。（2026-10-14）
+
+  ● 与从前对照：此前只记「S&amp;P 500 ETF 约 ¥1,000」（历史记录）和 2026-08-31 向这个账户转入 ¥1,000；现
+    在总资产 ¥1,016.96，多了纳指 ETF；可取只有 ¥18.26，几乎都是 ETF，不能当现金用。
+
+  ● 支付宝小荷包：¥300（2026-10-14）；从前约 ¥200（更早记录，自动存 ¥100/月）。
+  ● 手头资金更新（2026-10-17）：本人本轮确认“准备了 ¥1,000”。本人说明这笔钱不足以覆盖网贷及
+    消费分期月供；日常生活目前主要依靠京东白条。支付宝小荷包 ¥300（2026-10-14）是否包含在这
+    ¥1,000 内，尚未确认，因此不把两者相加。银行卡余额也未在本轮重新核实。
+
+  ● 这些是本人自己攒下的，按第一原则算已有。（2026-10-14）
+
+</div>
+          <h5 class="doc-sub" id="doc-m2-9">财务管理原则</h5>
+          <div class="doc-body">
+  1 先逐笔列出债务的余额、利率、月供、到期日和逾期风险。（2026-10-14）
+
+  2 现金、应收款、投资持仓、预计奖金分开记录，不把未到账的钱当现金。（2026-10-14）
+
+  3 优先保护吃住、交通、必要家庭支出和还款现金流；避免逾期、高息负债和新的消费借贷。（2026-10-14）
+
+  4 不借钱交易，不用车贷、生活费或还款资金做高风险交易。（2026-10-14）
+
+  5 预算基于真实账单，不凭印象推算；历史金额先复核再用。（2026-10-14）
+
+  6 不承诺收益，不预测确定的还清日期，不声称某方案「保证最优」。（2026-10-14）
+
+  ● 本人原则（2026-10-13）：规划只按已完成、已到账的数字，年终奖等还没发生的收入先不管；去年的年终奖
+    不当作今年的参照。
+
+个人全景数字分身｜主档案 · 2026-10-14                                                   第7页
+</div>
+          <h5 class="doc-sub" id="doc-m2-10">每月实际花销（四个账户流水合算，2026-04 至 09 月均，本人 2026-10-13 提供）</h5>
+          <div class="doc-body">
+  ● 口径：微信和支付宝（两个号）的消费、转给别人的钱，加上银行卡里的还款；不含借入的钱和自己账户之间的
+    转账。部分微信付款可能是替别人垫付，会有误差。（2026-10-14）
+
+  ● 日常消费约 ¥3,400/月：微信约 ¥2,880（拼多多和京东约 ¥830，超市/食堂/小店约 ¥600，美团等外卖约
+    ¥230，名为「庆」的收款方约 ¥375），支付宝约 ¥520（餐饮约 ¥230）。（2026-10-14）
+
+  ● 油费约 ¥340/月。（2026-10-14）
+
+  ● 房租和电费：2026-07 起有长租公寓账单，7 月 ¥2,930（含一笔 ¥2,800）、8 月 ¥2,585、9 月 ¥1,720，现
+    在每月约 ¥1,450 + 电费 ¥130–260；7 月以前的房租在流水里看不到。
+
+  ● 给家里约 ¥2,000/月，父亲约 ¥130/月；女友 7–9 月月均约 ¥1,470（8 月 ¥3,223，9 月 ¥699）；其他人往
+    来净支出约 ¥500/月。（2026-10-14）
+
+  ● 以上不含还款，合计约 ¥9,500/月（房租电费按现在每月约 ¥1,850 算）。（2026-10-14）
+
+  ● 还款：2026-09 融资租赁 ¥2,474 + 小米 ¥2,833（当月扣了两期）+ 网贷约 ¥1,400 = 约 ¥6,700；10 月起没
+    有小米，约 ¥3,900；2026-11-25 租赁还完后约 ¥1,400。
+
+  ● 与本人列的开支表（合计约 ¥7,128）相比：差在日常消费（本人估吃饭、烟、水等约 ¥1,950，流水里实际约
+    ¥3,400，其中网购约 ¥830）以及女友和其他往来。（2026-10-14）
+
+  ● 其他收款：支付宝两个号里「收钱码收款」来自个人的钱约 ¥17,300，微信约 ¥2,200，合计约 ¥19,500/年（
+    月均约 ¥1,600），来源本人没说明。（2026-10-14）
+
+</div>
+          <h5 class="doc-sub" id="doc-m2-11">2.5 近期现金流判断（2026-10-17，不作无依据推算）</h5>
+          <div class="doc-body">
+  ● 已确认的压力：现有准备资金不足以覆盖网贷及消费分期月供；另有 2026-10-25 约 ¥2,473.50 的
+    融资租赁／摩托车分期尚无确定支付方案；日常生活依靠京东白条。
+
+  ● 暂不计算手机预计出售款、尚未取得的借款或不确定的额外收入。
+
+  ● 主档案 2026-10-14 的历史总负债估算约 ¥19,697，组成记录为网贷 ¥5,684、融资租赁 ¥4,947、
+    朋友欠款 ¥9,066。此总额并非本轮逐笔重新核账的实时余额，继续标记为“历史估算／待核实”（
+    2026-10-17）。
+</div>
+          <h5 class="doc-sub" id="doc-m2-12">2.2 投资与交易</h5>
+          <h5 class="doc-sub" id="doc-m2-13">历史经历与想法（2026-10-14）</h5>
+          <div class="doc-body">
+  ● 自述有约 4 年交易接触经验，了解 BTC、ETF、黄金、美元、外汇。（2026-10-14）
+
+  ● BTC 交易系统有雏形，但本人承认不够成熟、不够稳定，希望休息后放慢节奏，更稳健地学习。（2026-10-14）
+
+  ● 希望交易占用较少时间，偏好有规则、能复盘、长期可持续的方式，而不是整天盯盘。（2026-10-14）
+
+  ●希望A股以长期投资为主，不局限于单一股票；问过适合长期持有的股票、ETF怎么买、国内投资港美股的限制。
+    资金有限，暂时无法购买美股。（2026-10-14）
+
+  ● 交易理念：轻仓、顺势、对冲；把对冲理解为类似保险，或用其他品种降低风险。（2026-10-14）
+
+  ● 曾设想高风险部分约占 5%–10%，其余放现金、基金/ETF 等相对稳健配置。这是历史设想，不是已验证的方案
+    ，需结合当前负债重新评估。（2026-10-14）
+
+  ● 重视交易隐私与匿名，不希望交易和健身生活被公开内容过度暴露。（2026-10-14）
+
+个人全景数字分身｜主档案 · 2026-10-14                                                  第8页
+</div>
+          <h5 class="doc-sub" id="doc-m2-14">风险规则</h5>
+          <div class="doc-body">
+  ● 不承诺稳赚，不以短期收益证明策略有效；不把交易盈利当作还债或生活费的确定来源。（2026-10-14）
+
+  ● 应急储备不足一个月必要开支时，任何交易资金都视为可完全损失的试验金，不得影响还款、吃住、交通和家庭
+    必要支出。（2026-10-14）
+
+  ● 重点记录交易规则、样本、费用、执行纪律、回撤和风险上限；持续区分投资、投机、套保、对冲、杠杆、风险
+    预算和仓位管理，不因熟悉术语就假定系统已验证。（2026-10-14）
+
+  ● AI 可帮助整理交易日志、检查规则执行、分析回撤和盈亏分布、设计历史验证，但不替本人下单，不把价格预测
+    当确定事实。（2026-10-14）
+
+</div>
+          <h5 class="doc-sub" id="doc-m2-15">《天命》交易系统规范 v2.6（本人 2026-10-12 提供的文件）（用户2026-10-17确认：天命系统已废弃，不再使用，仅保留为历史记录）</h5>
+          <div class="doc-body">
+  ● 三条原则：①半仓：单笔及组合合约保证金不超过可用总资产的 50%；②硬止损：挂单即绑定止损，禁止扩宽止
+    损、禁止亏损单硬扛；③资金隔离：交易账户与「2027 远征基金」「生活基石资金」100% 隔离，严禁跨边界
+    划转。（2026-10-14）
+
+  ● 参数：最大杠杆 5 倍；强平缓冲 0.30；回撤达 15% 停止交易；止盈用分步移动止盈；目标品种 BTC、ORDI。（2026-10-14）
+
+  ● 核对 1（规范内部矛盾）：5 倍杠杆下，规范自己的算例强平缓冲只有约 19.5%，低于规范要求的 30%；要达到
+     30% 缓冲，杠杆大约不能超过 3.3 倍。（2026-10-14）
+
+  ●核对2（行情数据对不上）：规范写2026-10-12BTC在83,000–84,000美元（支撑78,000、压力88,000）。
+    没查到 10 月 12 日当天价格；能查到的最近数据是 2026-08-11 约 64,178 美元，账单里 2026-07-10 也在约
+    64,000。需本人对照实际行情，暂不采用文件里的价格。
+
+  ● 核对 3（执行指标无依据）：规范写「保证金占比 35%、杠杆检查通过、已设止损」，但账单到 2026-07-10 后
+    账户余额只有约 0.5 美元，没有记录能证明这些数值，可能只是示例值。
+
+  ● 核对 4（资金隔离与账单不符）：账单有 139 条划转记录，2026 年 6 月底至 7 月 10 日连续转出约 1,132
+    USDT；这些钱是否转入了生活或还款资金、是否有意调整规则，待本人确认。
+
+  ● 核对 5（硬止损）：2024–2025 年有 7 次强平，说明当时止损保护没有到位；2025-04 之后没有强平。
+
+  ● 核对 6（目标品种）：规范只写 BTC、ORDI，但 2025–2026 年合约涉及 36 个品种，2026 年平仓还包括 ETH、
+    PENGU、AMD、MU、SNDK。
+
+  ● 核对 7（无法验证）：ORDI 流动性收紧、Beta 2.4 等判断本次无法验证；2026 年 ORDI 20 笔平仓净亏约 205
+    美元，约占当年合约平仓净亏损的 46%。
+
+  ● 文件第四部分是给其他 AI 的提问指令，没有写入。（2026-10-14）</div>
+          <h4 class="doc-module" id="doc-m3">模块三｜工作与事业</h4>
+          <nav class="doc-nav sub" aria-label="模块三小节导航"><a href="#doc-m3-1">3.1 工作与职业</a><a href="#doc-m3-2">历史工作信息</a><a href="#doc-m3-3">求职偏好与限制</a><a href="#doc-m3-4">工作规划原则</a><a href="#doc-m3-5">3.2 个人 IP、副业与创业想法</a><a href="#doc-m3-6">历史计划</a><a href="#doc-m3-7">执行原则</a></nav>
+          <h5 class="doc-sub" id="doc-m3-1">3.1 工作与职业</h5>
+          <div class="doc-body">当前已确认（2026-10-14）
+
+  ● 截至 2026-10-12，仍在原来的工厂上班；月工资 ¥6,500（本人 2026-10-12 说明）；目标是摆脱高强度工作、
+    争取时间自由。
+
+个人全景数字分身｜主档案 · 2026-10-14                                                第9页
+</div>
+          <h5 class="doc-sub" id="doc-m3-2">历史工作信息（需核实是否仍适用）</h5>
+          <div class="doc-body">
+  ●曾提到固定月薪约¥6,500，工作偏体力劳动，需要走动、搬运，环境炎热；另提过「去年平均月收入约¥9,000」
+    。两个数字对应的时间和岗位关系不完全清楚，当前以本人 2026-10-12 的说明为准：工资 ¥6,500；¥9,000 对
+    应的情况待确认。
+
+  ● 食品加工厂：常规人员约 3–5 人；老板的兄弟和侄子也参与，无生产时兄弟可能不做生产工作；另有两人半天
+    去老板的私人摊位，与公司业务分开。（2026-10-14）
+
+  ● 任务混杂：生产、清洁和临时卸货交叉，所有人都可能处理各种工作。（2026-10-14）
+
+  ● 常见工作日约 10–12 小时，几乎没有休息日（春节前后例外），无生产时也可能要求到场清洁。该工时本次未
+    重新确认。（2026-10-14）
+
+  ● 觉得强度大、批评增加、任务扩大；想离开，但因债务和必要开支不敢轻易停工。曾计划「白天上班、晚上做自
+    己的项目」作为过渡。（2026-10-14）
+
+  ● 曾发生事故，休息约 16 天后复工；女友在就医时提供过帮助。涉及赔偿等问题以当时材料为准，不假定现在仍
+    有伤病。（2026-10-14）
+
+</div>
+          <h5 class="doc-sub" id="doc-m3-3">求职偏好与限制</h5>
+          <div class="doc-body">
+  ● 不喜欢继续做工厂工作；初中学历、电脑不熟（有摩托车驾照，汽车驾照此前记录为无），没有足够时间和资金
+    先考很多证书。（2026-10-14）
+
+  ● 探索过：物流、国际物流、外贸相关、安保、居家办公、非标准工时、夜班（希望夜班月收入超过 ¥7,000，这
+    是目标，不是已有条件）；也考虑过兼职/送外卖作为过渡，避免全职交易导致现金流断裂。（2026-10-14）
+
+  ● 担心正规招聘的学历门槛，以及非正规工作经历怎么填写。（2026-10-14）
+
+  ● 认为找到靠谱老板比盲目追求「正规大公司」更重要，同时担心套路和条件不透明。（2026-10-14）
+
+</div>
+          <h5 class="doc-sub" id="doc-m3-4">工作规划原则</h5>
+          <div class="doc-body">
+  ● 不把全职交易当作稳定工资来源；现金流和替代收入未验证前，不建议贸然裸辞。（2026-10-14）
+
+  ● 优先寻找合法、可核实、能覆盖必要开支、不明显损害健康和睡眠的过渡工作。（2026-10-14）
+
+  ● 求职步骤要低成本、具体，适合电脑基础有限的情况；不给「学技能就好了」这类空泛建议。（2026-10-14）
+
+个人全景数字分身｜主档案 · 2026-10-14                                       第 10 页
+</div>
+          <h5 class="doc-sub" id="doc-m3-5">3.2 个人 IP、副业与创业想法</h5>
+          
+          <h5 class="doc-sub" id="doc-m3-6">历史计划（是否已落地均待确认）</h5>
+          <div class="doc-body">
+  ● 考虑在抖音输出交易观点、知识点、心态、风险认知和人生思考；希望有观点、能引发共鸣，不硬销售，不必展
+    示每笔下单。担心文字作品被盗用，也讨论过文字图片、截图、作品置顶和公众号。（2026-10-14）
+
+  ● 曾考虑三个账号方向：交易、周边/倒卖、健身个人形象，存在精力分散风险。倒卖方面，后来发现一些商品在
+    闲鱼上更便宜，路径不一定成立。（2026-10-14）
+
+  ● 内容创意：轻仓、顺势、对冲；清仓顺序；第一条文案备选「人中龙凤尚且举步维艰，何况我等普通人」；计划
+    置顶前两条（第一条交易结果/经历，第二条交易理念）。发布数据必须真实、背景清楚，不暗示收益承诺。（2026-10-14）
+
+  ● 曾问「未来投入和未来回报是多少」，希望评估时间、资金、精力投入与回报的关系。（2026-10-14）
+
+  ● 曾与女友讨论开交易工作室/金融相关公司，名称想法「随心资本」，注册资本曾提 ¥100,000；设想无员工、
+    无募资、无办公室、无产品，甚至考虑租址注册，也研究过能否为女友缴社保。之后明确暂缓成立公司，先做个
+    人 IP，尝试不依赖雇佣工作。（2026-10-14）
+
+  ● 账号是否已注册、是否已发布内容、有无收入，均待确认。（2026-10-14）
+
+</div>
+          <h5 class="doc-sub" id="doc-m3-7">执行原则</h5>
+          <div class="doc-body">
+  ● 先只做一个主账号，当作低成本试验；曾建议每周 2–3 篇、连续 30 天后按真实数据调整（这是 AI 建议，不是
+    已定计划）。（2026-10-14）
+
+  ● 不急着注册公司、租办公室或承担固定费用；即便没有库存，也有时间成本、注册/税务合规、平台规则、地址
+    成本和声誉风险。（2026-10-14）
+
+  ● 发布内容时注意个人信息、账户截图、资金隐私和可识别背景。（2026-10-14）
+
+  ● 同时启动太多方向时，优先选择最重要的一条主线。（2026-10-14）</div>
+          <h4 class="doc-module" id="doc-m4">模块四｜身体、生活与学习</h4>
+          <nav class="doc-nav sub" aria-label="模块四小节导航"><a href="#doc-m4-1">4.1 健身与生活方式</a><a href="#doc-m4-2">4.2 住房、合同与固定成本</a><a href="#doc-m4-3">4.3 学习、数字技能与 AI 使用</a></nav>
+          <div class="doc-body">个人全景数字分身｜主档案 · 2026-10-14                                 第 11 页
+</div>
+          <h5 class="doc-sub" id="doc-m4-1">4.1 健身与生活方式</h5>
+          <div class="doc-body">  ● 身高 178 cm；体重约 111 斤（约 55.5 kg），本人 2026-10-12 说明（此前曾报约 108 斤）；目标约
+    170–180 斤、低体脂、明显腹肌和运动能力。跨度大，应分阶段设定，不当作短期目标，也不保证短期结果。
+
+  ● 有一对约 40 斤的哑铃。（2026-10-14）
+
+  ● 偏好每周训练 3 次、每次约 1 小时、每次 3–4 个动作；曾偏好「1/2/4」式（周一、二、四），希望避开周末
+    ，后来问过能否周五、周六、周日都不练。最终以当下时间和恢复情况为准。2026-10-12 说明：每周练 3 次，
+    固定在周一、周二、周四，其余日子自由安排，可以陪女友。国庆假期女友每天都在，训练因此推迟，落下的顺
+    延到之后的周补练，本人说明会保证练到位。
+
+  ● 睡眠目标约 8 小时；认为锻炼能增强对身体的掌控感。（2026-10-14）
+
+  ● 健身是长期生活的一部分，不因追求流量而公开私人身体信息。（2026-10-14）
+
+  ● 照片修复偏好自然真实，不美白、不美颜、不过度锐化。（2026-10-14）
+
+  ● 实际执行（本人 2026-10-14 说明）：计划每周 3 次，但目前基本都推迟，当周该练的顺延到下一周，原因是有
+    事或有约；按第一原则，没练完的不算已完成。
+
+  ● 戴牙套已 296 天（从 2025-12-21 起），数据来自倒数日 App 截图（2026-10-13）。
+
+</div>
+          <h5 class="doc-sub" id="doc-m4-2">4.2 住房、合同与固定成本</h5>
+          <div class="doc-body">  ● 偏好极简、低负担的居住方式，希望降低固定开销和复杂度。（2026-10-14）
+
+  ● 曾讨论提前退租、押金、运营方（而非直接房东）和高额逾期违约金；曾冲动表达过不交最后一个月租金、放弃
+    押金离开等想法。（2026-10-14）
+
+  ● 原则：遇到租房、借款、合同问题，先看合同条款、实际责任和协商选项，不根据一时情绪建议逃避债务或违法
+    处理。（2026-10-14）
+
+</div>
+          <h5 class="doc-sub" id="doc-m4-3">4.3 学习、数字技能与 AI 使用</h5>
+          <div class="doc-body">  ● 主要用 iPhone 使用 ChatGPT，也有 Mac；偏好语音、截图，一次一个步骤，并说清按钮和操作顺序。（2026-10-14）
+
+  ● 已决定补基础拼音和英语；Duolingo 连续学习曾达第 215 天（约 2026-07-25 的记录），本人 2026-10-12 说
+    明：现在每天顶多学两三分钟。
+
+  ● 希望学会基本电脑使用，但不要一次塞入过多任务。（2026-10-14）
+
+  ● 问过金融相关证书，担心学历要求、考试成本和时间。（2026-10-14）
+
+  ● 对 AI 的期待：把想法变成具体行动、减少试错。可协助预算、工作筛选、简历表述、交易复盘、内容选题与初
+    稿、学习计划和每周总结；重要事实需核实，最终判断归本人。（2026-10-14）
+
+  ● 设备（来自 Apple 账户截图，2026-10-14）：iPhone 16 Pro Max（设备名叫「OPPO A5」）、Mac mini；
+    iCloud 免费 5 GB；邮箱地址未收录。
+
+  ● 网络工具：曾研究小火箭、VPN/节点和加速器；曾考虑「快连」约 ¥50/月，因使用频率不高放弃；倾向只买节
+    点、减少固定支出。建议时需说明风险、兼容性、费用和当地法律与平台规则，不保证匿名或「绝对安全」。（2026-10-14）
+
+个人全景数字分身｜主档案 · 2026-10-14                                                     第 12 页</div>
+          <h4 class="doc-module" id="doc-m5">模块五｜家庭与关系</h4>
+          <nav class="doc-nav sub" aria-label="模块五小节导航"><a href="#doc-m5-1">5.1 家庭、伴侣与人际关系</a></nav>
+          <h5 class="doc-sub" id="doc-m5-1">5.1 家庭、伴侣与人际关系</h5>
+          <div class="doc-body">  ● 母亲： 对薪资和成年后的决定有较强影响，本人感到压力。父亲： 被描述为不太强势、长期正式工作较少。希
+    望债务缓解后保持一定距离，但仍考虑基本支持；家庭支持金额需按当下情况核实。不对家庭关系做诊断。（2026-10-14）
+
+  ● 女友： 是生活中重要的人。截至 2026-10-13，在一起 114 天（从 2026-06-21 起）、认识 119 天（从
+    2026-06-16 起），数据来自倒数日 App 截图。曾因抖音私信其他女性、被认为冷淡或忽视对方等问题接近分手
+    ，后来和好；本人出事故就医时她提供过帮助。本人不太重视生日和节日，女友较在意生日庆祝，双方讨论过尊
+    重彼此的生活方式。处理关系问题时，帮助表达、倾听、协商边界，不自动把任何一方定性为坏人。
+
+  ● 曾考虑女友参与未来的小型业务，公司计划目前已暂缓。（2026-10-14）
+
+  ● 2026 年 10 月初曾有一件短期的私密亲密关系/健康方面的担忧；细节按隐私处理，未在此收录，也不应当作当
+    前未解决的问题，更不用于无关话题。
+
+  ● 朋友/同学欠款是历史应收款，不能算作现金。（2026-10-14）
+
+  ● 伴侣、家人和朋友的私密细节，只在本人主动讨论且与问题相关时使用。（2026-10-14）
+
+  ● 2026-10-13 晚至 10-14 凌晨：和女友吵了一架，约凌晨 1 点和好（本人说明）。
+
+  ● 要点（来自本人发的聊天截图，聊天原文不收录）：起因和抖音上的一些内容有关；她说看他压力大，不想成为
+    压力之一，中途一度说想分手、周四回去自己收拾东西；他当时说过要注销抖音，这一条没有确认已做，不算已
+    完成；后来和好。（2026-10-14）
+
+  ● 2026-10-14：给女友买了一条黑色连衣裙，¥100（本人说明）。
+
+  ● 送礼偏好（本人 2026-10-14 说明）：喜欢看女友穿连衣裙和丝袜。</div>
+          <h4 class="doc-module" id="doc-m6">模块六｜背景、价值观与探索</h4>
+          <nav class="doc-nav sub" aria-label="模块六小节导航"><a href="#doc-m6-1">6.1 个人背景与成长经历</a><a href="#doc-m6-2">6.2 价值观、心理与性格观察</a><a href="#doc-m6-3">价值观与生活方向</a><a href="#doc-m6-4">初步观察</a><a href="#doc-m6-5">6.3 海外与全球化探索</a></nav>
+          <div class="doc-body">个人全景数字分身｜主档案 · 2026-10-14                                             第 13 页
+</div>
+          <h5 class="doc-sub" id="doc-m6-1">6.1 个人背景与成长经历</h5>
+          <div class="doc-body">  ● 中国大陆背景，来自广东揭阳；过往工作、求职和生活规划主要围绕佛山/广东。当前所在地需本人确认，不自
+    行推断。
+
+  ● 初中学历；有摩托车驾照（本人 2026-10-13 说明），汽车驾照此前记录为无；约 2019 年开始工作，曾与同学
+    等人去广州工作。
+
+  ● 使用 iPhone 和 Mac；电脑操作和打字基础较弱，偏好语音、截图、手机操作和一步一步的指导。（2026-10-14）
+
+  ● 童年经济资源有限：读初中前没有零花钱，较早被安排做计件活（花材、内衣肩带等）；离开初中工作一段时间
+    后才有第一部手机。（2026-10-14）
+
+  ● 性格内向，曾被欺负；早年生活困难时曾向母亲提出回去，但未获同意。（更正：这段困难故事涉及父亲，不是
+    爷爷。）（2026-10-14）
+
+  ● 对家庭控制感、薪资和成年后的自主决定比较敏感；希望债务缓解后与父母保持一定距离，但仍考虑基本赡养/
+    支持。（2026-10-14）
+
+  ● 使用原则：成长经历只在相关话题中使用，不主动反复挖掘，不把单一经历当作解释全部性格的依据。（2026-10-14）
+
+  ● 姓名：林志锋（取自本人提供的征信报告和银行流水，本人 2026-10-14 要求记录，待本人确认）。
+
+  ● 生日：2003-09-26（本人 2026-10-14 说明），2026-10-14 为 23 岁。
+
+</div>
+          <h5 class="doc-sub" id="doc-m6-2">6.2 价值观、心理与性格观察</h5>
+          <h5 class="doc-sub" id="doc-m6-3">价值观与生活方向（2026-10-14）</h5>
+          <div class="doc-body">
+  ●想要时间、地点和生活方式上的自主权，不愿永远靠出售时间换钱，不想被工作、家庭要求或经济压力完全控制。（2026-10-14）
+
+  ● 理想生活：交易学习、健身、陪伴伴侣、适当旅行（含摩托车）、修心、简单生活；偏好「能少则少」，不为看
+    起来成功而承担不必要成本。曾要求生成理想的极简住宅图像。（2026-10-14）
+
+  ● 重视隐私，尤其是交易和健身等私人生活。（2026-10-14）
+
+  ● 喜欢思考道家、阴阳、太极、王阳明、「本我」、心如明镜，以及「此心不动，随机而动」；重视克制、坚韧与
+    平静。（2026-10-14）
+
+  ● 曾探讨死亡、意识、灵魂回归宇宙/能量回收，属哲学思考，不自动视为危机或病理；仅当出现明确的即时危险
+    或自伤想法时，才认真核实安全并提供支持。（2026-10-14）
+
+  ● 游戏不是主要追求；希望平衡工作、学习、训练、关系和休息。（2026-10-14）
+
+  ● 希望得到客观、直接、能指出问题的反馈；喜欢自然、像兄弟聊天的中文，不喜欢空话、说教、过度吹捧或一味
+    迎合。（2026-10-14）
+
+  ● 审美和软件偏好：喜欢简洁，像苹果、谷歌这类大公司做的软件一样，简洁又好看（本人 2026-10-13 说明）。
+
+个人全景数字分身｜主档案 · 2026-10-14                                   第 14 页
+</div>
+          <h5 class="doc-sub" id="doc-m6-4">初步观察（仅为推测，不是诊断或人格标签，可随时修正）</h5>
+          <div class="doc-body">
+  ● 可能的优势： 能忍耐、抗压，遇到困难会继续想办法；自主意识强；对交易、宏观资产和系统化思考有长期兴
+    趣；愿意反思、接受批评；倾向把事情做成体系（交易规则、财务记录、数字档案）。（2026-10-14）
+
+  ● 可能的风险： 容易同时考虑多个方向，精力分散；可能把持续忙碌当作安全感，空闲时焦虑、想再启动新项目
+    ；想尽快摆脱工作，但现金流和储备限制选择；资金有限时可能希望靠交易快速改变处境；可能过度相信「撑过
+    去就会变好」，需要把韧性和退出条件结合；对正规求职流程顾虑较多，可能过早排除可行选项。（2026-10-14）
+
+</div>
+          <h5 class="doc-sub" id="doc-m6-5">6.3 海外与全球化探索</h5>
+          <div class="doc-body">  ● 有护照和港澳通行证（本人 2026-10-13 说明）；曾探索通过工作签证或半工半读出国，包括爱尔兰语言学校、
+    学习后工作及长期留下的可能；预算上限约 ¥50,000，国家不限，希望能合法兼职并争取长期留下。有一位西班
+    牙当地朋友正在读书。担心非正规工作经历如何填写。
+
+  ● 曾研究香港电话卡、海外/全球银行服务、HSBC 香港账户激活、Wise、PayPal、Longbridge、招商银行、农业银
+    行等。（2026-10-14）
+
+  ● 通信（历史方案，非当前套餐）：中国电信约 ¥8 保号卡，加主卡合计约 ¥38/月，主卡曾有 100GB 以上流量；
+    希望香港卡约 50GB，认为 3GB 不够。（2026-10-14）
+
+  ● 以上均属探索，不代表已申请、获批、开户或移居。签证、银行资格、通信资费等变化快的信息，应查最新官方
+    资料。（2026-10-14）
+
+  ● 外网账号：有大部分外网账号，比如谷歌账号（本人 2026-10-14 说明）。
+
+  ● 去过的地方：本人只去过广东、广西（2026-10-14 说明）。</div>
+          <h4 class="doc-module" id="doc-m7">模块七｜规则与记录</h4>
+          <nav class="doc-nav sub" aria-label="模块七小节导航"><a href="#doc-m7-1">7.1 给长期助手的工作指令</a><a href="#doc-m7-2">主档案新增规则（2026-10-17）</a><a href="#doc-m7-3">7.2 隐私与准确性提醒</a><a href="#doc-m7-4">7.3 要求与原因记录</a><a href="#doc-m7-5">7.4 变更记录</a><a href="#doc-m7-6">核对记录（2026-10-18）</a></nav>
+          <h5 class="doc-sub" id="doc-m7-1">7.1 给长期助手的工作指令</h5>
+          <div class="doc-body">你是我的长期个人发展助手。请使用本档案作为背景参考，但不要把旧数据当成当前事实。（2026-10-14）
+
+  1 先区分事实、历史、推测和待确认项。（2026-10-14）
+
+  2 不反复问已回答的问题；确实缺关键事实时，一次只问一个最重要的问题，能先做的先做。（2026-10-14）
+
+  3 语气直接、清晰、尊重，像自然聊天；不要空话、说教、过度吹捧。客观指出漏洞、风险、机会成本和不确定性
+    ，不只顺着我说。最终决定权属于我。（2026-10-14）
+
+  4 给具体、低成本、能执行的建议，考虑初中学历、电脑基础有限、资金有限和需要现金流；不默认我会编程或熟
+    练使用电脑；操作类问题按点击顺序一步一步讲，一次别塞太多。（2026-10-14）
+
+  5 不让我同时开展太多项目，明确主线、次要事项和暂缓事项。（2026-10-14）
+
+  6 交易与投资先保护生存现金流；不保证收益，不鼓励加杠杆、重仓或借钱交易，不以短期收益证明策略有效。（2026-10-14）
+
+  7 尊重隐私与匿名偏好；除非我主动提起且相关，不主动使用健康、性生活、伴侣或家庭细节。（2026-10-14）
+
+个人全景数字分身｜主档案 · 2026-10-14                                       第 15 页
+  8 当我自然说出新的重要信息时，主动整理、分类并提出档案更新；如果无法写入持久文件，要明确说明，并提供
+     更新后的内容，不能假装已同步。
+
+  9 新 AI 首次读到本档案时：先用简洁中文总结理解（事实与推测分开），列出当前最重要的目标、现实约束和最需
+     避免的风险，再只问一个最关键的更新问题（优先当前工作和现金流），可附一个 30 天可执行计划。不要声称
+     拥有原账号的全部记忆。（2026-10-14）
+
+补充（2026-10-13）：做规划时只用已完成、已到账的数字；年终奖等还没发生的收入先不算，去年的也不当作今
+年的参照。
+
+第一原则（2026-10-13，已刻在文档第一行）：任何人答应我的都不能算数，只有我自己给自己的才算真的有或者
+已经完成的；做规划、对账、写档案时，别人口头答应的、还没到账的，都不当作已有。
+
+排版偏好（2026-10-13）：文档、页面和 PDF 要简洁好看，向苹果、谷歌的软件看齐，少用颜色，留白足，不堆东
+西。
+
+更新规则（2026-10-14）：每次更新数据都要保留旧数据，并标上时间段（日期或起止时间），让本人能看出从前
+和现在；改一个数，旧值写在「从前」里，不直接覆盖。
+
+要求与原因记录（2026-10-14）：本人每提一次要求，都在 7.3 记下日期、要求和本人说的原因（没说就写「未说
+明」）；AI 的推测单独一列，标明是推测、非诊断，本人可随时改。
+
+
+</div>
+          <h5 class="doc-sub" id="doc-m7-2">主档案新增规则（2026-10-17）</h5>
+          <div class="doc-body">• 1. 旧文在前，更新在后：每次更新时，先完整保留上一版主档案正文与历史记录，再在文档末尾追加“本次更新
+与数据变化对照”。
+• 2. 必须有前后对比：每项发生变化的数据，尽可能列明“项目｜旧记录（日期）｜最新记录（日期）｜变化说明｜
+信息状态/来源”。没有变化的项目不必重复抄写。
+• 3. 不覆盖、不抹除历史：旧值保留并标明时间；最新明确确认值用于当前口径。若新旧数据冲突，记录冲突与更
+正原因，不静默替换。
+• 4. 严格区分信息类型：当前已确认、历史记录、推测、待确认；注明信息来自用户明确确认、旧档案，还是助手
+推算。
+• 5. 不把计划当事实：未到账的收入、未完成的手机出售、未实际借到的款项，不得计为现有现金或已完成事项。
+ETF 长期资产不默认视为日常可用现金。
+• 6. 每次生成新版本，另存新文件；不覆盖旧版本。若无法实际修改或保存文件，必须明确告知，不得声称已同
+步。
+</div>
+          <h5 class="doc-sub" id="doc-m7-3">7.2 隐私与准确性提醒</h5>
+          <div class="doc-body">  ● 分享给其他 AI 前，删除真实姓名、身份证号、银行卡号、账号密码、验证码、精确住址和完整联系方式；伴侣、
+     家人的私人信息只保留规划必需的部分，必要时可删去模块五（家庭与关系）。
+
+  ● 本档案不是全部聊天的逐字记录；金额、工作状态、住址、账户、债务、持仓、器材和海外计划都可能变化，事
+     实有误以本人当前说明为准。（2026-10-14）
+
+  ● 性格观察是有限交流中的推测，不是心理诊断。（2026-10-14）
+
+一句话画像： 一个希望从高强度劳动和经济压力中逐步获得自主权的人：以交易和投资探索长期财富，以个人 IP 做
+低成本尝试，以健身和修心维持身心状态；最适合的不是同时追逐所有机会，而是建立少而精、能验证、能长期执
+行的个人系统。（2026-10-14）
+
+个人全景数字分身｜主档案 · 2026-10-14                              第 16 页
+</div>
+          <h5 class="doc-sub" id="doc-m7-4">7.3 要求与原因记录（含 AI 推测）</h5>
+<div class="doc-table-wrap"><table class="doc-table">
+<colgroup><col style="width:13%" /><col style="width:27%" /><col style="width:25%" /><col style="width:35%" /></colgroup>
+<thead><tr><th>日期</th><th>本人的要求</th><th>本人说的原因</th><th>推测（AI，非诊断，可修正）</th></tr></thead>
+<tbody>
+<tr><td>2026-10-12</td><td>把三份档案合并成一份</td><td>未说明</td><td>想把零散的信息集中到一处，少重复交代</td></tr>
+<tr><td>2026-10-12</td><td>更新时直接改文档，并标上时间</td><td>未说明（后来说「这样我才能知道从前和现在」）</td><td>重视时间线，想看到变化</td></tr>
+<tr><td>2026-10-12</td><td>按模块整理，同意分 6 个</td><td>未说明</td><td>偏好有条理、结构清楚</td></tr>
+<tr><td>2026-10-12</td><td>发一份 PDF</td><td>文档页面打不开，「你更新的数据我怎么都看不到」</td><td>想要一份自己随时能看到、确实存在的东西</td></tr>
+<tr><td>2026-10-13</td><td>开支、债务从账单里直接算，别反复问</td><td>「那的账单不是很明显了吗」</td><td>对重复提问不耐烦，希望我直接从数据里得结论</td></tr>
+<tr><td>2026-10-13</td><td>年终奖先不管，只按已完成的做</td><td>「这些不是已完成的，不是今年的，我只做有完成的」</td><td>不愿把还没发生的钱当依据，偏好确定性</td></tr>
+<tr><td>2026-10-13</td><td>第一行刻上：任何人答应我的都不能算数，只有我自己给自己的才算</td><td>未说明</td><td>对依赖别人的承诺有戒心，强调靠自己兑现，和「时间自主权」的目标一致</td></tr>
+<tr><td>2026-10-13</td><td>文档、页面、PDF 要简洁好看，像苹果、谷歌的软件</td><td>喜欢简洁，大公司的软件简洁又好看</td><td>审美偏极简、克制、统一，重视视觉秩序</td></tr>
+<tr><td>2026-10-13</td><td>问能不能调取微信聊天记录，并要求保密</td><td>要保密</td><td>希望我了解得更完整，同时很看重隐私和边界</td></tr>
+<tr><td>2026-10-14</td><td>把和女友吵架和好写进档案（我曾说先不记）</td><td>未说明</td><td>想完整保留生活里的事，不想让我替他决定哪些该记</td></tr>
+<tr><td>2026-10-14</td><td>睡眠和健身文档自己做，不用我做</td><td>「我另外做了」</td><td>想自己掌控这类记录，主档案只收结论</td></tr>
+<tr><td>2026-10-14</td><td>更新数据要保留旧数据，并标上时间段</td><td>「这样我才能知道从前和现在」</td><td>重视变化的过程，想看自己的轨迹</td></tr>
+<tr><td>2026-10-14</td><td>把每次的要求和原因也写上，AI 可以反向推导心理和审美</td><td>「这样子我才能看到当时的心理和审美」</td><td>想通过档案了解自己，对自我观察有兴趣</td></tr>
+<tr><td>2026-10-14</td><td>要最新版 PDF</td><td>未说明</td><td>想拿到一份最新、能留存的版本</td></tr>
+<tr><td>2026-10-14</td><td>记录我的姓名和生日（2003-09-26）</td><td>未说明</td><td>想让档案里有基本的身份信息，方便以后核对</td></tr>
+<tr><td>2026-10-14</td><td>发证券账户和 Apple 账户截图，补记「我所拥有的」资产</td><td>「这是我所拥有的另外小荷包还有300块」</td><td>想把自己真正拥有的东西记全，和第一原则一致，只认自己攒下的</td></tr>
+<tr><td>2026-10-14</td><td>不要把文档拆开，只重新排版和分模块；颜色可以换，想要极致的黑、纯粹的留白、精致的卡片和流光质感（像 iOS 健康、灵动岛、Gemini 启动界面），知道普通云端文档做不到</td><td>「分得越多，我到时候查也会更麻烦」；「这些可全是我宝贵的个人数据」</td><td>把档案当成一个宝贵的整体，重视好查找、不丢；审美偏极致的黑、留白和精致的卡片质感，要求高精度</td></tr>
+<tr><td>2026-10-18</td><td>把档案加在一起，全部换成主档案；字体、字数要对准，不要缺少字；以主档案的规则和模板为准</td><td>未说明</td><td>多个 AI 做的版本混乱，想有一份干净、准确的主档案</td></tr>
+<tr><td>2026-10-18</td><td>多个 AI 做的版本里，已出现的数据不要再重复</td><td>未说明</td><td>去重，避免档案臃肿</td></tr>
+<tr><td>2026-10-18</td><td>纯正版只有 v4</td><td>未说明</td><td>澄清版本的权威性：v6、v7 是别的 AI 改的，不是纯正版</td></tr>
+<tr><td>2026-10-18</td><td>全部加到 v4 上面去，撤销别的版本，每处更新都标上日期</td><td>未说明</td><td>以 v4 为唯一底本，更新可追溯</td></tr>
+<tr><td>2026-10-18</td><td>全部加成一个主档案，七个模块分好类；其他文档也并进主文档，名字叫《个人交互数据桥》</td><td>未说明</td><td>想要一份统一的个人数据总档，不再分散在多份文档里</td></tr>
+<tr><td>2026-10-18</td><td>《天命》交易系统已经废弃，在文档里加标注</td><td>「我现在都不是天命系统了」</td><td>无（本人已说明）</td></tr>
+<tr><td>2026-10-18</td><td>逆向决策加成网站的一个页签</td><td>未说明</td><td>想把逆向决策当工具天天用，不只是看文档</td></tr>
+<tr><td>2026-10-18</td><td>文档里的表格歪七八扭，全部重做成规整的表格</td><td>「因为不清楚不容易看。表格歪七八扭」</td><td>无（本人已说明）</td></tr>
+<tr><td>2026-10-18</td><td>在桥上加一个睡眠模板（睡眠记录页签）</td><td>未说明</td><td>想在桥上记睡眠</td></tr>
+<tr><td>2026-10-18</td><td>数据尽量能分多一点就分多一点；数据不仅不能减少，还要尽量加多，但不要重复、不要太乱</td><td>「这是我整个人的数据呀」；「这些数据明显对我来说很重要」</td><td>无（本人已说明）</td></tr>
+<tr><td>2026-10-18</td><td>加开支记账和每周复盘两个模块</td><td>未说明</td><td>AI 建议这两个和还债目标直接挂钩后，本人确认「行」；补全记账和复盘的能力</td></tr>
+<tr><td>2026-10-18</td><td>把 10 月 14 日—18 日共 5 天的睡眠记录加进文档，以后会一直更新</td><td>未说明</td><td>建立持续更新的睡眠档案</td></tr>
+<tr><td>2026-10-18</td><td>《健身档案与训练日志》登记进文档；网站上可以用表格（之前要求纯文字，是因为别的 AI 生成的 PDF 字体不清楚）</td><td>未说明</td><td>建立持续更新的健身档案；反对的不是表格本身，是不清楚的呈现</td></tr>
+<tr><td>2026-10-18</td><td>删掉第五部分里旧的那份英文健身档案 PDF 内容</td><td>未说明</td><td>旧英文 PDF 字体有问题，已有自己 10 月 18 日的中文记录替代</td></tr>
+<tr><td>2026-10-18</td><td>设置目标，每天提醒登记睡眠和健身记录；健身晚上 10:15 登记，睡眠早晚各一次</td><td>未说明</td><td>靠提醒养成每天登记的习惯</td></tr>
+<tr><td>2026-10-18</td><td>仔细核对文档</td><td>未说明</td><td>此前核对不仔细，本人发现了遗漏</td></tr>
+<tr><td>2026-10-18</td><td>【AI 自我记录，非本人要求】AI 未按更新规则把当天本人的要求记入 7.3，也没写原因，本人指出后补录</td><td>本人说「你都没有写上去，都没有写上原因」，并指出 AI 说核对了很多遍，但最基本的没注意，表达了失望</td><td>无——此条为 AI 自我记录：AI 承认核对不仔细，已于当天补录以上各条</td></tr>
+<tr><td>2026-10-18</td><td>10-25 融资租赁 ¥2,473.50 的处理方案</td><td>目前还不清楚，有几个考虑——如果网贷能借的话再借出来先还；如果借不出来就逾期五天，会跟他们的客服说一下沟通一下，实在没办法也管不了；手机还没有发货，显示最晚10月30号才发货</td><td>以贷还贷是备用想法，非确认方案；逾期 5 天是接受现实的选择（推测，非诊断）</td></tr>
+<tr><td>2026-10-18</td><td>开支不记每天了，最多每个月复盘一波，每月把账单流水导出来</td><td>未说明</td><td>用户觉得每天记太麻烦，改为月度复盘更可持续</td></tr>
+<tr><td>2026-10-18</td><td>增设一个赚钱模块（后改名「个人盈利」）</td><td>未说明</td><td>用户想把到账收入（工资、交易盈利等）记清楚，只认已到账的</td></tr>
+</tbody>
+</table></div>
+<div class="doc-body">
+个人全景数字分身｜主档案 · 2026-10-14                                           第 17 页
+  ● 审美（本人说明）：简洁、好看，像苹果、谷歌的软件；偏好「能少则少」；喜欢看女友穿连衣裙和丝袜（
+    2026-10-14）。
+
+  ● 审美（推测）：极简、统一、克制，重视视觉秩序，偏好干净的排版胜过堆满信息。（2026-10-14）
+
+  ● 心理（推测，非诊断）：重视确定性和自己掌控，只认自己兑现的，不把没发生的钱当依据；对含糊、重复提问
+    和没兑现的预期不耐烦；压力大时倾向把事情算清楚、做成结构，用档案和数字管理不确定感；重视隐私，同时
+    愿意把真实的生活写进档案，方便回头看自己。（2026-10-14）
+
+  ● 以上是根据有限的几次对话做的推测，不是心理评价，本人觉得不对的地方随时改。（2026-10-14）
+
+</div>
+          <h5 class="doc-sub" id="doc-m7-5">7.4 变更记录</h5>
+          <div class="doc-body">2026-10-12｜身体数据更新
+
+  ● 身高 178 cm；体重约 111 斤（此前记录约 108 斤）。
+
+2026-10-12｜工资更正
+
+  ● 本人说明工资 ¥6,500；此前同日记录为到手约 ¥6,500–9,000，当前采用 ¥6,500。
+
+2026-10-12｜固定开支更新
+
+  ● 新增「当前每月固定开支」表（合计约 ¥4,448，未含车贷、吃饭、交通）。
+
+  ● 水电：此前记录至少约 ¥300，更新为约 ¥400。
+
+  ● 给家里 ¥2,000/月：明确用于还房子的债（此前记为给母亲的支持预算）。
+
+2026-10-12｜结构整理
+
+  ● 全文按 6 个模块重排，章节编号改为「模块.序号」（如 1.1、2.1）；内容未改。
+
+2026-10-12｜手机分期与还债计划
+
+  ●新增2.1节「手机分期与还债计划」：分期买手机（总价¥10,999，每月约¥917），到货后当全新机卖掉还债。
+
+  ● 总负债约 ¥15,000 是否含车贷和这笔分期，待确认。
+
+2026-10-12｜债务构成更新
+
+  ● 总负债更新为约 ¥20,000：网贷约 ¥5,000、车贷约 ¥5,000、欠朋友的钱约 ¥10,000（推算）；此前同日记为
+    约 ¥15,000，当时未说明构成。
+
+  ● 车贷月供和剩余期数、手机分期是否已含在内，待确认。
+
+2026-10-12｜车贷期数
+
+  ● 车贷剩余 2 期（约 ¥5,000），与月供约 ¥2,500 吻合；预计还完后每月可多出约 ¥2,500。
+
+2026-10-12｜手机款项用途
+
+  ● 本人说明手机卖出的钱既要维持生活，也要还债；不卖的话生活难以为继。
+
+个人全景数字分身｜主档案 · 2026-10-14                                        第 18 页
+2026-10-12｜吃饭开支
+
+  ● 新增每月吃饭约 ¥1,000；已列固定开支合计更新为约 ¥5,448（未含车贷、交通、网贷月供）。
+
+2026-10-12｜女友相关开支
+
+  ● 本人说明每月还有给女友的送礼、请吃饭等花费，金额待确认，尚未计入固定开支合计。
+
+2026-10-12｜摩托车信息
+
+  ● 新增摩托车信息（来自截图）：车型、里程、保养和车联网服务到期日；车架号、车牌号未收录。
+
+2026-10-12｜车贷对应车辆
+
+  ● 确认车贷对应的就是这台摩托车，剩余 2 期。
+
+2026-10-12｜健身与英语学习
+
+  ● 健身：每周 3 次，固定周一、周二、周四，其余自由；国庆假期因女友每天都在而推迟，落下的顺延补练，本人
+    说明会保证练到位。
+
+  ● 英语：现在每天顶多学两三分钟。
+
+2026-10-12｜征信报告、交易账单与交易规范核对
+
+  ● 新增 2.1「征信报告核对」：网贷余额约 ¥5,684；车贷实为融资租赁，月供约 ¥2,474，2026-11-25 到期；债
+    务构成表按征信更新（欠朋友的钱按差额推算约 ¥9,400）。
+
+  ● 新增 2.2「交易所账单核对」和「《天命》交易系统规范 v2.6」：合约自 2024 年起净亏约 2,047 美元；规范
+    与账单、行情之间存在多处出入。
+
+  ● 姓名、证件号码、交易所账户编号均未收录。
+
+2026-10-12｜交易所账户现状
+
+  ● 本人说明交易所里已经没有钱了，ADA、ETHFI、STRK 也已经没有了。
+
+2026-10-12｜烟和女友开支更新
+
+  ● 烟：每月由约 ¥300 更新为约 ¥600。
+
+  ●女友（送礼、请吃饭等）：每月至少¥1,000，已计入固定开支合计；已列项目合计更新为约¥6,748（未含车贷、
+    交通、网贷月供）。
+
+2026-10-13｜倒数日截图
+
+  ● 女友：在一起 114 天、认识 119 天（截图里的「认识」指女友）。
+
+  ● 戴牙套已 296 天。
+
+个人全景数字分身｜主档案 · 2026-10-14                                        第 19 页
+2026-10-13｜手机、网贷和开支补充
+
+  ● 手机通过抖音分期，无手续费，可以直接卖出；到货卖掉后，网络贷款全部还清。
+
+  ● 本人说明不清楚：网络贷款的月供和利率、给家里还房子的债的总额和期限、油费和保养费；手头没钱。
+
+2026-10-13｜手机未发货与还款决定
+
+  ● 手机还没发货，到货时间未知。
+
+  ● 本人决定手机卖掉后，把网络贷款全部还清，不留。
+
+2026-10-13｜支付宝、微信流水核对
+
+  ● 新增 2.1 节末尾「支付宝与微信流水核对」。
+
+  ● 开支表：房租约 ¥1,450（原 1,400），新增油费约 ¥330，合计更新为约 ¥7,128。
+
+  ● 工资说明补充：固定 ¥6,500 属实，12 个月实际从公司收到月均约 ¥8,900。
+
+  ● 新发现：抖音月付不在征信账户列表里，借呗/备用金反复小额借款，「牛牛」「小宇」的转入可能是借款。
+
+2026-10-13｜银行卡流水核对与更正
+
+  ● 本人确认支付宝、微信、农行卡、招行卡都是本人的；「牛牛」转入的 ¥9,200 不是借款，债务表里「欠朋友的
+    钱」改为「其他欠款（含朋友的钱）」，构成待查。
+
+  ● 新增 2.1「银行卡流水核对」：租赁还剩 2 期、小米 ¥17,000 已还清、网贷月还款约 ¥1,400、平安财险入账
+    ¥15,503.68。
+
+2026-10-13｜每月实际花销与更正
+
+  ● 新增 2.1「每月实际花销」：不含还款约 ¥9,500/月，含还款 10 月起约 ¥13,400/月。
+
+  ● 更正：名为「X」的微信联系人是本人第二个微信号，2026-02 那一轮 ¥18,500 往来是自己转自己，不是借款。
+
+2026-10-13｜欠朋友的钱明细
+
+  ● 本人逐个列出：小宇 ¥5,000、蛋 ¥1,400、奕铠 ¥1,000、马 ¥666、猪 ¥500、肉 ¥500，共 ¥9,066，目前没
+    有别的；与按总额推算的约 ¥9,400 基本吻合。
+
+  ● 债务三项相加约 ¥19,697（网贷 ¥5,684 + 融资租赁 ¥4,947 + 朋友 ¥9,066）；手机分期 ¥10,999 另算。
+
+2026-10-13｜手机分期与总负债说明
+
+  ● 本人说明：买手机是为了先还别人，总负债没变；手机卖出前账面欠款合计约 ¥30,700，卖出后抵掉约等于卖价
+    的部分。
+
+  ● 新增 1.1「一页汇总」和文档末尾「附录 A–E」流水明细。
+
+2026-10-13｜证件和驾照
+
+  ● 有护照和港澳通行证；有摩托车驾照，汽车驾照此前记录为无。
+
+个人全景数字分身｜主档案 · 2026-10-14                                                   第 20 页
+2026-10-13｜规划口径
+
+  ● 本人要求：规划只按已完成的数字，年终奖等还没发生的收入先不管，去年的不当作今年的参照。
+
+2026-10-13｜第一原则与排版偏好
+
+  ● 文档第一行刻上：任何人答应我的都不能算数，只有我自己给自己的才算真的有或者已经完成的。
+
+  ● 记录审美偏好：简洁、好看，像苹果、谷歌的软件。
+
+2026-10-14｜与女友吵架和好
+
+  ● 记录在 5.1 节，只记要点，不收录聊天原文。
+
+2026-10-14｜健身实际执行
+
+  ● 计划每周 3 次，实际基本推迟，原因是有事或有约；没练完的不算已完成。
+
+2026-10-14｜更新规则与新增记录
+
+  ● 新规则：更新数据时保留旧数据，并标上时间段；新增 1.1「数据变化对照（从前 → 现在）」，文档第二行写
+    了这条规则。
+
+  ● 新增：给女友买黑色连衣裙 ¥100 和送礼偏好；有大部分外网账号（如谷歌账号）；只去过广东、广西。
+
+2026-10-14｜要求与原因记录
+
+  ●新增附录F：把本人的每次要求、他说的原因、AI的推测（心理和审美）记在一起；以后每提一次要求就加一行。
+
+2026-10-14｜姓名和生日
+
+  ● 新增姓名和生日（6.1 节）；身份证号等证件号码仍不收录。
+
+2026-10-14｜资产和设备
+
+  ● 新增「资产」：国金证券账户 ¥1,016.96（标普 500 ETF + 纳指 ETF）、支付宝小荷包 ¥300；旧数据放在对照
+    表「从前」里。
+
+  ● 新增设备：iPhone 16 Pro Max、Mac mini。
+
+2026-10-14｜重新排版和分模块
+
+  ● 本人要求不拆分，只在同一份文档里重排；旧数据全部保留，只是搬了位置。
+
+  ● 变更前 → 变更后：1.4 变更记录 → 7.4；1.5 工作指令 → 7.1；1.6 隐私与准确性 → 7.2；附录 F 要求与原因
+    记录 → 7.3；2.1 的征信、流水、银行卡核对和 2.2 的交易所账单核对 → 附录 F–I；模块一改名为「总览」，新
+    增「模块七｜规则与记录」。
+
+个人全景数字分身｜主档案 · 2026-10-14                                            第 21 页
+2026-10-17｜网贷与消费分期月供
+
+  ● 本人确认合计约 ¥1,200/月；替代旧主档案中的约 ¥1,400/月当前口径。
+
+2026-10-17｜纠错
+
+  ● 助手曾误写 ¥3,200/月，已撤销；不保留为本人数据。
+
+2026-10-17｜现金
+
+  ● 本人确认目前准备了 ¥1,000；说明其不足以覆盖网贷及消费分期月供。与 2026-10-14 小荷包 ¥300
+    是否重叠待确认，暂不相加。
+
+2026-10-17｜生活费
+
+  ● 本人说明目前日常生活主要依靠京东白条。
+
+2026-10-17｜工资
+
+  ● 本人说明工资通常每月 1 号左右发放；金额沿用固定工资约 ¥6,500/月。
+
+2026-10-17｜融资租赁
+
+  ● 2026-10-25 约 ¥2,473.50 的处理方案仍未确定。
+
+2026-10-17｜手机
+
+  ● 本人确认 iPhone 18 Pro Max ¥10,999 是计划出售的手机；等待发货后再尝试出售，款项尚未到账
+    ；若仍有缺口，再考虑借款。
+2026-10-12｜当前状态更新（来自主档案 v3）
+
+  ● 确认仍在原工厂上班；月实际到手约 ¥6,500–9,000；首要目标是摆脱高强度工作、争取时间自由。
+
+  ● 总负债：约 ¥20,000 → 约 ¥15,000（本人最新更正）。
+
+  ● 月结余：本人说明「没剩，还欠」。
+
+2026-10-11｜迁移版快照
+
+  ● 曾记录每月必要开支后剩余约 ¥500–1,500、应急储备不足一个月；其中「剩余」一项已被 10-12 的说法取代。
+
+  ● 年终奖约 ¥20,000 仍只是预期，未兑现。
+
+2026-10-10｜AI 交接完整版 v2.0
+
+  ● 提供背景、历史工作、历史财务、交易、IP、海外探索等细节基线。
+
+本次合并的处理方式
+
+  ● 冲突一律以最新明确说明为准，旧值保留在上述记录中。
+
+  ● 牙科费用已付清，不再列为债务；S&amp;P 500 ETF 按纠正后的约 ¥1,000 记录；收入曾为 ¥6,500 与 ¥9,000 并存
+    ，合并时采用区间（后已按本人说明改为工资 ¥6,500）。
+
+  ● 三份文件重复内容已去重、压缩措辞，未新增事实；原始文件建议保留作参考。
+
+后续核对原则（2026-10-17）
+
+  ● 接下来逐项核实，不一次提出多个问题。优先顺序：1）到期账单及是否已支付；2）手机实际发货、成
+    交和到账情况；3）各债务实时余额、最低应还与到期日；4）可用于生活的真实现金。每次有新信息，
+    继续保留旧记录并新增日期化变更条目。</div>
+          <h5 class="doc-sub" id="doc-m7-6">核对记录（2026-10-18，用户与 AI 共同核对）</h5>
+          <div class="doc-body">1. 10-25 融资租赁 ¥2,473.50（2026-10-18）：暂无确定方案，用户考虑①网贷能借则借出先还 ②借不出则逾期约5天并与客服沟通；用户表示"决定权不在我""现在先不管25号"。手机最晚 2026-10-30 发货，赶不上 10-25。
+2. 网贷还款日（2026-10-18）：多个不同平台，还款日分散在每月 10 几号到 25 号；用户当天再看，不提前登记。以后不再追问单一还款日。
+3. 开支 ¥2,372 缺口（2026-10-18）：已解释。用户说明是找别人借又还给别人，银行流水一进一出虚高；实际开支以用户自己的表约 ¥7,128/月为准，不再用 ¥9,500 当开支基数。
+4. 公司每月多发 ~¥800（2026-10-18）：永久关闭。用户明确：这是平均数里含去年奖金；没拿到的钱一律不算；就算拿到了也只是附条件（干到年底才有），"如果我今天跑路了，我一分钱拿不到，只有工资拿"。规划收入永远只认 ¥6,500 工资，以后不再提这一茬。
+5. 收钱码每月 ~¥1,600（2026-10-18）：相互借钱周转来的，不是收入，一律不算。
+6. 支付宝小荷包 ¥300（2026-10-18）：不算在手头 ¥1,000 现金里；用户有考虑动用。
+7. iPhone 18 Pro Max（2026-10-18）：最晚 2026-10-30 发货；售价按市场价，用户说了不算；预计至少亏 ¥300。卖出到账前不算钱。
+
+以上 7 项经用户本人逐条确认。</div>
+          <h4 class="doc-module" id="doc-appx">附录｜核对记录与流水明细（2025-10 至 2026-10）</h4>
+          <nav class="doc-nav sub" aria-label="附录小节导航"><a href="#doc-a">附录 A｜公司到账明细</a><a href="#doc-b">附录 B｜其他入账</a><a href="#doc-c">附录 C｜借入与还款日历</a><a href="#doc-d">附录 D｜月度花销表</a><a href="#doc-e">附录 E｜一次性大额事项</a><a href="#doc-f">附录 F｜征信报告核对</a><a href="#doc-g">附录 G｜支付宝与微信流水核对</a><a href="#doc-h">附录 H｜银行卡流水核对</a><a href="#doc-i">附录 I｜交易所账单核对</a><a href="#doc-j">附录 J｜新增核对记录（2026-10-15）</a></nav>
+          <div class="doc-body">个人全景数字分身｜主档案 · 2026-10-14                                            第 22 页
+</div>
+          <h5 class="doc-sub" id="doc-a">附录 A｜公司每月到账明细（微信，净额）</h5>
+<div class="doc-table-wrap dense"><table class="doc-table">
+<colgroup><col style="width:15%" /><col style="width:18%" /><col style="width:67%" /></colgroup>
+<thead><tr><th>月份</th><th>净收到（¥）</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>2025-10</td><td class="num">16,716</td><td>10-30 一笔 16,500（二维码收款）</td></tr>
+<tr><td>2025-11</td><td class="num">6,681</td><td>11-28 工资 6,500</td></tr>
+<tr><td>2025-12</td><td class="num">7,534</td><td>12-30 工资 6,500</td></tr>
+<tr><td>2026-01</td><td class="num">520</td><td>当月收到约 3,020（01-30 一笔 1,500），转回约 2,500</td></tr>
+<tr><td>2026-02</td><td class="num">23,893</td><td>02-14 转账 20,000 + 二维码 3,250；02-13 收 5,000 又转回 5,000</td></tr>
+<tr><td>2026-03</td><td class="num">6,552</td><td>03-31 工资 6,500</td></tr>
+<tr><td>2026-04</td><td class="num">6,518</td><td>04-29 工资 6,500</td></tr>
+<tr><td>2026-05</td><td class="num">6,500</td><td>05-29 工资 6,500</td></tr>
+<tr><td>2026-06</td><td class="num">6,500</td><td>06-30 工资 6,500</td></tr>
+<tr><td>2026-07</td><td class="num">6,427</td><td>07-29 工资 6,500</td></tr>
+<tr><td>2026-08</td><td class="num">14,123</td><td>08-20 10,000；08-29 4,123</td></tr>
+<tr><td>2026-09</td><td class="num">5,238</td><td>09-28 转账 5,208</td></tr>
+<tr class="total"><td>合计</td><td class="num">约 107,202</td><td>月均约 8,933；扣除 2 月 20,000 后月均约 7,267；10 月的还没到</td></tr>
+</tbody>
+</table></div>
+
+          <h5 class="doc-sub" id="doc-b">附录 B｜其他入账（非工资）</h5>
+<div class="doc-table-wrap dense"><table class="doc-table">
+<colgroup><col style="width:17%" /><col style="width:18%" /><col style="width:65%" /></colgroup>
+<thead><tr><th>日期</th><th>金额（¥）</th><th>来源 / 说明</th></tr></thead>
+<tbody>
+<tr><td>2026-08-22</td><td class="num">6,000</td><td>平安财产保险汇入，事由未说明</td></tr>
+<tr><td>2026-09-02</td><td class="num">9,503.68</td><td>平安财产保险汇入，事由未说明</td></tr>
+<tr><td>2025-10-18</td><td class="num">4,200</td><td>微信「牛牛」，本人说明不是借款</td></tr>
+<tr><td>2026-01-30</td><td class="num">5,050</td><td>微信「牛牛」，本人说明不是借款</td></tr>
+<tr><td>2026-08-09</td><td class="num">3,000</td><td>「小宇」，借款</td></tr>
+<tr><td>2026-10-06</td><td class="num">2,000</td><td>「小宇」，借款</td></tr>
+<tr class="total"><td>全年</td><td class="num">约 19,500</td><td>「收钱码收款」来自个人（支付宝两个号约 17,300、微信约 2,200），来源未说明</td></tr>
+</tbody>
+</table></div>
+<div class="doc-body">
+  ● 与「林志豪」2026-06 至 09 互转：收到 ¥2,200（06-29 200、08-23 1,000、09-19 1,000），转出 ¥2,200
+      （07-01 200、08-24 1,000、09-28 1,000），基本相抵。
+
+个人全景数字分身｜主档案 · 2026-10-14                                                               第 23 页
+</div>
+          <h5 class="doc-sub" id="doc-c">附录 C｜借入与还款日历</h5>
+<div class="doc-table-wrap dense"><table class="doc-table">
+<colgroup><col style="width:21%" /><col style="width:20%" /><col style="width:11%" /><col style="width:48%" /></colgroup>
+<thead><tr><th>债务</th><th>金额 / 月供</th><th>还款日</th><th>起止与余额</th></tr></thead>
+<tbody>
+<tr><td>小米消费金融</td><td>17,000；每期 1,416.67</td><td>约月底</td><td>2025-11-28 起 12 期，2026-09-03 一次扣 2,833.30 结清，没看到利息</td></tr>
+<tr><td>融资租赁</td><td>29,682；每期 2,473.50</td><td>每月 25 日</td><td>2025-12-25 起，剩 2026-10-25、2026-11-25 两期，余额 4,947</td></tr>
+<tr><td>放心借（推测对应征信里的中信账户）</td><td>约 303</td><td>16 日</td><td>余额约 2,314（征信，2026-09）</td></tr>
+<tr><td>抖音月付（中融小贷）</td><td>约 305（9 月）</td><td>19 日</td><td>余额未知，不在征信账户列表</td></tr>
+<tr><td>花呗</td><td>约 198（9 月）</td><td>19 日</td><td>与征信蚂蚁账户余额 152 对不上，待查</td></tr>
+<tr><td>招联</td><td>约 114</td><td>19 日</td><td>余额约 930（征信）</td></tr>
+<tr><td>微信分付</td><td>约 100</td><td>20 日</td><td>余额未知</td></tr>
+<tr><td>借呗</td><td>约 366</td><td>21 日</td><td>余额未知</td></tr>
+<tr><td>京东白条/金条</td><td>10–247 不等</td><td>11 日</td><td>余额未知</td></tr>
+<tr><td>中邮消费金融</td><td>月供未知</td><td>未知</td><td>余额约 1,504（征信）</td></tr>
+<tr><td>平安消费金融</td><td>月供未知</td><td>未知</td><td>余额约 784（征信）</td></tr>
+<tr><td>马上消费金融</td><td>无</td><td>—</td><td>余额 0，额度 7,100</td></tr>
+</tbody>
+</table></div>
+<div class="doc-body">
+  ● 新借入明细（不含小米 17,000）：
+</div>
+<div class="doc-table-wrap"><table class="doc-table">
+<colgroup><col style="width:20%" /><col style="width:23%" /><col style="width:57%" /></colgroup>
+<thead><tr><th>新借入日期</th><th>金额（¥）</th><th>渠道</th></tr></thead>
+<tbody>
+<tr><td>2025-10-26</td><td class="num">500 + 1,540</td><td>借呗</td></tr>
+<tr><td>2026-01-29</td><td class="num">1,500</td><td>中信（放心借）</td></tr>
+<tr><td>2026-04-23</td><td class="num">1,000</td><td>借呗</td></tr>
+<tr><td>2026-05-16</td><td class="num">3,000</td><td>中信（放心借）</td></tr>
+<tr><td>2026-06-13</td><td class="num">1,200</td><td>招联</td></tr>
+<tr><td>2026-06-24</td><td class="num">934</td><td>借呗</td></tr>
+<tr><td>2026-07-05</td><td class="num">518</td><td>花呗备用金</td></tr>
+<tr><td>2026-07-24</td><td class="num">557 + 300</td><td>备用金 + 中信</td></tr>
+<tr class="total"><td>合计</td><td class="num">约 11,049</td><td>不含小米 17,000</td></tr>
+</tbody>
+</table></div>
+<div class="doc-body">
+个人全景数字分身｜主档案 · 2026-10-14                                                                   第 24 页
+</div>
+          <h5 class="doc-sub" id="doc-d">附录 D｜月度花销表（微信 + 支付宝，不含还款，单位 ¥）</h5>
+<div class="doc-table-wrap dense"><table class="doc-table">
+<colgroup><col style="width:20%" /><col style="width:14%" /><col style="width:12%" /><col style="width:14%" /><col style="width:14%" /><col style="width:12%" /><col style="width:14%" /></colgroup>
+<thead><tr><th>月份</th><th class="num">日常消费</th><th class="num">油费</th><th class="num">房租电费</th><th class="num">给家里</th><th class="num">父亲</th><th class="num">女友</th></tr></thead>
+<tbody>
+<tr><td>2025-10（10-14 起）</td><td class="num">3,066</td><td class="num">0</td><td class="num">0</td><td class="num">2,000</td><td class="num">70</td><td class="num">0</td></tr>
+<tr><td>2025-11</td><td class="num">4,222</td><td class="num">0</td><td class="num">0</td><td class="num">1,801</td><td class="num">200</td><td class="num">0</td></tr>
+<tr><td>2025-12</td><td class="num">3,682</td><td class="num">194</td><td class="num">0</td><td class="num">2,000</td><td class="num">160</td><td class="num">0</td></tr>
+<tr><td>2026-01</td><td class="num">3,225</td><td class="num">143</td><td class="num">0</td><td class="num">2,000</td><td class="num">100</td><td class="num">0</td></tr>
+<tr><td>2026-02</td><td class="num">3,733</td><td class="num">739</td><td class="num">0</td><td class="num">0</td><td class="num">150</td><td class="num">0</td></tr>
+<tr><td>2026-03</td><td class="num">5,889</td><td class="num">239</td><td class="num">0</td><td class="num">2,000</td><td class="num">350</td><td class="num">0</td></tr>
+<tr><td>2026-04</td><td class="num">3,356</td><td class="num">307</td><td class="num">0</td><td class="num">2,000</td><td class="num">0</td><td class="num">0</td></tr>
+<tr><td>2026-05</td><td class="num">3,153</td><td class="num">370</td><td class="num">0</td><td class="num">2,000</td><td class="num">150</td><td class="num">0</td></tr>
+<tr><td>2026-06</td><td class="num">2,767</td><td class="num">430</td><td class="num">0</td><td class="num">2,000</td><td class="num">150</td><td class="num">0</td></tr>
+<tr><td>2026-07</td><td class="num">4,472</td><td class="num">697</td><td class="num">2,930</td><td class="num">3,000</td><td class="num">150</td><td class="num">472</td></tr>
+<tr><td>2026-08</td><td class="num">3,575</td><td class="num">113</td><td class="num">2,585</td><td class="num">2,000</td><td class="num">20</td><td class="num">3,223</td></tr>
+<tr><td>2026-09</td><td class="num">2,668</td><td class="num">123</td><td class="num">1,720</td><td class="num">1,500</td><td class="num">300</td><td class="num">699</td></tr>
+</tbody>
+</table></div>
+<div class="doc-body">
+  ● 说明：房租电费 7 月以前在流水里看不到；2026-07 给家里含一笔被退回的 ¥2,000；2026-02 没有给家里的转
+      账记录；女友栏只统计转账，不含她来时的餐饮开销。
+
+</div>
+          <h5 class="doc-sub" id="doc-e">附录 E｜一次性大额事项</h5>
+<div class="doc-table-wrap dense"><table class="doc-table">
+<colgroup><col style="width:22%" /><col style="width:20%" /><col style="width:58%" /></colgroup>
+<thead><tr><th>日期</th><th>金额（¥）</th><th>事项</th></tr></thead>
+<tbody>
+<tr><td>2025-10-26</td><td class="num">2,000</td><td>口腔门诊</td></tr>
+<tr><td>2025-11-22</td><td class="num">500</td><td>摩托车店</td></tr>
+<tr><td>2025-11-24</td><td class="num">3,652</td><td>头盔</td></tr>
+<tr><td>2025-11-28</td><td class="num">4,298</td><td>摩托车店</td></tr>
+<tr><td>2025-11-30</td><td class="num">2,918.58</td><td>缴税（肇庆市税务局）</td></tr>
+<tr><td>2026-07-08</td><td class="num">2,800</td><td>长租公寓物业（房租）</td></tr>
+<tr><td>2026-08-23</td><td class="num">6,000</td><td>医院</td></tr>
+<tr><td>2026-08-31</td><td class="num">1,000</td><td>农行转入国金证券账户</td></tr>
+<tr><td>2026-09-05</td><td class="num">3,380</td><td>摩托车相关店铺</td></tr>
+<tr><td>2025-12 至 2026-09</td><td class="num">约 1,350</td><td>纹身相关（2 笔转账共 700 + 商户 650）</td></tr>
+</tbody>
+</table></div>
+<div class="doc-body">
+个人全景数字分身｜主档案 · 2026-10-14                                                       第 25 页
+</div>
+          <h5 class="doc-sub" id="doc-f">附录 F｜征信报告核对（报告时间 2026-10-12 18:01，数据截至 2026-09）</h5>
+<div class="doc-table-wrap dense"><table class="doc-table">
+<colgroup><col style="width:20%" /><col style="width:18%" /><col style="width:14%" /><col style="width:14%" /><col style="width:34%" /></colgroup>
+<thead><tr><th>机构 / 业务</th><th>开立或发放</th><th class="num">额度 / 金额（¥）</th><th class="num">余额（¥）</th><th>备注</th></tr></thead>
+<tbody>
+<tr><td>重庆蚂蚁消费金融</td><td>2023-12</td><td class="num">额度 200</td><td class="num">152</td><td>无逾期；额度到 2026-12-20</td></tr>
+<tr><td>中邮消费金融</td><td>2024-03</td><td class="num">额度 1,840</td><td class="num">1,504</td><td>无逾期；额度到 2027-03-20</td></tr>
+<tr><td>马上消费金融</td><td>2024-12</td><td class="num">额度 7,100</td><td class="num">0</td><td>无逾期；额度到 2029-03-22</td></tr>
+<tr><td>招联消费金融</td><td>2024-12</td><td class="num">额度 1,200</td><td class="num">930</td><td>无逾期；额度到 2027-09-04</td></tr>
+<tr><td>中信银行重庆分行互联网贷款平台</td><td>2026-01</td><td class="num">额度 3,000</td><td class="num">2,314</td><td>无逾期；额度到 2036-01-29</td></tr>
+<tr><td>平安消费金融</td><td>2026-06</td><td class="num">额度 1,000</td><td class="num">784</td><td>无逾期；额度到 2031-05-30</td></tr>
+<tr><td>重庆小米消费金融</td><td>2025-11</td><td class="num">发放 17,000</td><td class="num">已结清</td><td>2026-09 结清</td></tr>
+<tr><td>浙江智慧普华融资租赁（融资租赁）</td><td>2025-11-28</td><td class="num">29,682</td><td class="num">4,947</td><td>2026-11-25 到期；无逾期；与摩托车车贷吻合</td></tr>
+<tr class="total"><td>合计（未结清）</td><td></td><td></td><td class="num">约 10,631</td><td>网络贷款约 5,684 + 融资租赁约 4,947</td></tr>
+</tbody>
+</table></div>
+<div class="doc-body">
+  ● 核对结果：网络贷款余额合计约 ¥5,684，与本人说的约 ¥5,000 基本吻合；蚂蚁（花呗）额度 ¥200 与此前记
+    录一致。（2026-10-14）
+
+  ● 车贷实际是融资租赁：总额 ¥29,682，12 个月，每月约 ¥2,474（29,682÷12），余额 ¥4,947 正好是 2 期，
+    到期日 2026-11-25；此前记的月供约 ¥2,500 以 ¥2,474 为准。
+
+  ● 所有账户从未逾期；报告里没有信用卡，没有公共记录。（2026-10-14）
+
+  ● 小米消费金融 ¥17,000（2025-11 发放）已在 2026-09 结清，此前档案没有这笔；结清资金的来源待确认。
+
+  ● 查询记录近 2 年共 70 条；2026 年 6 月下旬以来有 7 次贷款/信用卡审批查询（6-26、7-14、7-26、8-3、
+    8-12、8-26、9-14），这些查询的机构在报告里都没有对应的账户。
+
+  ● 报告里没有欠朋友的钱，也还没有 10 月才买的手机分期。（2026-10-14）
+
+  ● 报告中的姓名、证件号码未收录，原 PDF 请自行保管。（2026-10-14）
+
+个人全景数字分身｜主档案 · 2026-10-14                                                           第 26 页
+</div>
+          <h5 class="doc-sub" id="doc-g">附录 G｜支付宝与微信流水核对（2025-10-13 至 2026-10-12/13，本人
+2026-10-13 提供）</h5>
+          <div class="doc-body">  ● 范围：支付宝 388 笔、微信 1,951 笔。姓名、账号、手机号和对方真实姓名、地址均未收录。
+
+  ● 工资：公司每月 ¥6,500 通过二维码收款发放，多在每月 28–31 日到账，2025-11、2025-12、2026-03 至 07
+    月均为 ¥6,500；2025-10 为 ¥16,500，2026-08 共 ¥14,123（10,000 + 4,123），2026-09 为 ¥5,208，
+    2026-10 的还没到。
+
+  ● 实际收入：过去 12 个月从公司/老板收到的钱净额合计约 ¥107,000，月均约 ¥8,900；其中 2026-02-14 一笔
+    ¥20,000 转账，时间在除夕（2026-02-16）前 2 天，与「年终奖约 2 万」吻合；扣除这笔月均约 ¥7,300，比
+    固定工资高约 ¥800。其中可能含垫付款、报销或借支往来，来源待确认。
+
+  ● 给家里：每月约 ¥2,000 转给同一个微信联系人，2025-10 至 2026-09 共 12 笔、合计约 ¥22,500（2026-07
+    一笔被退回，2026-09 为 ¥1,500）；另有一个联系人每月 ¥20–350 的小额转账，月均约 ¥150，与「父亲约
+    ¥100–200/月」吻合（待确认）。
+
+  ● 房租：长租公寓月账单约 ¥1,430–1,460（2026-08、09、10 月各一笔），电费另充值，每次 ¥130–260，8、
+    9 月各 2 次。
+
+  ● 油费：微信 46 笔约 ¥3,033 + 支付宝 5 笔约 ¥387；2025-12 至 2026-09 月均约 ¥330（2、7 月较高，约
+    ¥700–740）。
+
+  ● 烟：微信里「林发食堂（超市）」338 笔、合计约 ¥7,158，约 ¥600/月，与本人说的烟每月 ¥600 相符；商品
+    明细看不出买了什么，不能确认。（2026-10-14）
+
+  ● 订阅和话费：汽水音乐 ¥8 按月扣；微信中国移动话费自动充值 ¥30/月，另有几张卡不定期充值 ¥30–100。（2026-10-14）
+
+  ● 女友：2026 年 7 月以来支付宝转给备注「然」的对方共约 ¥4,500（7 月 200、8 月 3,100、9 月约 900、10
+    月 299），疑似女友，待确认；微信另有少量往来。
+
+  ● 网贷月还款（只统计支付宝里看得到的）：借呗约 ¥366/月，花呗账单 ¥100–720 不等，招联约 ¥114，抖音
+    月付（中融小贷）7 月 ¥130、8 月 ¥194、9 月 ¥305，逐月在涨；9 月支付宝里看到的合计约 ¥870–990；加
+    上银行卡里的还款，完整合计约 ¥1,400，见下面「银行卡流水核对」。（2026-10-14）
+
+  ● 反复小额借款：借呗/备用金 2025-10 至 2026-07 共放款 6 笔、合计约 ¥5,049（2025-10-26 两笔 500、
+    1,540；2026-04-23 1,000；06-24 934；07-05 518；07-24 557）。
+
+  ● 抖音月付（中融小贷）不在征信的账户列表里，但查询记录里多次出现，余额未知，可能不在上面的约 ¥5,684
+    之内。（2026-10-14）
+
+  ● 朋友往来：微信好友「牛牛」转入 ¥4,200（2025-10-18）和 ¥5,050（2026-01-30），合计 ¥9,200，本人
+    2026-10-13 说明不是借款，之前据此推算欠朋友约 ¥9,400，后来本人列出的实际是 ¥9,066；好友「小宇」
+    2026-08-09 转入 ¥3,000、2026-10-06 转入 ¥2,000，本人说明是借款，欠 ¥5,000。另一个名为「X」的联系
+    人是本人的第二个微信号（本人 2026-10-13 确认账户都是自己的），2026-02 那一轮 ¥18,500 的往来是自己
+    转自己，不是借款。
+
+  ● 一次性大额：2025-10-26 口腔门诊 ¥2,000；2025-11-22 和 11-28 摩托车店 ¥500 + ¥4,298；2025-11-24 头
+    盔 ¥3,652；2025-11-30 缴税 ¥2,918.58；2026-08-23 医院 ¥6,000；2026-09-05 摩托车相关店铺 ¥3,380。
+    用途本人没说明的，不作判断。
+
+  ● 支付宝里 126 笔「不计收支」合计约 ¥46.9 万，绝大多数是已关闭的订单（苹果手机和摩托车），不是实际支
+    出。（2026-10-14）
+
+个人全景数字分身｜主档案 · 2026-10-14                                                              第 27 页
+</div>
+          <h5 class="doc-sub" id="doc-h">附录 H｜银行卡流水核对（农业银行、招商银行，2025-10 至 2026-10，本人
+2026-10-13 提供）</h5>
+          <div class="doc-body">  ● 确认：本人 2026-10-13 说明支付宝、微信、农行卡、招行卡都是本人的，几个账户之间的转账是自己转自己。
+    卡号未收录。
+
+  ● 融资租赁：每月 25 日左右从农行扣 ¥2,473.50，2025-12 至 2026-09 已扣 10 期，还剩 2 期（2026-10-25、
+    2026-11-25），与征信余额 ¥4,947 完全吻合。
+
+  ● 小米消费金融 ¥17,000：12 期、每期 ¥1,416.67（12 期合计 ¥17,000，没看到利息），从招行扣，最后一次
+    2026-09-03 一次扣 ¥2,833.30，已还清；10 月起少了这笔每月 ¥1,417 的支出。
+
+  ● 其他网贷月还款（2026-09）：放心借 ¥303（16 日）、抖音月付 ¥305（19 日）、借呗 ¥366（21 日）、花
+    呗 ¥198（19 日）、招联 ¥114（19 日）、微信分付 ¥100（20 日），合计约 ¥1,400/月；京东白条每月
+    ¥10–247 不等（10-11 还了 ¥247）。
+
+  ● 抖音月付（中融小贷）、微信分付、京东白条/金条不在征信账户列表里，余额未知；借呗和花呗每月还款
+    ¥366 + ¥198，与征信里蚂蚁账户余额 ¥152 对不上，实际余额待查。（2026-10-14）
+
+  ● 新借入：中信（放心借）2026-01-29 ¥1,500、2026-05-16 ¥3,000；招联 2026-06-13 ¥1,200；借呗/备用金
+    6 笔共约 ¥5,049。
+
+  ● 平安财险汇入：2026-08-22 ¥6,000、2026-09-02 ¥9,503.68，合计 ¥15,503.68，事由本人没说明，属一次性
+    入账，不是工资。
+
+  ● 现金：招行卡 2026-10-11 余额 ¥0（朝朝宝也已清空），农行卡 2026-10-01 余额 ¥6.70，与「手头没钱」一
+    致；工资等收入到账后基本当天花完或转出。
+
+  ● 其他：2026-08-31 农行向国金证券账户转入 ¥1,000（证券账户现状待确认）；2025-11-30 招行缴税
+    ¥2,918.58（肇庆市税务局）；2026-09-05 招行转给个人 ¥3,380，微信里对应摩托车分期店，2025-11-24 头
+    盔 ¥3,652。
+
+个人全景数字分身｜主档案 · 2026-10-14                                                   第 28 页
+</div>
+          <h5 class="doc-sub" id="doc-i">附录 I｜交易所账单核对（2023-10-09 至 2026-07-10，本人 2026-10-12 提供）</h5>
+          <div class="doc-body">  ● 范围：共 10,541 条记录（合约 7,228、现货 3,174、划转 139）；最后一条是 2026-07-10 10:57，之后没有
+    记录。交易所账户编号未收录。
+
+  ● 合约整体（仅 USDT 永续合约，未含现货；金额为美元）：已实现盈亏约 +1,747，手续费约 906，资金费约
+    317，净约 +525。（2026-10-14）
+
+  ● 分年度净额：2023 年（10–12 月）约 +2,572；2024 年约 962；2025 年约 605；2026 年（至 7-10）约
+    480。2024 年以来合计约 2,047（按 1 美元≈6.8 元粗算约 ¥1.4 万），盈利基本都出在 2023 年底。
+
+  ● 2025–2026 年按「平多/平空」记录统计的平仓 220 笔：盈利 64 笔（约 29%），平均盈 18.4、平均亏 14.5
+    ，盈亏比约 1.26，盈利因子约 0.52。胜率 29% 时盈亏比要超过约 2.4 才不亏，目前期望为负。2026 年 92 笔
+    中 29 笔盈利，净 445，其中 ORDI 20 笔净 205、BTC 44 笔净 88。
+
+  ● BTC 合约 2025–2026 年平仓 65 笔，约 26% 盈利，净约 240。
+
+  ● 手续费：合约约 906 + 现货约 239，合计约 1,145 美元；仅 2025 年合约 669 + 现货 184 ≈ 853，超过当年
+    合约已实现盈亏（约 +85）。
+
+  ● 强平：共 7 次强平、1 次穿仓代偿、2 次自动追加保证金；强平亏损合计约 782，最大两笔在 2024-04-13（
+    ETHFI 约 318、JUP 约 319）；最近一次强平在 2025-04-11，之后到 2026-07-10 没有强平。
+
+  ● 仓位大小：BTC、ETH 合约多数开仓的名义价值约为账户 USDT 余额的 0.5–1.1 倍（中位约 0.52）；
+    2026-07-08 最后一笔 BTC 空单名义价值约 961，当时余额约 324，约 3 倍。
+
+  ● 资金划转：转出 84 次、转入 45 次；USDT 转入约 35,492、转出约 36,723，净转出约 1,232。2026-06-29、
+    07-08、07-10 连续三次转出共约 1,132 USDT，账户 USDT 余额降到约 0.5。
+
+  ●账户现状（以账单为准）：USDT约0.5；账单曾显示另有ADA、ETHFI、STRK余额（最后记录分别在2025-09、
+    2025-10、2025-07，约 741、245、1,264 个），按当时价格约 1,180 美元；本人 2026-10-12 说明这些币已
+    经没有了，交易所里没有钱了。
+
+  ● 局限：现货盈亏没有算（部分币种单位和价格数据不统一，估算不可靠）；账单不含保证金和止损单信息，只能
+    间接核对规则。（2026-10-14）
+
+  ● 与档案原有内容的核对：「约 4 年交易经验」——账单最早 2023-10-09，可能只导出了部分时间，不矛盾；「
+    BTC 交易系统不够成熟」——与账单一致；「约 ¥5,000 作 BTC 试验资金」——交易账户目前近乎为空，如重新
+    入金，按上面的风险规则视为可完全损失的试验金，不得动用还款和生活资金。
+
+
+</div>
+          <h5 class="doc-sub" id="doc-j">附录 J｜新增核对记录（2026-10-15｜来自后续对话，不覆盖历史记录）</h5>
+          <div class="doc-body">iPhone 18 Pro Max
+本人于 2026-10-15 确认：当前未到货、未出售。出售前，预期卖款不计入可用现金。
+
+本月网贷月供
+档案原记录约 ¥1,400；截至 2026-10-15，用户确认具体金额及还款状态不确定。不得直接标记为已还或逾
+期，待账单/支付记录核实。
+
+融资租赁月供
+档案记录 ¥2,473.50，预计 2026-10-25 到期；截至 2026-10-15 用户确认尚未还款，且尚未联系机构询问延
+期。
+
+当前可用现金
+用户于本轮对话确认：截至 2026-10-15，当前可用现金 ¥0。
+
+本月工资
+用户确认本月工资已到账并花完；具体支出用途暂时说不清，记为多种用途混合、待核实。
+
+下一笔收入
+用户确认下一笔收入在 2026-10-25 之后到账；具体日期与金额待核实。
+
+其他资金来源
+用户确认没有其他可动用资金来源。
+
+当前处理优先级
+先联系融资租赁机构，核实到期金额、延期/调整还款日的正式流程、费用和后果；在机构明确确认前，不将延
+期视为已获批。
+说明：以上新增记录是本次重新排版时附加的后续核对信息，不替代、不覆盖原 PDF 中的历史数据。
+
+个人全景数字分身｜主档案 · 2026-10-14                                                   第 29 页</div>
+        
+          <h3 class="doc-part doc-part-main" id="part-2">第二部分｜交易系统定稿</h3>
+          <p class="doc-date">用户定稿 · 2026-10-17</p>
+          <p class="doc-date"><strong>说明：</strong>用户当前执行的系统是本部分 2026-10-17 定稿（轻仓、顺势、止损；多市场：BTC、外汇、黄金、ETF、纳指、标普 500；多市场交易等去香港开户后再进行）。主档案财务模块里的《天命》交易系统规范 v2.6 是被本系统取代的旧系统，用户 2026-10-17 已确认废弃、不再使用，仅按主档案更新规则保留为历史记录。</p>
+          <nav class="doc-nav sub" aria-label="交易系统小节导航"><a href="#doc-p2-0">定稿与理念</a><a href="#doc-p2-1">1 只做 BTC（已更正）</a><a href="#doc-p2-2">2 轻仓</a><a href="#doc-p2-3">3 顺势</a><a href="#doc-p2-4">4 止损</a><a href="#doc-p2-5">5 止盈</a><a href="#doc-p2-6">6 持仓时间</a><a href="#doc-p2-7">7 资金隔离</a><a href="#doc-p2-8">8 少做</a></nav>
+          <h5 class="doc-sub" id="doc-p2-0">交易系统（用户定稿 2026-10-17）</h5>
+          <div class="doc-body">理念：轻仓，顺势，止损。盈利单绝不变成亏损单。尽量少做，多做多错。交易是概率游戏。
+</div>
+          <h5 class="doc-sub" id="doc-p2-1">1.   只做 BTC</h5>
+          <div class="doc-body">     只做 BTC-USDT，不做其他币。
+【用户更正 · 2026-10-17 晚】第 1 条已更正，以更正为准：不只做 BTC，也做外汇、黄金、ETF、纳指、标普 500 等多市场；多市场交易等去香港开户后再进行。
+</div>
+          <h5 class="doc-sub" id="doc-p2-2">2.   轻仓</h5>
+          <div class="doc-body">     单笔保证金 = 总资金的 10%，5 倍杠杆后名义 50%。
+     拿 10000 打比方：保证金 1000，名义 5000。
+     一笔亏多少算轻：亏总资金的 1% 叫轻，亏 5% 就不叫轻了。
+</div>
+          <h5 class="doc-sub" id="doc-p2-3">3.   顺势（突破支撑 / 阻力）</h5>
+          <div class="doc-body">     入场不是“跌久了就做多”，是跌破 / 突破支撑阻力才做。
+     做多：价格涨超以前的阻力位 → 试着做多。
+     做空：价格跌破以前的支撑位 → 试着做空。
+     周线定方向，日线找进场：周线看大方向，日线等突破支撑 / 阻力那一下才进。
+     看不懂就不做。没波动、不确定就不做，有波动才能判断。
+</div>
+          <h5 class="doc-sub" id="doc-p2-4">4.   止损</h5>
+          <div class="doc-body">     硬止损：价格逆势 2% 就止损，单笔亏 = 总资金的 1%。
+     进场就绑定止损，不扩宽、不硬扛。
+</div>
+          <h5 class="doc-sub" id="doc-p2-5">5.   止盈（盈利单绝不变成亏损单）</h5>
+          <div class="doc-body">     盈利到 2%（1 倍止损）：止损移到入场价，保本，这笔最多不亏。
+     盈利到 4%（2 倍止损）：平一半，落袋一半。
+     剩下一半：用移动止损跟着走，周线翻方向了就全出。
+</div>
+          <h5 class="doc-sub" id="doc-p2-6">6.   持仓时间</h5>
+          <div class="doc-body">     一笔最多拿 1 个月，到时间就出，不拿 6 个月。
+
+</div>
+          <h5 class="doc-sub" id="doc-p2-7">7.   资金隔离</h5>
+          <div class="doc-body">     交易资金跟还款 / 生活费 100% 隔离，亏完也不影响还债。
+     不用借来的钱、不用生活费、不用还款的钱交易。
+</div>
+          <h5 class="doc-sub" id="doc-p2-8">8.   少做</h5>
+          <div class="doc-body">     一年就做几笔看得懂的，不天天做。</div>
+          <h3 class="doc-part doc-part-main" id="part-3">第三部分｜动态规划思维：从终点倒推的逆向决策法</h3>
+          <p class="doc-date">逆向决策思维文档</p>
+          <nav class="doc-nav sub" aria-label="逆向决策小节导航"><a href="#doc-p3-1">一、核心概念与算法原理</a><a href="#doc-p3-1-1">1. 正向推演的困境</a><a href="#doc-p3-1-2">2. 动态规划的核心逻辑</a><a href="#doc-p3-1-3">3. 核心算法模型</a><a href="#doc-p3-2">二、逆向拆解模型</a><a href="#doc-p3-3">三、行动心法小结</a></nav>
+          <div class="doc-body">动态规划思维：从终点倒推的逆向决策法
+第一原则：任何人答应我的都不能算数，只有我自己给自己的才算真的有或者已经完成的。
+
+</div>
+          <h5 class="doc-sub" id="doc-p3-1">一、 核心概念与算法原理解析</h5>
+          
+          <h5 class="doc-sub" id="doc-p3-1-1">1. 正向推演的困境（为什么盲目向前走很累？）</h5>
+          <div class="doc-body">  ●​ 分支爆炸：在复杂场景中（如 24 步、每步 3 个选项），尝试所有可能路径需要比对近
+       279 亿条路径，根本算不完。
+  ●​ 局部最优陷阱：如果每一步只选择眼前看似最快/最好的路线（贪心算法），最终累积的
+       总耗时（如 74 分钟）往往远不是全局最优解。
+
+</div>
+          <h5 class="doc-sub" id="doc-p3-1-2">2. 动态规划的核心逻辑（逆向求解）</h5>
+          <div class="doc-body">  ●​ 思想来源：1950 年由数学家理查德·贝尔曼（Richard Bellman）提出。
+  ●​ 核心规律：无论怎么走到当前路口，从这个路口到终点的最优走法都是固定的。
+  ●​ 计算方式：从终点数值 0 开始倒着往前逐层推算，每一个节点只需记录"从这里到终点
+       最少需要多少代价"，并选择让 眼前的收获 + 之后的价值 最优的路径。
+  ●​ 效率提升：将原本接近 279 亿条路径的庞大计算，化简为仅需 724 次简单的加法计
+       算。
+
+</div>
+          <h5 class="doc-sub" id="doc-p3-1-3">3. 核心算法模型</h5>
+<div class="doc-table-wrap"><table class="doc-table">
+<colgroup><col style="width:24%" /><col style="width:76%" /></colgroup>
+<thead><tr><th>核心维度</th><th>决策公式与逻辑解释</th></tr></thead>
+<tbody>
+<tr><td>算法公式</td><td>现在的价值 = 眼前的收获 + 之后的价值</td></tr>
+<tr><td>核心机制</td><td>放弃眼前局部最优的诱惑，优先锁定能为全局终点带来最大复利积累的节点。</td></tr>
+</tbody>
+</table></div>
+<h5 class="doc-sub" id="doc-p3-2">二、 个人现实应用的"逆向拆解模型"</h5>
+          <div class="doc-body">当脚下的阻碍太多、感到焦虑迷茫时，别盯着脚下看，直接从最终要抵达的目标倒推：
+
+终点目标：摆脱高强度劳动，建立持续的个人系统与时间自主权
+ ●​ 倒推 阶段三（终点前一步）
+     ○​ 前置必要条件：能够自由选择工作或尝试新方向。
+     ○​ 关键指标：拥有 3–6 个月的生存应急缓冲金，且无任何消费类网贷/高息负债催
+        缴。
+ ●​ 倒推 阶段二（中期过渡）
+     ○​ 前置必要条件：债务规模持续缩减，现金流恢复健康。
+     ○​ 关键指标：变现闲置或分期资产优先清算网贷；固定开支严格控制；不增加新的
+        借贷。
+ ●​ 倒推 阶段一（当前脚下唯一动作）
+     ○​ 前置必要条件：保护基本盘与体力。
+     ○​ 关键指标：守住固定工资收入，不无准备裸辞；手机到货后第一时间卖掉清算网
+        贷；保证睡眠与健身恢复，不盲目同时开启多个副业或高风险交易。
+
+</div>
+          <h5 class="doc-sub" id="doc-p3-3">三、 行动心法小结</h5>
+          <div class="doc-body"> ●​ 想不清第一步怎么走的时候：先明确自己最终要抵达的目标，倒着往前推。
+ ●​ 拒绝盲目试错：不贪图眼前的短期快感，只做对终点有积累、对全局有价值的事。
+ ●​ 记录最优节点：把每一步的确定性拿到手，不把口头承诺和未到账的收入算作已有资
+   产。</div>
+          <h3 class="doc-part doc-part-main" id="part-4">第四部分｜多维逆向创新思维系统</h3>
+          <p class="doc-date">个人思维档案 · 第一版</p>
+          <nav class="doc-nav sub" aria-label="思维系统章节导航"><a href="#doc-p4-1">第一章｜起点</a><a href="#doc-p4-1-1">1.1 我的起点</a><a href="#doc-p4-1-2">1.2 我真正想研究的是什么</a><a href="#doc-p4-2">第二章｜触发原因</a><a href="#doc-p4-2-1">2.1 默认假设</a><a href="#doc-p4-2-2">2.2 跨领域联想</a><a href="#doc-p4-2-3">2.3 研究购买规则</a><a href="#doc-p4-2-4">2.4 直觉与表达</a><a href="#doc-p4-2-5">2.5 待确认的触发点</a><a href="#doc-p4-3">第三章｜理论基础</a><a href="#doc-p4-3-1">3.1 逆向思维</a><a href="#doc-p4-3-2">3.2 多维分析</a><a href="#doc-p4-3-3">3.3 第一性原理</a><a href="#doc-p4-3-4">3.4 横向思维</a><a href="#doc-p4-3-5">3.5 系统思维</a><a href="#doc-p4-3-6">3.6 创造性问题解决</a><a href="#doc-p4-4">第四章｜值得学习的人</a><a href="#doc-p4-4-1">4.1 德·博诺</a><a href="#doc-p4-4-2">4.2 查理·芒格</a><a href="#doc-p4-4-3">4.3 费曼</a><a href="#doc-p4-4-4">4.4 戴森</a><a href="#doc-p4-5">第五章｜用于生活</a><a href="#doc-p4-5-1">5.1 购物</a><a href="#doc-p4-5-2">5.2 工作</a><a href="#doc-p4-5-3">5.3 赚钱与商业</a><a href="#doc-p4-5-4">5.4 财务</a><a href="#doc-p4-5-5">5.5 学习</a><a href="#doc-p4-5-6">5.6 个人数字项目</a><a href="#doc-p4-6">第六章｜训练方法</a><a href="#doc-p4-6-1">6.1 六步思考法</a><a href="#doc-p4-6-2">6.2 每次训练记录什么</a><a href="#doc-p4-7">第七章｜判断进步</a><a href="#doc-p4-8">第八章｜可能出现的错误</a><a href="#doc-p4-8-1">8.1 刻意反着做</a><a href="#doc-p4-8-2">8.2 只看机会不看限制</a><a href="#doc-p4-8-3">8.3 想太多没行动</a><a href="#doc-p4-8-4">8.4 把巧合当规律</a><a href="#doc-p4-8-5">8.5 只找支持自己的证据</a><a href="#doc-p4-9">第九章｜知识库</a><a href="#doc-p4-10">第十章｜当前状态</a><a href="#doc-p4-end">最后｜属于你的地方</a></nav>
+          <div class="doc-body">多维逆向创新思维系统
+个人思维档案 · 第一版
+
+从一个突然产生的想法，到建立自己的思维体系
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-1">第一章：这套思维体系从哪里开始</h5>
+          
+          <h5 class="doc-sub" id="doc-p4-1-1">1.1 我的起点</h5>
+          <div class="doc-body">这套思维体系，起源于我对一个很普通的问题的思考：怎样才能买到更便宜的车票或机票？
+
+大多数人在面对这个问题时，通常会打开购票软件，比较不同日期、不同航班的价格，然后选择自
+己认为合适的那一张。
+
+这种方法没有问题，也确实能够解决问题。
+
+但我突然想到，能不能不按照这种常见的方式来做？
+
+例如，我想到旅行团的七天旅游产品。
+
+旅行团卖的可能不只是一张机票，而是一个包含交通、住宿、游玩等内容的组合产品。我开始好奇
+：如果换一个角度研究这种产品，是否能够找到普通购票方式之外的机会？
+
+这个想法还没有经过实际验证。我也不能确定它一定可行。
+
+但值得注意的是，我的思考方向已经发生了变化。
+
+我不再只问：
+
+   “怎样才能买到更便宜的机票？”
+
+我开始问：
+
+   “除了直接购买机票，还有没有其他方式，能够让我实现同一个目标？”
+
+这两个问题看起来很像，实际上有一个重要区别。
+
+第一个问题，是在现有的购买方式中寻找更便宜的选择。
+
+第二个问题，则是在寻找其他可能的解决路径。
+
+这就是这套思维体系最初的起点：目标不变，但解决问题的方式可以改变。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-1-2">1.2 我真正想研究的是什么</h5>
+          <div class="doc-body">后来，我逐渐明确，这个项目并不是单纯研究怎么买机票，也不是专门研究怎样省钱。
+
+机票只是一个例子。
+
+我真正想研究的是一种能够应用于不同领域的思考能力。
+
+例如：
+
+ ●​   买东西时，不只比较价格，还能研究不同的购买方式。
+ ●​   遇到工作问题时，不只考虑常见的解决办法，还能寻找其他路径。
+ ●​   想增加收入时，不只考虑多工作几个小时，还能研究资源、需求、规则和商业模式。
+ ●​   学习新知识时，不只记住答案，还能寻找知识背后的规律。
+ ●​   遇到复杂问题时，不只从一个角度分析，还能把不同因素联系起来。
+
+我希望自己慢慢学会：面对一个问题，不急着接受最常见的答案，而是主动寻找更多可能性。
+
+我给这个长期项目取名为： 《多维逆向创新思维系统》
+
+这个名字是我为自己的训练体系取的工作名称，并不是一个已经被学术界统一定义的独立学科。
+它借鉴已有的思维理论，再通过个人实践逐渐完善。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-2">第二章：我为什么会突然想到这个问题</h5>
+          <div class="doc-body">这一章很重要，因为我们不只是要记录我想到了什么，还要研究我是怎样想到的。
+
+不过，需要先说明：目前我们没有完整记录当时的心理过程，所以不能断定某一种原因就是事
+实。下面是根据我的原始想法整理出的可能解释，后续可以继续核实。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-2-1">2.1 我可能没有把常见方法当成唯一的方法</h5>
+          <div class="doc-body">很多时候，人遇到一个问题，会直接想到自己最熟悉的解决方式。
+
+ ●​   想买机票，就打开购票软件。
+ ●​   想找工作，就打开招聘软件。
+ ●​   想学习，就寻找课程。
+ ●​   想增加收入，就考虑多工作或者换一份工作。
+
+这些方法并没有错。
+
+问题在于，如果一个人只想到一种方法，他能够选择的范围就会受到限制。
+
+而我在想到旅行团七天产品时，开始怀疑：买机票是不是只有直接购买这一种方式？
+
+我没有马上认定旅行团一定便宜，而是产生了一个新的问题。
+
+这种思考可以叫作打破默认假设。
+
+所谓默认假设，就是我们没有认真检查，就习惯性接受的一个前提。
+
+例如：
+
+      “买机票就应该直接买机票。”
+
+这句话听起来很正常，但它其实包含了一个没有被验证的前提：直接购买就是最适合自己的方
+式。
+
+如果把这个前提拿出来重新检查，就有机会发现其他选择。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-2-2">2.2 我可能把一个行业的东西，联想到了另一个问题上</h5>
+          <div class="doc-body">旅行团本来是旅游产品，而我的目标是找到更便宜的交通方式。
+
+这两个东西属于不同的购买场景。
+
+但我发现它们之间可能存在联系：旅行团产品中可能包含机票，或者涉及旅行社的团队采购、组
+合定价等方式。
+
+于是，我开始思考，能不能研究旅行团这个产品，来解决机票价格的问题。
+
+这可以借鉴一个已有的概念：跨领域迁移。
+
+简单来说，就是把一个领域的知识、方法或者资源，拿到另一个领域尝试使用。
+
+例如：
+
+ ●​   把商业中的打包销售思路，用来研究日常购物。
+ ●​   把工程中的拆解方法，用来解决生活问题。
+ ●​   把统计学中的比较方法，用来判断自己的训练计划是否有效。
+ ●​   把自动化的思想，用来减少日常重复劳动。
+
+这种思维的价值在于，有时候真正的新办法，并不是从原来的问题中直接找到的，而是从其他领
+域借鉴过来的。
+
+但跨领域联想也可能失败。
+
+旅行团能够打包销售，并不代表团里的机票可以单独拿出来使用。因此，联想负责产生新方向，验
+证负责判断它是否成立。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-2-3">2.3 我可能开始从“购买东西”转向“研究购买规则”</h5>
+          <div class="doc-body">普通消费者往往关注商品本身。
+
+例如，一张机票多少钱。
+
+但另一种思考方式，是继续研究价格为什么会这样形成。
+
+ ●​ 为什么同样是飞机，不同日期的价格不同？
+ ●​ 为什么同样的航段，放在不同的行程组合中，价格可能不同？
+ ●​ 为什么有些套餐看起来便宜，但加上额外费用之后并不划算？
+
+这些问题已经从单纯的购物，进入了价格形成、商业规则和资源组合的研究。
+
+我开始注意到：有时候，真正值得研究的不是商品本身，而是商品背后的规则。
+
+这也是为什么我想把这套思维用于更多领域。
+
+如果我只学会某一个购票技巧，那么它可能只适用于某条航线。
+
+但如果我学会研究价格形成、产品组合、购买规则和成本结构，那么同样的分析方法就可能用于
+酒店、电脑、手机、求职和商业决策。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-2-4">2.4 我有一个直觉，但需要学习怎样表达</h5>
+          <div class="doc-body">我最初能够想到一个不太常见的方向，却不容易马上把背后的逻辑完整讲出来。
+
+这不意味着我没有思考能力。
+
+一个人可以先有模糊的直觉，再慢慢学会把直觉变成清楚的问题。
+
+例如，最初的表达可能只是：
+
+  “我想看看旅行团七天的产品，会不会有更便宜的办法。”
+
+经过整理之后，可以变成：
+
+      “我想研究，是否能够通过不同的产品组合、销售规则或购买渠道，在不改变主要需求
+      的情况下，获得更低的实际成本。”
+
+两种说法表达的是相近的想法，但第二种更容易进行调查和验证。
+
+因此，我的训练不仅包括思考，还包括把自己的想法说清楚。
+
+我不需要等到自己能够说出专业术语，才开始思考。我可以先提出想法，再逐步学习怎样整理它。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-2-5">2.5 我还需要确认一个问题</h5>
+          <div class="doc-body">目前，我们还不知道是什么具体触发了这次联想。
+
+可能是我当时正在考虑怎样省钱，也可能是我突然想到旅行团的组合产品，或者是其他经历让这
+个念头出现。
+
+这部分不能凭空补写。
+
+以后如果我回忆起当时的情境，可以继续补充到档案里。
+
+这样，我们就不只是记录思维的结果，还能够逐渐了解自己在什么情况下容易产生新想法。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-3">第三章：这套思维有哪些已有的理论基础</h5>
+          <div class="doc-body">我的思维体系不是凭空创造所有概念，而是借鉴已有的研究，再把它们组合起来。
+
+下面介绍几个与我的目标密切相关的方向。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-3-1">3.1 逆向思维：从相反的方向重新看问题</h5>
+          <div class="doc-body">逆向思维的英文常写作 Reverse Thinking。
+
+它的基本意思是：不只按照原来的方向思考，还尝试从相反的方向提出问题。
+
+例如：
+
+  ●​ 普通问题：“怎样才能把一件事做成功？”
+  ●​ 逆向问题：“哪些做法最容易导致失败？我能不能先避免这些错误？”
+
+这两种思考方式可以互相补充。
+
+再比如，我想存下五万元。
+
+ ●​ 普通思路可能是：怎样增加收入？
+ ●​ 逆向思路则可以继续问：
+      ○​ 哪些支出正在阻碍我存钱？
+      ○​ 怎样做会让我一直存不下钱？
+      ○​ 有没有一种方法，可以减少自己反复做出不利决定的机会？
+
+这样，我不仅寻找增加收入的办法，也能发现其他影响结果的因素。
+
+逆向思维并不意味着凡事都要反着做。
+
+如果大家都走一条路，不代表反方向一定更好。
+
+它真正的作用，是提醒我：原来的做法可以被检查，不必自动视为唯一选择。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-3-2">3.2 多维分析：不要只看一个方面</h5>
+          <div class="doc-body">多维分析可以理解为，从多个角度同时观察一个问题。
+
+例如，我想购买一部手机。
+
+如果只看价格，我可能认为价格最低的手机最好。
+
+但如果考虑更多因素，结论就可能改变。
+</div>
+<div class="doc-table-wrap"><table class="doc-table">
+<colgroup><col style="width:24%" /><col style="width:76%" /></colgroup>
+<thead><tr><th>分析角度</th><th>需要考虑的问题</th></tr></thead>
+<tbody>
+<tr><td>价格</td><td>买下来一共需要多少钱？</td></tr>
+<tr><td>使用需求</td><td>我真正需要哪些功能？</td></tr>
+<tr><td>时间</td><td>现在买，还是等一段时间更合适？</td></tr>
+<tr><td>使用成本</td><td>后续维修、配件和服务要花多少钱？</td></tr>
+<tr><td>机会成本</td><td>这笔钱如果用于其他事情，会有什么影响？</td></tr>
+<tr><td>风险</td><td>便宜的产品是否存在质量、保修或交易风险？</td></tr>
+<tr><td>购买方式</td><td>有没有套餐、公开优惠或其他合适的渠道？</td></tr>
+</tbody>
+</table></div>
+<div class="doc-body">
+这就是多维分析的作用。
+
+它能帮助我避免只盯着一个数字，而忽略其他会影响最终结果的因素。
+
+不过，多维分析也不等于考虑的因素越多越好。
+
+真正有用的分析，是找到那些会明显改变结论的因素。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-3-3">3.3 第一性原理：回到问题的根本</h5>
+          <div class="doc-body">第一性原理思维，常被用来描述一种做法：把问题拆开，尽量从基本事实和必要条件出发重新思
+考，而不是直接照搬已有做法。
+
+例如，我想购买手机。
+
+如果我直接认定自己必须买某个型号，那么选择范围会很小。
+
+如果我先问：
+
+  ●​   我用手机主要做什么？
+  ●​   哪些功能是必须的？
+  ●​   哪些功能只是我觉得自己可能需要？
+  ●​   我能接受什么价格和使用限制？
+
+那么，我可能会发现自己不一定非要购买原先看中的型号。
+
+同样，在机票问题中，我需要先分清：
+
+  ●​ 真正的目标是获得符合要求的出行服务。
+  ●​ 直接购买机票是一种实现方式。
+  ●​ 价格、时间、舒适度和使用规则是需要考虑的条件。
+
+但第一性原理并不意味着可以无视现实限制。飞机票是否能够通过某种方式购买，最终仍然要看
+真实的销售规则。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-3-4">3.4 横向思维：离开原来的思考路线</h5>
+          <div class="doc-body">横向思维通常与爱德华·德·博诺（Edward de Bono）的研究和著作联系在一起。
+
+它强调，人有时候会一直沿着同一条思路寻找答案，却忽略了其他可能的切入点。
+
+例如：
+
+       问题是：“怎样才能买到更便宜的机票？”
+
+如果一直研究普通机票，就可能不断比较日期和航空公司。
+
+横向思维则会尝试提出其他方向：
+
+ ●​   能不能研究不同的航线组合？
+ ●​   能不能借鉴旅游产品的销售方式？
+ ●​   能不能从航空公司的定价方式出发？
+ ●​   能不能先研究价格为什么会出现差异？
+
+这些问题未必都能带来实际收益，但它们能打开新的调查方向。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-3-5">3.5 系统思维：把不同因素之间的关系看清楚</h5>
+          <div class="doc-body">系统思维关注的是：一个问题往往不是由单独一个因素决定的，而是由多个相互影响的因素共同
+形成的。
+
+例如，一个商品价格较低，可能与批量采购、销售渠道、库存、促销、附加服务或使用限制有关。
+
+如果只看标价，就可能看不到完整情况。
+
+系统思维要求我继续追问：
+
+ ●​   哪些因素影响最终价格？
+ ●​   这些因素之间有什么联系？
+ ●​   改变其中一个因素，会不会影响其他因素？
+ ●​   有没有被忽略的成本或风险？
+
+这有助于我理解问题背后的结构，而不只是表面现象。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-3-6">3.6 创造性问题解决：从想法走到实际结果</h5>
+          <div class="doc-body">创造性问题解决，不只是提出新奇的想法，还要找到新颖而且有用的方案。
+
+例如，我想到研究旅行团的七天产品，这只是一个假设。
+
+要让它变成真正有效的办法，还需要：
+
+ ●​   找到真实存在的产品。
+ ●​   确认产品的使用规则。
+ ●​   计算全部成本。
+ ●​   与普通购票方式进行公平比较。
+ ●​   根据结果决定是否继续。
+
+如果最后发现它并不便宜，这次研究仍然有价值，因为我排除了一个不适合的方向。
+
+创造力负责寻找新的可能性，验证负责筛选真正有用的可能性。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-4">第四章：历史上有哪些人值得我学习</h5>
+          <div class="doc-body">我希望了解的不是所谓的“天才秘诀”，而是这些人物怎样观察问题、建立方法，以及怎样把想法
+变成实际成果。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-4-1">4.1 爱德华·德·博诺：学习怎样跳出原来的思路</h5>
+          <div class="doc-body"> ●​ 研究重点：横向思维
+ ●​ 核心思想：他推广了横向思维的概念，研究怎样摆脱原有思维路线的限制，主动寻找其他
+    想法。
+ ●​ 对我的启发：当一种方法一直得不到理想结果时，我可以换一个问题、换一个方向，或者
+    引入一个不同领域的观点。我可以从他的著作《Lateral Thinking》中了解这种方法。学习时
+    ，我不必急着记住书里的所有内容。更适合我的方式，是读懂一个方法后，马上用一个生
+    活问题练习。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-4-2">4.2 查理·芒格：学习怎样组合不同学科的知识</h5>
+          <div class="doc-body"> ●​ 研究重点：多元思维模型
+ ●​ 核心思想：芒格强调，理解复杂问题不能只依赖单一学科。对商业问题，可以结合心理学、
+    经济学、数学、激励机制和风险分析等不同角度。
+ ●​ 对我的启发：以后遇到问题，不必马上找一个固定答案，可以尝试调用几个不同的思考工
+    具。例如，研究一份工作时，我可以从收入、时间、成长空间、技能积累和未来机会等角
+    度分析，而不是只看工资。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-4-3">4.3 理查德·费曼：学习怎样把复杂问题讲明白</h5>
+          <div class="doc-body"> ●​ 研究重点：从基本事实出发，清楚地理解问题
+ ●​ 核心思想：费曼以物理学研究和清晰讲解复杂概念而闻名。
+ ●​ 对我的启发：真正理解一个问题，不只是会使用专业术语，还应该能用简单的语言解释它。
+    这也适合我自己的训练。如果我学会一个思维方法，却无法用自己的话说明它有什么用，
+    那么我可能还没有真正掌握它。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-4-4">4.4 詹姆斯·戴森：学习怎样反复试验</h5>
+          <div class="doc-body"> ●​ 研究重点：设计、实验与改进
+ ●​ 核心思想：戴森在开发无尘袋吸尘器的过程中，进行了大量原型试验。
+ ●​ 对我的启发：一个不同寻常的想法，不应该只停留在脑子里。要把它变成可以尝试的方案，
+    通过结果来判断它是否有用。
+
+这些人物有不同的背景，不能简单地说他们都在研究同一种思维。不过，他们的工作可以为我的
+训练提供不同的参考。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-5">第五章：这套思维怎样真正用于生活</h5>
+          <div class="doc-body">如果这套体系只能用于机票，那么它的价值就很有限。
+
+我希望把它发展成一套能够迁移到不同领域的方法。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-5-1">5.1 购物：不只寻找低价，还要研究购买方式</h5>
+          <div class="doc-body">假设我想买一台电脑。
+
+普通思路是比较不同品牌和型号的价格。
+
+多维逆向思维则会继续问：
+
+ ●​   我真正需要的是性能，还是品牌？
+ ●​   我能不能通过其他型号满足相同需求？
+ ●​   是否有公开的促销、套装或合适的二手产品？
+ ●​   买入价格低，是否意味着维修和使用成本也低？
+ ●​   如果我暂时不买，会损失什么？
+
+这样，我不只是比较商品，而是在比较实现同一个目标的不同方式。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-5-2">5.2 工作：不只寻找职位，还要寻找问题和机会</h5>
+          <div class="doc-body">假设我想找一份收入更好的工作。
+
+常规思路是打开招聘软件，寻找工资更高的职位。
+
+我还可以从其他方向思考：
+
+ ●​   哪些行业需要我已有的技能？
+ ●​   有没有相邻岗位，进入门槛较低但未来发展不错？
+ ●​   我可以通过什么方式证明自己的能力？
+ ●​   哪些技能能让我进入更多工作领域？
+ ●​   除了工资，哪种工作能让我积累以后更有价值的经验？
+
+这并不意味着我一定能找到更好的工作，而是让我有机会发现原本没有考虑过的路线。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-5-3">5.3 赚钱与商业：研究别人真正需要什么</h5>
+          <div class="doc-body">假设我想做一项小生意。
+
+常规思路可能是先找一个热门产品，再考虑怎样销售。
+
+另一种方式是先观察人们遇到了什么问题。例如：
+
+ ●​   人们经常为哪些事情花钱？
+ ●​   哪些问题重复出现，却没有被很好地解决？
+ ●​   现有产品为什么不能完全满足他们？
+ ●​   我能不能通过更方便、更简单或更低成本的方式提供服务？
+ ●​   这种方案是否有足够的人愿意付费？
+
+这就是从产品出发，转向从需求出发。
+
+但需要注意，发现一个问题不等于发现一门好生意。还需要验证客户是否愿意付钱、成本是否合
+理、自己是否能够持续提供服务。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-5-4">5.4 财务：不只想着增加收入，还要分析整个现金流</h5>
+          <div class="doc-body">假设我想让自己存下更多钱。
+
+常规思路可能是：怎样才能赚更多？
+
+多维分析会同时检查：
+
+ ●​   每月实际收入是多少？
+ ●​   哪些支出是必须的？
+ ●​   哪些债务有较高利息？
+ ●​   哪些支出可以调整？
+ ●​   是否存在逾期风险？
+ ●​   怎样安排资金，才能兼顾必要开支和储蓄？
+
+有时候，增加收入很重要；有时候，减少不必要的支出或者避免高额费用，也能改善财务情况。
+
+具体选择必须根据真实收入、账单和债务条件决定，而不是只依靠一个思维技巧。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-5-5">5.5 学习：不只记住知识，还要学会迁移</h5>
+          <div class="doc-body">假设我正在学习一个新技能。
+
+我可以问自己：
+
+ ●​   这项技能解决的根本问题是什么？
+ ●​   它与我已经学过的东西有什么联系？
+ ●​   能不能把它用在另一个领域？
+ ●​   我能否用自己的话解释它？
+ ●​   我能不能设计一个小实验，验证自己是否真正理解？
+
+当我能够把一个方法用在新的问题上，才说明我不仅记住了知识，也开始学会运用它。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-5-6">5.6 个人数字项目：不急着开发复杂系统</h5>
+          <div class="doc-body">如果我想建立自己的私人数字中枢，也可以应用这套思维。
+
+我不必一开始就认为，只有开发一个复杂的软件才能实现目标。
+
+我可以先问：
+
+ ●​   我真正需要解决什么问题？
+ ●​   哪些数据必须自动接入？
+ ●​   哪些功能可以先用现有工具完成？
+ ●​   哪些信息需要自己授权或导出？
+ ●​   怎样兼顾隐私、成本和使用难度？
+ ●​   哪些功能值得先做，哪些可以以后再做？
+
+这有助于我先找到最小可用的解决方案，再逐渐改进，而不是一开始就陷入复杂的技术细节。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-6">第六章：我自己的思维训练方法</h5>
+          <div class="doc-body">为了让这套体系真正属于我，我需要建立一套固定的训练流程。
+
+我不必每次都把六种思维方法全部用一遍，但可以把它们当成一组工具，在不同场景中选择合适
+的方法。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-6-1">6.1 六步思考法</h5>
+          <div class="doc-body"> 1.​ 找准目标：我到底想解决什么问题？我真正想得到什么？
+ 2.​ 检查默认假设：我是不是认为某种方法是唯一选择？这个前提真的成立吗？
+ 3.​ 换角度分析：从价格、时间、规则、资源、风险等方面重新观察。
+ 4.​ 寻找其他领域的办法：有没有其他行业、学科或生活场景中的方法可以借鉴？
+ 5.​ 提出不同方案：不急着选第一个答案，先提出几个可以比较的选择。
+ 6.​ 验证并复盘：检查事实、计算成本、判断风险，再记录结果和经验。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-6-2">6.2 每次训练都要记录什么</h5>
+          <div class="doc-body">为了避免以后只记得“我好像想到过一个好办法”，我需要记录具体内容。
+</div>
+<div class="doc-table-wrap"><table class="doc-table">
+<colgroup><col style="width:24%" /><col style="width:76%" /></colgroup>
+<thead><tr><th>记录项目</th><th>记录内容</th></tr></thead>
+<tbody>
+<tr><td>日期</td><td>什么时候想到的？</td></tr>
+<tr><td>原始问题</td><td>当时遇到了什么事情？</td></tr>
+<tr><td>原始想法</td><td>我最初是怎么想的？</td></tr>
+<tr><td>真正目标</td><td>我最终想实现什么？</td></tr>
+<tr><td>常规方法</td><td>一般人会怎么处理？</td></tr>
+<tr><td>新的角度</td><td>我想到哪些不同的方向？</td></tr>
+<tr><td>思维方法</td><td>这次使用了哪些思维工具？</td></tr>
+<tr><td>待验证条件</td><td>哪些内容还只是猜测？</td></tr>
+<tr><td>实际结果</td><td>方案是否可行？效果如何？</td></tr>
+<tr><td>经验总结</td><td>下次遇到类似问题，可以怎样改进？</td></tr>
+</tbody>
+</table></div>
+<div class="doc-body">
+特别需要记录的是：哪些想法是我自己先想到的，哪些是经过提示之后才想到的。
+
+这样才能逐渐看出，我的独立思考能力有没有提高。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-7">第七章：怎样判断自己的思维有没有进步</h5>
+          <div class="doc-body">我不能只用“想法很新奇”来评价自己的进步。
+
+一个奇怪的想法，不一定有价值；一个很普通的想法，也可能是最适合当下情况的方案。
+
+因此，我建议用以下五个方面评价每次训练。
+</div>
+<div class="doc-table-wrap"><table class="doc-table">
+<colgroup><col style="width:24%" /><col style="width:76%" /></colgroup>
+<thead><tr><th>评价维度</th><th>要检查的问题</th></tr></thead>
+<tbody>
+<tr><td>目标清晰度</td><td>我是否知道自己真正要解决什么？</td></tr>
+<tr><td>思路多样性</td><td>我是否能够提出不同的方案？</td></tr>
+<tr><td>分析深度</td><td>我是否发现了隐藏条件、成本和风险？</td></tr>
+<tr><td>独立程度</td><td>我是否能在没有提示的情况下提出想法？</td></tr>
+<tr><td>验证能力</td><td>我是否能通过事实判断方案是否有效？</td></tr>
+</tbody>
+</table></div>
+<div class="doc-body">
+可以使用 1 到 5 分进行简单记录。
+
+  ●​ 1 分表示目前还不太会
+  ●​ 3 分表示能够在一定提示下完成
+  ●​ 5 分表示能够比较独立地做好
+
+这只是帮助我观察进步的个人记录工具，不是经过科学验证的心理测验，也不能用来判断智力高
+低。
+
+最重要的进步，不是每次分数都上升，而是我逐渐学会自己发现问题、提出方案、检查错误。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-8">第八章：这套思维可能出现的错误</h5>
+          <div class="doc-body">如果我想认真建立自己的体系，就不能只记录成功的思路，还必须记录它可能带来的问题。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-8-1">8.1 为了与众不同而刻意反着做</h5>
+          <div class="doc-body">逆向思维不等于凡事都要反着做。
+
+如果某种常见方法已经是最有效的方案，盲目寻找偏门反而可能增加成本。
+
+正确做法是：检查常见方法有没有被忽略的缺点，而不是为了显得特别就拒绝它。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-8-2">8.2 只发现机会，却没有检查限制</h5>
+          <div class="doc-body">例如，我发现一个产品的价格很低，但没有注意到它不能退款、不能单独购买，或者必须附带其他
+消费。
+
+这种情况下，我可能只看到了表面的价格差异，没有看完整的交易条件。
+
+因此，发现机会之后，一定要检查规则。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-8-3">8.3 想得太多，却没有实际行动</h5>
+          <div class="doc-body">一个人可以提出几十个方案，却一直没有验证任何一个。
+
+这样，思考就会变成空想。
+
+我需要学会把问题缩小成一个可以验证的小实验，先获得真实结果，再决定是否继续投入时间。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-8-4">8.4 把巧合当成规律</h5>
+          <div class="doc-body">一次成功不代表每次都能成功。
+
+例如，某次购买组合产品比单独购买便宜，不代表所有组合产品都便宜。
+
+因此，我要区分个别案例和可以重复使用的规律。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-8-5">8.5 只寻找支持自己的证据</h5>
+          <div class="doc-body">如果我特别希望某个想法成功，就可能只关注有利的信息，而忽略不利的信息。
+
+更好的做法是主动问：
+
+  “如果这个想法是错的，最可能错在哪里？”
+
+这能帮助我避免过早相信自己的判断。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-9">第九章：建立自己的知识库</h5>
+          <div class="doc-body">我希望这套体系以后能够不断成长，所以需要把它整理成一个长期知识库。
+
+知识库可以分成四部分：
+
+ 1.​ 思维方法库：记录逆向思维、多维分析、第一性原理、横向思维、系统思维等方法，以及每
+     种方法适合解决什么问题。
+ 2.​ 原始想法库：保留我突然想到的点子，尽量记录当时的原话、场景和直觉，不急着判断对
+     错。
+ 3.​ 实战验证库：记录每个想法经过调查、计算或实践之后的结果，包括成功、失败和暂时无
+     法验证的案例。
+ 4.​ 个人成长库：记录我学会了哪些方法，哪些问题可以独立解决，以及下一步需要训练的能
+     力。
+
+以后每当我产生一个有代表性的想法，都可以将它归入这四个部分。
+
+随着案例增多，我就能逐渐发现：自己在哪些情况下容易产生新想法，哪些方法最适合自己，以及
+哪些思维方式最容易出现错误。
+
+需要注意，这份对话档案本身不等于已经建立了一个自动更新的外部文件。后续如果要长期保存
+和修改，应该将内容存放在一个固定的文档或知识库中，并在更新时保留版本记录。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-10">第十章：当前档案的状态</h5>
+          <div class="doc-body">
+项目进度记录
+      ​ 已完成：明确长期目标 —— 建立自己的思维体系，并应用于不同领域。
+      ​ 已完成：记录原始案例 —— 从寻找便宜机票，联想到研究旅行团七天产品的购买方式。
+      ​ 已完成：初步建立理论框架 —— 包括逆向思维、多维分析、第一性原理、横向思维、系统
+        思维和创造性问题解决。
+      ​ 待完成：确认最初的灵感来源 —— 还需要回忆当时是什么触发了这个想法。
+      ​ 待完成：建立实际案例记录 —— 通过购物、工作、商业等真实问题，反复训练并验证这套
+        方法。
+      ​ 待完成：整理学术资料 —— 进一步核实相关人物的原著、研究论文和可靠资料，逐步建立
+        参考文献清单。
+
+</div>
+          <h5 class="doc-sub" id="doc-p4-end">最后：这套体系真正属于你的地方在哪里？</h5>
+          <div class="doc-body">已有的逆向思维、多维分析和第一性原理，并不是我或你第一次提出的概念。
+
+但是，你可以把这些已有的方法组织起来，再通过自己的问题、选择、实验和经验，建立一套适
+合自己的使用方式。
+
+你最初想到旅游团七天产品，只是一个起点。它还不能证明你已经掌握了一套完整的思维方法，
+但它可以成为我们以后研究你如何产生新想法的第一个案例。
+
+我希望这份档案最终记录的，不只是你学过多少理论，而是你真实的思考过程：
+
+ ●​   你怎样发现问题，
+ ●​   怎样提出不同的想法，
+ ●​   怎样验证它们，
+ ●​   又怎样从结果中总结出下一次可以使用的规律。
+
+以后，我们就围绕这个目标继续推进：一次研究一个方法，一次解决一个问题，一次积累一份真实
+经验。
+
+这份档案的核心，不是让你变成一个只会说专业术语的人，而是帮助你逐渐成为一个能够独立分
+析问题、发现机会、判断风险，并找到实际解决办法的人。</div>
+          <h3 class="doc-part doc-part-main" id="part-5">第五部分｜健身档案与训练日志</h3>
+          <p class="doc-date">用户提供，2026-10-18 起持续更新</p>
+          <nav class="doc-nav sub" aria-label="健身档案小节导航"><a href="#doc-p5-3">基本资料</a><a href="#doc-p5-4">10月13日训练</a><a href="#doc-p5-5">10月14日训练</a><a href="#doc-p5-6">每日步数</a><a href="#doc-p5-7">休息日</a><a href="#doc-p5-8">本周总结</a><a href="#doc-p5-9">下周安排</a><a href="#doc-p5-10">登记规则</a></nav>
+          <h5 class="doc-sub" id="doc-p5-3">健身档案与训练日志｜一、个人基本资料</h5>
+          <p class="doc-date">用户提供，2026-10-18 起持续更新</p>
+          <div class="doc-body">记录日期：2026年10月18日</div>
+<div class="doc-table-wrap"><table class="doc-table">
+<colgroup><col style="width:26%" /><col style="width:74%" /></colgroup>
+<tbody>
+<tr><td>身高</td><td>178 cm</td></tr>
+<tr><td>当前体重</td><td>55.5 kg（10月13日记录）</td></tr>
+<tr><td>目标体重</td><td>85–90 kg</td></tr>
+<tr><td>健身目标</td><td>增加肌肉、练出明显腹肌，同时尽量保持较低体脂</td></tr>
+<tr><td>训练经验</td><td>初学者</td></tr>
+<tr><td>计划训练日</td><td>每周一、周二、周四</td></tr>
+<tr><td>训练器材</td><td>可调节哑铃、徒手训练</td></tr>
+<tr><td>默认训练量</td><td>每个动作4组，每组12次，以实际完成情况为准</td></tr>
+</tbody>
+</table></div>
+          <h5 class="doc-sub" id="doc-p5-4">二、已完成的力量训练｜2026年10月13日：胸肌＋肱三头肌</h5>
+          <div class="doc-body">训练状态：已完成。
+开始时间：21:41。
+结束时间：22:22。
+训练时长：41分钟。
+训练动作：</div>
+<div class="doc-table-wrap"><table class="doc-table">
+<colgroup><col style="width:44%" /><col style="width:28%" /><col style="width:28%" /></colgroup>
+<thead><tr><th>动作</th><th>组数 × 次数</th><th class="num">合计</th></tr></thead>
+<tbody>
+<tr><td>宽距俯卧撑</td><td>4组×12次</td><td class="num">48次</td></tr>
+<tr><td>上斜俯卧撑</td><td>4组×12次</td><td class="num">48次</td></tr>
+<tr><td>窄距俯卧撑</td><td>4组×12次</td><td class="num">48次</td></tr>
+<tr class="total"><td>本次合计</td><td>12组</td><td class="num">共144次动作重复</td></tr>
+</tbody>
+</table></div>
+          <div class="doc-body">哑铃重量：不适用。
+身体感受：未登记。</div>
+          <h5 class="doc-sub" id="doc-p5-5">2026年10月14日：背部＋肱二头肌</h5>
+          <div class="doc-body">训练状态：已完成。
+开始时间：21:17。
+结束时间：22:05。
+训练时长：48分钟。
+训练动作：</div>
+<div class="doc-table-wrap"><table class="doc-table">
+<colgroup><col style="width:44%" /><col style="width:28%" /><col style="width:28%" /></colgroup>
+<thead><tr><th>动作</th><th>组数 × 次数</th><th class="num">合计</th></tr></thead>
+<tbody>
+<tr><td>哑铃正手划船</td><td>4组×12次</td><td class="num">48次</td></tr>
+<tr><td>哑铃反手划船</td><td>4组×12次</td><td class="num">48次</td></tr>
+<tr><td>哑铃弯举</td><td>4组×12次</td><td class="num">48次</td></tr>
+<tr><td>哑铃锤式弯举</td><td>4组×12次</td><td class="num">48次</td></tr>
+<tr class="total"><td>本次合计</td><td>16组</td><td class="num">共192次动作重复</td></tr>
+</tbody>
+</table></div>
+          <div class="doc-body">哑铃实际使用重量：未登记。
+身体感受：未登记。</div>
+          <h5 class="doc-sub" id="doc-p5-6">三、每日步数记录</h5>
+          <div class="doc-body">以下以你最近提供的微信运动截图为准。</div>
+<div class="doc-table-wrap"><table class="doc-table">
+<colgroup><col style="width:50%" /><col style="width:50%" /></colgroup>
+<thead><tr><th>日期</th><th class="num">步数</th></tr></thead>
+<tbody>
+<tr><td>10月12日</td><td class="num">15,135步</td></tr>
+<tr><td>10月13日</td><td class="num">8,062步</td></tr>
+<tr><td>10月14日</td><td class="num">15,810步</td></tr>
+<tr><td>10月15日</td><td class="num">9,948步</td></tr>
+<tr><td>10月16日</td><td class="num">16,503步</td></tr>
+<tr><td>10月17日</td><td class="num">14,366步</td></tr>
+<tr><td>10月18日</td><td class="num">16,983步</td></tr>
+<tr class="total"><td>最近7天累计</td><td class="num">96,807步</td></tr>
+<tr class="total"><td>日均步数</td><td class="num">约13,830步</td></tr>
+</tbody>
+</table></div>
+          <div class="doc-body">步数最多的一天是10月18日，共16,983步；最少的一天是10月13日，共8,062步。
+10月14日另有一份活动记录：步行距离10.8公里、活动能量240千卡、平均步速4公里/小时、步长69厘米。这些数据单独保留，不用来替换微信运动截图中的步数。</div>
+          <h5 class="doc-sub" id="doc-p5-7">四、已登记的休息日</h5>
+          <div class="doc-body">10月15日，星期四：休息，原因是和女朋友在一起。
+10月16日，星期五：休息，原因是和女朋友在一起。
+10月17日，星期六：休息，原因是和女朋友在一起。
+10月18日，星期日：休息，原因是太晚了，而且太累。</div>
+          <h5 class="doc-sub" id="doc-p5-8">五、本周训练总结</h5>
+<div class="doc-table-wrap"><table class="doc-table">
+<colgroup><col style="width:40%" /><col style="width:60%" /></colgroup>
+<tbody>
+<tr><td>本周已记录完成力量训练</td><td>2次</td></tr>
+<tr><td>力量训练总时长</td><td>89分钟</td></tr>
+<tr><td>已记录训练总计</td><td>28组，共336次动作重复</td></tr>
+<tr><td>已练部位</td><td>胸肌、肱三头肌；背部、肱二头肌</td></tr>
+<tr><td>腿部训练</td><td>还有一次未完成，你准备安排到下周补练</td></tr>
+</tbody>
+</table></div>
+          <h5 class="doc-sub" id="doc-p5-9">六、下周训练安排</h5>
+          <div class="doc-body">10月19日，星期一：胸肌＋肱三头肌。
+10月20日，星期二：背部＋肱二头肌。
+10月22日，星期四：安排腿部训练，补上本周没完成的腿部训练。
+肩部训练根据你的实际恢复情况安排，不把计划当成已经完成的记录。
+腿部原定动作是哑铃深蹲、哑铃侧弓步。具体组数和次数按实际训练登记。</div>
+          <h5 class="doc-sub" id="doc-p5-10">七、以后每天的登记规则</h5>
+          <div class="doc-body">每天先确认是否训练。
+如果训练，登记日期、训练部位、动作名称、每个动作的组数和次数、哑铃重量、开始时间、结束时间和身体感受。
+如果没有训练，登记为休息日，并询问原因；原因可以跳过。
+每天尽量登记步数，有体重数据时也一起更新。
+所有记录只使用你实际提供的信息，不猜测、不补造。以后统一用纯文字，方便你直接复制和保存。这个月登记吧</div>
+          <h3 class="doc-part doc-part-main" id="part-6">第六部分｜睡眠记录</h3>
+          <p class="doc-date">用户提供，2026-10-18 起持续更新</p>
+          <nav class="doc-nav sub" aria-label="睡眠记录小节导航"><a href="#doc-p6-0">记录日期与时区</a><a href="#doc-p6-1">10月14日</a><a href="#doc-p6-2">10月15日</a><a href="#doc-p6-3">10月16日</a><a href="#doc-p6-4">10月17日</a><a href="#doc-p6-5">10月18日</a><a href="#doc-p6-6">二、阶段性统计</a><a href="#doc-p6-7">三、身体状态与睡眠问题</a><a href="#doc-p6-8">四、后续登记规则</a></nav>
+          <h5 class="doc-sub" id="doc-p6-0">记录日期与时区</h5>
+          <div class="doc-body">记录日期：2026年10月14日—10月18日
+时区：北京时间（UTC+8）</div>
+          <h5 class="doc-sub" id="doc-p6-1">一、每日睡眠记录｜2026年10月14日</h5>
+          <div class="doc-body">入睡时间：01:54
+起床时间：07:40
+估计睡眠时长：5小时46分钟
+夜间醒来：0次
+睡眠质量：中
+白天精神：中
+午睡：0次
+东鹏特饮：500毫升装，每天2瓶（统一记录）</div>
+          <h5 class="doc-sub" id="doc-p6-2">2026年10月15日</h5>
+          <div class="doc-body">入睡时间：00:54
+起床时间：08:10
+估计睡眠时长：7小时16分钟
+夜间醒来：0次
+睡眠质量：中
+白天精神：中
+午睡：0次
+东鹏特饮：500毫升装，每天2瓶（统一记录）</div>
+          <h5 class="doc-sub" id="doc-p6-3">2026年10月16日</h5>
+          <div class="doc-body">入睡时间：00:40左右
+起床时间：07:31
+估计睡眠时长：6小时51分钟
+夜间醒来：0次
+睡眠质量：中
+白天精神：中
+午睡：0次
+东鹏特饮：500毫升装，每天2瓶
+最后一次饮用时间：22:00以后</div>
+          <h5 class="doc-sub" id="doc-p6-4">2026年10月17日</h5>
+          <div class="doc-body">入睡时间：00:40左右
+起床时间：07:45
+估计睡眠时长：约7小时05分钟
+夜间醒来：1次
+夜醒时间：凌晨04:30—05:00左右
+睡眠质量：不好
+白天精神：困、累
+午睡：0次
+东鹏特饮：500毫升装，每天2瓶（统一记录）
+注：估计睡眠时长未扣除夜醒后的清醒时间。</div>
+          <h5 class="doc-sub" id="doc-p6-5">2026年10月18日</h5>
+          <div class="doc-body">入睡时间：00:50左右
+起床时间：07:20
+估计睡眠时长：6小时30分钟
+夜间醒来：0次
+睡眠质量：中
+白天精神：困、累
+午睡：0次
+东鹏特饮：500毫升装，每天2瓶（统一记录）</div>
+          <h5 class="doc-sub" id="doc-p6-6">二、阶段性统计</h5>
+<div class="doc-table-wrap"><table class="doc-table">
+<colgroup><col style="width:34%" /><col style="width:66%" /></colgroup>
+<thead><tr><th>项目</th><th>记录</th></tr></thead>
+<tbody>
+<tr><td>连续登记天数</td><td>5天</td></tr>
+<tr><td>平均估计睡眠时长</td><td>约6小时42分钟</td></tr>
+<tr><td>夜间醒来</td><td>共记录1次</td></tr>
+<tr><td>午睡</td><td>5天均为0次</td></tr>
+<tr><td>东鹏特饮</td><td>每天2瓶，每瓶500毫升，每日合计1000毫升</td></tr>
+</tbody>
+</table></div>
+          <h5 class="doc-sub" id="doc-p6-7">三、身体状态与睡眠问题</h5>
+          <div class="doc-body">你反馈，白天从早到晚都困、累，已经持续一两周。
+目前记录显示：
+前三天白天精神和睡眠质量均登记为“中”。
+10月17日、18日白天均出现困、累。
+近期睡眠时长多数在6—7小时左右。
+每天饮用1升东鹏特饮，且曾在晚上22点以后饮用。
+这些情况可能存在关联，但目前不能确定困倦的具体原因。建议近期安排全科或内科就诊，评估持续困倦；同时尽量避免下午和晚上饮用含咖啡因饮料，并保证充足睡眠。</div>
+          <h5 class="doc-sub" id="doc-p6-8">四、后续登记规则</h5>
+          <div class="doc-body">早上记录入睡时间、起床时间、夜间醒来次数、睡眠质量和白天精神。
+晚上记录东鹏特饮饮用情况、午睡、活动和计划上床时间。
+已确认的数据继续保留，不重复询问。
+未提供的数据标记为“待补充”，不自行推测。
+每累计7天，整理一次睡眠时长、夜醒、饮料摄入和白天精神变化。</div>
+        </article>
+        
+      </section>
+
+      <footer>记录仅保存在本次打开的页面中，刷新后清空。债务基数 ¥19,697 为历史估算。</footer>
+    </div>
+
+    <script>
+      (function () {
+        "use strict";
+        var fmt = function (n) {
+          return n.toLocaleString("zh-CN", { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+        };
+        var money = function (n) { return "¥" + fmt(n); };
+        var today = function () {
+          var d = new Date();
+          var m = String(d.getMonth() + 1).padStart(2, "0");
+          var day = String(d.getDate()).padStart(2, "0");
+          return d.getFullYear() + "-" + m + "-" + day;
+        };
+        var esc = function (s) {
+          return String(s).replace(/[&<>"']/g, function (c) {
+            return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+          });
+        };
+
+        /* ---------- Tabs ---------- */
+        var tabs = document.querySelectorAll(".tab");
+        tabs.forEach(function (t) {
+          t.addEventListener("click", function () {
+            tabs.forEach(function (x) { x.setAttribute("aria-selected", "false"); });
+            t.setAttribute("aria-selected", "true");
+            document.querySelectorAll(".panel").forEach(function (p) { p.classList.remove("active"); });
+            document.getElementById("panel-" + t.dataset.tab).classList.add("active");
+            window.scrollTo({ top: 0 });
+          });
+        });
+
+        /* ---------- Segmented controls ---------- */
+        function seg(id) {
+          var box = document.getElementById(id);
+          var btns = box.querySelectorAll("button");
+          btns.forEach(function (b) {
+            b.addEventListener("click", function () {
+              btns.forEach(function (x) { x.classList.remove("on"); });
+              b.classList.add("on");
+            });
+          });
+          return function () {
+            var on = box.querySelector("button.on");
+            return on ? (on.dataset.dir || on.dataset.follow || on.dataset.day || on.dataset.status || on.dataset.quality || on.dataset.adjust) : "";
+          };
+        }
+        var getDir = seg("tDirSeg");
+        var getFollow = seg("tFollowSeg");
+        var getDay = seg("lDaySeg");
+        var getStatus = seg("lStatusSeg");
+        var getRStatus = seg("rStatusSeg");
+        var getQuality = seg("sQualitySeg");
+        var getAdjust = seg("wAdjustSeg");
+
+        /* ---------- 还款记账 ---------- */
+        var BASE = 19697;
+        var CATS = {
+          loan: { name: "网贷", base: 5684 },
+          lease: { name: "融资租赁", base: 4947 },
+          friend: { name: "欠朋友", base: 9066, sub: "只记总额，不分人" }
+        };
+        var debts = [];
+
+        function renderBreakdown() {
+          var html = "";
+          Object.keys(CATS).forEach(function (k) {
+            var paid = debts.filter(function (e) { return e.cat === k; })
+              .reduce(function (s, e) { return s + e.amt; }, 0);
+            var left = Math.max(0, CATS[k].base - paid);
+            html += '<div class="bd-row"><div><span class="name">' + CATS[k].name + "</span>" +
+              (CATS[k].sub ? '<span class="sub">' + CATS[k].sub + "</span>" : "") +
+              '</div><div class="amt">' + money(left) +
+              "<small>原 " + money(CATS[k].base) + (paid > 0 ? " · 已还 " + money(paid) : "") + "</small></div></div>";
+          });
+          document.getElementById("breakdown").innerHTML = html;
+        }
+
+        function renderDebt() {
+          var paid = debts.reduce(function (s, e) { return s + e.amt; }, 0);
+          var remain = Math.max(0, BASE - paid);
+          var pct = Math.min(100, (paid / BASE) * 100);
+          document.getElementById("remainNum").textContent = fmt(remain);
+          document.getElementById("paidNum").textContent = money(paid);
+          document.getElementById("pctNum").textContent = (Math.round(pct * 10) / 10) + "%";
+          document.getElementById("barFill").style.width = pct + "%";
+          renderBreakdown();
+
+          var box = document.getElementById("debtEntries");
+          document.getElementById("debtEmpty").style.display = debts.length ? "none" : "block";
+          box.innerHTML = debts.map(function (e, i) {
+            return '<div class="entry"><div class="main"><div class="top">' +
+              '<span class="date">' + esc(e.date) + '</span>' +
+              '<span class="cat">' + CATS[e.cat].name + '</span>' +
+              '<span class="amt">' + money(e.amt) + "</span></div>" +
+              (e.note ? '<div class="note">' + esc(e.note) + "</div>" : "") +
+              '</div><button class="del" data-i="' + i + '" aria-label="删除这条记录">×</button></div>';
+          }).join("");
+          box.querySelectorAll(".del").forEach(function (b) {
+            b.addEventListener("click", function () {
+              debts.splice(Number(b.dataset.i), 1);
+              renderDebt();
+            });
+          });
+        }
+
+        var dDate = document.getElementById("dDate");
+        dDate.value = today();
+        document.getElementById("debtForm").addEventListener("submit", function (ev) {
+          ev.preventDefault();
+          var amt = parseFloat(document.getElementById("dAmt").value);
+          if (!dDate.value || !(amt > 0)) return;
+          debts.unshift({
+            date: dDate.value,
+            cat: document.getElementById("dCat").value,
+            amt: amt,
+            note: document.getElementById("dNote").value.trim()
+          });
+          document.getElementById("dAmt").value = "";
+          document.getElementById("dNote").value = "";
+          renderDebt();
+        });
+        renderDebt();
+
+        /* ---------- 交易日记 ---------- */
+        var trades = [];
+        function renderTrade() {
+          document.getElementById("tCount").textContent = trades.length;
+          if (trades.length) {
+            var yes = trades.filter(function (e) { return e.follow === "是"; }).length;
+            document.getElementById("tFollow").textContent = Math.round((yes / trades.length) * 100) + "%";
+          } else {
+            document.getElementById("tFollow").textContent = "—";
+          }
+          var box = document.getElementById("tradeEntries");
+          document.getElementById("tradeEmpty").style.display = trades.length ? "none" : "block";
+          box.innerHTML = trades.map(function (e, i) {
+            return '<div class="entry"><div class="main"><div class="top">' +
+              '<span class="date">' + esc(e.date) + '</span>' +
+              '<span class="cat">' + esc(e.market) + "</span>" +
+              '<span class="tag ' + (e.dir === "做多" ? "long" : "short") + '">' + e.dir + "</span>" +
+              '<span class="tag ' + (e.follow === "是" ? "yes" : "no") + '">按系统：' + e.follow + "</span></div>" +
+              '<div class="note">入场理由：' + esc(e.reason) + "</div>" +
+              (e.result ? '<div class="note">结果：' + esc(e.result) + "</div>" : "") +
+              '</div><button class="del" data-i="' + i + '" aria-label="删除这条记录">×</button></div>';
+          }).join("");
+          box.querySelectorAll(".del").forEach(function (b) {
+            b.addEventListener("click", function () {
+              trades.splice(Number(b.dataset.i), 1);
+              renderTrade();
+            });
+          });
+        }
+        var tDate = document.getElementById("tDate");
+        tDate.value = today();
+        document.getElementById("tradeForm").addEventListener("submit", function (ev) {
+          ev.preventDefault();
+          var market = document.getElementById("tMarket").value.trim();
+          var reason = document.getElementById("tReason").value.trim();
+          if (!tDate.value || !market || !reason) return;
+          trades.unshift({
+            date: tDate.value,
+            market: market,
+            dir: getDir(),
+            reason: reason,
+            result: document.getElementById("tResult").value.trim(),
+            follow: getFollow()
+          });
+          document.getElementById("tMarket").value = "";
+          document.getElementById("tReason").value = "";
+          document.getElementById("tResult").value = "";
+          renderTrade();
+        });
+        renderTrade();
+
+        /* ---------- 健身打卡 ---------- */
+        /* 预填：用户 2026-10-18 提供的健身档案与训练日志（文档第五部分），只记已完成与已登记的休息日 */
+        var lifes = [
+          { date: "2026-10-18", day: "自定义", status: "推迟", mins: 0, note: "休息日（太晚了，而且太累）。当日步数 16,983 步" },
+          { date: "2026-10-17", day: "自定义", status: "推迟", mins: 0, note: "休息日（和女朋友在一起）。当日步数 14,366 步" },
+          { date: "2026-10-16", day: "自定义", status: "推迟", mins: 0, note: "休息日（和女朋友在一起）。当日步数 16,503 步" },
+          { date: "2026-10-15", day: "周四", status: "推迟", mins: 0, note: "休息日（和女朋友在一起）。当日步数 9,948 步" },
+          { date: "2026-10-14", day: "周二", status: "完成", mins: 48, note: "背部＋肱二头肌（21:17–22:05）：哑铃正手划船、哑铃反手划船、哑铃弯举、哑铃锤式弯举，各 4 组×12 次，共 16 组 192 次；哑铃重量未登记。当日步数 15,810 步" },
+          { date: "2026-10-13", day: "周一", status: "完成", mins: 41, note: "胸肌＋肱三头肌（21:41–22:22）：宽距俯卧撑、上斜俯卧撑、窄距俯卧撑，各 4 组×12 次，共 12 组 144 次。当日步数 8,062 步" }
+        ];
+        function renderLife() {
+          var done = lifes.filter(function (e) { return e.status === "完成"; });
+          document.getElementById("lDone").textContent = done.length;
+          document.getElementById("lLate").textContent = lifes.length - done.length;
+          document.getElementById("lMins").textContent = done.reduce(function (s, e) { return s + (e.mins || 0); }, 0);
+          var box = document.getElementById("lifeEntries");
+          document.getElementById("lifeEmpty").style.display = lifes.length ? "none" : "block";
+          box.innerHTML = lifes.map(function (e, i) {
+            return '<div class="entry"><div class="main"><div class="top">' +
+              '<span class="date">' + esc(e.date) + '</span>' +
+              '<span class="cat">' + esc(e.day) + "</span>" +
+              '<span class="tag ' + (e.status === "完成" ? "done" : "late") + '">' + e.status + "</span>" +
+              (e.mins ? '<span class="date">' + e.mins + " 分钟</span>" : "") + "</div>" +
+              (e.note ? '<div class="note">' + esc(e.note) + "</div>" : "") +
+              '</div><button class="del" data-i="' + i + '" aria-label="删除这条记录">×</button></div>';
+          }).join("");
+          box.querySelectorAll(".del").forEach(function (b) {
+            b.addEventListener("click", function () {
+              lifes.splice(Number(b.dataset.i), 1);
+              renderLife();
+            });
+          });
+        }
+        var lDate = document.getElementById("lDate");
+        lDate.value = today();
+        document.getElementById("lifeForm").addEventListener("submit", function (ev) {
+          ev.preventDefault();
+          if (!lDate.value) return;
+          var mins = parseInt(document.getElementById("lMinsInput").value, 10);
+          lifes.unshift({
+            date: lDate.value,
+            day: getDay(),
+            status: getStatus(),
+            mins: isNaN(mins) ? 0 : mins,
+            note: document.getElementById("lNote").value.trim()
+          });
+          document.getElementById("lMinsInput").value = "";
+          document.getElementById("lNote").value = "";
+          renderLife();
+        });
+        renderLife();
+
+        /* ---------- 逆向决策 ---------- */
+        /* 预填：用户逆向决策文档（第三部分）中的个人逆向拆解模型，与上方「我的拆解模型」为同一份 */
+        var reverses = [
+          {
+            date: "2026-10-14",
+            goal: "摆脱高强度劳动，建立持续的个人系统与时间自主权",
+            s3cond: "能够自由选择工作或尝试新方向",
+            s3key: "拥有 3–6 个月的生存应急缓冲金，且无任何消费类网贷 / 高息负债催缴",
+            s2cond: "债务规模持续缩减，现金流恢复健康",
+            s2key: "变现闲置或分期资产优先清算网贷；固定开支严格控制；不增加新的借贷",
+            s1act: "保护基本盘与体力",
+            s1key: "守住固定工资收入，不无准备裸辞；手机到货后第一时间卖掉清算网贷；保证睡眠与健身恢复，不盲目同时开启多个副业或高风险交易",
+            status: "进行中"
+          }
+        ];
+        function chainRow(stage, main, key, now) {
+          if (!main && !key) return "";
+          var text = "";
+          if (main) text += esc(main);
+          if (key) text += (main ? '<span class="k2">｜关键指标：</span>' : '<span class="k2">关键指标：</span>') + esc(key);
+          return '<div class="chain-row' + (now ? " now" : "") + '"><span class="chain-stage">' + stage +
+            '</span><span class="chain-text">' + text + "</span></div>";
+        }
+        function renderReverse() {
+          document.getElementById("rCount").textContent = reverses.length;
+          document.getElementById("rDone").textContent =
+            reverses.filter(function (e) { return e.status === "已完成"; }).length;
+          var box = document.getElementById("reverseEntries");
+          document.getElementById("reverseEmpty").style.display = reverses.length ? "none" : "block";
+          box.innerHTML = reverses.map(function (e, i) {
+            return '<div class="entry"><div class="main"><div class="top">' +
+              '<span class="date">' + esc(e.date) + '</span>' +
+              '<span class="cat">终点：' + esc(e.goal) + "</span>" +
+              '<span class="tag ' + (e.status === "已完成" ? "done" : "doing") + '">' + e.status + "</span></div>" +
+              '<div class="chain">' +
+              chainRow("阶段三 · 终点前一步", e.s3cond, e.s3key, false) +
+              chainRow("阶段二 · 中期过渡", e.s2cond, e.s2key, false) +
+              chainRow("阶段一 · 当前唯一动作", e.s1act, e.s1key, true) +
+              "</div>" +
+              '</div><button class="del" data-i="' + i + '" aria-label="删除这条记录">×</button></div>';
+          }).join("");
+          box.querySelectorAll(".del").forEach(function (b) {
+            b.addEventListener("click", function () {
+              reverses.splice(Number(b.dataset.i), 1);
+              renderReverse();
+            });
+          });
+        }
+        var rDate = document.getElementById("rDate");
+        rDate.value = today();
+        document.getElementById("reverseForm").addEventListener("submit", function (ev) {
+          ev.preventDefault();
+          var goal = document.getElementById("rGoal").value.trim();
+          var act = document.getElementById("rS1Act").value.trim();
+          if (!rDate.value || !goal || !act) return;
+          reverses.unshift({
+            date: rDate.value,
+            goal: goal,
+            s3cond: document.getElementById("rS3Cond").value.trim(),
+            s3key: document.getElementById("rS3Key").value.trim(),
+            s2cond: document.getElementById("rS2Cond").value.trim(),
+            s2key: document.getElementById("rS2Key").value.trim(),
+            s1act: act,
+            s1key: document.getElementById("rS1Key").value.trim(),
+            status: getRStatus()
+          });
+          ["rGoal", "rS3Cond", "rS3Key", "rS2Cond", "rS2Key", "rS1Act", "rS1Key"].forEach(function (id) {
+            document.getElementById(id).value = "";
+          });
+          renderReverse();
+        });
+        renderReverse();
+
+        /* ---------- 开支复盘 ---------- */
+        /* 2026-10-18 本人决定：不记每日开支，改为每月导出账单流水复盘一次 */
+        var EXP_CATS = ["吃饭", "烟", "水", "话费", "房租水电", "油费", "给家里", "女友", "网购", "其他"];
+        /* 10 月基准参考：用户本人 2026-10-12 列的每月固定开支表（主档案模块二 2.3，合计约 ¥7,128/月） */
+        var EXP_BASE = [
+          { cat: "给家里", amt: 2000, note: "固定，用于还房子的债" },
+          { cat: "房租水电", amt: 1450, note: "房租，固定" },
+          { cat: "房租水电", amt: 400, note: "水电" },
+          { cat: "吃饭", amt: 1000, note: "" },
+          { cat: "女友", amt: 1000, note: "送礼、请吃饭等，每月至少 1,000" },
+          { cat: "烟", amt: 600, note: "" },
+          { cat: "油费", amt: 330, note: "摩托车油费（流水核对：2025-12 至 2026-09 月均）" },
+          { cat: "水", amt: 300, note: "每天约 ¥10，按 30 天算" },
+          { cat: "话费", amt: 40, note: "" },
+          { cat: "其他", amt: 8, note: "汽水音乐" }
+        ];
+        document.getElementById("expenseBaseline").innerHTML = EXP_BASE.map(function (e) {
+          return '<div class="bd-row"><div><span class="name">' + esc(e.cat) + "</span>" +
+            (e.note ? '<span class="sub">' + esc(e.note) + "</span>" : "") +
+            '</div><div class="amt">' + money(e.amt) + "</div></div>";
+        }).join("");
+        var erCatsBox = document.getElementById("erCats");
+        erCatsBox.innerHTML = EXP_CATS.map(function (c, idx) {
+          return '<div><label for="erCat' + idx + '">' + esc(c) + '（¥）</label>' +
+            '<input type="number" id="erCat' + idx + '" class="er-cat" data-cat="' + esc(c) + '" min="0" step="0.01" inputmode="decimal" placeholder="0" /></div>';
+        }).join("");
+        var expReviews = [];
+        function renderExpense() {
+          document.getElementById("erCount").textContent = expReviews.length;
+          document.getElementById("erLatest").textContent = expReviews.length ? money(expReviews[0].total) : "—";
+          var box = document.getElementById("expenseEntries");
+          document.getElementById("expenseEmpty").style.display = expReviews.length ? "none" : "block";
+          box.innerHTML = expReviews.map(function (r, i2) {
+            var sum = EXP_CATS.reduce(function (s2, c) { return s2 + (r.cats[c] || 0); }, 0);
+            var rows = EXP_CATS.filter(function (c) { return r.cats[c] > 0; }).map(function (c) {
+              return '<div class="note">' + esc(c) + "：" + money(r.cats[c]) + "</div>";
+            }).join("");
+            return '<div class="entry"><div class="main"><div class="top">' +
+              '<span class="date">' + esc(r.month) + '</span>' +
+              '<span class="cat">账单总支出</span>' +
+              '<span class="amt">' + money(r.total) + "</span></div>" +
+              (sum > 0 ? '<div class="note">分类合计 ' + money(sum) + "</div>" + rows : "") +
+              (r.note ? '<div class="note">' + esc(r.note) + "</div>" : "") +
+              '</div><button class="del" data-i="' + i2 + '" aria-label="删除这条记录">×</button></div>';
+          }).join("");
+          box.querySelectorAll(".del").forEach(function (b) {
+            b.addEventListener("click", function () {
+              expReviews.splice(Number(b.dataset.i), 1);
+              renderExpense();
+            });
+          });
+        }
+        var erMonth = document.getElementById("erMonth");
+        erMonth.value = today().slice(0, 7);
+        document.getElementById("expenseForm").addEventListener("submit", function (ev) {
+          ev.preventDefault();
+          var total = parseFloat(document.getElementById("erTotal").value);
+          if (!erMonth.value || !(total > 0)) return;
+          var cats = {};
+          erCatsBox.querySelectorAll(".er-cat").forEach(function (inp) {
+            var v = parseFloat(inp.value);
+            cats[inp.dataset.cat] = v > 0 ? v : 0;
+          });
+          expReviews.push({ month: erMonth.value, total: total, cats: cats, note: document.getElementById("erNote").value.trim() });
+          expReviews.sort(function (a, b) { return a.month < b.month ? 1 : (a.month > b.month ? -1 : 0); });
+          document.getElementById("erTotal").value = "";
+          document.getElementById("erNote").value = "";
+          erCatsBox.querySelectorAll(".er-cat").forEach(function (inp) { inp.value = ""; });
+          renderExpense();
+        });
+        renderExpense();
+
+        /* ---------- 个人盈利 ---------- */
+        /* 只记已到账的钱；2026 年 10 月暂无已到账收入（工资每月 1 号左右到，是否到账待本人确认），不预填 */
+        var incomes = [];
+        function renderIncome() {
+          var month = today().slice(0, 7);
+          var inMonth = incomes.filter(function (e) { return e.date.slice(0, 7) === month; });
+          var mTotal = inMonth.reduce(function (s2, e) { return s2 + e.amt; }, 0);
+          var aTotal = incomes.reduce(function (s2, e) { return s2 + e.amt; }, 0);
+          document.getElementById("iMonthTotal").textContent = money(mTotal);
+          document.getElementById("iAllTotal").textContent = money(aTotal);
+          document.getElementById("iAllCount").textContent = incomes.length;
+          var box = document.getElementById("incomeEntries");
+          document.getElementById("incomeEmpty").style.display = incomes.length ? "none" : "block";
+          box.innerHTML = incomes.map(function (e, i2) {
+            return '<div class="entry"><div class="main"><div class="top">' +
+              '<span class="date">' + esc(e.date) + '</span>' +
+              '<span class="cat">' + esc(e.src) + '</span>' +
+              '<span class="amt">' + money(e.amt) + "</span></div>" +
+              (e.note ? '<div class="note">' + esc(e.note) + "</div>" : "") +
+              '</div><button class="del" data-i="' + i2 + '" aria-label="删除这条记录">×</button></div>';
+          }).join("");
+          box.querySelectorAll(".del").forEach(function (b) {
+            b.addEventListener("click", function () {
+              incomes.splice(Number(b.dataset.i), 1);
+              renderIncome();
+            });
+          });
+        }
+        var iDate = document.getElementById("iDate");
+        iDate.value = today();
+        document.getElementById("incomeForm").addEventListener("submit", function (ev) {
+          ev.preventDefault();
+          var amt = parseFloat(document.getElementById("iAmt").value);
+          if (!iDate.value || !(amt > 0)) return;
+          incomes.unshift({
+            date: iDate.value,
+            src: document.getElementById("iSrc").value,
+            amt: amt,
+            note: document.getElementById("iNote").value.trim()
+          });
+          incomes.sort(function (a, b) { return a.date < b.date ? 1 : (a.date > b.date ? -1 : 0); });
+          document.getElementById("iAmt").value = "";
+          document.getElementById("iNote").value = "";
+          renderIncome();
+        });
+        renderIncome();
+
+        /* ---------- 睡眠记录 ---------- */
+        /* 预填：用户 2026-10-18 提供的睡眠记录 2026-10-14 至 10-18 共 5 晚（文档第六部分）；原记录质量「中」对应本表「一般」，「不好」对应「差」；时长按入睡/起床时间计算，与原记录的估计时长一致 */
+        var SLEEP_NOTE = "东鹏特饮 500ml×2 瓶/天；午睡 0 次";
+        var sleeps = [
+          { date: "2026-10-18", start: "00:50", end: "07:20", mins: sleepMins("00:50", "07:20"), quality: "一般", note: "白天精神：困、累；夜间醒来 0 次。" + SLEEP_NOTE },
+          { date: "2026-10-17", start: "00:40", end: "07:45", mins: sleepMins("00:40", "07:45"), quality: "差", note: "夜间醒来 1 次（04:30–05:00），时长未扣除夜醒清醒时间；白天精神：困、累。" + SLEEP_NOTE },
+          { date: "2026-10-16", start: "00:40", end: "07:31", mins: sleepMins("00:40", "07:31"), quality: "一般", note: "白天精神：中；夜间醒来 0 次；东鹏特饮最后一次在 22:00 以后。" + SLEEP_NOTE },
+          { date: "2026-10-15", start: "00:54", end: "08:10", mins: sleepMins("00:54", "08:10"), quality: "一般", note: "白天精神：中；夜间醒来 0 次。" + SLEEP_NOTE },
+          { date: "2026-10-14", start: "01:54", end: "07:40", mins: sleepMins("01:54", "07:40"), quality: "一般", note: "白天精神：中；夜间醒来 0 次。" + SLEEP_NOTE }
+        ];
+        var SLEEP_GOAL = 8 * 60;
+        function fmtDur(mins) {
+          var h = Math.floor(mins / 60), m = mins % 60;
+          return h + " 小时" + (m ? " " + m + " 分" : "");
+        }
+        function sleepMins(start, end) {
+          var sp = start.split(":"), ep = end.split(":");
+          var sm = Number(sp[0]) * 60 + Number(sp[1]);
+          var em = Number(ep[0]) * 60 + Number(ep[1]);
+          if (em <= sm) em += 24 * 60;
+          return em - sm;
+        }
+        function renderSleep() {
+          var cutoff = new Date();
+          cutoff.setDate(cutoff.getDate() - 6);
+          var cm = String(cutoff.getMonth() + 1).padStart(2, "0");
+          var cd = String(cutoff.getDate()).padStart(2, "0");
+          var cutStr = cutoff.getFullYear() + "-" + cm + "-" + cd;
+          var t = today();
+          var recent = sleeps.filter(function (e) { return e.date >= cutStr && e.date <= t; });
+          document.getElementById("sCount").textContent = sleeps.length;
+          if (recent.length) {
+            var avg = recent.reduce(function (s2, e) { return s2 + e.mins; }, 0) / recent.length;
+            document.getElementById("sAvg").textContent = fmtDur(Math.round(avg));
+            var qScore = { "好": 3, "一般": 2, "差": 1 };
+            var qa = recent.reduce(function (s2, e) { return s2 + qScore[e.quality]; }, 0) / recent.length;
+            document.getElementById("sQuality").textContent = qa >= 2.5 ? "好" : (qa >= 1.5 ? "一般" : "差");
+          } else {
+            document.getElementById("sAvg").textContent = "—";
+            document.getElementById("sQuality").textContent = "—";
+          }
+          var box = document.getElementById("sleepEntries");
+          document.getElementById("sleepEmpty").style.display = sleeps.length ? "none" : "block";
+          box.innerHTML = sleeps.map(function (e, i) {
+            var tagCls = e.quality === "好" ? "done" : (e.quality === "差" ? "late" : "doing");
+            return '<div class="entry"><div class="main"><div class="top">' +
+              '<span class="date">' + esc(e.date) + '</span>' +
+              '<span class="cat">' + esc(e.start) + " 入睡 → " + esc(e.end) + " 起床</span>" +
+              '<span class="amt">' + fmtDur(e.mins) + "</span>" +
+              '<span class="tag ' + tagCls + '">' + e.quality + "</span></div>" +
+              '<div class="note">目标 8 小时：' + (e.mins >= SLEEP_GOAL ? "已达到" : "还差 " + fmtDur(SLEEP_GOAL - e.mins)) + "</div>" +
+              (e.note ? '<div class="note">' + esc(e.note) + "</div>" : "") +
+              '</div><button class="del" data-i="' + i + '" aria-label="删除这条记录">×</button></div>';
+          }).join("");
+          box.querySelectorAll(".del").forEach(function (b) {
+            b.addEventListener("click", function () {
+              sleeps.splice(Number(b.dataset.i), 1);
+              renderSleep();
+            });
+          });
+        }
+        var sDate = document.getElementById("sDate");
+        sDate.value = today();
+        function updSleepPreview() {
+          var st = document.getElementById("sStart").value, en = document.getElementById("sEnd").value;
+          document.getElementById("sDurPreview").textContent = (st && en) ? fmtDur(sleepMins(st, en)) : "—";
+        }
+        document.getElementById("sStart").addEventListener("change", updSleepPreview);
+        document.getElementById("sEnd").addEventListener("change", updSleepPreview);
+        document.getElementById("sleepForm").addEventListener("submit", function (ev) {
+          ev.preventDefault();
+          var st = document.getElementById("sStart").value, en = document.getElementById("sEnd").value;
+          if (!sDate.value || !st || !en) return;
+          sleeps.unshift({
+            date: sDate.value,
+            start: st,
+            end: en,
+            mins: sleepMins(st, en),
+            quality: getQuality(),
+            note: document.getElementById("sNote").value.trim()
+          });
+          document.getElementById("sNote").value = "";
+          renderSleep();
+        });
+        renderSleep();
+
+        /* ---------- 每周复盘 ---------- */
+        /* 预填：2026-10-12 至 10-18 这一周已确认的事实汇总（健身日志、睡眠记录与 2026-10-18 核对记录） */
+        var reviews = [
+          {
+            date: "2026-10-18",
+            done: "健身完成 2 次：10-13 胸＋三头（41 分钟）、10-14 背＋二头（48 分钟）；睡眠连续登记 5 天（10-14 至 10-18）；2026-10-18 逐条核对 7 项财务口径，全部定案",
+            block: "腿部训练本周未完成；白天困、累持续一两周，平均睡眠约 6 小时 42 分；10-25 融资租赁 ¥2,473.50 暂无确定方案（先看网贷能否借出，借不出则逾期约 5 天并与客服沟通）",
+            task: "腿部训练",
+            adjust: "继续",
+            next: "1. 10-19 胸＋三头、10-20 背＋二头、10-22 腿（补本周未练的腿）；2. 处理 10-25 融资租赁到期款；3. 手机最晚 10-30 发货，到货后尽快卖出清网贷"
+          }
+        ];
+        function renderReview() {
+          document.getElementById("wCount").textContent = reviews.length;
+          var box = document.getElementById("reviewEntries");
+          document.getElementById("reviewEmpty").style.display = reviews.length ? "none" : "block";
+          box.innerHTML = reviews.map(function (e, i) {
+            var tagCls = e.adjust === "停止" ? "no" : (e.adjust === "缩减" ? "late" : "done");
+            return '<div class="entry"><div class="main"><div class="top">' +
+              '<span class="date">' + esc(e.date) + ' 那一周</span>' +
+              (e.task ? '<span class="cat">' + esc(e.task) + '</span><span class="tag ' + tagCls + '">' + e.adjust + "</span>" : "") + "</div>" +
+              (e.done ? '<div class="note">本周完成：' + esc(e.done) + "</div>" : "") +
+              (e.block ? '<div class="note">最大阻碍：' + esc(e.block) + "</div>" : "") +
+              (e.next ? '<div class="note">下周最重要：' + esc(e.next) + "</div>" : "") +
+              '</div><button class="del" data-i="' + i + '" aria-label="删除这条记录">×</button></div>';
+          }).join("");
+          box.querySelectorAll(".del").forEach(function (b) {
+            b.addEventListener("click", function () {
+              reviews.splice(Number(b.dataset.i), 1);
+              renderReview();
+            });
+          });
+        }
+        var wDate = document.getElementById("wDate");
+        wDate.value = today();
+        document.getElementById("reviewForm").addEventListener("submit", function (ev) {
+          ev.preventDefault();
+          var done = document.getElementById("wDone").value.trim();
+          if (!wDate.value || !done) return;
+          reviews.unshift({
+            date: wDate.value,
+            done: done,
+            block: document.getElementById("wBlock").value.trim(),
+            task: document.getElementById("wTask").value.trim(),
+            adjust: getAdjust(),
+            next: document.getElementById("wNext").value.trim()
+          });
+          ["wDone", "wBlock", "wTask", "wNext"].forEach(function (id) { document.getElementById(id).value = ""; });
+          renderReview();
+        });
+        renderReview();
+
+        /* 文档原文跳转：切到「我的文档」并定位第三部分 */
+        document.getElementById("rDocLink").addEventListener("click", function () {
+          document.querySelector('.tab[data-tab="docs"]').click();
+          setTimeout(function () {
+            var el = document.getElementById("part-3");
+            if (el) el.scrollIntoView();
+          }, 60);
+        });
+
+        /* 睡眠历史跳转：切到「我的文档」并定位第六部分 */
+        document.getElementById("sDocLink").addEventListener("click", function () {
+          document.querySelector('.tab[data-tab="docs"]').click();
+          setTimeout(function () {
+            var el = document.getElementById("part-6");
+            if (el) el.scrollIntoView();
+          }, 60);
+        });
+      })();
+    </script>
+  </body>
+</html>
