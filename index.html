@@ -4057,10 +4057,16 @@ ETF 长期资产不默认视为日常可用现金。
           window.scrollTo({ top: 0 });
         }
         function openModule(key) {
-          var tab = document.querySelector('.tab[data-tab="' + key + '"]');
           home.hidden = true;
           moduleView.hidden = false;
-          if (tab) { tab.click(); }
+          // Directly activate the right tab and panel instead of relying on click()
+          document.querySelectorAll(".tab").forEach(function (t) {
+            var isTarget = t.dataset.tab === key;
+            t.setAttribute("aria-selected", isTarget ? "true" : "false");
+          });
+          document.querySelectorAll(".panel").forEach(function (p) {
+            p.classList.toggle("active", p.id === "panel-" + key);
+          });
           window.scrollTo({ top: 0 });
         }
 
