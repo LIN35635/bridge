@@ -843,33 +843,7 @@
         </dl>
 
         <h2>记一笔还款</h2>
-        <form id="debtForm">
-          <div class="grid2">
-            <div>
-              <label for="dDate">日期</label>
-              <input type="date" id="dDate" required />
-            </div>
-            <div>
-              <label for="dCat">类别</label>
-              <select id="dCat">
-                <option value="loan">网贷</option>
-                <option value="lease">融资租赁</option>
-                <option value="friend">欠朋友</option>
-              </select>
-            </div>
-          </div>
-          <div class="grid2">
-            <div>
-              <label for="dAmt">金额（元）</label>
-              <input type="number" id="dAmt" min="0.01" step="0.01" inputmode="decimal" placeholder="例如 1200" required />
-            </div>
-            <div>
-              <label for="dNote">备注（可选）</label>
-              <input type="text" id="dNote" placeholder="例如 10 月月供" />
-            </div>
-          </div>
-          <button class="btn" type="submit">添加</button>
-        </form>
+        <!-- debtForm removed (public version, data via chat only) -->
 
         <h2>还款记录</h2>
         <div class="entries" id="debtEntries"></div>
@@ -892,25 +866,7 @@
         <div class="breakdown" id="expenseBaseline"></div>
 
         <h2>记一次月度复盘</h2>
-        <form id="expenseForm">
-          <div class="grid2">
-            <div>
-              <label for="erMonth">月份</label>
-              <input type="month" id="erMonth" required />
-            </div>
-            <div>
-              <label for="erTotal">账单总支出（¥）</label>
-              <input type="number" id="erTotal" min="0.01" step="0.01" inputmode="decimal" placeholder="例如 7128" required />
-            </div>
-          </div>
-          <p class="muted" style="margin-top:14px;">分类合计（按账单流水归类，没有的留空）</p>
-          <div class="grid2" id="erCats"></div>
-          <div style="margin-top:12px;">
-            <label for="erNote">本月说明（可选）</label>
-            <textarea id="erNote" placeholder="例如 哪类花超了、下个月注意什么"></textarea>
-          </div>
-          <button class="btn" type="submit">添加</button>
-        </form>
+        <!-- expenseForm removed (public version, data via chat only) -->
 
         <h2>复盘记录</h2>
         <div class="entries" id="expenseEntries"></div>
@@ -931,36 +887,7 @@
         </div>
 
         <h2>新增一笔到账</h2>
-        <form id="incomeForm">
-          <div class="grid2">
-            <div>
-              <label for="iDate">日期</label>
-              <input type="date" id="iDate" required />
-            </div>
-            <div>
-              <label for="iSrc">类别</label>
-              <select id="iSrc">
-                <option>工资</option>
-                <option>交易盈利</option>
-                <option>其他收入</option>
-                <option>出售资产</option>
-                <option>借入款（不计收入）</option>
-                <option>退款 / 转入</option>
-              </select>
-            </div>
-          </div>
-          <div class="grid2">
-            <div>
-              <label for="iAmt">金额（¥）</label>
-              <input type="number" id="iAmt" min="0.01" step="0.01" inputmode="decimal" placeholder="例如 6500" required />
-            </div>
-            <div>
-              <label for="iNote">备注（可选）</label>
-              <input type="text" id="iNote" placeholder="例如 10 月工资已到账 / 借入款已到账" />
-            </div>
-          </div>
-          <button class="btn" type="submit">添加到账记录</button>
-        </form>
+        <!-- incomeForm removed (public version, data via chat only) -->
 
         <h2>到账明细</h2>
         <div class="entries" id="incomeEntries"></div>
@@ -1012,43 +939,7 @@
           <div class="stat"><b id="tCount">0</b><span>已记录</span></div>
           <div class="stat"><b id="tFollow">—</b><span>按系统执行</span></div>
         </div>
-        <form id="tradeForm">
-          <div class="grid2">
-            <div>
-              <label for="tDate">日期</label>
-              <input type="date" id="tDate" required />
-            </div>
-            <div>
-              <label for="tMarket">市场 / 品种</label>
-              <input type="text" id="tMarket" placeholder="例如 BTC、黄金、纳指" required />
-            </div>
-          </div>
-          <div>
-            <label>方向</label>
-            <div class="seg" id="tDirSeg">
-              <button type="button" class="on" data-dir="做多">做多</button>
-              <button type="button" data-dir="做空">做空</button>
-            </div>
-          </div>
-          <div>
-            <label for="tReason">入场理由</label>
-            <textarea id="tReason" placeholder="例如 日线突破前高阻力，周线方向向上" required></textarea>
-          </div>
-          <div class="grid2">
-            <div>
-              <label for="tResult">结果</label>
-              <input type="text" id="tResult" placeholder="例如 +4% 出一半 / 止损 -2% / 持仓中" />
-            </div>
-            <div>
-              <label>是否按系统执行</label>
-              <div class="seg" id="tFollowSeg">
-                <button type="button" class="on" data-follow="是">是</button>
-                <button type="button" data-follow="否">否</button>
-              </div>
-            </div>
-          </div>
-          <button class="btn" type="submit">添加</button>
-        </form>
+        <!-- tradeForm removed (public version, data via chat only) -->
 
         <h2>日记记录</h2>
         <div class="entries" id="tradeEntries"></div>
@@ -1068,41 +959,7 @@
         </div>
 
         <h2>记一次</h2>
-        <form id="lifeForm">
-          <div class="grid2">
-            <div>
-              <label for="lDate">日期</label>
-              <input type="date" id="lDate" required />
-            </div>
-            <div>
-              <label>安排</label>
-              <div class="seg" id="lDaySeg">
-                <button type="button" class="on" data-day="周一">周一</button>
-                <button type="button" data-day="周二">周二</button>
-                <button type="button" data-day="周四">周四</button>
-                <button type="button" data-day="自定义">自定义</button>
-              </div>
-            </div>
-          </div>
-          <div class="grid2">
-            <div>
-              <label>状态</label>
-              <div class="seg" id="lStatusSeg">
-                <button type="button" class="on" data-status="完成">完成</button>
-                <button type="button" data-status="推迟">推迟</button>
-              </div>
-            </div>
-            <div>
-              <label for="lMinsInput">时长（分钟，可选）</label>
-              <input type="number" id="lMinsInput" min="0" step="1" inputmode="numeric" placeholder="例如 45" />
-            </div>
-          </div>
-          <div>
-            <label for="lNote">备注（可选）</label>
-            <input type="text" id="lNote" placeholder="例如 跑步 5 公里 / 力量训练" />
-          </div>
-          <button class="btn" type="submit">添加</button>
-        </form>
+        <!-- lifeForm removed (public version, data via chat only) -->
 
         <h2>打卡记录</h2>
         <div class="entries" id="lifeEntries"></div>
@@ -1123,36 +980,7 @@
         </div>
 
         <h2>记一晚</h2>
-        <form id="sleepForm">
-          <div>
-            <label for="sDate">日期（起床日）</label>
-            <input type="date" id="sDate" required />
-          </div>
-          <div class="grid2">
-            <div>
-              <label for="sStart">入睡时间</label>
-              <input type="time" id="sStart" required />
-            </div>
-            <div>
-              <label for="sEnd">起床时间</label>
-              <input type="time" id="sEnd" required />
-            </div>
-          </div>
-          <p class="muted">睡眠时长：<strong id="sDurPreview" style="color:var(--text);">—</strong>（跨过零点自动按第二天算）</p>
-          <div>
-            <label>睡眠质量</label>
-            <div class="seg" id="sQualitySeg">
-              <button type="button" class="on" data-quality="好">好</button>
-              <button type="button" data-quality="一般">一般</button>
-              <button type="button" data-quality="差">差</button>
-            </div>
-          </div>
-          <div>
-            <label for="sNote">备注（可选）</label>
-            <input type="text" id="sNote" placeholder="例如 夜里醒了两次 / 被闹钟叫醒" />
-          </div>
-          <button class="btn" type="submit">添加</button>
-        </form>
+        <!-- sleepForm removed (public version, data via chat only) -->
 
         <h2>睡眠记录</h2>
         <div class="entries" id="sleepEntries"></div>
@@ -1199,57 +1027,7 @@
         </div>
 
         <h2>拆一个目标</h2>
-        <form id="reverseForm">
-          <div>
-            <label for="rDate">日期</label>
-            <input type="date" id="rDate" required />
-          </div>
-          <div>
-            <label for="rGoal">终点目标</label>
-            <input type="text" id="rGoal" placeholder="例如 2027 年 3 月前还清全部债务" required />
-          </div>
-          <p class="stage-label">倒推阶段三 <span>终点前一步</span></p>
-          <div class="grid2">
-            <div>
-              <label for="rS3Cond">前置必要条件</label>
-              <input type="text" id="rS3Cond" placeholder="例如 能自由选择工作或尝试新方向" />
-            </div>
-            <div>
-              <label for="rS3Key">关键指标</label>
-              <input type="text" id="rS3Key" placeholder="例如 有 3–6 个月应急缓冲金，无高息负债" />
-            </div>
-          </div>
-          <p class="stage-label">倒推阶段二 <span>中期过渡</span></p>
-          <div class="grid2">
-            <div>
-              <label for="rS2Cond">前置必要条件</label>
-              <input type="text" id="rS2Cond" placeholder="例如 债务持续缩减，现金流恢复健康" />
-            </div>
-            <div>
-              <label for="rS2Key">关键指标</label>
-              <input type="text" id="rS2Key" placeholder="例如 固定开支受控，不新增借贷" />
-            </div>
-          </div>
-          <p class="stage-label">倒推阶段一 <span>当前脚下唯一动作</span></p>
-          <div class="grid2">
-            <div>
-              <label for="rS1Act">这一步做什么</label>
-              <input type="text" id="rS1Act" placeholder="例如 守住工资收入，手机到货先卖掉清网贷" required />
-            </div>
-            <div>
-              <label for="rS1Key">关键指标</label>
-              <input type="text" id="rS1Key" placeholder="例如 本月不新增任何借贷" />
-            </div>
-          </div>
-          <div>
-            <label>当前步状态</label>
-            <div class="seg" id="rStatusSeg">
-              <button type="button" class="on" data-status="进行中">进行中</button>
-              <button type="button" data-status="已完成">已完成</button>
-            </div>
-          </div>
-          <button class="btn" type="submit">添加</button>
-        </form>
+        <!-- reverseForm removed (public version, data via chat only) -->
 
         <h2>我的拆解</h2>
         <div class="entries" id="reverseEntries"></div>
@@ -1269,39 +1047,7 @@
         </div>
 
         <h2>写本周复盘</h2>
-        <form id="reviewForm">
-          <div>
-            <label for="wDate">周次（选这周任意一天）</label>
-            <input type="date" id="wDate" required />
-          </div>
-          <div>
-            <label for="wDone">本周完成了什么（可验证的结果）</label>
-            <textarea id="wDone" placeholder="例如 融资租赁 10 月这一期已还，有扣款记录" required></textarea>
-          </div>
-          <div>
-            <label for="wBlock">最大的阻碍是什么（可选）</label>
-            <textarea id="wBlock" placeholder="例如 加班太多，健身和睡眠都被挤掉"></textarea>
-          </div>
-          <div class="grid2">
-            <div>
-              <label for="wTask">哪个任务（可选）</label>
-              <input type="text" id="wTask" placeholder="例如 抖音账号" />
-            </div>
-            <div>
-              <label>应该怎么处理</label>
-              <div class="seg" id="wAdjustSeg">
-                <button type="button" data-adjust="停止">停止</button>
-                <button type="button" data-adjust="缩减">缩减</button>
-                <button type="button" class="on" data-adjust="继续">继续</button>
-              </div>
-            </div>
-          </div>
-          <div>
-            <label for="wNext">下周最重要的 1–3 件事（可选）</label>
-            <textarea id="wNext" placeholder="例如 1. 联系租赁机构 2. 手机到货就挂出售 3. 睡够 8 小时"></textarea>
-          </div>
-          <button class="btn" type="submit">添加</button>
-        </form>
+        <!-- reviewForm removed (public version, data via chat only) -->
 
         <h2>复盘记录</h2>
         <div class="entries" id="reviewEntries"></div>
@@ -2286,6 +2032,7 @@ ETF 长期资产不默认视为日常可用现金。
 <tr><td>2026-10-19</td><td>网站换成蓝白配色新版（Codex 制作），本人直接提交到 GitHub（commit 05ba0bf）；立规矩：AI 不主动改设计，只在被明确要求时改；目前只动数据不动设计</td><td>「这个是codex做的」「你就不要再改设计了」「目前没让你改，你就不要乱做」「以后要求你改你是可以改的」</td><td>本人对设计有自己的安排，AI 只负责数据维护（推测，非诊断）</td></tr>
 <tr><td>2026-10-19</td><td>个人盈利三笔（放心借¥954、京东白条¥1,600、京东金条¥1,000）从"借入·不计收入"改为"纯利"</td><td>「这个数据不是借入 是纯利」</td><td>本人纠正了资金性质：不是借款，是纯利润（推测，非诊断）</td></tr>
 <tr><td>2026-10-19</td><td>健身记录的周几标签："自定义"改为实际星期（10-18周日、10-17周六、10-16周五、10-12周一）；10-14、10-13 也按实际星期修正</td><td>「自定义就不行了啊」「19是周一那18不就是周日」「以此倒推是不是？」</td><td>本人要求标签准确，按日历倒推（推测，非诊断）</td></tr>
+<tr><td>2026-10-19</td><td>10-25 融资租赁¥2,473.50 确认：已决定延期 3–5 天支付，预计滞纳金十几元；待实际付款后更新完成状态。原定还款日和金额保留，不覆盖历史</td><td>本人书面确认：「已决定延期 3–5 天支付，预计滞纳金十几元；待实际付款后更新完成状态」</td><td>本人明确了延期方案，滞纳金不再写模糊的"可能"（推测，非诊断）</td></tr>
 </tbody>
 </table></div>
 <div class="doc-body">
@@ -4013,21 +3760,7 @@ ETF 长期资产不默认视为日常可用现金。
 
         var dDate = document.getElementById("dDate");
         dDate.value = today();
-        document.getElementById("debtForm").addEventListener("submit", function (ev) {
-          ev.preventDefault();
-          var amt = parseFloat(document.getElementById("dAmt").value);
-          if (!dDate.value || !(amt > 0)) return;
-          debts.unshift({
-            date: dDate.value,
-            cat: document.getElementById("dCat").value,
-            amt: amt,
-            note: document.getElementById("dNote").value.trim()
-          });
-          saveStore("bridge_debts_v3", debts);
-          document.getElementById("dAmt").value = "";
-          document.getElementById("dNote").value = "";
-          renderDebt();
-        });
+        /* debtForm listener removed (form deleted) */
         renderDebt();
 
         /* ---------- 交易日记 ---------- */
@@ -4062,25 +3795,7 @@ ETF 长期资产不默认视为日常可用现金。
         }
         var tDate = document.getElementById("tDate");
         tDate.value = today();
-        document.getElementById("tradeForm").addEventListener("submit", function (ev) {
-          ev.preventDefault();
-          var market = document.getElementById("tMarket").value.trim();
-          var reason = document.getElementById("tReason").value.trim();
-          if (!tDate.value || !market || !reason) return;
-          trades.unshift({
-            date: tDate.value,
-            market: market,
-            dir: getDir(),
-            reason: reason,
-            result: document.getElementById("tResult").value.trim(),
-            follow: getFollow()
-          });
-          saveStore("bridge_trades_v3", trades);
-          document.getElementById("tMarket").value = "";
-          document.getElementById("tReason").value = "";
-          document.getElementById("tResult").value = "";
-          renderTrade();
-        });
+        /* tradeForm listener removed (form deleted) */
         renderTrade();
 
         /* ---------- 健身打卡 ---------- */
@@ -4126,22 +3841,7 @@ ETF 长期资产不默认视为日常可用现金。
         }
         var lDate = document.getElementById("lDate");
         lDate.value = today();
-        document.getElementById("lifeForm").addEventListener("submit", function (ev) {
-          ev.preventDefault();
-          if (!lDate.value) return;
-          var mins = parseInt(document.getElementById("lMinsInput").value, 10);
-          lifes.unshift({
-            date: lDate.value,
-            day: getDay(),
-            status: getStatus(),
-            mins: isNaN(mins) ? 0 : mins,
-            note: document.getElementById("lNote").value.trim()
-          });
-          saveStore("bridge_lifes_v3", lifes);
-          document.getElementById("lMinsInput").value = "";
-          document.getElementById("lNote").value = "";
-          renderLife();
-        });
+        /* lifeForm listener removed (form deleted) */
         renderLife();
 
         /* ---------- 逆向决策 ---------- */
@@ -4195,28 +3895,7 @@ ETF 长期资产不默认视为日常可用现金。
         }
         var rDate = document.getElementById("rDate");
         rDate.value = today();
-        document.getElementById("reverseForm").addEventListener("submit", function (ev) {
-          ev.preventDefault();
-          var goal = document.getElementById("rGoal").value.trim();
-          var act = document.getElementById("rS1Act").value.trim();
-          if (!rDate.value || !goal || !act) return;
-          reverses.unshift({
-            date: rDate.value,
-            goal: goal,
-            s3cond: document.getElementById("rS3Cond").value.trim(),
-            s3key: document.getElementById("rS3Key").value.trim(),
-            s2cond: document.getElementById("rS2Cond").value.trim(),
-            s2key: document.getElementById("rS2Key").value.trim(),
-            s1act: act,
-            s1key: document.getElementById("rS1Key").value.trim(),
-            status: getRStatus()
-          });
-          saveStore("bridge_reverses_v3", reverses);
-          ["rGoal", "rS3Cond", "rS3Key", "rS2Cond", "rS2Key", "rS1Act", "rS1Key"].forEach(function (id) {
-            document.getElementById(id).value = "";
-          });
-          renderReverse();
-        });
+        /* reverseForm listener removed (form deleted) */
         renderReverse();
 
         /* ---------- 开支复盘 ---------- */
@@ -4274,23 +3953,7 @@ ETF 长期资产不默认视为日常可用现金。
         }
         var erMonth = document.getElementById("erMonth");
         erMonth.value = today().slice(0, 7);
-        document.getElementById("expenseForm").addEventListener("submit", function (ev) {
-          ev.preventDefault();
-          var total = parseFloat(document.getElementById("erTotal").value);
-          if (!erMonth.value || !(total > 0)) return;
-          var cats = {};
-          erCatsBox.querySelectorAll(".er-cat").forEach(function (inp) {
-            var v = parseFloat(inp.value);
-            cats[inp.dataset.cat] = v > 0 ? v : 0;
-          });
-          expReviews.push({ month: erMonth.value, total: total, cats: cats, note: document.getElementById("erNote").value.trim() });
-          expReviews.sort(function (a, b) { return a.month < b.month ? 1 : (a.month > b.month ? -1 : 0); });
-          saveStore("bridge_expenses_v3", expReviews);
-          document.getElementById("erTotal").value = "";
-          document.getElementById("erNote").value = "";
-          erCatsBox.querySelectorAll(".er-cat").forEach(function (inp) { inp.value = ""; });
-          renderExpense();
-        });
+        /* expenseForm listener removed (form deleted) */
         renderExpense();
 
         /* ---------- 资金流入：真实收入与借入款分开统计 ---------- */
@@ -4341,22 +4004,7 @@ ETF 长期资产不默认视为日常可用现金。
         }
         var iDate = document.getElementById("iDate");
         iDate.value = today();
-        document.getElementById("incomeForm").addEventListener("submit", function (ev) {
-          ev.preventDefault();
-          var amt = parseFloat(document.getElementById("iAmt").value);
-          if (!iDate.value || !(amt > 0)) return;
-          incomes.unshift({
-            date: iDate.value,
-            src: document.getElementById("iSrc").value,
-            amt: amt,
-            note: document.getElementById("iNote").value.trim()
-          });
-          incomes.sort(function (a, b) { return a.date < b.date ? 1 : (a.date > b.date ? -1 : 0); });
-          saveStore("bridge_incomes_v3", incomes);
-          document.getElementById("iAmt").value = "";
-          document.getElementById("iNote").value = "";
-          renderIncome();
-        });
+        /* incomeForm listener removed (form deleted) */
         renderIncome();
 
         /* ---------- 睡眠记录 ---------- */
@@ -4430,22 +4078,7 @@ ETF 长期资产不默认视为日常可用现金。
         }
         document.getElementById("sStart").addEventListener("change", updSleepPreview);
         document.getElementById("sEnd").addEventListener("change", updSleepPreview);
-        document.getElementById("sleepForm").addEventListener("submit", function (ev) {
-          ev.preventDefault();
-          var st = document.getElementById("sStart").value, en = document.getElementById("sEnd").value;
-          if (!sDate.value || !st || !en) return;
-          sleeps.unshift({
-            date: sDate.value,
-            start: st,
-            end: en,
-            mins: sleepMins(st, en),
-            quality: getQuality(),
-            note: document.getElementById("sNote").value.trim()
-          });
-          saveStore("bridge_sleeps_v3", sleeps);
-          document.getElementById("sNote").value = "";
-          renderSleep();
-        });
+        /* sleepForm listener removed (form deleted) */
         renderSleep();
 
         /* ---------- 每周复盘 ---------- */
@@ -4484,22 +4117,7 @@ ETF 长期资产不默认视为日常可用现金。
         }
         var wDate = document.getElementById("wDate");
         wDate.value = today();
-        document.getElementById("reviewForm").addEventListener("submit", function (ev) {
-          ev.preventDefault();
-          var done = document.getElementById("wDone").value.trim();
-          if (!wDate.value || !done) return;
-          reviews.unshift({
-            date: wDate.value,
-            done: done,
-            block: document.getElementById("wBlock").value.trim(),
-            task: document.getElementById("wTask").value.trim(),
-            adjust: getAdjust(),
-            next: document.getElementById("wNext").value.trim()
-          });
-          saveStore("bridge_reviews_v3", reviews);
-          ["wDone", "wBlock", "wTask", "wNext"].forEach(function (id) { document.getElementById(id).value = ""; });
-          renderReview();
-        });
+        /* reviewForm listener removed (form deleted) */
         renderReview();
 
         /* 文档原文跳转：切到「我的文档」并定位第三部分 */
