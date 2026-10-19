@@ -3649,7 +3649,7 @@ ETF 长期资产不默认视为日常可用现金。
           { date: "2026-10-14", day: "周二", status: "完成", mins: 48, note: "背部＋肱二头肌（21:17–22:05）：哑铃正手划船、哑铃反手划船、哑铃弯举、哑铃锤式弯举，各 4 组×12 次，共 16 组 192 次；哑铃重量未登记。当日步数 15,810 步" },
           { date: "2026-10-13", day: "周一", status: "完成", mins: 41, note: "胸肌＋肱三头肌（21:41–22:22）：宽距俯卧撑、上斜俯卧撑、窄距俯卧撑，各 4 组×12 次，共 12 组 144 次。当日步数 8,062 步" },
           { date: "2026-10-12", day: "自定义", status: "推迟", mins: 0, note: "休息日。当日步数 15,135 步" }
-        ]]);
+        ]);
         function renderLife() {
           var done = lifes.filter(function (e) { return e.status === "完成"; });
           document.getElementById("lDone").textContent = done.length;
@@ -3708,7 +3708,7 @@ ETF 长期资产不默认视为日常可用现金。
             s1key: "守住固定工资收入，不无准备裸辞；手机到货后第一时间卖掉清算网贷；保证睡眠与健身恢复，不盲目同时开启多个副业或高风险交易",
             status: "进行中"
           }
-        ]]);
+        ]);
         function chainRow(stage, main, key, now) {
           if (!main && !key) return "";
           var text = "";
@@ -3902,7 +3902,7 @@ ETF 长期资产不默认视为日常可用现金。
           { date: "2026-10-16", start: "00:40", end: "07:31", mins: sleepMins("00:40", "07:31"), quality: "一般", note: "白天精神：中；夜间醒来 0 次；东鹏特饮最后一次在 22:00 以后。" + SLEEP_NOTE },
           { date: "2026-10-15", start: "00:54", end: "08:10", mins: sleepMins("00:54", "08:10"), quality: "一般", note: "白天精神：中；夜间醒来 0 次。" + SLEEP_NOTE },
           { date: "2026-10-14", start: "01:54", end: "07:40", mins: sleepMins("01:54", "07:40"), quality: "一般", note: "白天精神：中；夜间醒来 0 次。" + SLEEP_NOTE }
-        ]]);
+        ]);
         var SLEEP_GOAL = 8 * 60;
         function fmtDur(mins) {
           var h = Math.floor(mins / 60), m = mins % 60;
@@ -3992,7 +3992,7 @@ ETF 长期资产不默认视为日常可用现金。
             adjust: "继续",
             next: "1. 10-19 胸＋三头、10-20 背＋二头、10-22 腿（补本周未练的腿）；2. 处理 10-25 融资租赁到期款；3. 手机最晚 10-30 发货，到货后尽快卖出清网贷"
           }
-        ]]);
+        ]);
         function renderReview() {
           document.getElementById("wCount").textContent = reviews.length;
           var box = document.getElementById("reviewEntries");
