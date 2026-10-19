@@ -1,11 +1,17 @@
 <!doctype html>
+<!--
+  维护约定：个人档案正文是事实来源。更新数据时，先更新档案并标注日期、保留旧值与状态；
+  再同步首页摘要和对应模块的默认数据。模块表单新增记录保存在当前浏览器，不会自动回写档案。
+-->
 <html lang="zh-CN">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="light dark" />
     <link rel="icon" href="data:," />
-    <title>超级个人交互桥 · LINZHIFENG</title>
+    <meta name="description" content="LINZHIFENG 的公开个人数据中枢：记录财务、健康、目标、交易与个人档案。" />
+    <meta name="theme-color" content="#f1f2ec" />
+    <title>个人中枢 · LINZHIFENG</title>
     <style>
       :root {
         --bg: #FAFAF8;
@@ -332,6 +338,10 @@
         padding: 20px; font-size: 14.5px; line-height: 1.75;
         white-space: pre-wrap; overflow-wrap: anywhere;
       }
+      .doc-source-link { display: inline-flex; margin: 0 0 12px; color: var(--accent); font-size: 14px; font-weight: 650; }
+      .doc-source-original { margin: 0 0 28px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); overflow: hidden; }
+      .doc-source-original summary { padding: 15px 18px; cursor: pointer; font-weight: 650; }
+      .doc-source-original pre { margin: 0; padding: 18px; border-top: 1px solid var(--line); white-space: pre-wrap; overflow-wrap: anywhere; font: 12px/1.75 ui-monospace, SFMono-Regular, Menlo, monospace; }
       .doc-table-wrap {
         background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius);
         padding: 6px 18px 12px; margin: 12px 0; overflow-x: auto;
@@ -374,6 +384,12 @@
       }
       .doc-nav a:hover { background: var(--surface-2); }
       .doc-nav a:active { background: var(--accent-soft); }
+      .doc-nav.doc-parts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 18px 0 27px; }
+      .doc-nav.doc-parts a { min-height: 92px; position: relative; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 3px; padding: 14px 16px; border-radius: 16px; background: var(--surface); box-shadow: 0 4px 15px rgba(25, 34, 53, .035); }
+      .doc-nav.doc-parts a > span { position: absolute; right: 13px; top: 12px; color: var(--accent); font-size: 9px; font-weight: 700; letter-spacing: .12em; }
+      .doc-nav.doc-parts a strong { font-size: 12px; font-weight: 650; }
+      .doc-nav.doc-parts a small { color: var(--text-2); font-size: 10px; }
+      .doc-nav.doc-parts a:hover { border-color: color-mix(in srgb, var(--accent) 25%, var(--line)); background: var(--accent-soft); }
 
       .module-foot { margin-top: 70px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--text-2); font-size: 13px; }
 
@@ -382,6 +398,281 @@
         .view, section.panel.active { animation: none; }
         * { transition: none !important; }
       }
+
+      /* ---------- LINZHIFENG redesign ---------- */
+      :root {
+        --bg: #f1f2ec;
+        --surface: #fbfaf6;
+        --surface-2: #e8ece5;
+        --text: #202c26;
+        --text-2: #5d6d64;
+        --text-3: #849088;
+        --line: rgba(39, 59, 47, .12);
+        --accent: #477a5f;
+        --accent-soft: rgba(71, 122, 95, .12);
+        --good: #318163;
+        --warn: #a96d2a;
+        --danger: #b64e52;
+        --bar-track: #dde4dc;
+        --radius: 20px;
+        color-scheme: light;
+      }
+      html[data-theme="dark"] {
+        --bg: #141a16;
+        --surface: #202a23;
+        --surface-2: #29362d;
+        --text: #f2f4ef;
+        --text-2: #b3c1b6;
+        --text-3: #849388;
+        --line: rgba(224, 238, 225, .12);
+        --accent: #9ac8a6;
+        --accent-soft: rgba(137, 195, 151, .16);
+        --good: #80cf9f;
+        --warn: #e2b36d;
+        --danger: #f18a88;
+        --bar-track: #303c33;
+        color-scheme: dark;
+      }
+      html { scroll-padding-top: 88px; }
+      body {
+        background: radial-gradient(ellipse at 12% 0%, rgba(195, 216, 198, .42), transparent 36%), radial-gradient(ellipse at 90% 8%, rgba(232, 211, 181, .34), transparent 34%), var(--bg);
+        color: var(--text);
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Source Han Sans SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+        font-size: 15px;
+        line-height: 1.68;
+        font-feature-settings: "kern" 1, "liga" 1;
+        font-optical-sizing: auto;
+        text-rendering: optimizeLegibility;
+      }
+      html[data-theme="dark"] body {
+        background: radial-gradient(ellipse at 12% 0%, rgba(73, 116, 83, .2), transparent 36%), radial-gradient(ellipse at 90% 8%, rgba(122, 91, 59, .16), transparent 34%), var(--bg);
+      }
+      button { -webkit-tap-highlight-color: transparent; }
+      .topbar { background: color-mix(in srgb, var(--bg) 88%, transparent); border-bottom-color: var(--line); backdrop-filter: saturate(180%) blur(18px); -webkit-backdrop-filter: saturate(180%) blur(18px); }
+      .topbar-in { max-width: 1280px; height: 68px; padding: 0 32px; }
+      .brand { font-size: 12px; letter-spacing: .32em; }
+      .topnav { gap: 25px; }
+      .topnav button { font-size: 13px; font-weight: 500; }
+      .theme-toggle { width: 36px; height: 36px; padding: 0 !important; border: 1px solid var(--line) !important; border-radius: 50%; display: grid; place-items: center; color: var(--text) !important; font-size: 18px !important; background: var(--surface) !important; }
+      .theme-toggle:hover { transform: rotate(-12deg); }
+      .view { animation-duration: .45s; }
+      .hero.hero-compact { max-width: 1280px; min-height: 560px; padding: 65px 32px 52px; display: grid; grid-template-columns: minmax(0, 1.03fr) minmax(350px, .97fr); align-items: center; gap: 40px; text-align: left; }
+      .hero-copy { max-width: 600px; position: relative; z-index: 1; }
+      .hero-kicker, .eyebrow { margin: 0 0 18px; color: var(--text-2); font-size: 10px; font-weight: 700; letter-spacing: .22em; }
+      .hero-kicker span { color: var(--accent); padding: 0 6px; }
+      .hero h1 { margin: 0; font-size: clamp(48px, 6.2vw, 78px); line-height: 1.08; letter-spacing: -.065em; font-weight: 650; }
+      .hero h1 span { color: var(--accent); }
+      .hero .hero-sub { max-width: 34em; margin: 24px 0 0; color: var(--text-2); font-size: 17px; line-height: 1.85; }
+      .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 29px; }
+      .hero-primary, .hero-secondary { min-height: 46px; border-radius: 999px; padding: 0 20px; font-size: 13px; font-weight: 600; cursor: pointer; transition: transform .2s ease, background .2s ease, box-shadow .2s ease; }
+      .hero-primary { color: #fff; background: #20242d; border: 1px solid #20242d; box-shadow: 0 8px 20px rgba(20, 27, 40, .14); }
+      .hero-primary span { margin-left: 14px; font-size: 16px; }
+      .hero-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(20, 27, 40, .2); }
+      .hero-secondary { color: var(--text); background: var(--surface); border: 1px solid var(--line); }
+      .hero-secondary:hover { background: var(--surface-2); }
+      .hero-note { display: flex; align-items: center; gap: 9px; margin: 26px 0 0; color: var(--text-3); font-size: 12px; letter-spacing: .02em; }
+      .live-dot { width: 7px; height: 7px; border-radius: 50%; background: #48b885; box-shadow: 0 0 0 4px rgba(72, 184, 133, .12); }
+      .hero-art { position: relative; min-height: 404px; border-radius: 32px; overflow: hidden; isolation: isolate; background: radial-gradient(ellipse at 48% 45%, #fff 0, #f2f4fb 48%, #e9edf8 100%); }
+      .hero-art:after { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .38; background: radial-gradient(circle at 16% 18%, #bed1ff 0, transparent 28%), radial-gradient(circle at 84% 82%, #d5c9ff 0, transparent 32%); }
+      .art-grid { position: absolute; inset: 0; opacity: .24; background-image: linear-gradient(rgba(77, 97, 145, .12) 1px, transparent 1px), linear-gradient(90deg, rgba(77, 97, 145, .12) 1px, transparent 1px); background-size: 42px 42px; mask-image: radial-gradient(ellipse, #000 15%, transparent 75%); }
+      .orbit { position: absolute; left: 50%; top: 47%; border: 1px solid rgba(74, 94, 148, .16); border-radius: 50%; transform: translate(-50%, -50%); }
+      .orbit-one { width: 190px; height: 190px; background: rgba(255,255,255,.42); box-shadow: 0 24px 70px rgba(45, 67, 122, .08), inset 0 0 24px rgba(255,255,255,.75); }
+      .orbit-two { width: 300px; height: 300px; }
+      .orbit-three { width: 390px; height: 390px; border-style: dashed; border-color: rgba(74, 94, 148, .11); }
+      .orbit-core { position: absolute; left: 50%; top: 47%; width: 112px; height: 112px; transform: translate(-50%, -50%); border-radius: 32px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(145deg, #4a79ff, #3159d8); color: #fff; box-shadow: 0 18px 48px rgba(61, 100, 220, .34), inset 0 1px 1px rgba(255,255,255,.35); text-align: center; }
+      .orbit-core span { margin-bottom: 4px; font-size: 9px; letter-spacing: .24em; opacity: .78; }
+      .orbit-core strong { font-size: 18px; line-height: 1.2; letter-spacing: .02em; }
+      .orbit-node { position: absolute; min-width: 64px; padding: 8px 13px; border: 1px solid rgba(255,255,255,.8); border-radius: 999px; color: #454d60; background: rgba(255,255,255,.78); box-shadow: 0 8px 22px rgba(32, 48, 88, .1); text-align: center; font-size: 12px; font-weight: 600; backdrop-filter: blur(12px); }
+      .node-finance { left: 15%; top: 23%; }.node-body { right: 11%; top: 32%; }.node-goal { left: 17%; bottom: 21%; }.node-record { right: 15%; bottom: 18%; }
+      .art-caption { position: absolute; right: 22px; bottom: 19px; color: rgba(57, 69, 100, .48); font-size: 8px; font-weight: 700; letter-spacing: .24em; }
+      .snapshot, .domains { max-width: 1280px; margin: 0 auto; padding: 48px 32px 74px; }
+      .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 32px; margin-bottom: 25px; }
+      .section-heading .eyebrow { margin-bottom: 8px; color: var(--accent); }
+      .section-heading h2, .about h2 { margin: 0; font-size: clamp(27px, 3.4vw, 38px); line-height: 1.2; letter-spacing: -.045em; font-weight: 650; }
+      .section-intro { max-width: 390px; margin: 0 0 3px; color: var(--text-2); font-size: 13px; line-height: 1.8; }
+      .snapshot-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+      .snapshot-card { min-height: 178px; position: relative; overflow: hidden; border: 1px solid var(--line); border-radius: 22px; padding: 20px; text-align: left; cursor: pointer; color: var(--text); transition: transform .22s ease, box-shadow .22s ease; }
+      .snapshot-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(27, 39, 64, .1); }
+      .snapshot-blue { background: linear-gradient(145deg, #edf2ff, #f8f9ff); }
+      .snapshot-lilac { background: linear-gradient(145deg, #f2efff, #faf9ff); }
+      .snapshot-green { background: linear-gradient(145deg, #eaf5ef, #f7fbf8); }
+      .snapshot-sand { background: linear-gradient(145deg, #f7f1e7, #fdfbf7); }
+      html[data-theme="dark"] .snapshot-blue { background: linear-gradient(145deg, #202a40, #1d222d); }
+      html[data-theme="dark"] .snapshot-lilac { background: linear-gradient(145deg, #29243d, #1d222d); }
+      html[data-theme="dark"] .snapshot-green { background: linear-gradient(145deg, #20362f, #1d222d); }
+      html[data-theme="dark"] .snapshot-sand { background: linear-gradient(145deg, #3a3022, #1d222d); }
+      .snapshot-label { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--text-2); font-size: 11px; font-weight: 600; }
+      .snapshot-label span { padding: 3px 7px; border-radius: 999px; background: rgba(255,255,255,.56); color: var(--text-3); font-size: 9px; font-weight: 600; }
+      html[data-theme="dark"] .snapshot-label span { background: rgba(255,255,255,.08); }
+      .snapshot-card strong { display: block; margin: 18px 0 4px; font-size: clamp(27px, 3vw, 36px); line-height: 1; letter-spacing: -.05em; font-weight: 650; font-variant-numeric: tabular-nums; }
+      .snapshot-card strong i { font-style: normal; font-size: 14px; letter-spacing: 0; color: var(--text-2); }
+      .snapshot-caption { display: block; max-width: 94%; color: var(--text-2); font-size: 10px; line-height: 1.5; }
+      .snapshot-arrow { position: absolute; right: 17px; bottom: 14px; color: var(--text-3); font-size: 13px; }
+      .snapshot-foot { display: flex; align-items: center; gap: 8px; margin: 14px 0 0; color: var(--text-3); font-size: 11px; }
+      .info-mark { width: 16px; height: 16px; border: 1px solid var(--text-3); border-radius: 50%; display: inline-grid; place-items: center; font-size: 9px; font-weight: 700; flex: 0 0 auto; }
+      .domains { padding-top: 66px; }
+      .domains-heading { margin-bottom: 30px; }
+      .domain-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+      .domain { scroll-margin-top: 92px; padding: 27px 28px 12px; border: 1px solid var(--line); border-radius: 24px; background: var(--surface); box-shadow: 0 8px 25px rgba(25, 34, 53, .025); transition: transform .2s ease, box-shadow .2s ease; }
+      .domain:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(25, 34, 53, .06); }
+      .domain-head { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 17px; }
+      .domain-index { flex: 0 0 auto; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 12px; background: var(--accent-soft); color: var(--accent); font-size: 10px; font-weight: 700; }
+      .domain-en { margin: 0 0 3px; color: var(--text-3); font-size: 9px; font-weight: 700; letter-spacing: .17em; }
+      .domain-name { display: block; font-size: 20px; line-height: 1.25; letter-spacing: -.025em; }
+      .domain-desc { display: block; margin: 4px 0 0; color: var(--text-2); font-size: 11px; }
+      .mod-list { margin: 0; }
+      .mod { width: 100%; display: flex; align-items: center; gap: 12px; margin: 0; padding: 14px 0; border: 0; border-top: 1px solid var(--line); background: transparent; }
+      .mod:hover, .mod:active { background: transparent; }
+      .mod-symbol { flex: 0 0 auto; width: 31px; height: 31px; border-radius: 10px; display: grid; place-items: center; background: var(--surface-2); color: var(--text-2); font-size: 14px; }
+      .mod .mod-name { font-size: 13px; font-weight: 650; }
+      .mod .mod-desc { margin-top: 2px; font-size: 11px; }
+      .mod .arrow { font-size: 14px; color: var(--text-3); }
+      .mod:hover .arrow { color: var(--accent); transform: translate(2px,-2px); }
+      .about { max-width: 1216px; margin: 8px auto 0; padding: 43px 38px; display: grid; grid-template-columns: .8fr 1.2fr; gap: 54px; border: 1px solid var(--line); border-radius: 28px; background: linear-gradient(120deg, var(--surface), color-mix(in srgb, var(--surface) 84%, var(--accent-soft))); }
+      .about-title .eyebrow { margin-bottom: 10px; color: var(--accent); }
+      .about-title p:last-child { max-width: 360px; margin: 16px 0 0; color: var(--text-2); font-size: 13px; line-height: 1.85; }
+      .principles-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 22px; }
+      .principles-list div { position: relative; padding: 13px 0 14px 34px; border-bottom: 1px solid var(--line); }
+      .principles-list span { position: absolute; left: 0; top: 15px; color: var(--accent); font-size: 10px; font-weight: 700; }
+      .principles-list strong { font-size: 12px; font-weight: 650; }
+      .principles-list p { margin: 3px 0 0; color: var(--text-2); font-size: 10px; line-height: 1.6; }
+      .home-foot { max-width: 1280px; margin-top: 54px; padding: 24px 32px 38px; border-top-color: var(--line); font-size: 10px; }
+      .home-foot .fbrand { color: var(--text-2); font-size: 9px; letter-spacing: .2em; }
+      .home-foot .fbrand i { color: var(--accent); font-style: normal; }
+      .module-wrap { max-width: 1000px; padding: 0 28px 90px; }
+      .backrow { padding: 22px 0 7px; }
+      .backbtn { font-size: 12px; }
+      .backrow .where { font-size: 9px; letter-spacing: .22em; }
+      .tabs { gap: 5px; padding: 9px 0 12px; border-bottom-color: var(--line); }
+      .tab { font-size: 12px; padding: 8px 12px; border-radius: 999px; }
+      .tab[aria-selected="true"] { background: var(--text); color: var(--bg); }
+      section.panel { padding-top: 39px; }
+      .panel h1 { color: var(--accent); font-size: 10px; font-weight: 700; letter-spacing: .18em; }
+      .panel > p[style*="font-size:22px"] { margin-top: 9px !important; font-size: clamp(27px, 4.2vw, 38px) !important; line-height: 1.22 !important; letter-spacing: -.045em; }
+      .panel h2 { margin: 39px 0 13px; font-size: 18px; letter-spacing: -.025em; }
+      .panel .muted { font-size: 12px; line-height: 1.8; }
+      .panel form { margin-top: 15px; padding: 22px; gap: 14px; border: 1px solid var(--line); border-radius: 20px; background: var(--surface); }
+      .panel input, .panel select, .panel textarea { border: 1px solid var(--line); border-radius: 12px; padding: 11px 13px; font-size: 13px; }
+      .panel input:focus, .panel select:focus, .panel textarea:focus { border-color: var(--accent); background: var(--surface); box-shadow: 0 0 0 3px var(--accent-soft); }
+      .panel label { font-size: 11px; }
+      .btn { background: var(--accent); color: #fff; font-size: 12px; padding: 10px 20px; }
+      .btn:hover { opacity: 1; filter: brightness(1.06); }
+      .stat-row { gap: 23px; }
+      .stat b { font-size: 22px; }
+      .stat span { font-size: 10px; }
+      .breakdown { gap: 8px; }
+      .bd-row, .entry, .rule { border: 1px solid var(--line); border-radius: 15px; background: var(--surface); }
+      .bd-row { padding: 14px 16px; }
+      .entry { padding: 14px 16px; }
+      .entry .note { font-size: 12px; line-height: 1.75; }
+      .rules { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+      .rule { padding: 17px 18px; }
+      .rule h3 { font-size: 13px; }
+      .rule p { font-size: 12px; line-height: 1.75; }
+      .doc { margin-top: 30px; }
+      .doc-title { font-size: 24px; letter-spacing: -.03em; }
+      .doc-date { font-size: 11px; line-height: 1.75; }
+      .doc-rules { padding: 17px 20px; border: 1px solid var(--line); border-radius: 16px; font-size: 12px; }
+      .doc-part-main { margin-top: 38px; padding-top: 28px; font-size: 21px; letter-spacing: -.03em; }
+      .doc-module { font-size: 17px; margin-top: 32px; }
+      .doc-sub { font-size: 14px; margin-top: 26px; }
+      .doc-body { padding: 19px 21px; border: 1px solid var(--line); border-radius: 15px; font-size: 12px; line-height: 1.9; }
+      .doc-table-wrap { border-radius: 15px; background: var(--surface); }
+      .doc-table { font-size: 11px; }
+      .doc-table th, .doc-table td { padding: 9px 8px; }
+      .doc-nav { gap: 6px; margin: 15px 0 4px; }
+      .doc-nav a { padding: 6px 10px; border-radius: 999px; font-size: 11px; background: var(--surface); }
+      .doc-nav.sub a { padding: 5px 9px; font-size: 10px; }
+      .module-foot { margin-top: 48px; padding: 17px 0 0; font-size: 10px; line-height: 1.8; }
+      @media (max-width: 920px) {
+        .topbar-in { padding: 0 22px; }
+        .hero.hero-compact { min-height: 500px; grid-template-columns: minmax(0, 1fr) minmax(280px, .82fr); gap: 20px; padding: 52px 24px; }
+        .hero-art { min-height: 350px; }
+        .snapshot, .domains { padding-right: 24px; padding-left: 24px; }
+        .snapshot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .about { margin-right: 24px; margin-left: 24px; padding: 34px; gap: 28px; }
+      }
+      @media (max-width: 700px) {
+        .topbar-in { height: 58px; padding: 0 18px; }
+        .topnav { gap: 15px; }
+        .topnav .dom-link { display: none; }
+        .brand { font-size: 10px; letter-spacing: .25em; }
+        .hero.hero-compact { display: flex; min-height: unset; flex-direction: column; align-items: stretch; gap: 26px; padding: 53px 21px 34px; }
+        .hero-kicker { margin-bottom: 16px; font-size: 9px; }
+        .hero h1 { font-size: clamp(47px, 12vw, 64px); }
+        .hero .hero-sub { max-width: 31em; margin-top: 16px; font-size: 14px; }
+        .hero-actions { margin-top: 22px; }
+        .hero-art { min-height: 300px; border-radius: 25px; }
+        .orbit-three { width: 290px; height: 290px; }
+        .orbit-two { width: 224px; height: 224px; }
+        .orbit-one { width: 150px; height: 150px; }
+        .orbit-core { width: 88px; height: 88px; border-radius: 26px; }
+        .orbit-core strong { font-size: 15px; }
+        .node-finance { left: 9%; top: 18%; }.node-body { right: 7%; top: 27%; }.node-goal { left: 9%; bottom: 15%; }.node-record { right: 8%; bottom: 15%; }
+        .snapshot, .domains { padding: 39px 20px 50px; }
+        .section-heading { display: block; margin-bottom: 19px; }
+        .section-heading h2, .about h2 { font-size: 27px; }
+        .section-intro { margin-top: 10px; font-size: 12px; }
+        .snapshot-grid { gap: 9px; }
+        .snapshot-card { min-height: 151px; padding: 15px 14px; border-radius: 17px; }
+        .snapshot-card strong { margin-top: 17px; font-size: clamp(25px, 7vw, 31px); }
+        .snapshot-label { font-size: 10px; }
+        .snapshot-label span { font-size: 8px; }
+        .snapshot-caption { font-size: 9px; }
+        .snapshot-foot { align-items: flex-start; font-size: 10px; line-height: 1.6; }
+        .domain-grid { grid-template-columns: 1fr; gap: 11px; }
+        .domain { padding: 23px 21px 10px; border-radius: 20px; }
+        .about { display: block; margin: 0 20px; padding: 26px 23px; border-radius: 22px; }
+        .principles-list { margin-top: 20px; gap: 4px 16px; }
+        .principles-list div { padding-left: 27px; }
+        .principles-list strong { font-size: 11px; }
+        .principles-list p { font-size: 9px; }
+        .home-foot { margin-top: 32px; padding: 19px 20px 28px; }
+        .home-foot span { font-size: 9px; }
+        .module-wrap { padding: 0 17px 60px; }
+        .backrow { padding-top: 14px; }
+        .tabs { overflow-x: auto; flex-wrap: nowrap; gap: 3px; margin: 0 -17px; padding: 9px 17px 12px; }
+        .tab { flex: 0 0 auto; font-size: 10px; padding: 8px 10px; }
+        section.panel { padding-top: 30px; }
+        .panel form { padding: 17px; border-radius: 17px; }
+        .rules { grid-template-columns: 1fr; }
+        .doc-nav { gap: 5px; }
+        .doc-nav.doc-parts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+        .doc-nav.doc-parts a { min-height: 82px; padding: 12px; }
+        .doc-nav.doc-parts a strong { font-size: 11px; }
+        .doc-nav.doc-parts a small { font-size: 9px; }
+        .doc-body { padding: 15px; font-size: 11px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .hero-primary, .hero-secondary, .snapshot-card, .domain { transition: none; }
+      }
+      /* Refined palette: warm mineral neutrals with botanical green accents. */
+      .hero h1 { letter-spacing: -.045em; }
+      .hero-primary { background: var(--accent); border-color: var(--accent); box-shadow: 0 9px 23px rgba(51, 91, 67, .2); }
+      .hero-primary:hover { box-shadow: 0 13px 27px rgba(51, 91, 67, .26); }
+      .hero-art { background: radial-gradient(ellipse at 48% 45%, #fcfbf5 0, #e9efe6 48%, #e4e5d8 100%); }
+      .hero-art:after { background: radial-gradient(circle at 16% 18%, #c7ddcb 0, transparent 29%), radial-gradient(circle at 84% 82%, #e9d8bd 0, transparent 34%); }
+      .art-grid { background-image: linear-gradient(rgba(68, 99, 76, .12) 1px, transparent 1px), linear-gradient(90deg, rgba(68, 99, 76, .12) 1px, transparent 1px); }
+      .orbit { border-color: rgba(67, 101, 77, .17); }
+      .orbit-one { box-shadow: 0 24px 70px rgba(45, 81, 57, .09), inset 0 0 24px rgba(255,255,255,.75); }
+      .orbit-three { border-color: rgba(67, 101, 77, .12); }
+      .orbit-core { background: linear-gradient(145deg, #6c9b78, #3d7355); box-shadow: 0 18px 48px rgba(57, 107, 72, .3), inset 0 1px 1px rgba(255,255,255,.35); }
+      .orbit-node { border-color: rgba(255,255,255,.82); color: #394b3e; background: rgba(251,250,246,.82); box-shadow: 0 8px 22px rgba(47, 68, 49, .1); }
+      .art-caption { color: rgba(57, 78, 62, .52); }
+      .snapshot-blue { background: linear-gradient(145deg, #e5edf0, #f5f5ef); }
+      .snapshot-lilac { background: linear-gradient(145deg, #eee9ee, #f7f3ef); }
+      .snapshot-green { background: linear-gradient(145deg, #e3ede4, #f3f6ef); }
+      .snapshot-sand { background: linear-gradient(145deg, #f0e7d8, #faf5eb); }
+      html[data-theme="dark"] .hero-art { background: radial-gradient(ellipse at 48% 45%, #29372d 0, #202a23 52%, #1d241f 100%); }
+      html[data-theme="dark"] .hero-art:after { background: radial-gradient(circle at 16% 18%, rgba(115, 163, 119, .42) 0, transparent 30%), radial-gradient(circle at 84% 82%, rgba(185, 143, 91, .25) 0, transparent 34%); }
+      html[data-theme="dark"] .orbit-node { color: #e4eee4; border-color: rgba(228, 238, 228, .16); background: rgba(38, 51, 42, .82); }
+      html[data-theme="dark"] .art-caption { color: rgba(214, 230, 214, .52); }
+      html[data-theme="dark"] .snapshot-blue { background: linear-gradient(145deg, #26363b, #202a23); }
+      html[data-theme="dark"] .snapshot-lilac { background: linear-gradient(145deg, #342e38, #202a23); }
+      html[data-theme="dark"] .snapshot-green { background: linear-gradient(145deg, #263b30, #202a23); }
+      html[data-theme="dark"] .snapshot-sand { background: linear-gradient(145deg, #3a3328, #202a23); }
+      .domain, .panel form, .bd-row, .entry, .rule, .doc-body, .doc-table-wrap { box-shadow: 0 7px 22px rgba(48, 64, 49, .035); }
+      html[data-theme="dark"] .domain, html[data-theme="dark"] .panel form, html[data-theme="dark"] .bd-row, html[data-theme="dark"] .entry, html[data-theme="dark"] .rule, html[data-theme="dark"] .doc-body, html[data-theme="dark"] .doc-table-wrap { box-shadow: 0 7px 22px rgba(0, 0, 0, .12); }
     </style>
   </head>
   <body>
@@ -389,113 +680,122 @@
       <div class="topbar-in">
         <button class="brand" id="brandHome" type="button" aria-label="LINZHIFENG 首页">LINZHIFENG</button>
         <nav class="topnav" aria-label="主导航">
-          <button type="button" data-nav="home">首页</button>
-          <button type="button" class="dom-link" data-nav="domain-finance">财务管理</button>
-          <button type="button" class="dom-link" data-nav="domain-body">身体管理</button>
-          <button type="button" class="dom-link" data-nav="domain-goals">目标与决策</button>
-          <button type="button" class="dom-link" data-nav="domain-system">个人系统</button>
+          <button type="button" data-nav="home">总览</button>
+          <button type="button" class="dom-link" data-nav="domain-finance">财务</button>
+          <button type="button" class="dom-link" data-nav="domain-body">健康</button>
+          <button type="button" class="dom-link" data-nav="domain-goals">目标与行动</button>
+          <button type="button" class="dom-link" data-nav="domain-system">个人档案</button>
+          <button type="button" class="theme-toggle" id="themeToggle" aria-label="切换深色模式" title="切换深色模式"><span aria-hidden="true">◐</span></button>
         </nav>
       </div>
     </header>
 
     <!-- ================= 首页 ================= -->
     <div class="view" id="view-home">
-      <section class="hero hero-compact">
-        <h1>个人中枢</h1>
-        <p class="hero-sub">管理财务、身体、思考与个人档案</p>
+      <section class="hero hero-compact" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="hero-kicker">LINZHIFENG <span>·</span> PERSONAL DATA SYSTEM</p>
+          <h1 id="hero-title">把生活的脉络，<br /><span>看得清楚。</span></h1>
+          <p class="hero-sub">一个持续更新的个人中枢。记录真实发生的事，理解正在变化的生活，再把下一步安排好。</p>
+          <div class="hero-actions">
+            <button class="hero-primary" type="button" data-goto="reverse">从目标开始 <span aria-hidden="true">↗</span></button>
+            <button class="hero-secondary" type="button" data-goto="docs">浏览完整档案</button>
+          </div>
+          <p class="hero-note"><span class="live-dot" aria-hidden="true"></span> 公开档案 · 持续整理中</p>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="art-grid"></div>
+          <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+          <div class="orbit orbit-three"></div>
+          <div class="orbit-core"><span>LIN</span><strong>个人<br />中枢</strong></div>
+          <span class="orbit-node node-finance">财务</span>
+          <span class="orbit-node node-body">身体</span>
+          <span class="orbit-node node-goal">目标</span>
+          <span class="orbit-node node-record">记录</span>
+          <span class="art-caption">LIFE, IN CLEAR VIEW</span>
+        </div>
       </section>
 
-      <section class="domains" aria-label="模块总览">
+      <section class="snapshot" aria-labelledby="snapshot-title">
+        <div class="section-heading">
+          <div><p class="eyebrow">01 / PUBLIC SNAPSHOT</p><h2 id="snapshot-title">一眼看见全局</h2></div>
+          <p class="section-intro">从公开档案中整理出的基准信息。每个数字都附有时间口径，历史记录继续保留。</p>
+        </div>
+        <div class="snapshot-grid">
+          <button class="snapshot-card snapshot-blue" type="button" data-goto="debt">
+            <span class="snapshot-label">财务基准 <span>2026.10</span></span>
+            <strong>¥19,697</strong><span class="snapshot-caption">历史负债基数 · 以明细记录为准</span><span class="snapshot-arrow">↗</span>
+          </button>
+          <button class="snapshot-card snapshot-lilac" type="button" data-goto="income">
+            <span class="snapshot-label">固定月工资 <span>已确认</span></span>
+            <strong>¥6,500</strong><span class="snapshot-caption">档案基准 · 实际到账按记录核对</span><span class="snapshot-arrow">↗</span>
+          </button>
+          <button class="snapshot-card snapshot-green" type="button" data-goto="sleep">
+            <span class="snapshot-label">睡眠日志 <span>2026.10</span></span>
+            <strong>06 <i>晚</i></strong><span class="snapshot-caption">已归档记录 · 10 月 14 日至 19 日</span><span class="snapshot-arrow">↗</span>
+          </button>
+          <button class="snapshot-card snapshot-sand" type="button" data-goto="docs">
+            <span class="snapshot-label">个人档案 <span>持续更新</span></span>
+            <strong>06 <i>部分</i></strong><span class="snapshot-caption">主档案、交易系统、决策与生活记录</span><span class="snapshot-arrow">↗</span>
+          </button>
+        </div>
+        <p class="snapshot-foot"><span class="info-mark">i</span> 档案基准整理至 2026 年 10 月 19 日。页面交互录入保存在当前浏览器，不会自动同步给其他访客。</p>
+      </section>
+
+      <section class="domains" aria-label="个人中枢模块">
+        <div class="section-heading domains-heading">
+          <div><p class="eyebrow">02 / EXPLORE</p><h2>按生活的脉络，逐项展开</h2></div>
+          <p class="section-intro">从财务和身体，到目标、交易与个人档案。每个模块都有自己的记录方式。</p>
+        </div>
         <div class="domain-grid">
           <div class="domain" id="domain-finance">
-            <div class="domain-head">
-              
-              <h3 class="domain-name">财务管理</h3><span class="domain-desc">还款 · 收入 · 开支</span>
-            </div>
+            <div class="domain-head"><span class="domain-index">01</span><div><p class="domain-en">MONEY & FLOW</p><h3 class="domain-name">财务</h3><span class="domain-desc">流入 · 负债 · 月度开支</span></div></div>
             <div class="mod-list">
-              <button class="mod" type="button" data-goto="debt">
-                <span class="mod-main"><span class="mod-name">还款记账</span><span class="mod-desc">记下每一笔还款，剩余债务自动减少</span></span>
-                <span class="arrow" aria-hidden="true">›</span>
-              </button>
-              <button class="mod" type="button" data-goto="income">
-                <span class="mod-main"><span class="mod-name">个人盈利</span><span class="mod-desc">只记实际到账的收入</span></span>
-                <span class="arrow" aria-hidden="true">›</span>
-              </button>
-              <button class="mod" type="button" data-goto="expense">
-                <span class="mod-main"><span class="mod-name">开支复盘</span><span class="mod-desc">不记每天的，每月看一次账单</span></span>
-                <span class="arrow" aria-hidden="true">›</span>
-              </button>
+              <button class="mod" type="button" data-goto="debt"><span class="mod-symbol">↘</span><span class="mod-main"><span class="mod-name">负债与还款</span><span class="mod-desc">查看余额、分项与还款记录</span></span><span class="arrow" aria-hidden="true">↗</span></button>
+              <button class="mod" type="button" data-goto="income"><span class="mod-symbol">＋</span><span class="mod-main"><span class="mod-name">到账记录</span><span class="mod-desc">收入、借入和其他流入分类查看</span></span><span class="arrow" aria-hidden="true">↗</span></button>
+              <button class="mod" type="button" data-goto="expense"><span class="mod-symbol">▤</span><span class="mod-main"><span class="mod-name">月度开支</span><span class="mod-desc">按月复盘支出与类别变化</span></span><span class="arrow" aria-hidden="true">↗</span></button>
             </div>
           </div>
 
           <div class="domain" id="domain-body">
-            <div class="domain-head">
-              
-              <h3 class="domain-name">身体管理</h3><span class="domain-desc">健身 · 睡眠</span>
-            </div>
+            <div class="domain-head"><span class="domain-index">02</span><div><p class="domain-en">BODY & RHYTHM</p><h3 class="domain-name">身体与节律</h3><span class="domain-desc">训练 · 睡眠 · 日常状态</span></div></div>
             <div class="mod-list">
-              <button class="mod" type="button" data-goto="life">
-                <span class="mod-main"><span class="mod-name">健身打卡</span><span class="mod-desc">记录训练、休息、体重和身体变化</span></span>
-                <span class="arrow" aria-hidden="true">›</span>
-              </button>
-              <button class="mod" type="button" data-goto="sleep">
-                <span class="mod-main"><span class="mod-name">睡眠记录</span><span class="mod-desc">记录入睡、起床、质量和白天精神状态</span></span>
-                <span class="arrow" aria-hidden="true">›</span>
-              </button>
+              <button class="mod" type="button" data-goto="life"><span class="mod-symbol">✳</span><span class="mod-main"><span class="mod-name">训练记录</span><span class="mod-desc">记录计划、完成情况与时长</span></span><span class="arrow" aria-hidden="true">↗</span></button>
+              <button class="mod" type="button" data-goto="sleep"><span class="mod-symbol">☾</span><span class="mod-main"><span class="mod-name">睡眠记录</span><span class="mod-desc">查看睡眠时长与主观质量</span></span><span class="arrow" aria-hidden="true">↗</span></button>
             </div>
           </div>
 
           <div class="domain" id="domain-goals">
-            <div class="domain-head">
-              <h3 class="domain-name">思维与决策</h3><span class="domain-desc">逆向决策 · 交易参考</span>
-            </div>
+            <div class="domain-head"><span class="domain-index">03</span><div><p class="domain-en">DIRECTION & ACTION</p><h3 class="domain-name">目标与行动</h3><span class="domain-desc">逆向拆解 · 交易规则</span></div></div>
             <div class="mod-list">
-              <button class="mod" type="button" data-goto="reverse">
-                <span class="mod-main"><span class="mod-name">逆向决策</span><span class="mod-desc">把长期目标拆解成今天可以执行的行动</span></span>
-                <span class="arrow" aria-hidden="true">›</span>
-              </button>
-              <button class="mod" type="button" data-goto="trade">
-                <span class="mod-main"><span class="mod-name">交易参考</span><span class="mod-desc">交易系统规则、交易日记与复盘</span></span>
-                <span class="arrow" aria-hidden="true">›</span>
-              </button>
+              <button class="mod" type="button" data-goto="reverse"><span class="mod-symbol">⌁</span><span class="mod-main"><span class="mod-name">逆向决策</span><span class="mod-desc">从终点倒推阶段、条件和当下行动</span></span><span class="arrow" aria-hidden="true">↗</span></button>
+              <button class="mod" type="button" data-goto="trade"><span class="mod-symbol">⌗</span><span class="mod-main"><span class="mod-name">交易系统</span><span class="mod-desc">规则核对、交易日记与结果复盘</span></span><span class="arrow" aria-hidden="true">↗</span></button>
             </div>
           </div>
 
           <div class="domain" id="domain-system">
-            <div class="domain-head">
-              <h3 class="domain-name">个人管理</h3><span class="domain-desc">每周复盘 · 我的文档</span>
-            </div>
+            <div class="domain-head"><span class="domain-index">04</span><div><p class="domain-en">REVIEW & ARCHIVE</p><h3 class="domain-name">复盘与档案</h3><span class="domain-desc">每周整理 · 长期留存</span></div></div>
             <div class="mod-list">
-              <button class="mod" type="button" data-goto="review">
-                <span class="mod-main"><span class="mod-name">每周复盘</span><span class="mod-desc">对比数据变化，总结问题，确定下一步</span></span>
-                <span class="arrow" aria-hidden="true">›</span>
-              </button>
-              <button class="mod" type="button" data-goto="docs">
-                <span class="mod-main"><span class="mod-name">我的文档</span><span class="mod-desc">《个人交互数据桥》完整档案，六部分全文</span></span>
-                <span class="arrow" aria-hidden="true">›</span>
-              </button>
+              <button class="mod" type="button" data-goto="review"><span class="mod-symbol">↻</span><span class="mod-main"><span class="mod-name">每周复盘</span><span class="mod-desc">回看结果、阻碍与下一步重点</span></span><span class="arrow" aria-hidden="true">↗</span></button>
+              <button class="mod" type="button" data-goto="docs"><span class="mod-symbol">▧</span><span class="mod-main"><span class="mod-name">完整个人档案</span><span class="mod-desc">六部分原文、更新说明与历史记录</span></span><span class="arrow" aria-hidden="true">↗</span></button>
             </div>
           </div>
         </div>
       </section>
 
       <section class="about" aria-label="关于这个空间">
-        <h2>关于这个空间</h2>
-        <p>这是 Lin志锋 的个人数据中枢，用来管理我的钱、身体、目标和个人资料，让分散的信息能够连接起来。</p>
-        <p class="about-h">数据管理规则</p>
-        <ul>
-          <li>钱到账才计入实际收入，未到账的款项单独标记，不当作现有资金。</li>
-          <li>所有记录尽可能标明日期，保留历史数据，不随意覆盖或删除。</li>
-          <li>区分实际发生的事情、预计发生的事情和个人判断，不把猜测当成事实。</li>
-          <li>有新数据就及时登记，定期核对数据，确保记录真实、完整。</li>
-          <li>每周复盘一次，让数据帮助我发现问题、调整计划、落实行动。</li>
-        </ul>
-        <p style="margin-top:22px;">最终目标：建立一个属于自己的个人数据中枢，让过去有记录、现在看得清、未来有方向。</p>
+        <div class="about-title"><p class="eyebrow">03 / PRINCIPLES</p><h2>让每条记录，都说得清楚。</h2><p>这是 Lin 志锋的公开个人数据中枢。记录不只是保存数字，也要保留它发生的时间、来源和变化。</p></div>
+        <div class="principles-list">
+          <div><span>01</span><strong>真实收入与借入分开</strong><p>借款、资产变现和退款不计入收入。</p></div>
+          <div><span>02</span><strong>保留历史，不覆盖旧值</strong><p>每项记录尽可能带日期，变化能够回看。</p></div>
+          <div><span>03</span><strong>事实、计划与判断分开</strong><p>不把估算写成已确认，也不把猜测当事实。</p></div>
+          <div><span>04</span><strong>持续核对，再做调整</strong><p>用复盘发现变化，把下一步落到行动上。</p></div>
+        </div>
       </section>
 
       <footer class="home-foot">
-        <span class="fbrand">LINZHIFENG</span>
-        <span>把生活，管理得更好。</span>
+        <span class="fbrand">LINZHIFENG <i>·</i> PERSONAL DATA SYSTEM</span>
+        <span>真实记录 · 清晰判断 · 稳步行动</span>
       </footer>
     </div>
 
@@ -508,15 +808,15 @@
         </div>
 
         <nav class="tabs" role="tablist" aria-label="模块切换">
-          <button class="tab" role="tab" aria-selected="true" data-tab="debt">还款记账</button>
-          <button class="tab" role="tab" aria-selected="false" data-tab="expense">开支复盘</button>
-          <button class="tab" role="tab" aria-selected="false" data-tab="income">个人盈利</button>
-          <button class="tab" role="tab" aria-selected="false" data-tab="trade">交易参考</button>
-          <button class="tab" role="tab" aria-selected="false" data-tab="life">健身打卡</button>
+          <button class="tab" role="tab" aria-selected="true" data-tab="debt">还款</button>
+          <button class="tab" role="tab" aria-selected="false" data-tab="expense">开支</button>
+          <button class="tab" role="tab" aria-selected="false" data-tab="income">到账</button>
+          <button class="tab" role="tab" aria-selected="false" data-tab="trade">交易</button>
+          <button class="tab" role="tab" aria-selected="false" data-tab="life">训练</button>
           <button class="tab" role="tab" aria-selected="false" data-tab="sleep">睡眠记录</button>
           <button class="tab" role="tab" aria-selected="false" data-tab="reverse">逆向决策</button>
           <button class="tab" role="tab" aria-selected="false" data-tab="review">每周复盘</button>
-          <button class="tab" role="tab" aria-selected="false" data-tab="docs">我的文档</button>
+          <button class="tab" role="tab" aria-selected="false" data-tab="docs">档案</button>
         </nav>
 
 <!-- ============ 还款记账 ============ -->
@@ -529,7 +829,7 @@
         </div>
         <div class="bar" aria-hidden="true"><div id="barFill"></div></div>
 
-        <p class="muted" style="margin-top:14px;">每还一笔，就在下方「记一笔还款」里添加记录（日期、类别：网贷 / 融资租赁 / 欠朋友、金额），剩余债务会自动减少；也可以直接在聊天里告诉我，我帮你记。</p>
+        <p class="muted" style="margin-top:14px;">每还一笔，在下方填写日期、类别和金额，剩余债务与还款进度会自动更新。</p>
 
         <div class="breakdown" id="breakdown"></div>
 
@@ -618,17 +918,18 @@
 
       <!-- ============ 个人盈利 ============ -->
       <section class="panel" id="panel-income" role="tabpanel">
-        <h1>个人盈利</h1>
-        <p style="font-size:22px;font-weight:700;line-height:1.4;">到账了，才算数。</p>
-        <p class="muted" style="margin-top:8px;">规矩：只记已到账的钱，没到账的一律不记（第一原则）。工资每月 1 号左右到账；2026 年 10 月暂无已到账收入，10 月工资是否到账待本人确认。</p>
+        <h1>资金流入</h1>
+        <p style="font-size:22px;font-weight:700;line-height:1.4;">到账要记录，收入与借入分开算。</p>
+        <p class="muted" style="margin-top:8px;">只登记实际到账的款项。工资、交易盈利等计入收入；借入款单列，不计入收入；资产出售、退款与转账也保留各自口径。未到账的款项不记作现有资金。</p>
 
         <div class="stat-row" style="margin-top:24px;">
-          <div class="stat"><b id="iMonthTotal">¥0</b><span>本月总收入</span></div>
-          <div class="stat"><b id="iAllTotal">¥0</b><span>累计总收入</span></div>
-          <div class="stat"><b id="iAllCount">0</b><span>全部记录</span></div>
+          <div class="stat"><b id="iMonthTotal">¥0</b><span>本月真实收入</span></div>
+          <div class="stat"><b id="iAllTotal">¥0</b><span>累计真实收入</span></div>
+          <div class="stat"><b id="iBorrowedTotal">¥0</b><span>本月借入（单列）</span></div>
+          <div class="stat"><b id="iAllCount">0</b><span>全部流入记录</span></div>
         </div>
 
-        <h2>记一笔收入</h2>
+        <h2>新增一笔到账</h2>
         <form id="incomeForm">
           <div class="grid2">
             <div>
@@ -636,12 +937,14 @@
               <input type="date" id="iDate" required />
             </div>
             <div>
-              <label for="iSrc">来源</label>
+              <label for="iSrc">类别</label>
               <select id="iSrc">
                 <option>工资</option>
                 <option>交易盈利</option>
-                <option>卖手机</option>
-                <option>其他</option>
+                <option>其他收入</option>
+                <option>出售资产</option>
+                <option>借入款（不计收入）</option>
+                <option>退款 / 转入</option>
               </select>
             </div>
           </div>
@@ -652,15 +955,15 @@
             </div>
             <div>
               <label for="iNote">备注（可选）</label>
-              <input type="text" id="iNote" placeholder="例如 10 月工资，已到账" />
+              <input type="text" id="iNote" placeholder="例如 10 月工资已到账 / 借入款已到账" />
             </div>
           </div>
-          <button class="btn" type="submit">添加</button>
+          <button class="btn" type="submit">添加到账记录</button>
         </form>
 
-        <h2>收入记录</h2>
+        <h2>到账明细</h2>
         <div class="entries" id="incomeEntries"></div>
-        <p class="empty" id="incomeEmpty">还没有收入记录。钱到账了，在上面记第一笔。</p>
+        <p class="empty" id="incomeEmpty">还没有流入记录。到账后选择类别，再登记金额和备注。</p>
       </section>
 
       <!-- ============ 交易参考 ============ -->
@@ -810,7 +1113,7 @@
         <h1>睡眠记录</h1>
         <p style="font-size:22px;font-weight:700;line-height:1.4;">目标：每晚睡够约 8 小时。</p>
         <p class="muted" style="margin-top:8px;">睡眠目标约 8 小时，来自档案模块四 4.1。填入睡和起床时间，时长自动算。</p>
-        <p class="muted" style="margin-top:8px;">2026-10-14 至 10-18 的 5 晚记录已预填在下方（原文见<button type="button" class="linklike" id="sDocLink">《个人交互数据桥》第六部分</button>），新数据继续往下记。</p>
+        <p class="muted" style="margin-top:8px;">已归档的睡眠记录与原始说明见<button type="button" class="linklike" id="sDocLink">《个人交互数据桥》第六部分</button>；新记录可在下方继续添加。</p>
 
         <div class="stat-row" style="margin-top:24px;">
           <div class="stat"><b id="sAvg">—</b><span>近 7 天平均时长</span></div>
@@ -1006,19 +1309,19 @@
 
       <!-- ============ 我的文档 ============ -->
       <section class="panel" id="panel-docs" role="tabpanel">
-        <h1>我的文档</h1>
-        <p style="font-size:22px;font-weight:700;line-height:1.4;">我发过的文档，已全部合并成一份主文档。</p>
-        <p class="muted" style="margin-top:8px;">主文档《个人交互数据桥》共六部分：第一部分主档案（v4 纯正版，七个模块，含 2026-10-15 核对记录与 2026-10-17 更新），其后依次为交易系统定稿、逆向决策、思维系统、健身档案与训练日志、睡眠记录。全部原文收录，一字未改。</p>
+        <h1>完整个人档案</h1>
+        <p style="font-size:22px;font-weight:700;line-height:1.4;">一份主档案，六个部分。</p>
+        <p class="muted" style="margin-top:8px;">从个人全景到财务、交易、思维与生活记录。目录按主题整理，原文、来源和历史版本继续保留。</p>
                 <article class="doc">
           <h2 class="doc-title">个人交互数据桥</h2>
-          <p class="doc-date">全部文档合并为一份主文档：第一部分主档案 · 第二部分交易系统定稿 · 第三部分逆向决策 · 第四部分思维系统 · 第五部分健身档案与训练日志 · 第六部分睡眠记录</p>
-          <nav class="doc-nav" aria-label="个人交互数据桥部分导航">
-            <a href="#part-1">第一部分｜主档案</a>
-            <a href="#part-2">第二部分｜交易系统</a>
-            <a href="#part-3">第三部分｜逆向决策</a>
-            <a href="#part-4">第四部分｜思维系统</a>
-            <a href="#part-5">第五部分｜健身档案与训练日志</a>
-            <a href="#part-6">第六部分｜睡眠记录</a>
+          <p class="doc-date">目录速览 · 点击任一主题可跳转到原文位置</p>
+          <nav class="doc-nav doc-parts" aria-label="个人交互数据桥部分导航">
+            <a href="#part-1"><span>01</span><strong>个人主档案</strong><small>全景、财务、工作与附录</small></a>
+            <a href="#part-2"><span>02</span><strong>交易系统</strong><small>原则、规则与执行边界</small></a>
+            <a href="#part-3"><span>03</span><strong>逆向决策</strong><small>从终点倒推行动路径</small></a>
+            <a href="#part-4"><span>04</span><strong>思维系统</strong><small>多维分析与日常应用</small></a>
+            <a href="#part-5"><span>05</span><strong>身体与训练</strong><small>健身档案与训练日志</small></a>
+            <a href="#part-6"><span>06</span><strong>睡眠记录</strong><small>睡眠数据与后续登记</small></a>
           </nav>
           <h3 class="doc-part doc-part-main" id="part-1">第一部分｜个人全景数字分身｜主档案（v4 纯正版，含 2026-10-17 更新）</h3>
           <p class="doc-date">v4 纯正版（2026-10-14）为底；2026-10-15 的核对记录与 2026-10-17 的更新已按更新规则逐条并入正文对应位置——旧值保留并标日期，新值追加并标日期，保留的文字一字未改</p>
@@ -1491,7 +1794,115 @@
   ● 核对 7（无法验证）：ORDI 流动性收紧、Beta 2.4 等判断本次无法验证；2026 年 ORDI 20 笔平仓净亏约 205
     美元，约占当年合约平仓净亏损的 46%。
 
-  ● 文件第四部分是给其他 AI 的提问指令，没有写入。（2026-10-14）</div>
+  ● 文件第四部分是给其他 AI 的提问指令，没有写入。（2026-10-14）
+
+  ● 2026-10-19 更正：此前整理摘要遗漏了原文件第四部分；现已将原始文件全文逐字附在本页下方，内容保留在现有页面文件中。</div>
+          <a class="doc-source-link" href="#original-spec">查看原始规范全文</a>
+          <details class="doc-source-original" id="original-spec"><summary>查看原始文件全文（逐字保留，含第四部分）</summary><pre># 《天命》交易系统数据规范与推导引擎 (Fate Trading Analytics Standard)
+
+&gt; **使用说明：** 本文件包含结构化交易系统逻辑与数据推导矩阵，可以直接将其作为 Prompt/上下文 发送给其他 AI（如 GPT-4o, Claude 3.5 Sonnet 等），以便其对你的交易风控、盘面归因与仓位计算进行深度审计。
+
+---
+
+## 一、 系统架构与核心规则 (System Architecture)
+
+### 1.1 交易系统三原则 (Core Directives)
+1. **半仓霸权 (Half-Position Supremacy):** 
+   - 任何单笔及组合合约仓位保证金占比不能超过可用总资产的 $50\%$。
+   - $P_{\text{margin}} \le 0.50 \times A_{\text{total}}$
+2. **移动止损熔断 (Hard Stop-Loss Enforcement):**
+   - 挂单即绑定止损，禁止手动扩宽止损区间，禁在亏损单上凭“意志力”抗单。
+   - $SL_{\text{trigger}} = P_{\text{entry}} \times (1 - \text{RiskThreshold})$
+3. **资金隔离 (Capital Isolation):**
+   - 交易账户与“2027远征基金”及“生活基石资金”进行 $100\%$ 物理隔离，严禁跨边界划转。
+
+---
+
+## 二、 结构化系统配置 (JSON Dataset)
+
+```json
+{
+  "system_metadata": {
+    "system_name": "Fate_Trading_System_v2.6",
+    "owner_profile": "Execution_Mode_2026",
+    "last_updated": "2026-10-12",
+    "base_currency": "USDT",
+    "target_assets": ["BTC", "ORDI"]
+  },
+  "risk_management_rules": {
+    "max_account_leverage_ratio": 0.50,
+    "max_position_leverage": 5,
+    "forced_liquidation_buffer": 0.30,
+    "max_drawdown_stop_trading": 0.15,
+    "take_profit_strategy": "Trailing_Stop_Stepwise"
+  },
+  "market_data_derivation": {
+    "timestamp": "2026-10-12T00:00:00Z",
+    "asset_metrics": {
+      "BTC": {
+        "current_price_range_usd": [83000, 84000],
+        "macro_factors": [
+          "October_Interest_Rate_Expectation",
+          "Oil_Price_Inflation_Hedge",
+          "Derivatives_Liquidation_Completion"
+        ],
+        "implied_volatility_state": "Pre-Breakout_Squeeze",
+        "key_support_level": 78000,
+        "key_resistance_level": 88000
+      },
+      "ORDI": {
+        "liquidity_status": "Tightening",
+        "beta_to_btc": 2.4,
+        "liquidation_risk": "High_Need_Low_Leverage"
+      }
+    }
+  },
+  "execution_metrics": {
+    "trade_execution_checklist": {
+      "leverage_check_passed": true,
+      "stop_loss_order_placed": true,
+      "margin_ratio_percent": 35.0,
+      "isolated_margin_mode": true
+    }
+  }
+}
+```
+
+---
+
+## 三、 数据推导逻辑与推算公式 (Derivation Engine)
+
+### 3.1 强平风险与无缝缓冲距离推导 (Liquidation Buffer Distance)
+
+为了计算在极端插针行情下仓位的安全系数，系统推导公式如下：
+
+* **做多强平价推算 ($P_{\text{liq}}$)：**
+  $$P_{\text{liq}} = P_{\text{entry}} \times \left( 1 - \frac{1}{L} + \text{MMR} \right)$$
+  *(其中 $L$ 为杠杆倍数，$\text{MMR}$ 为维持保证金率)*
+
+* **黑天鹅归零缓冲系数 ($B_{\text{safety}}$)：**
+  $$B_{\text{safety}} = \frac{P_{\text{entry}} - P_{\text{liq}}}{P_{\text{entry}}} \times 100\%$$
+
+* **推导示例数据（当前 BTC 83,500 USDT, 5x 杠杆）：**
+  * $P_{\text{entry}} = 83,500$
+  * $L = 5$
+  * $\text{MMR} \approx 0.5\%$
+  * $P_{\text{liq}} = 83,500 \times (1 - 0.20 + 0.005) = 67,217.5 \text{ USDT}$
+  * $B_{\text{safety}} = \frac{83,500 - 67,217.5}{83,500} = 19.5\%$ (价格回撤 19.5% 才会遭遇强平，足以抵御常见无差别插针)
+
+---
+
+## 四、 给外部 AI 模型分析的提问指令 (Prompt for Other AIs)
+
+你可以在将上述内容发送给其他 AI 后，附带以下分析指令：
+
+```text
+请作为一名顶级量化风控专家，基于以上《天命》交易系统的数据规范与 JSON 配置，帮我做以下三项深度分析：
+
+1. 风控审计：当前 5x 杠杆与 50% 半仓限制，在 BTC 波动率为 83,000-84,000 区间时，极端清算风险有多大？
+2. 收益风险比优化：在山寨币（如 ORDI Beta=2.4）流动性收紧的环境下，如何优化移动止损算法以防止被恶意插针扫损？
+3. 系统漏洞诊断：指出这套交易系统在面对“宏观加息预警 + 油价飙升”双重博弈时，可能存在的逻辑盲区与改进建议。
+```</pre></details>
           <h4 class="doc-module" id="doc-m3">模块三｜工作与事业</h4>
           <nav class="doc-nav sub" aria-label="模块三小节导航"><a href="#doc-m3-1">3.1 工作与职业</a><a href="#doc-m3-2">历史工作信息</a><a href="#doc-m3-3">求职偏好与限制</a><a href="#doc-m3-4">工作规划原则</a><a href="#doc-m3-5">3.2 个人 IP、副业与创业想法</a><a href="#doc-m3-6">历史计划</a><a href="#doc-m3-7">执行原则</a></nav>
           <h5 class="doc-sub" id="doc-m3-1">3.1 工作与职业</h5>
@@ -3252,8 +3663,8 @@ ETF 长期资产不默认视为日常可用现金。
 这份档案的核心，不是让你变成一个只会说专业术语的人，而是帮助你逐渐成为一个能够独立分
 析问题、发现机会、判断风险，并找到实际解决办法的人。</div>
           <h3 class="doc-part doc-part-main" id="part-5">第五部分｜健身档案与训练日志</h3>
-          <p class="doc-date">用户提供，2026-10-18 起持续更新</p>
-          <nav class="doc-nav sub" aria-label="健身档案小节导航"><a href="#doc-p5-3">基本资料</a><a href="#doc-p5-4">10月13日训练</a><a href="#doc-p5-5">10月14日训练</a><a href="#doc-p5-6">每日步数</a><a href="#doc-p5-7">休息日</a><a href="#doc-p5-8">本周总结</a><a href="#doc-p5-9">下周安排</a><a href="#doc-p5-10">登记规则</a></nav>
+          <p class="doc-date">用户提供，档案自2026-10-18建立；最近更新：2026-10-19</p>
+          <nav class="doc-nav sub" aria-label="健身档案小节导航"><a href="#doc-p5-3">基本资料</a><a href="#doc-p5-4">10月13日训练</a><a href="#doc-p5-5">10月14日训练</a><a href="#doc-p5-11">10月19日训练</a><a href="#doc-p5-6">每日步数</a><a href="#doc-p5-7">休息日</a><a href="#doc-p5-8">本周总结</a><a href="#doc-p5-9">下周安排</a><a href="#doc-p5-10">登记规则</a></nav>
           <h5 class="doc-sub" id="doc-p5-3">健身档案与训练日志｜一、个人基本资料</h5>
           <p class="doc-date">用户提供，2026-10-18 起持续更新</p>
           <div class="doc-body">记录日期：2026年10月18日</div>
@@ -3307,6 +3718,23 @@ ETF 长期资产不默认视为日常可用现金。
 </table></div>
           <div class="doc-body">哑铃实际使用重量：未登记。
 身体感受：未登记。</div>
+          <h5 class="doc-sub" id="doc-p5-11">2026年10月19日：腿部＋肩部</h5>
+          <div class="doc-body">训练状态：已完成。
+开始时间：20:17。
+结束时间：21:20。
+训练时长：63分钟。
+本次训练补上周缺的腿部训练。</div>
+<div class="doc-table-wrap"><table class="doc-table">
+<colgroup><col style="width:44%" /><col style="width:28%" /><col style="width:28%" /></colgroup>
+<thead><tr><th>动作</th><th>组数 × 次数</th><th class="num">合计</th></tr></thead>
+<tbody>
+<tr><td>哑铃深蹲</td><td>4组×12次</td><td class="num">48次</td></tr>
+<tr><td>哑铃外侧深蹲</td><td>4组×12次</td><td class="num">48次</td></tr>
+<tr><td>侧平举</td><td>4组×12次</td><td class="num">48次</td></tr>
+<tr><td>哑铃推肩</td><td>4组×12次</td><td class="num">48次</td></tr>
+<tr class="total"><td>本次合计</td><td>16组</td><td class="num">共192次动作重复</td></tr>
+</tbody>
+</table></div>
           <h5 class="doc-sub" id="doc-p5-6">三、每日步数记录</h5>
           <div class="doc-body">以下以你最近提供的微信运动截图为准。</div>
 <div class="doc-table-wrap"><table class="doc-table">
@@ -3343,9 +3771,9 @@ ETF 长期资产不默认视为日常可用现金。
 </tbody>
 </table></div>
           <h5 class="doc-sub" id="doc-p5-9">六、下周训练安排</h5>
-          <div class="doc-body">10月19日，星期一：胸肌＋肱三头肌。
-10月20日，星期二：背部＋肱二头肌。
-10月22日，星期四：安排腿部训练，补上本周没完成的腿部训练。
+          <div class="doc-body">10月19日，星期一：原计划胸肌＋肱三头肌；实际完成腿部＋肩部（20:17–21:20），并补上周缺的腿部训练，详见训练日志。
+10月20日，星期二：计划背部＋肱二头肌。
+10月22日，星期四：按实际恢复情况安排腿部训练；补上周缺的腿部训练已于10月19日完成。
 肩部训练根据你的实际恢复情况安排，不把计划当成已经完成的记录。
 腿部原定动作是哑铃深蹲、哑铃侧弓步。具体组数和次数按实际训练登记。</div>
           <h5 class="doc-sub" id="doc-p5-10">七、以后每天的登记规则</h5>
@@ -3447,7 +3875,7 @@ ETF 长期资产不默认视为日常可用现金。
         
       </section>
 
-        <footer class="module-foot">记录保存在本机浏览器中，刷新不丢失。债务基数 ¥19,697 为历史估算。</footer>
+        <footer class="module-foot">完整档案内容为公开页面。表单新增的交互记录保存在当前浏览器中，刷新后仍可查看，但不会自动同步到其他访客的设备。¥19,697 为档案中的历史负债基数，实际余额以明细记录为准。</footer>
       </div>
     </div>
 
@@ -3469,13 +3897,17 @@ ETF 长期资产不默认视为日常可用现金。
             return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
           });
         };
+        /*
+         * 数据同步顺序：先更新上方 panel-docs 中的档案正文，再更新首页摘要和下方模块默认值。
+         * 档案保留旧口径与日期；模块里的用户新增记录属于本机 localStorage，不作为档案事实来源。
+         */
         /* ---------- localStorage persistence ---------- */
         var loadStore = function (key, fallback) {
           try {
             var raw = localStorage.getItem(key);
             if (raw) {
               var parsed = JSON.parse(raw);
-              if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+              if (Array.isArray(parsed)) return parsed;
             }
           } catch (e) {}
           return fallback;
@@ -3657,6 +4089,11 @@ ETF 长期资产不默认视为日常可用现金。
           { date: "2026-10-13", day: "周一", status: "完成", mins: 41, note: "胸肌＋肱三头肌（21:41–22:22）：宽距俯卧撑、上斜俯卧撑、窄距俯卧撑，各 4 组×12 次，共 12 组 144 次。当日步数 8,062 步" },
           { date: "2026-10-12", day: "自定义", status: "推迟", mins: 0, note: "休息日。当日步数 15,135 步" }
         ]);
+        /* 将 2026-10-19 已核对训练同步到已有浏览器记录，保留同日已有的个人修改。 */
+        if (!lifes.some(function (e) { return e.date === "2026-10-19"; })) {
+          lifes.unshift({ date: "2026-10-19", day: "周一", status: "完成", mins: 63, note: "腿部＋肩部（20:17–21:20）：哑铃深蹲、哑铃外侧深蹲、侧平举、哑铃推肩，各 4 组×12 次，共 16 组 192 次；补上周缺的腿部训练" });
+          saveStore("bridge_lifes_v3", lifes);
+        }
         function renderLife() {
           var done = lifes.filter(function (e) { return e.status === "完成"; });
           document.getElementById("lDone").textContent = done.length;
@@ -3850,27 +4287,40 @@ ETF 长期资产不默认视为日常可用现金。
         });
         renderExpense();
 
-        /* ---------- 个人盈利 ---------- */
-        /* 只记已到账的钱；2026-10-19 用户确认三笔已到账：放心借 954、京东白条 1600、京东金条 1000 */
+        /* ---------- 资金流入：真实收入与借入款分开统计 ---------- */
+        /* 历史流入记录保持原样；借入款根据原类别与备注单独归类，不纳入收入合计。 */
         var incomes = loadStore("bridge_incomes_v3", [
           { date: "2026-10-19", src: "放心借", amt: 954, note: "借入，已到账" },
           { date: "2026-10-19", src: "京东白条", amt: 1600, note: "借入，已到账" },
           { date: "2026-10-19", src: "京东金条", amt: 1000, note: "借入，已到账" }
         ]);
+        function flowType(e) {
+          var src = String(e.src || ""), note = String(e.note || "");
+          if (/借入|借款/.test(src + note) || /白条|金条|放心借/.test(src)) return "borrow";
+          if (/出售资产|卖手机|资产变现/.test(src)) return "asset";
+          if (/退款|转入/.test(src)) return "other";
+          return "income";
+        }
         function renderIncome() {
           var month = today().slice(0, 7);
           var inMonth = incomes.filter(function (e) { return e.date.slice(0, 7) === month; });
-          var mTotal = inMonth.reduce(function (s2, e) { return s2 + e.amt; }, 0);
-          var aTotal = incomes.reduce(function (s2, e) { return s2 + e.amt; }, 0);
+          var mTotal = inMonth.filter(function (e) { return flowType(e) === "income"; }).reduce(function (s2, e) { return s2 + e.amt; }, 0);
+          var aTotal = incomes.filter(function (e) { return flowType(e) === "income"; }).reduce(function (s2, e) { return s2 + e.amt; }, 0);
+          var borrowedTotal = inMonth.filter(function (e) { return flowType(e) === "borrow"; }).reduce(function (s2, e) { return s2 + e.amt; }, 0);
           document.getElementById("iMonthTotal").textContent = money(mTotal);
           document.getElementById("iAllTotal").textContent = money(aTotal);
+          document.getElementById("iBorrowedTotal").textContent = money(borrowedTotal);
           document.getElementById("iAllCount").textContent = incomes.length;
           var box = document.getElementById("incomeEntries");
           document.getElementById("incomeEmpty").style.display = incomes.length ? "none" : "block";
           box.innerHTML = incomes.map(function (e, i2) {
+            var type = flowType(e);
+            var typeLabel = type === "borrow" ? "借入 · 不计收入" : (type === "asset" ? "资产变现" : (type === "other" ? "其他流入" : "真实收入"));
+            var tagClass = type === "borrow" ? "late" : (type === "income" ? "yes" : "doing");
             return '<div class="entry"><div class="main"><div class="top">' +
               '<span class="date">' + esc(e.date) + '</span>' +
               '<span class="cat">' + esc(e.src) + '</span>' +
+              '<span class="tag ' + tagClass + '">' + typeLabel + '</span>' +
               '<span class="amt">' + money(e.amt) + "</span></div>" +
               (e.note ? '<div class="note">' + esc(e.note) + "</div>" : "") +
               '</div><button class="del" data-i="' + i2 + '" aria-label="删除这条记录">×</button></div>';
@@ -4116,6 +4566,30 @@ ETF 长期资产不默认视为日常可用现金。
             if (moduleView.hidden) { home.hidden = true; moduleView.hidden = false; }
           });
         });
+      })();
+    </script>
+    <script>
+      (function () {
+        var root = document.documentElement;
+        var toggle = document.getElementById("themeToggle");
+        if (!toggle) return;
+        try {
+          if (localStorage.getItem("linzhifeng_theme_v1") === "dark") root.dataset.theme = "dark";
+        } catch (e) {}
+        function updateLabel() {
+          var dark = root.dataset.theme === "dark";
+          toggle.setAttribute("aria-label", dark ? "切换浅色模式" : "切换深色模式");
+          toggle.title = dark ? "切换浅色模式" : "切换深色模式";
+          toggle.innerHTML = '<span aria-hidden="true">' + (dark ? "☼" : "◐") + "</span>";
+        }
+        toggle.addEventListener("click", function () {
+          var dark = root.dataset.theme !== "dark";
+          if (dark) root.dataset.theme = "dark";
+          else delete root.dataset.theme;
+          try { localStorage.setItem("linzhifeng_theme_v1", dark ? "dark" : "light"); } catch (e) {}
+          updateLabel();
+        });
+        updateLabel();
       })();
     </script>
   </body>
