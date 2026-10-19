@@ -338,6 +338,10 @@
         padding: 20px; font-size: 14.5px; line-height: 1.75;
         white-space: pre-wrap; overflow-wrap: anywhere;
       }
+      .doc-source-download { display: inline-flex; margin: 0 0 12px; color: var(--accent); font-size: 14px; font-weight: 650; }
+      .doc-source-original { margin: 0 0 28px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); overflow: hidden; }
+      .doc-source-original summary { padding: 15px 18px; cursor: pointer; font-weight: 650; }
+      .doc-source-original pre { margin: 0; padding: 18px; border-top: 1px solid var(--line); white-space: pre-wrap; overflow-wrap: anywhere; font: 12px/1.75 ui-monospace, SFMono-Regular, Menlo, monospace; }
       .doc-table-wrap {
         background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius);
         padding: 6px 18px 12px; margin: 12px 0; overflow-x: auto;
@@ -1751,7 +1755,115 @@
   ● 核对 7（无法验证）：ORDI 流动性收紧、Beta 2.4 等判断本次无法验证；2026 年 ORDI 20 笔平仓净亏约 205
     美元，约占当年合约平仓净亏损的 46%。
 
-  ● 文件第四部分是给其他 AI 的提问指令，没有写入。（2026-10-14）</div>
+  ● 文件第四部分是给其他 AI 的提问指令，没有写入。（2026-10-14）
+
+  ● 2026-10-19 更正：此前整理摘要遗漏了原文件第四部分；现已在下方附上原始文件全文，并另提供原始 Markdown 下载。</div>
+          <a class="doc-source-download" href="天命交易系统与数据推导规范.md" download>下载原始规范 Markdown（逐字保留）</a>
+          <details class="doc-source-original"><summary>查看原始文件全文（逐字保留，含第四部分）</summary><pre># 《天命》交易系统数据规范与推导引擎 (Fate Trading Analytics Standard)
+
+&gt; **使用说明：** 本文件包含结构化交易系统逻辑与数据推导矩阵，可以直接将其作为 Prompt/上下文 发送给其他 AI（如 GPT-4o, Claude 3.5 Sonnet 等），以便其对你的交易风控、盘面归因与仓位计算进行深度审计。
+
+---
+
+## 一、 系统架构与核心规则 (System Architecture)
+
+### 1.1 交易系统三原则 (Core Directives)
+1. **半仓霸权 (Half-Position Supremacy):** 
+   - 任何单笔及组合合约仓位保证金占比不能超过可用总资产的 $50\%$。
+   - $P_{\text{margin}} \le 0.50 \times A_{\text{total}}$
+2. **移动止损熔断 (Hard Stop-Loss Enforcement):**
+   - 挂单即绑定止损，禁止手动扩宽止损区间，禁在亏损单上凭“意志力”抗单。
+   - $SL_{\text{trigger}} = P_{\text{entry}} \times (1 - \text{RiskThreshold})$
+3. **资金隔离 (Capital Isolation):**
+   - 交易账户与“2027远征基金”及“生活基石资金”进行 $100\%$ 物理隔离，严禁跨边界划转。
+
+---
+
+## 二、 结构化系统配置 (JSON Dataset)
+
+```json
+{
+  "system_metadata": {
+    "system_name": "Fate_Trading_System_v2.6",
+    "owner_profile": "Execution_Mode_2026",
+    "last_updated": "2026-10-12",
+    "base_currency": "USDT",
+    "target_assets": ["BTC", "ORDI"]
+  },
+  "risk_management_rules": {
+    "max_account_leverage_ratio": 0.50,
+    "max_position_leverage": 5,
+    "forced_liquidation_buffer": 0.30,
+    "max_drawdown_stop_trading": 0.15,
+    "take_profit_strategy": "Trailing_Stop_Stepwise"
+  },
+  "market_data_derivation": {
+    "timestamp": "2026-10-12T00:00:00Z",
+    "asset_metrics": {
+      "BTC": {
+        "current_price_range_usd": [83000, 84000],
+        "macro_factors": [
+          "October_Interest_Rate_Expectation",
+          "Oil_Price_Inflation_Hedge",
+          "Derivatives_Liquidation_Completion"
+        ],
+        "implied_volatility_state": "Pre-Breakout_Squeeze",
+        "key_support_level": 78000,
+        "key_resistance_level": 88000
+      },
+      "ORDI": {
+        "liquidity_status": "Tightening",
+        "beta_to_btc": 2.4,
+        "liquidation_risk": "High_Need_Low_Leverage"
+      }
+    }
+  },
+  "execution_metrics": {
+    "trade_execution_checklist": {
+      "leverage_check_passed": true,
+      "stop_loss_order_placed": true,
+      "margin_ratio_percent": 35.0,
+      "isolated_margin_mode": true
+    }
+  }
+}
+```
+
+---
+
+## 三、 数据推导逻辑与推算公式 (Derivation Engine)
+
+### 3.1 强平风险与无缝缓冲距离推导 (Liquidation Buffer Distance)
+
+为了计算在极端插针行情下仓位的安全系数，系统推导公式如下：
+
+* **做多强平价推算 ($P_{\text{liq}}$)：**
+  $$P_{\text{liq}} = P_{\text{entry}} \times \left( 1 - \frac{1}{L} + \text{MMR} \right)$$
+  *(其中 $L$ 为杠杆倍数，$\text{MMR}$ 为维持保证金率)*
+
+* **黑天鹅归零缓冲系数 ($B_{\text{safety}}$)：**
+  $$B_{\text{safety}} = \frac{P_{\text{entry}} - P_{\text{liq}}}{P_{\text{entry}}} \times 100\%$$
+
+* **推导示例数据（当前 BTC 83,500 USDT, 5x 杠杆）：**
+  * $P_{\text{entry}} = 83,500$
+  * $L = 5$
+  * $\text{MMR} \approx 0.5\%$
+  * $P_{\text{liq}} = 83,500 \times (1 - 0.20 + 0.005) = 67,217.5 \text{ USDT}$
+  * $B_{\text{safety}} = \frac{83,500 - 67,217.5}{83,500} = 19.5\%$ (价格回撤 19.5% 才会遭遇强平，足以抵御常见无差别插针)
+
+---
+
+## 四、 给外部 AI 模型分析的提问指令 (Prompt for Other AIs)
+
+你可以在将上述内容发送给其他 AI 后，附带以下分析指令：
+
+```text
+请作为一名顶级量化风控专家，基于以上《天命》交易系统的数据规范与 JSON 配置，帮我做以下三项深度分析：
+
+1. 风控审计：当前 5x 杠杆与 50% 半仓限制，在 BTC 波动率为 83,000-84,000 区间时，极端清算风险有多大？
+2. 收益风险比优化：在山寨币（如 ORDI Beta=2.4）流动性收紧的环境下，如何优化移动止损算法以防止被恶意插针扫损？
+3. 系统漏洞诊断：指出这套交易系统在面对“宏观加息预警 + 油价飙升”双重博弈时，可能存在的逻辑盲区与改进建议。
+```</pre></details>
           <h4 class="doc-module" id="doc-m3">模块三｜工作与事业</h4>
           <nav class="doc-nav sub" aria-label="模块三小节导航"><a href="#doc-m3-1">3.1 工作与职业</a><a href="#doc-m3-2">历史工作信息</a><a href="#doc-m3-3">求职偏好与限制</a><a href="#doc-m3-4">工作规划原则</a><a href="#doc-m3-5">3.2 个人 IP、副业与创业想法</a><a href="#doc-m3-6">历史计划</a><a href="#doc-m3-7">执行原则</a></nav>
           <h5 class="doc-sub" id="doc-m3-1">3.1 工作与职业</h5>
