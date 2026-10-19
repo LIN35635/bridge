@@ -10,7 +10,7 @@
     <meta name="color-scheme" content="light dark" />
     <link rel="icon" href="data:," />
     <meta name="description" content="LINZHIFENG 的公开个人数据中枢：记录财务、健康、目标、交易与个人档案。" />
-    <meta name="theme-color" content="#f1f2ec" />
+    <meta name="theme-color" content="#edf4fc" />
     <title>个人中枢 · LINZHIFENG</title>
     <style>
       :root {
@@ -401,41 +401,41 @@
 
       /* ---------- LINZHIFENG redesign ---------- */
       :root {
-        --bg: #f1f2ec;
-        --surface: #fbfaf6;
-        --surface-2: #e8ece5;
-        --text: #202c26;
-        --text-2: #5d6d64;
-        --text-3: #849088;
-        --line: rgba(39, 59, 47, .12);
-        --accent: #477a5f;
-        --accent-soft: rgba(71, 122, 95, .12);
-        --good: #318163;
+        --bg: #edf4fc;
+        --surface: #fcfdff;
+        --surface-2: #e7eff9;
+        --text: #1d2b40;
+        --text-2: #586b84;
+        --text-3: #8293a9;
+        --line: rgba(43, 75, 117, .13);
+        --accent: #2f6fdf;
+        --accent-soft: rgba(47, 111, 223, .11);
+        --good: #3478c8;
         --warn: #a96d2a;
         --danger: #b64e52;
-        --bar-track: #dde4dc;
+        --bar-track: #dce7f4;
         --radius: 20px;
         color-scheme: light;
       }
       html[data-theme="dark"] {
-        --bg: #141a16;
-        --surface: #202a23;
-        --surface-2: #29362d;
-        --text: #f2f4ef;
-        --text-2: #b3c1b6;
-        --text-3: #849388;
-        --line: rgba(224, 238, 225, .12);
-        --accent: #9ac8a6;
-        --accent-soft: rgba(137, 195, 151, .16);
-        --good: #80cf9f;
+        --bg: #101927;
+        --surface: #19263a;
+        --surface-2: #22344d;
+        --text: #f1f6ff;
+        --text-2: #b4c3da;
+        --text-3: #8498b5;
+        --line: rgba(213, 229, 250, .13);
+        --accent: #92b8ff;
+        --accent-soft: rgba(120, 166, 244, .17);
+        --good: #83b6ff;
         --warn: #e2b36d;
         --danger: #f18a88;
-        --bar-track: #303c33;
+        --bar-track: #2d3d54;
         color-scheme: dark;
       }
       html { scroll-padding-top: 88px; }
       body {
-        background: radial-gradient(ellipse at 12% 0%, rgba(195, 216, 198, .42), transparent 36%), radial-gradient(ellipse at 90% 8%, rgba(232, 211, 181, .34), transparent 34%), var(--bg);
+        background: radial-gradient(ellipse at 12% 0%, rgba(177, 207, 246, .5), transparent 37%), radial-gradient(ellipse at 90% 8%, rgba(211, 228, 250, .48), transparent 35%), var(--bg);
         color: var(--text);
         font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Source Han Sans SC", "Microsoft YaHei", "Segoe UI", sans-serif;
         font-size: 15px;
@@ -445,7 +445,7 @@
         text-rendering: optimizeLegibility;
       }
       html[data-theme="dark"] body {
-        background: radial-gradient(ellipse at 12% 0%, rgba(73, 116, 83, .2), transparent 36%), radial-gradient(ellipse at 90% 8%, rgba(122, 91, 59, .16), transparent 34%), var(--bg);
+        background: radial-gradient(ellipse at 12% 0%, rgba(61, 111, 187, .22), transparent 37%), radial-gradient(ellipse at 90% 8%, rgba(76, 117, 180, .16), transparent 35%), var(--bg);
       }
       button { -webkit-tap-highlight-color: transparent; }
       .topbar { background: color-mix(in srgb, var(--bg) 88%, transparent); border-bottom-color: var(--line); backdrop-filter: saturate(180%) blur(18px); -webkit-backdrop-filter: saturate(180%) blur(18px); }
@@ -646,33 +646,34 @@
       @media (prefers-reduced-motion: reduce) {
         .hero-primary, .hero-secondary, .snapshot-card, .domain { transition: none; }
       }
-      /* Refined palette: warm mineral neutrals with botanical green accents. */
+      /* Refined palette: cool white, layered ice blue, and clear azure accents. */
       .hero h1 { letter-spacing: -.045em; }
-      .hero-primary { background: var(--accent); border-color: var(--accent); box-shadow: 0 9px 23px rgba(51, 91, 67, .2); }
-      .hero-primary:hover { box-shadow: 0 13px 27px rgba(51, 91, 67, .26); }
-      .hero-art { background: radial-gradient(ellipse at 48% 45%, #fcfbf5 0, #e9efe6 48%, #e4e5d8 100%); }
-      .hero-art:after { background: radial-gradient(circle at 16% 18%, #c7ddcb 0, transparent 29%), radial-gradient(circle at 84% 82%, #e9d8bd 0, transparent 34%); }
-      .art-grid { background-image: linear-gradient(rgba(68, 99, 76, .12) 1px, transparent 1px), linear-gradient(90deg, rgba(68, 99, 76, .12) 1px, transparent 1px); }
-      .orbit { border-color: rgba(67, 101, 77, .17); }
-      .orbit-one { box-shadow: 0 24px 70px rgba(45, 81, 57, .09), inset 0 0 24px rgba(255,255,255,.75); }
-      .orbit-three { border-color: rgba(67, 101, 77, .12); }
-      .orbit-core { background: linear-gradient(145deg, #6c9b78, #3d7355); box-shadow: 0 18px 48px rgba(57, 107, 72, .3), inset 0 1px 1px rgba(255,255,255,.35); }
-      .orbit-node { border-color: rgba(255,255,255,.82); color: #394b3e; background: rgba(251,250,246,.82); box-shadow: 0 8px 22px rgba(47, 68, 49, .1); }
-      .art-caption { color: rgba(57, 78, 62, .52); }
-      .snapshot-blue { background: linear-gradient(145deg, #e5edf0, #f5f5ef); }
-      .snapshot-lilac { background: linear-gradient(145deg, #eee9ee, #f7f3ef); }
-      .snapshot-green { background: linear-gradient(145deg, #e3ede4, #f3f6ef); }
-      .snapshot-sand { background: linear-gradient(145deg, #f0e7d8, #faf5eb); }
-      html[data-theme="dark"] .hero-art { background: radial-gradient(ellipse at 48% 45%, #29372d 0, #202a23 52%, #1d241f 100%); }
-      html[data-theme="dark"] .hero-art:after { background: radial-gradient(circle at 16% 18%, rgba(115, 163, 119, .42) 0, transparent 30%), radial-gradient(circle at 84% 82%, rgba(185, 143, 91, .25) 0, transparent 34%); }
-      html[data-theme="dark"] .orbit-node { color: #e4eee4; border-color: rgba(228, 238, 228, .16); background: rgba(38, 51, 42, .82); }
-      html[data-theme="dark"] .art-caption { color: rgba(214, 230, 214, .52); }
-      html[data-theme="dark"] .snapshot-blue { background: linear-gradient(145deg, #26363b, #202a23); }
-      html[data-theme="dark"] .snapshot-lilac { background: linear-gradient(145deg, #342e38, #202a23); }
-      html[data-theme="dark"] .snapshot-green { background: linear-gradient(145deg, #263b30, #202a23); }
-      html[data-theme="dark"] .snapshot-sand { background: linear-gradient(145deg, #3a3328, #202a23); }
-      .domain, .panel form, .bd-row, .entry, .rule, .doc-body, .doc-table-wrap { box-shadow: 0 7px 22px rgba(48, 64, 49, .035); }
-      html[data-theme="dark"] .domain, html[data-theme="dark"] .panel form, html[data-theme="dark"] .bd-row, html[data-theme="dark"] .entry, html[data-theme="dark"] .rule, html[data-theme="dark"] .doc-body, html[data-theme="dark"] .doc-table-wrap { box-shadow: 0 7px 22px rgba(0, 0, 0, .12); }
+      .hero-primary { background: var(--accent); border-color: var(--accent); box-shadow: 0 9px 23px rgba(43, 103, 197, .22); }
+      .hero-primary:hover { box-shadow: 0 13px 27px rgba(43, 103, 197, .28); }
+      .hero-art { background: radial-gradient(ellipse at 48% 45%, #fcfdff 0, #e6f0fc 48%, #dce9f8 100%); }
+      .hero-art:after { background: radial-gradient(circle at 16% 18%, #b8d3fa 0, transparent 29%), radial-gradient(circle at 84% 82%, #d2e5fb 0, transparent 34%); }
+      .art-grid { background-image: linear-gradient(rgba(57, 97, 155, .12) 1px, transparent 1px), linear-gradient(90deg, rgba(57, 97, 155, .12) 1px, transparent 1px); }
+      .orbit { border-color: rgba(57, 97, 155, .17); }
+      .orbit-one { box-shadow: 0 24px 70px rgba(51, 91, 146, .1), inset 0 0 24px rgba(255,255,255,.82); }
+      .orbit-three { border-color: rgba(57, 97, 155, .12); }
+      .orbit-core { background: linear-gradient(145deg, #67a5ff, #2865d4); box-shadow: 0 18px 48px rgba(43, 101, 203, .32), inset 0 1px 1px rgba(255,255,255,.4); }
+      .orbit-node { border-color: rgba(255,255,255,.9); color: #354b68; background: rgba(252,253,255,.86); box-shadow: 0 8px 22px rgba(47, 74, 113, .1); }
+      .art-caption { color: rgba(57, 80, 113, .52); }
+      .snapshot-blue { background: linear-gradient(145deg, #e2edfb, #f4f8fe); }
+      .snapshot-lilac { background: linear-gradient(145deg, #e9ebf9, #f6f7fc); }
+      .snapshot-green { background: linear-gradient(145deg, #e1f0f7, #f2f9fc); }
+      .snapshot-sand { background: linear-gradient(145deg, #e7effa, #f7f9fd); }
+      html[data-theme="dark"] .hero-art { background: radial-gradient(ellipse at 48% 45%, #233b5c 0, #19263a 52%, #172237 100%); }
+      html[data-theme="dark"] .hero-art:after { background: radial-gradient(circle at 16% 18%, rgba(91, 145, 224, .42) 0, transparent 30%), radial-gradient(circle at 84% 82%, rgba(92, 126, 190, .25) 0, transparent 34%); }
+      html[data-theme="dark"] .orbit-node { color: #e4edfb; border-color: rgba(221, 234, 252, .17); background: rgba(31, 49, 75, .86); }
+      html[data-theme="dark"] .art-caption { color: rgba(214, 230, 251, .55); }
+      html[data-theme="dark"] .snapshot-blue { background: linear-gradient(145deg, #243a59, #19263a); }
+      html[data-theme="dark"] .snapshot-lilac { background: linear-gradient(145deg, #303750, #19263a); }
+      html[data-theme="dark"] .snapshot-green { background: linear-gradient(145deg, #203b50, #19263a); }
+      html[data-theme="dark"] .snapshot-sand { background: linear-gradient(145deg, #2b3c54, #19263a); }
+      .live-dot { background: #4d8ee8; box-shadow: 0 0 0 4px rgba(77, 142, 232, .13); }
+      .domain, .panel form, .bd-row, .entry, .rule, .doc-body, .doc-table-wrap { box-shadow: 0 7px 22px rgba(48, 69, 101, .04); }
+      html[data-theme="dark"] .domain, html[data-theme="dark"] .panel form, html[data-theme="dark"] .bd-row, html[data-theme="dark"] .entry, html[data-theme="dark"] .rule, html[data-theme="dark"] .doc-body, html[data-theme="dark"] .doc-table-wrap { box-shadow: 0 7px 22px rgba(0, 0, 0, .16); }
     </style>
   </head>
   <body>
