@@ -3350,7 +3350,7 @@ ETF 长期资产不默认视为日常可用现金。
 所有记录只使用你实际提供的信息，不猜测、不补造。以后统一用纯文字，方便你直接复制和保存。这个月登记吧</div>
           <h3 class="doc-part doc-part-main" id="part-6">第六部分｜睡眠记录</h3>
           <p class="doc-date">用户提供，2026-10-18 起持续更新</p>
-          <nav class="doc-nav sub" aria-label="睡眠记录小节导航"><a href="#doc-p6-0">记录日期与时区</a><a href="#doc-p6-1">10月14日</a><a href="#doc-p6-2">10月15日</a><a href="#doc-p6-3">10月16日</a><a href="#doc-p6-4">10月17日</a><a href="#doc-p6-5">10月18日</a><a href="#doc-p6-6">二、阶段性统计</a><a href="#doc-p6-7">三、身体状态与睡眠问题</a><a href="#doc-p6-8">四、后续登记规则</a></nav>
+          <nav class="doc-nav sub" aria-label="睡眠记录小节导航"><a href="#doc-p6-0">记录日期与时区</a><a href="#doc-p6-1">10月14日</a><a href="#doc-p6-2">10月15日</a><a href="#doc-p6-3">10月16日</a><a href="#doc-p6-4">10月17日</a><a href="#doc-p6-5">10月18日</a><a href="#doc-p6-5b">10月19日</a><a href="#doc-p6-6">二、阶段性统计</a><a href="#doc-p6-7">三、身体状态与睡眠问题</a><a href="#doc-p6-8">四、后续登记规则</a></nav>
           <h5 class="doc-sub" id="doc-p6-0">记录日期与时区</h5>
           <div class="doc-body">记录日期：2026年10月14日—10月18日
 时区：北京时间（UTC+8）</div>
@@ -3402,12 +3402,21 @@ ETF 长期资产不默认视为日常可用现金。
 白天精神：困、累
 午睡：0次
 东鹏特饮：500毫升装，每天2瓶（统一记录）</div>
+          <h5 class="doc-sub" id="doc-p6-5b">2026年10月19日</h5>
+          <div class="doc-body">入睡时间：01:40左右
+起床时间：08:20
+估计睡眠时长：6小时40分钟
+夜间醒来：0次
+睡眠质量：中
+白天精神：困
+午睡：待补充
+东鹏特饮：待补充</div>
           <h5 class="doc-sub" id="doc-p6-6">二、阶段性统计</h5>
 <div class="doc-table-wrap"><table class="doc-table">
 <colgroup><col style="width:34%" /><col style="width:66%" /></colgroup>
 <thead><tr><th>项目</th><th>记录</th></tr></thead>
 <tbody>
-<tr><td>连续登记天数</td><td>5天</td></tr>
+<tr><td>连续登记天数</td><td>6天</td></tr>
 <tr><td>平均估计睡眠时长</td><td>约6小时42分钟</td></tr>
 <tr><td>夜间醒来</td><td>共记录1次</td></tr>
 <tr><td>午睡</td><td>5天均为0次</td></tr>
@@ -3887,6 +3896,7 @@ ETF 长期资产不默认视为日常可用现金。
         /* 预填：用户 2026-10-18 提供的睡眠记录 2026-10-14 至 10-18 共 5 晚（文档第六部分）；原记录质量「中」对应本表「一般」，「不好」对应「差」；时长按入睡/起床时间计算，与原记录的估计时长一致 */
         var SLEEP_NOTE = "东鹏特饮 500ml×2 瓶/天；午睡 0 次";
         var sleeps = loadStore("bridge_sleeps_v2", [
+          { date: "2026-10-19", start: "01:40", end: "08:20", mins: sleepMins("01:40", "08:20"), quality: "一般", note: "白天精神：困；夜间醒来 0 次。" + SLEEP_NOTE },
           { date: "2026-10-18", start: "00:50", end: "07:20", mins: sleepMins("00:50", "07:20"), quality: "一般", note: "白天精神：困、累；夜间醒来 0 次。" + SLEEP_NOTE },
           { date: "2026-10-17", start: "00:40", end: "07:45", mins: sleepMins("00:40", "07:45"), quality: "差", note: "夜间醒来 1 次（04:30–05:00），时长未扣除夜醒清醒时间；白天精神：困、累。" + SLEEP_NOTE },
           { date: "2026-10-16", start: "00:40", end: "07:31", mins: sleepMins("00:40", "07:31"), quality: "一般", note: "白天精神：中；夜间醒来 0 次；东鹏特饮最后一次在 22:00 以后。" + SLEEP_NOTE },
