@@ -338,7 +338,7 @@
         padding: 20px; font-size: 14.5px; line-height: 1.75;
         white-space: pre-wrap; overflow-wrap: anywhere;
       }
-      .doc-source-download { display: inline-flex; margin: 0 0 12px; color: var(--accent); font-size: 14px; font-weight: 650; }
+      .doc-source-link { display: inline-flex; margin: 0 0 12px; color: var(--accent); font-size: 14px; font-weight: 650; }
       .doc-source-original { margin: 0 0 28px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); overflow: hidden; }
       .doc-source-original summary { padding: 15px 18px; cursor: pointer; font-weight: 650; }
       .doc-source-original pre { margin: 0; padding: 18px; border-top: 1px solid var(--line); white-space: pre-wrap; overflow-wrap: anywhere; font: 12px/1.75 ui-monospace, SFMono-Regular, Menlo, monospace; }
@@ -1757,9 +1757,9 @@
 
   ● 文件第四部分是给其他 AI 的提问指令，没有写入。（2026-10-14）
 
-  ● 2026-10-19 更正：此前整理摘要遗漏了原文件第四部分；现已在下方附上原始文件全文，并另提供原始 Markdown 下载。</div>
-          <a class="doc-source-download" href="天命交易系统与数据推导规范.md" download>下载原始规范 Markdown（逐字保留）</a>
-          <details class="doc-source-original"><summary>查看原始文件全文（逐字保留，含第四部分）</summary><pre># 《天命》交易系统数据规范与推导引擎 (Fate Trading Analytics Standard)
+  ● 2026-10-19 更正：此前整理摘要遗漏了原文件第四部分；现已将原始文件全文逐字附在本页下方，内容保留在现有页面文件中。</div>
+          <a class="doc-source-link" href="#original-spec">查看原始规范全文</a>
+          <details class="doc-source-original" id="original-spec"><summary>查看原始文件全文（逐字保留，含第四部分）</summary><pre># 《天命》交易系统数据规范与推导引擎 (Fate Trading Analytics Standard)
 
 &gt; **使用说明：** 本文件包含结构化交易系统逻辑与数据推导矩阵，可以直接将其作为 Prompt/上下文 发送给其他 AI（如 GPT-4o, Claude 3.5 Sonnet 等），以便其对你的交易风控、盘面归因与仓位计算进行深度审计。
 
