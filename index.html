@@ -3844,8 +3844,12 @@ ETF 长期资产不默认视为日常可用现金。
         renderExpense();
 
         /* ---------- 个人盈利 ---------- */
-        /* 只记已到账的钱；2026 年 10 月暂无已到账收入（工资每月 1 号左右到，是否到账待本人确认），不预填 */
-        var incomes = loadStore("bridge_incomes_v3", []);
+        /* 只记已到账的钱；2026-10-19 用户确认三笔已到账：放心借 954、京东白条 1600、京东金条 1000 */
+        var incomes = loadStore("bridge_incomes_v3", [
+          { date: "2026-10-19", src: "放心借", amt: 954, note: "借入，已到账" },
+          { date: "2026-10-19", src: "京东白条", amt: 1600, note: "借入，已到账" },
+          { date: "2026-10-19", src: "京东金条", amt: 1000, note: "借入，已到账" }
+        ]);
         function renderIncome() {
           var month = today().slice(0, 7);
           var inMonth = incomes.filter(function (e) { return e.date.slice(0, 7) === month; });
