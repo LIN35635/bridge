@@ -3441,7 +3441,7 @@ ETF 长期资产不默认视为日常可用现金。
         
       </section>
 
-        <footer class="module-foot">记录仅保存在本次打开的页面中，刷新后清空。债务基数 ¥19,697 为历史估算。</footer>
+        <footer class="module-foot">记录保存在本机浏览器中，刷新不丢失。债务基数 ¥19,697 为历史估算。</footer>
       </div>
     </div>
 
@@ -3522,7 +3522,7 @@ ETF 长期资产不默认视为日常可用现金。
           lease: { name: "融资租赁", base: 4947 },
           friend: { name: "欠朋友", base: 9066, sub: "只记总额，不分人" }
         };
-        var debts = loadStore("bridge_debts_v2", []);
+        var debts = loadStore("bridge_debts_v3", []);
 
         function renderBreakdown() {
           var html = "";
@@ -3561,7 +3561,7 @@ ETF 长期资产不默认视为日常可用现金。
           box.querySelectorAll(".del").forEach(function (b) {
             b.addEventListener("click", function () {
               debts.splice(Number(b.dataset.i), 1);
-              saveStore("bridge_debts_v2", debts);
+              saveStore("bridge_debts_v3", debts);
               renderDebt();
             });
           });
@@ -3579,7 +3579,7 @@ ETF 长期资产不默认视为日常可用现金。
             amt: amt,
             note: document.getElementById("dNote").value.trim()
           });
-          saveStore("bridge_debts_v2", debts);
+          saveStore("bridge_debts_v3", debts);
           document.getElementById("dAmt").value = "";
           document.getElementById("dNote").value = "";
           renderDebt();
@@ -3587,7 +3587,7 @@ ETF 长期资产不默认视为日常可用现金。
         renderDebt();
 
         /* ---------- 交易日记 ---------- */
-        var trades = loadStore("bridge_trades_v2", []);
+        var trades = loadStore("bridge_trades_v3", []);
         function renderTrade() {
           document.getElementById("tCount").textContent = trades.length;
           if (trades.length) {
@@ -3611,7 +3611,7 @@ ETF 长期资产不默认视为日常可用现金。
           box.querySelectorAll(".del").forEach(function (b) {
             b.addEventListener("click", function () {
               trades.splice(Number(b.dataset.i), 1);
-              saveStore("bridge_trades_v2", trades);
+              saveStore("bridge_trades_v3", trades);
               renderTrade();
             });
           });
@@ -3631,7 +3631,7 @@ ETF 长期资产不默认视为日常可用现金。
             result: document.getElementById("tResult").value.trim(),
             follow: getFollow()
           });
-          saveStore("bridge_trades_v2", trades);
+          saveStore("bridge_trades_v3", trades);
           document.getElementById("tMarket").value = "";
           document.getElementById("tReason").value = "";
           document.getElementById("tResult").value = "";
@@ -3641,7 +3641,7 @@ ETF 长期资产不默认视为日常可用现金。
 
         /* ---------- 健身打卡 ---------- */
         /* 预填：用户 2026-10-18 提供的健身档案与训练日志（文档第五部分），只记已完成与已登记的休息日 */
-        var lifes = loadStore("bridge_lifes_v2", [
+        var lifes = loadStore("bridge_lifes_v3", [
           { date: "2026-10-18", day: "自定义", status: "推迟", mins: 0, note: "休息日（太晚了，而且太累）。当日步数 16,983 步" },
           { date: "2026-10-17", day: "自定义", status: "推迟", mins: 0, note: "休息日（和女朋友在一起）。当日步数 14,366 步" },
           { date: "2026-10-16", day: "自定义", status: "推迟", mins: 0, note: "休息日（和女朋友在一起）。当日步数 16,503 步" },
@@ -3669,7 +3669,7 @@ ETF 长期资产不默认视为日常可用现金。
           box.querySelectorAll(".del").forEach(function (b) {
             b.addEventListener("click", function () {
               lifes.splice(Number(b.dataset.i), 1);
-              saveStore("bridge_lifes_v2", lifes);
+              saveStore("bridge_lifes_v3", lifes);
               renderLife();
             });
           });
@@ -3687,7 +3687,7 @@ ETF 长期资产不默认视为日常可用现金。
             mins: isNaN(mins) ? 0 : mins,
             note: document.getElementById("lNote").value.trim()
           });
-          saveStore("bridge_lifes_v2", lifes);
+          saveStore("bridge_lifes_v3", lifes);
           document.getElementById("lMinsInput").value = "";
           document.getElementById("lNote").value = "";
           renderLife();
@@ -3696,7 +3696,7 @@ ETF 长期资产不默认视为日常可用现金。
 
         /* ---------- 逆向决策 ---------- */
         /* 预填：用户逆向决策文档（第三部分）中的个人逆向拆解模型，与上方「我的拆解模型」为同一份 */
-        var reverses = loadStore("bridge_reverses_v2", [
+        var reverses = loadStore("bridge_reverses_v3", [
           {
             date: "2026-10-14",
             goal: "摆脱高强度劳动，建立持续的个人系统与时间自主权",
@@ -3738,7 +3738,7 @@ ETF 长期资产不默认视为日常可用现金。
           box.querySelectorAll(".del").forEach(function (b) {
             b.addEventListener("click", function () {
               reverses.splice(Number(b.dataset.i), 1);
-              saveStore("bridge_reverses_v2", reverses);
+              saveStore("bridge_reverses_v3", reverses);
               renderReverse();
             });
           });
@@ -3761,7 +3761,7 @@ ETF 长期资产不默认视为日常可用现金。
             s1key: document.getElementById("rS1Key").value.trim(),
             status: getRStatus()
           });
-          saveStore("bridge_reverses_v2", reverses);
+          saveStore("bridge_reverses_v3", reverses);
           ["rGoal", "rS3Cond", "rS3Key", "rS2Cond", "rS2Key", "rS1Act", "rS1Key"].forEach(function (id) {
             document.getElementById(id).value = "";
           });
@@ -3795,7 +3795,7 @@ ETF 长期资产不默认视为日常可用现金。
           return '<div><label for="erCat' + idx + '">' + esc(c) + '（¥）</label>' +
             '<input type="number" id="erCat' + idx + '" class="er-cat" data-cat="' + esc(c) + '" min="0" step="0.01" inputmode="decimal" placeholder="0" /></div>';
         }).join("");
-        var expReviews = loadStore("bridge_expenses_v2", []);
+        var expReviews = loadStore("bridge_expenses_v3", []);
         function renderExpense() {
           document.getElementById("erCount").textContent = expReviews.length;
           document.getElementById("erLatest").textContent = expReviews.length ? money(expReviews[0].total) : "—";
@@ -3817,7 +3817,7 @@ ETF 长期资产不默认视为日常可用现金。
           box.querySelectorAll(".del").forEach(function (b) {
             b.addEventListener("click", function () {
               expReviews.splice(Number(b.dataset.i), 1);
-              saveStore("bridge_expenses_v2", expReviews);
+              saveStore("bridge_expenses_v3", expReviews);
               renderExpense();
             });
           });
@@ -3835,7 +3835,7 @@ ETF 长期资产不默认视为日常可用现金。
           });
           expReviews.push({ month: erMonth.value, total: total, cats: cats, note: document.getElementById("erNote").value.trim() });
           expReviews.sort(function (a, b) { return a.month < b.month ? 1 : (a.month > b.month ? -1 : 0); });
-          saveStore("bridge_expenses_v2", expReviews);
+          saveStore("bridge_expenses_v3", expReviews);
           document.getElementById("erTotal").value = "";
           document.getElementById("erNote").value = "";
           erCatsBox.querySelectorAll(".er-cat").forEach(function (inp) { inp.value = ""; });
@@ -3845,7 +3845,7 @@ ETF 长期资产不默认视为日常可用现金。
 
         /* ---------- 个人盈利 ---------- */
         /* 只记已到账的钱；2026 年 10 月暂无已到账收入（工资每月 1 号左右到，是否到账待本人确认），不预填 */
-        var incomes = loadStore("bridge_incomes_v2", []);
+        var incomes = loadStore("bridge_incomes_v3", []);
         function renderIncome() {
           var month = today().slice(0, 7);
           var inMonth = incomes.filter(function (e) { return e.date.slice(0, 7) === month; });
@@ -3867,7 +3867,7 @@ ETF 长期资产不默认视为日常可用现金。
           box.querySelectorAll(".del").forEach(function (b) {
             b.addEventListener("click", function () {
               incomes.splice(Number(b.dataset.i), 1);
-              saveStore("bridge_incomes_v2", incomes);
+              saveStore("bridge_incomes_v3", incomes);
               renderIncome();
             });
           });
@@ -3885,7 +3885,7 @@ ETF 长期资产不默认视为日常可用现金。
             note: document.getElementById("iNote").value.trim()
           });
           incomes.sort(function (a, b) { return a.date < b.date ? 1 : (a.date > b.date ? -1 : 0); });
-          saveStore("bridge_incomes_v2", incomes);
+          saveStore("bridge_incomes_v3", incomes);
           document.getElementById("iAmt").value = "";
           document.getElementById("iNote").value = "";
           renderIncome();
@@ -3895,7 +3895,7 @@ ETF 长期资产不默认视为日常可用现金。
         /* ---------- 睡眠记录 ---------- */
         /* 预填：用户 2026-10-18 提供的睡眠记录 2026-10-14 至 10-18 共 5 晚（文档第六部分）；原记录质量「中」对应本表「一般」，「不好」对应「差」；时长按入睡/起床时间计算，与原记录的估计时长一致 */
         var SLEEP_NOTE = "东鹏特饮 500ml×2 瓶/天；午睡 0 次";
-        var sleeps = loadStore("bridge_sleeps_v2", [
+        var sleeps = loadStore("bridge_sleeps_v3", [
           { date: "2026-10-19", start: "01:40", end: "08:20", mins: sleepMins("01:40", "08:20"), quality: "一般", note: "白天精神：困；夜间醒来 0 次。" + SLEEP_NOTE },
           { date: "2026-10-18", start: "00:50", end: "07:20", mins: sleepMins("00:50", "07:20"), quality: "一般", note: "白天精神：困、累；夜间醒来 0 次。" + SLEEP_NOTE },
           { date: "2026-10-17", start: "00:40", end: "07:45", mins: sleepMins("00:40", "07:45"), quality: "差", note: "夜间醒来 1 次（04:30–05:00），时长未扣除夜醒清醒时间；白天精神：困、累。" + SLEEP_NOTE },
@@ -3950,7 +3950,7 @@ ETF 长期资产不默认视为日常可用现金。
           box.querySelectorAll(".del").forEach(function (b) {
             b.addEventListener("click", function () {
               sleeps.splice(Number(b.dataset.i), 1);
-              saveStore("bridge_sleeps_v2", sleeps);
+              saveStore("bridge_sleeps_v3", sleeps);
               renderSleep();
             });
           });
@@ -3975,7 +3975,7 @@ ETF 长期资产不默认视为日常可用现金。
             quality: getQuality(),
             note: document.getElementById("sNote").value.trim()
           });
-          saveStore("bridge_sleeps_v2", sleeps);
+          saveStore("bridge_sleeps_v3", sleeps);
           document.getElementById("sNote").value = "";
           renderSleep();
         });
@@ -3983,7 +3983,7 @@ ETF 长期资产不默认视为日常可用现金。
 
         /* ---------- 每周复盘 ---------- */
         /* 预填：2026-10-12 至 10-18 这一周已确认的事实汇总（健身日志、睡眠记录与 2026-10-18 核对记录） */
-        var reviews = loadStore("bridge_reviews_v2", [
+        var reviews = loadStore("bridge_reviews_v3", [
           {
             date: "2026-10-18",
             done: "健身完成 2 次：10-13 胸＋三头（41 分钟）、10-14 背＋二头（48 分钟）；睡眠连续登记 5 天（10-14 至 10-18）；2026-10-18 逐条核对 7 项财务口径，全部定案",
@@ -4010,7 +4010,7 @@ ETF 长期资产不默认视为日常可用现金。
           box.querySelectorAll(".del").forEach(function (b) {
             b.addEventListener("click", function () {
               reviews.splice(Number(b.dataset.i), 1);
-              saveStore("bridge_reviews_v2", reviews);
+              saveStore("bridge_reviews_v3", reviews);
               renderReview();
             });
           });
@@ -4029,7 +4029,7 @@ ETF 长期资产不默认视为日常可用现金。
             adjust: getAdjust(),
             next: document.getElementById("wNext").value.trim()
           });
-          saveStore("bridge_reviews_v2", reviews);
+          saveStore("bridge_reviews_v3", reviews);
           ["wDone", "wBlock", "wTask", "wNext"].forEach(function (id) { document.getElementById(id).value = ""; });
           renderReview();
         });
