@@ -3719,7 +3719,7 @@ ETF 长期资产不默认视为日常可用现金。
             var raw = localStorage.getItem(key);
             if (raw) {
               var parsed = JSON.parse(raw);
-              if (Array.isArray(parsed)) return parsed;
+              if (Array.isArray(parsed) && parsed.length) return parsed;
             }
           } catch (e) {}
           return fallback;
@@ -3745,6 +3745,7 @@ ETF 长期资产不默认视为日常可用现金。
         /* ---------- Segmented controls ---------- */
         function seg(id) {
           var box = document.getElementById(id);
+          if (!box) return function () { return ""; };
           var btns = box.querySelectorAll("button");
           btns.forEach(function (b) {
             b.addEventListener("click", function () {
@@ -3818,7 +3819,7 @@ ETF 长期资产不默认视为日常可用现金。
         }
 
         var dDate = document.getElementById("dDate");
-        dDate.value = today();
+        if (dDate) dDate.value = today();
         /* debtForm listener removed (form deleted) */
         renderDebt();
 
@@ -3855,7 +3856,7 @@ ETF 长期资产不默认视为日常可用现金。
           });
         }
         var tDate = document.getElementById("tDate");
-        tDate.value = today();
+        if (tDate) tDate.value = today();
         /* tradeForm listener removed (form deleted) */
         renderTrade();
 
@@ -3901,7 +3902,7 @@ ETF 长期资产不默认视为日常可用现金。
           });
         }
         var lDate = document.getElementById("lDate");
-        lDate.value = today();
+        if (lDate) lDate.value = today();
         /* lifeForm listener removed (form deleted) */
         renderLife();
 
@@ -3955,7 +3956,7 @@ ETF 长期资产不默认视为日常可用现金。
           });
         }
         var rDate = document.getElementById("rDate");
-        rDate.value = today();
+        if (rDate) rDate.value = today();
         /* reverseForm listener removed (form deleted) */
         renderReverse();
 
@@ -3981,7 +3982,7 @@ ETF 长期资产不默认视为日常可用现金。
             '</div><div class="amt">' + money(e.amt) + "</div></div>";
         }).join("");
         var erCatsBox = document.getElementById("erCats");
-        erCatsBox.innerHTML = EXP_CATS.map(function (c, idx) {
+        if (erCatsBox) erCatsBox.innerHTML = EXP_CATS.map(function (c, idx) {
           return '<div><label for="erCat' + idx + '">' + esc(c) + '（¥）</label>' +
             '<input type="number" id="erCat' + idx + '" class="er-cat" data-cat="' + esc(c) + '" min="0" step="0.01" inputmode="decimal" placeholder="0" /></div>';
         }).join("");
@@ -4013,7 +4014,7 @@ ETF 长期资产不默认视为日常可用现金。
           });
         }
         var erMonth = document.getElementById("erMonth");
-        erMonth.value = today().slice(0, 7);
+        if (erMonth) erMonth.value = today().slice(0, 7);
         /* expenseForm listener removed (form deleted) */
         renderExpense();
 
@@ -4064,7 +4065,7 @@ ETF 长期资产不默认视为日常可用现金。
           });
         }
         var iDate = document.getElementById("iDate");
-        iDate.value = today();
+        if (iDate) iDate.value = today();
         /* incomeForm listener removed (form deleted) */
         renderIncome();
 
@@ -4133,13 +4134,14 @@ ETF 长期资产不默认视为日常可用现金。
           });
         }
         var sDate = document.getElementById("sDate");
-        sDate.value = today();
+        if (sDate) sDate.value = today();
         function updSleepPreview() {
           var st = document.getElementById("sStart").value, en = document.getElementById("sEnd").value;
           document.getElementById("sDurPreview").textContent = (st && en) ? fmtDur(sleepMins(st, en)) : "—";
         }
-        document.getElementById("sStart").addEventListener("change", updSleepPreview);
-        document.getElementById("sEnd").addEventListener("change", updSleepPreview);
+        var sStartEl = document.getElementById("sStart"), sEndEl = document.getElementById("sEnd");
+        if (sStartEl) sStartEl.addEventListener("change", updSleepPreview);
+        if (sEndEl) sEndEl.addEventListener("change", updSleepPreview);
         /* sleepForm listener removed (form deleted) */
         renderSleep();
 
@@ -4178,7 +4180,7 @@ ETF 长期资产不默认视为日常可用现金。
           });
         }
         var wDate = document.getElementById("wDate");
-        wDate.value = today();
+        if (wDate) wDate.value = today();
         /* reviewForm listener removed (form deleted) */
         renderReview();
 
