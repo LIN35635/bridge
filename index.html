@@ -282,12 +282,6 @@
       .entry .cat { font-weight: 600; }
       .entry .amt { font-weight: 700; font-variant-numeric: tabular-nums; }
       .entry .note { font-size: 14px; color: var(--text-2); margin-top: 3px; overflow-wrap: anywhere; }
-      .del {
-        appearance: none; border: 0; cursor: pointer; background: transparent;
-        color: var(--text-3); font-size: 18px; line-height: 1; padding: 4px 6px; border-radius: 8px;
-        transition: color .15s ease;
-      }
-      .del:hover { color: var(--danger); }
       .cpy {
         appearance: none; cursor: pointer; background: #fff; border: 1px solid #dbe3ee;
         color: var(--text-2); font-size: 12px; line-height: 1; padding: 5px 9px; border-radius: 8px;
@@ -2075,6 +2069,8 @@ ETF 长期资产不默认视为日常可用现金。
 <colgroup><col style="width:13%" /><col style="width:27%" /><col style="width:25%" /><col style="width:35%" /></colgroup>
 <thead><tr><th>日期</th><th>本人的要求</th><th>本人说的原因</th><th>推测（AI，非诊断，可修正）</th></tr></thead>
 <tbody>
+<tr><td>2026-10-20</td><td>按本人指示移除网站全部模块记录右上角的删除叉号（×）：还款、个人盈利、开支复盘、交易参考、健身、睡眠、逆向决策、每周复盘八个模块的删除按钮与删除逻辑一并取消（复制按钮保留）</td><td>本人原话：「把那个叉号取消掉……别人都可以把我们的记录删了，拿到网站的都能删。」（附睡眠模块截图指出叉号位置）</td><td>网站自此为纯展示：任何增改只能走聊天→文档→网站的流程，与「只增不删」数据铁律一致（助手标注）</td></tr>
+<tr><td>2026-10-20</td><td>本人说明文件只保留 PDF 版：网站的 HTML 文件已由本人从文件区删除；经办安排改为——HTML 主文件存放在助手工作区（bridge-deploy），用户文件区只保留常驻最新版 PDF，PDF 导出改从工作区主文件生成</td><td>本人原话：「我只想要PDF版本……这里的文件格式不用做得跟网站一样，保存文档就好了。」（此前助手误记为系统丢失，特此更正：系本人删除）</td><td>网站本体不受影响，照常更新（助手标注）</td></tr>
 <tr><td>2026-10-20</td><td>按本人指示更新第一部分「数据变化对照」表：总负债、欠朋友的钱、车贷月供、健身四行换上 2026-10-20 现值，原「现在」值挤入「从前」列保留（带日期、说明齐全）</td><td>本人原话：「这个项目对照表可以更新了啊老弟」「都是有说明的了。可以把它挤下去。让更新的上来。」（附 PDF 截图指出该表）</td><td>其余各行无更新的确认值，未动（助手标注）</td></tr>
 <tr><td>2026-10-20</td><td>提出并确认新增第三个保存形态：常驻最新版 PDF——固定一份、同一文件名，保存在 Muse 构件里；每次文档更新后由助手重新生成覆盖，打开永远是最新版；每周二的周更提醒改为发送这一份</td><td>本人原话：「你能不能做一个持续可更新的PDF个人数据交互桥。就保存在这里的构件上」</td><td>PDF 为静态格式，靠每次更新后重新生成实现「持续更新」；与文档同源导出，不算重复（助手标注）</td></tr>
 <tr><td>2026-10-20</td><td>采纳想法卡《我可以让桥里记的账不丢失》并完成：还款记账与健身记录每条新增「复制」按钮，点一下得到一行同步文本（日期、类别、金额或完成情况），可直接粘贴到聊天；两模块记录本就保存在浏览器本地，刷新或关闭再打开仍在，本次已用预置测试记录实测验证</td><td>本人点选想法卡后说：「我们开始吧！」「做吧」</td><td>录入入口未恢复（2026-10-19 本人下令删除全部表单，数据仍走聊天登记）；复制与保存只作用于这两个模块（助手标注）</td></tr>
@@ -3935,15 +3931,8 @@ BTC 突破哨兵运行中（2026-10-20 上线）：以日线前 20 日最高/最
               '<span class="cat">' + CATS[e.cat].name + '</span>' +
               '<span class="amt">' + money(e.amt) + "</span></div>" +
               (e.note ? '<div class="note">' + esc(e.note) + "</div>" : "") +
-              '</div><button class="cpy" data-i="' + i + '">复制</button><button class="del" data-i="' + i + '" aria-label="删除这条记录">×</button></div>';
+              '</div><button class="cpy" data-i="' + i + '">复制</button></div>';
           }).join("");
-          box.querySelectorAll(".del").forEach(function (b) {
-            b.addEventListener("click", function () {
-              debts.splice(Number(b.dataset.i), 1);
-              saveStore("bridge_debts_v4", debts);
-              renderDebt();
-            });
-          });
           box.querySelectorAll(".cpy").forEach(function (b) {
             b.addEventListener("click", function () {
               var e = debts[Number(b.dataset.i)];
@@ -3979,15 +3968,8 @@ BTC 突破哨兵运行中（2026-10-20 上线）：以日线前 20 日最高/最
               '<span class="tag ' + (e.follow === "是" ? "yes" : "no") + '">按系统：' + e.follow + "</span></div>" +
               '<div class="note">入场理由：' + esc(e.reason) + "</div>" +
               (e.result ? '<div class="note">结果：' + esc(e.result) + "</div>" : "") +
-              '</div><button class="del" data-i="' + i + '" aria-label="删除这条记录">×</button></div>';
+              '</div></div>';
           }).join("");
-          box.querySelectorAll(".del").forEach(function (b) {
-            b.addEventListener("click", function () {
-              trades.splice(Number(b.dataset.i), 1);
-              saveStore("bridge_trades_v4", trades);
-              renderTrade();
-            });
-          });
         }
         var tDate = document.getElementById("tDate");
         if (tDate) tDate.value = today();
@@ -4033,15 +4015,8 @@ BTC 突破哨兵运行中（2026-10-20 上线）：以日线前 20 日最高/最
               '<span class="tag ' + (e.status === "完成" ? "done" : "late") + '">' + e.status + "</span>" +
               (e.mins ? '<span class="date">' + e.mins + " 分钟</span>" : "") + "</div>" +
               (e.note ? '<div class="note">' + esc(e.note) + "</div>" : "") +
-              '</div><button class="cpy" data-i="' + i + '">复制</button><button class="del" data-i="' + i + '" aria-label="删除这条记录">×</button></div>';
+              '</div><button class="cpy" data-i="' + i + '">复制</button></div>';
           }).join("");
-          box.querySelectorAll(".del").forEach(function (b) {
-            b.addEventListener("click", function () {
-              lifes.splice(Number(b.dataset.i), 1);
-              saveStore("bridge_lifes_v4", lifes);
-              renderLife();
-            });
-          });
           box.querySelectorAll(".cpy").forEach(function (b) {
             b.addEventListener("click", function () {
               var e = lifes[Number(b.dataset.i)];
@@ -4093,15 +4068,8 @@ BTC 突破哨兵运行中（2026-10-20 上线）：以日线前 20 日最高/最
               chainRow("阶段二 · 中期过渡", e.s2cond, e.s2key, false) +
               chainRow("阶段一 · 当前唯一动作", e.s1act, e.s1key, true) +
               "</div>" +
-              '</div><button class="del" data-i="' + i + '" aria-label="删除这条记录">×</button></div>';
+              '</div></div>';
           }).join("");
-          box.querySelectorAll(".del").forEach(function (b) {
-            b.addEventListener("click", function () {
-              reverses.splice(Number(b.dataset.i), 1);
-              saveStore("bridge_reverses_v4", reverses);
-              renderReverse();
-            });
-          });
         }
         var rDate = document.getElementById("rDate");
         if (rDate) rDate.value = today();
@@ -4151,15 +4119,8 @@ BTC 突破哨兵运行中（2026-10-20 上线）：以日线前 20 日最高/最
               '<span class="amt">' + money(r.total) + "</span></div>" +
               (sum > 0 ? '<div class="note">分类合计 ' + money(sum) + "</div>" + rows : "") +
               (r.note ? '<div class="note">' + esc(r.note) + "</div>" : "") +
-              '</div><button class="del" data-i="' + i2 + '" aria-label="删除这条记录">×</button></div>';
+              '</div></div>';
           }).join("");
-          box.querySelectorAll(".del").forEach(function (b) {
-            b.addEventListener("click", function () {
-              expReviews.splice(Number(b.dataset.i), 1);
-              saveStore("bridge_expenses_v4", expReviews);
-              renderExpense();
-            });
-          });
         }
         var erMonth = document.getElementById("erMonth");
         if (erMonth) erMonth.value = today().slice(0, 7);
@@ -4202,15 +4163,8 @@ BTC 突破哨兵运行中（2026-10-20 上线）：以日线前 20 日最高/最
               '<span class="tag ' + tagClass + '">' + typeLabel + '</span>' +
               '<span class="amt">' + money(e.amt) + "</span></div>" +
               (e.note ? '<div class="note">' + esc(e.note) + "</div>" : "") +
-              '</div><button class="del" data-i="' + i2 + '" aria-label="删除这条记录">×</button></div>';
+              '</div></div>';
           }).join("");
-          box.querySelectorAll(".del").forEach(function (b) {
-            b.addEventListener("click", function () {
-              incomes.splice(Number(b.dataset.i), 1);
-              saveStore("bridge_incomes_v4", incomes);
-              renderIncome();
-            });
-          });
         }
         var iDate = document.getElementById("iDate");
         if (iDate) iDate.value = today();
@@ -4271,15 +4225,8 @@ BTC 突破哨兵运行中（2026-10-20 上线）：以日线前 20 日最高/最
               '<span class="tag ' + tagCls + '">' + e.quality + "</span></div>" +
               '<div class="note">目标 8 小时：' + (e.mins >= SLEEP_GOAL ? "已达到" : "还差 " + fmtDur(SLEEP_GOAL - e.mins)) + "</div>" +
               (e.note ? '<div class="note">' + esc(e.note) + "</div>" : "") +
-              '</div><button class="del" data-i="' + i + '" aria-label="删除这条记录">×</button></div>';
+              '</div></div>';
           }).join("");
-          box.querySelectorAll(".del").forEach(function (b) {
-            b.addEventListener("click", function () {
-              sleeps.splice(Number(b.dataset.i), 1);
-              saveStore("bridge_sleeps_v4", sleeps);
-              renderSleep();
-            });
-          });
         }
         var sDate = document.getElementById("sDate");
         if (sDate) sDate.value = today();
@@ -4317,15 +4264,8 @@ BTC 突破哨兵运行中（2026-10-20 上线）：以日线前 20 日最高/最
               (e.done ? '<div class="note">本周完成：' + esc(e.done) + "</div>" : "") +
               (e.block ? '<div class="note">最大阻碍：' + esc(e.block) + "</div>" : "") +
               (e.next ? '<div class="note">下周最重要：' + esc(e.next) + "</div>" : "") +
-              '</div><button class="del" data-i="' + i + '" aria-label="删除这条记录">×</button></div>';
+              '</div></div>';
           }).join("");
-          box.querySelectorAll(".del").forEach(function (b) {
-            b.addEventListener("click", function () {
-              reviews.splice(Number(b.dataset.i), 1);
-              saveStore("bridge_reviews_v4", reviews);
-              renderReview();
-            });
-          });
         }
         var wDate = document.getElementById("wDate");
         if (wDate) wDate.value = today();
