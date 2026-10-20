@@ -288,6 +288,12 @@
         transition: color .15s ease;
       }
       .del:hover { color: var(--danger); }
+      .cpy {
+        appearance: none; cursor: pointer; background: #fff; border: 1px solid #dbe3ee;
+        color: var(--text-2); font-size: 12px; line-height: 1; padding: 5px 9px; border-radius: 8px;
+        align-self: flex-start; white-space: nowrap; transition: color .15s ease, border-color .15s ease;
+      }
+      .cpy:hover { color: var(--text); border-color: #b9c6da; }
       .empty { color: var(--text-2); font-size: 14px; padding: 18px 2px; }
       .tag { font-size: 12px; font-weight: 600; border-radius: 999px; padding: 2px 9px; }
       .tag.long { background: rgba(46,125,79,.13); color: var(--good); }
@@ -2069,6 +2075,9 @@ ETF 长期资产不默认视为日常可用现金。
 <colgroup><col style="width:13%" /><col style="width:27%" /><col style="width:25%" /><col style="width:35%" /></colgroup>
 <thead><tr><th>日期</th><th>本人的要求</th><th>本人说的原因</th><th>推测（AI，非诊断，可修正）</th></tr></thead>
 <tbody>
+<tr><td>2026-10-20</td><td>提出并确认新增第三个保存形态：常驻最新版 PDF——固定一份、同一文件名，保存在 Muse 构件里；每次文档更新后由助手重新生成覆盖，打开永远是最新版；每周二的周更提醒改为发送这一份</td><td>本人原话：「你能不能做一个持续可更新的PDF个人数据交互桥。就保存在这里的构件上」</td><td>PDF 为静态格式，靠每次更新后重新生成实现「持续更新」；与文档同源导出，不算重复（助手标注）</td></tr>
+<tr><td>2026-10-20</td><td>采纳想法卡《我可以让桥里记的账不丢失》并完成：还款记账与健身记录每条新增「复制」按钮，点一下得到一行同步文本（日期、类别、金额或完成情况），可直接粘贴到聊天；两模块记录本就保存在浏览器本地，刷新或关闭再打开仍在，本次已用预置测试记录实测验证</td><td>本人点选想法卡后说：「我们开始吧！」「做吧」</td><td>录入入口未恢复（2026-10-19 本人下令删除全部表单，数据仍走聊天登记）；复制与保存只作用于这两个模块（助手标注）</td></tr>
+<tr><td>2026-10-20</td><td>报告今日步数 9,215 步；已记入第五部分 10-20 训练条目与网站健身记录</td><td>本人原话：「今日是9215步」</td><td>第五部分旧步数表为档案原样（含其 7 天合计口径），未改动（助手标注）</td></tr>
 <tr><td>2026-10-20</td><td>将全部规矩汇总为文档开头单独一节《总规矩》（十条：数据规矩八条＋本人从助手工作规矩中点选的两条——钱月底核对、请求当天记 7.3）；第一部分规则框内今晚所加铁律与不重复长文撤下，改为一行指向，正本只留一处</td><td>本人原话：「我觉得我们的规矩也有点乱了，可能得把规矩单独列出来」「数据的规矩。你干活的规矩有一些也能标，比如说。13 12」</td><td>未点选的工作规矩（先文档后网站、验证三遍、不动设计等）不进文档，仍由助手内部执行（助手标注）</td></tr>
 <tr><td>2026-10-20</td><td>首次完整告知应收情况：另有卓辉欠 ¥1,000、乐祥欠 ¥1,800（此前未提，因本人评估很难收回）；已记入模块二当前状态「应收备忘」</td><td>本人原话：「另外还有两个人欠我的钱，不过这笔两笔钱很难收回来，所以我都一直没告诉你。卓辉1000 乐祥1800」</td><td>借出日期未报；按第一原则未收回前不计入收入与计划（助手标注）</td></tr>
 <tr><td>2026-10-20</td><td>报告弟弟还款：2026-10-19 弟弟还 ¥400，弟弟借款余额由 ¥1,000 降至 ¥600；已记入模块二当前状态「应收备忘」</td><td>本人原话：「我弟现在只欠我600。昨天他把400还给我了，我买烟了」</td><td>¥400 用途为本人所述（买烟）；与 2.3 备忘中 10-20 买烟 ¥435 的关系待月底核对时对上，不预先合并（助手标注）</td></tr>
@@ -3580,6 +3589,7 @@ BTC 突破哨兵运行中（2026-10-20 上线）：以日线前 20 日最高/最
 开始时间：20:12；结束时间：21:04（本人 21:04 报告练完）；训练时长约 52 分钟。
 训练动作：标准俯卧撑 4组×12次、上斜俯卧撑 4组×12次、窄距俯卧撑 4组×12次；本次合计 12 组，共 144 次动作重复。
 哑铃重量：不适用。
+当日步数：9,215 步。
 身体感受：未登记。</div>
           <h5 class="doc-sub" id="doc-p5-11">二、已完成的力量训练（按日期从新到旧）｜2026年10月19日：腿部＋肩部</h5>
           <div class="doc-body">训练状态：已完成。
@@ -3890,6 +3900,22 @@ BTC 突破哨兵运行中（2026-10-20 上线）：以日线前 20 日最高/最
           document.getElementById("breakdown").innerHTML = html;
         }
 
+        function copyLine(text, btn) {
+          function done() { if (btn) { var t = btn.textContent; btn.textContent = "已复制"; setTimeout(function () { btn.textContent = t; }, 1200); } }
+          function fallback() {
+            try {
+              var ta = document.createElement("textarea");
+              ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+              document.body.appendChild(ta); ta.select();
+              document.execCommand("copy");
+              document.body.removeChild(ta); done();
+            } catch (e) { /* 复制不可用时不打扰页面 */ }
+          }
+          try {
+            if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text).then(done, fallback); }
+            else { fallback(); }
+          } catch (e) { fallback(); }
+        }
         function renderDebt() {
           var paid = debts.reduce(function (s, e) { return s + e.amt; }, 0);
           var remain = Math.max(0, BASE - paid);
@@ -3908,13 +3934,19 @@ BTC 突破哨兵运行中（2026-10-20 上线）：以日线前 20 日最高/最
               '<span class="cat">' + CATS[e.cat].name + '</span>' +
               '<span class="amt">' + money(e.amt) + "</span></div>" +
               (e.note ? '<div class="note">' + esc(e.note) + "</div>" : "") +
-              '</div><button class="del" data-i="' + i + '" aria-label="删除这条记录">×</button></div>';
+              '</div><button class="cpy" data-i="' + i + '">复制</button><button class="del" data-i="' + i + '" aria-label="删除这条记录">×</button></div>';
           }).join("");
           box.querySelectorAll(".del").forEach(function (b) {
             b.addEventListener("click", function () {
               debts.splice(Number(b.dataset.i), 1);
               saveStore("bridge_debts_v4", debts);
               renderDebt();
+            });
+          });
+          box.querySelectorAll(".cpy").forEach(function (b) {
+            b.addEventListener("click", function () {
+              var e = debts[Number(b.dataset.i)];
+              if (e) copyLine("还款记账｜" + e.date + "｜" + CATS[e.cat].name + "｜" + money(e.amt) + (e.note ? "｜" + e.note : ""), b);
             });
           });
         }
@@ -3964,7 +3996,7 @@ BTC 突破哨兵运行中（2026-10-20 上线）：以日线前 20 日最高/最
         /* ---------- 健身打卡 ---------- */
         /* 预填：用户 2026-10-18 提供的健身档案与训练日志（文档第五部分），只记已完成与已登记的休息日 */
         var lifes = loadStore("bridge_lifes_v4", [
-          { date: "2026-10-20", day: "周二", status: "完成", mins: 52, note: "胸＋肱三头肌（补周一，20:12–21:04，约 52 分钟）：标准俯卧撑、上斜俯卧撑、窄距俯卧撑，各 4 组×12 次，共 12 组 144 次" },
+          { date: "2026-10-20", day: "周二", status: "完成", mins: 52, note: "胸＋肱三头肌（补周一，20:12–21:04，约 52 分钟）：标准俯卧撑、上斜俯卧撑、窄距俯卧撑，各 4 组×12 次，共 12 组 144 次；当日步数 9,215 步" },
           { date: "2026-10-19", day: "周一", status: "完成", mins: 63, note: "腿部＋肩部（20:17–21:20）：哑铃深蹲、哑铃外侧深蹲、侧平举、哑铃推肩，各 4 组×12 次，共 16 组 192 次；补上周缺的腿部训练。当日步数 10,848 步" },
           { date: "2026-10-18", day: "周日", status: "推迟", mins: 0, note: "休息日（太晚了，而且太累）。当日步数 16,983 步" },
           { date: "2026-10-17", day: "周六", status: "推迟", mins: 0, note: "休息日（和女朋友在一起）。当日步数 14,366 步" },
@@ -3981,11 +4013,11 @@ BTC 突破哨兵运行中（2026-10-20 上线）：以日线前 20 日最高/最
         }
         /* 将 2026-10-20 已核对训练同步到已有浏览器记录。 */
         if (!lifes.some(function (e) { return e.date === "2026-10-20"; })) {
-          lifes.unshift({ date: "2026-10-20", day: "周二", status: "完成", mins: 52, note: "胸＋肱三头肌（补周一，20:12–21:04，约 52 分钟）：标准俯卧撑、上斜俯卧撑、窄距俯卧撑，各 4 组×12 次，共 12 组 144 次" });
+          lifes.unshift({ date: "2026-10-20", day: "周二", status: "完成", mins: 52, note: "胸＋肱三头肌（补周一，20:12–21:04，约 52 分钟）：标准俯卧撑、上斜俯卧撑、窄距俯卧撑，各 4 组×12 次，共 12 组 144 次；当日步数 9,215 步" });
           saveStore("bridge_lifes_v4", lifes);
         }
         /* 2026-10-20 训练完成信息补丁：时长与结束时间。 */
-        (function () { var e = lifes.find(function (x) { return x.date === "2026-10-20"; }); if (e && !e.mins) { e.mins = 52; e.note = "胸＋肱三头肌（补周一，20:12–21:04，约 52 分钟）：标准俯卧撑、上斜俯卧撑、窄距俯卧撑，各 4 组×12 次，共 12 组 144 次"; saveStore("bridge_lifes_v4", lifes); } })();
+        (function () { var e = lifes.find(function (x) { return x.date === "2026-10-20"; }); if (e && (!e.mins || e.note.indexOf("步数") < 0)) { e.mins = 52; e.note = "胸＋肱三头肌（补周一，20:12–21:04，约 52 分钟）：标准俯卧撑、上斜俯卧撑、窄距俯卧撑，各 4 组×12 次，共 12 组 144 次；当日步数 9,215 步"; saveStore("bridge_lifes_v4", lifes); } })();
         function renderLife() {
           var done = lifes.filter(function (e) { return e.status === "完成"; });
           document.getElementById("lDone").textContent = done.length;
@@ -4000,13 +4032,19 @@ BTC 突破哨兵运行中（2026-10-20 上线）：以日线前 20 日最高/最
               '<span class="tag ' + (e.status === "完成" ? "done" : "late") + '">' + e.status + "</span>" +
               (e.mins ? '<span class="date">' + e.mins + " 分钟</span>" : "") + "</div>" +
               (e.note ? '<div class="note">' + esc(e.note) + "</div>" : "") +
-              '</div><button class="del" data-i="' + i + '" aria-label="删除这条记录">×</button></div>';
+              '</div><button class="cpy" data-i="' + i + '">复制</button><button class="del" data-i="' + i + '" aria-label="删除这条记录">×</button></div>';
           }).join("");
           box.querySelectorAll(".del").forEach(function (b) {
             b.addEventListener("click", function () {
               lifes.splice(Number(b.dataset.i), 1);
               saveStore("bridge_lifes_v4", lifes);
               renderLife();
+            });
+          });
+          box.querySelectorAll(".cpy").forEach(function (b) {
+            b.addEventListener("click", function () {
+              var e = lifes[Number(b.dataset.i)];
+              if (e) copyLine("健身记录｜" + e.date + " " + e.day + "｜" + e.status + (e.mins ? "｜" + e.mins + " 分钟" : "") + (e.note ? "｜" + e.note : ""), b);
             });
           });
         }
