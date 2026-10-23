@@ -28,8 +28,8 @@ POLL_SECONDS = 60
 BRIEF_INTERVAL = 1800  # 行情播报间隔：30 分钟
 BRIEF_HOUR_START = 7   # 播报时段（CST）：工作日 07:00–次日 01:00（本人 2026-10-20 晚调整）
 BRIEF_HOUR_END = 1     # 次日凌晨 1 点（算前一工作日的晚上）
-# 当前持仓（2026-10-20 回归第一单；本人报告平仓后删除此段）
-POSITION = {"entry": 82349, "stop": 80702}
+# 当前持仓：无（2026-10-20 回归第一单已于 2026-10-24 06:53:38 由交易所 OCO 止损平仓）
+POSITION = None
 CST = timezone(timedelta(hours=8))
 
 
