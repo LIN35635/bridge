@@ -2048,7 +2048,10 @@
 </div>
           
 <h5 class="doc-sub" id="doc-m7-5">2.2 变更记录</h5>
-          <div class="doc-body">2026-10-23｜全部自动化代码本体公开进本人仓库 code/
+          <div class="doc-body">2026-10-23｜代码全文并入文档（接手模块第六节）
+● 应本人要求（原话：「一起做到系统文档里去可好？」「行。仓库也备一份」），已把仓库 code/ 的 33 个文件全文（HTML 转义后）附入「接手与重建」模块第六节：此后 data.html 一份文件自包含数据、规矩与代码，邮箱备份与手机存档都自带全套代码；仓库 code/ 保留另一份。两边同一轮同步更新（附录由 gen_code_appendix.py 从代码包机械生成）。文件变大、PDF 变长，属本人知情的取舍。
+
+<div class="doc-body">2026-10-23｜全部自动化代码本体公开进本人仓库 code/
 ● 本人当面指出：接手模块只写了代码清单与教程、没把代码本体交出去，「这样子只有你能做」。Muse 认账并当晚补齐：33 个文件（全部程序、3 个钩子脚本、12 个定时任务定义、3 份技能手册、2 份接入说明、README）上传至本人仓库 LIN35635/bridge 的 code/ 文件夹（提交 8e1186f、030fdcb；抽查 sentinel.py、okx_watch.py、shell.html、README.md 与本地原件字节一致）；上传前逐个扫描，确认无硬编码密钥；三个密钥文件（creds.json、context.json、.okx_readonly.json）按规矩不上传。常例已立（写入工作守则）：以后代码有任何新建或改动，同一轮同步更新 code/。
 
 <div class="doc-body">2026-10-23｜交易系统第 1 条再更正：杠杆交易只做 BTC，多市场归定投
@@ -3738,13 +3741,13 @@
           
 
 <h4 class="doc-module" id="mod-handover">接手与重建</h4>
-<nav class="doc-nav sub" aria-label="接手与重建小节导航"><a href="#doc-handover-1">一、沟通大事记</a><a href="#doc-handover-2">二、代码清单与用途</a><a href="#doc-handover-3">三、从零开始重建教程</a><a href="#doc-handover-4">四、给新 AI 的开场白</a><a href="#doc-handover-5">五、账号与地址清单</a></nav>
+<nav class="doc-nav sub" aria-label="接手与重建小节导航"><a href="#doc-handover-1">一、沟通大事记</a><a href="#doc-handover-2">二、代码清单与用途</a><a href="#doc-handover-3">三、从零开始重建教程</a><a href="#doc-handover-4">四、给新 AI 的开场白</a><a href="#doc-handover-5">五、账号与地址清单</a><a href="#doc-handover-6">六、代码本体（全文附录）</a></nav>
 
 <h5 class="doc-sub" id="doc-handover-0">当前状态｜截至 2026-10-23</h5>
           <div class="doc-body">● 本模块 2026-10-23 应本人要求新增：把本人与 AI 沟通的大事记、AI 写的全部代码与用途、从零重建整套系统的教程，集中放在网站上，供本人或任何接手的 AI 照着恢复。
 ● 核心事实：数据正本是 data.html（本文件），存在本人 GitHub 与 Gmail 备份里；任何 AI 读完文档开头的「AI 读取索引」与《总规矩》即可接手记账。自动运行的程序（哨兵、盯守、机器人、定时任务）停了不伤数据与钱：止损止盈是 OKX 交易所的 OCO 单，由交易所独立执行。
 ● 近期最要紧的一笔（没有任何自动系统盯着）：2026-10-25 融资租赁 ¥2,473.50，本人 2026-10-19 已定延期 3–5 天，即约 2026-10-28 至 10-30 付；是否已与租赁公司谈妥，尚未确认。Muse 在时，2026-10-24 20:30 有一次性延期话术提醒；Muse 不在时，这笔只能靠本人自己记着付，拖久了有收车风险。
-● 代码本体已公开（2026-10-23 晚，本人当面要求）：全部自动化代码（第二节清单的全部文件，共 33 个）存于本人 GitHub 仓库 LIN35635/bridge 的 code/ 文件夹，与网站同仓，不再只存于 Muse 的运行机器；以后新建或改动任何代码，同一轮必须同步更新 code/。密钥文件（creds.json、context.json、.okx_readonly.json）永不进仓库，只留运行机器本地。</div>
+● 代码本体已公开（2026-10-23 晚，本人当面要求）：全部自动化代码（第二节清单的全部文件，共 33 个）存于本人 GitHub 仓库 LIN35635/bridge 的 code/ 文件夹，与网站同仓，不再只存于 Muse 的运行机器；以后新建或改动任何代码，同一轮必须同步更新 code/。密钥文件（creds.json、context.json、.okx_readonly.json）永不进仓库，只留运行机器本地。代码全文另附于本模块第六节——数据、规矩、代码自包含于本文件一份。</div>
 
 <h5 class="doc-sub" id="doc-handover-1">一、沟通大事记</h5>
           <div class="doc-body">2026-10-12｜数据建档（最初由别的 AI 记录）。
@@ -3801,6 +3804,3773 @@
 ● 微信机器人：腾讯 iLink 官方机器人，与本人个人微信无关，停用不影响个人微信
 ● 密码与密钥一律在本人自己的密码管理与 Secure Vault 里，不写进本文档</div>
 
+
+<h5 class="doc-sub" id="doc-handover-6">六、代码本体（全文附录）</h5>
+<div class="doc-body">本节是全部自动化代码的全文（与本人仓库 code/ 文件夹内容一致，2026-10-23 并入）。接手时把每个文件按文件名原样存成文件即可运行；密钥文件不在其中（见第五节说明）。代码有改动时，本附录与仓库 code/ 同一轮更新。</div>
+<div class="doc-body"><b>code/README.md</b></div>
+<pre># 自动化代码（林志锋的个人系统，与网站同仓保存）
+
+这里是为本人搭建的全部自动化程序本体。数据在仓库根目录 index.html（源数据 data.html 见本人邮箱备份），规矩在《个人交互数据桥》文档的《总规矩》里，恢复步骤见网站「接手与重建」模块第三节（从零开始重建教程）。
+
+## 文件说明
+- sentinel.py / start_sentinel.sh：BTC 突破哨兵（关键位提醒 + 工作日微信行情播报）
+- bot_daemon.py：微信 iLink 机器人守护进程
+- okx_read.py：OKX 只读接口（读余额、持仓、成交、委托）
+- okx_watch.py：OKX 持仓盯守（按交易系统核查）
+- live_gated.py：实盘闸门（风控检查 + 订单预览，设计上不发真实订单）
+- okx_SYSTEM.md：交易系统定稿（主动交易加杠杆只做 BTC）
+- shell.html / build.py：网站程序本体与构建脚本（shell.html 与 data.html 合并成 index.html）
+- pagetest_test.js / pagetest_export-pdf.js：网站真渲染测试、PDF 导出
+- reorder-doc.py：文档记录倒序重排工具
+- hook_*.sh：三个唤醒脚本（微信收件、持仓盯守、止损盯价）
+- cron_*.md：全部定时任务定义（保活、登记、备份、资产报告等 12 个）
+- skill_*.md：给 AI 照着干活的操作手册（交易核查、止损审计、网站更新验证）
+- connector_okx.md / connector_github.md：OKX 与 GitHub 的接入说明
+
+## 密钥不在这里，永远不要上传
+OKX 密钥、微信机器人凭据都只装在运行机器的本地文件里（.okx_readonly.json、creds.json、context.json），不进仓库。换机器或换 AI 时，由本人用自己的账号重新生成、重新扫码绑定。代码里读的都是这些本地文件，代码本身不含任何密钥。
+</pre>
+<div class="doc-body"><b>code/bot_daemon.py</b></div>
+<pre>#!/usr/bin/env python3
+"""
+WeChat iLink Bot 守护程序
+- 长轮询接收微信消息
+- 收到消息 -&gt; 写到 inbox/&lt;id&gt;.json
+- 等待 Muse 主代理把回复写到 outbox/&lt;id&gt;.json
+- 读到回复 -&gt; 通过微信发回去
+
+凭据从 creds.json 读取（bot_token 等）。
+消息 ID 用时间戳+序号，保证唯一。
+"""
+
+import sys
+import os
+import json
+import time
+import threading
+
+sys.path.insert(0, '/usr/local/lib/python3.12/dist-packages')
+
+WORK_DIR = os.path.expanduser("~/workspace/wechat-ilink")
+CREDS_FILE = os.path.join(WORK_DIR, "creds.json")
+INBOX_DIR = os.path.join(WORK_DIR, "inbox")
+OUTBOX_DIR = os.path.join(WORK_DIR, "outbox")
+LOG_FILE = os.path.join(WORK_DIR, "bot_daemon.log")
+CONTEXT_FILE = os.path.join(WORK_DIR, "context.json")
+REPLY_TIMEOUT = 600  # 最多等 Muse 回复 600 秒（hook worker 冷启动+查上下文常超 120 秒）
+
+os.makedirs(INBOX_DIR, exist_ok=True)
+os.makedirs(OUTBOX_DIR, exist_ok=True)
+
+_seq = [0]
+_seq_lock = threading.Lock()
+
+def log(msg):
+    line = f"[{time.strftime('%H:%M:%S')}] {msg}"
+    print(line, flush=True)
+    try:
+        with open(LOG_FILE, 'a', encoding='utf-8') as f:
+            f.write(line + "\n")
+    except Exception:
+        pass
+
+def save_context(msg):
+    """保存最新 context_token 到磁盘，供哨兵等外部程序主动发消息时使用。"""
+    try:
+        token = msg.context_token
+        if token:
+            with open(CONTEXT_FILE, 'w', encoding='utf-8') as f:
+                json.dump({'userId': str(msg.from_user), 'context_token': token,
+                           'updated_at': time.time()}, f, ensure_ascii=False)
+    except Exception as e:
+        log(f"保存 context_token 失败: {e}")
+
+def next_msg_id():
+    with _seq_lock:
+        _seq[0] += 1
+        return f"{int(time.time()*1000)}_{_seq[0]}"
+
+def wait_for_reply(msg_id):
+    """等待 Muse 把回复写到 outbox/&lt;msg_id&gt;.json"""
+    reply_file = os.path.join(OUTBOX_DIR, f"{msg_id}.json")
+    start = time.time()
+    while time.time() - start &lt; REPLY_TIMEOUT:
+        if os.path.exists(reply_file):
+            try:
+                with open(reply_file, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                os.remove(reply_file)
+                return data.get('text', '')
+            except Exception as e:
+                log(f"读取回复失败: {e}")
+                return None
+        time.sleep(1)
+    return None
+
+def main():
+    from weixin_ilink import WeixinBot
+
+    if not os.path.exists(CREDS_FILE):
+        log("未找到凭据，请先扫码登录")
+        sys.exit(1)
+
+    # 直接用凭据文件（info_json 格式：botToken/accountId/baseUrl/userId）
+    bot = WeixinBot(credentials_file=CREDS_FILE)
+
+    @bot.on_text
+    def handle_text(msg):
+        msg_id = next_msg_id()
+        save_context(msg)
+        log(f"[收到文本] id={msg_id} from={msg.from_user}: {msg.text[:60]}")
+        # 写进 inbox，唤醒 Muse
+        inbox_file = os.path.join(INBOX_DIR, f"{msg_id}.json")
+        with open(inbox_file, 'w', encoding='utf-8') as f:
+            json.dump({
+                'id': msg_id,
+                'type': 'text',
+                'sender': str(msg.from_user),
+                'text': msg.text,
+                'time': time.time(),
+            }, f, ensure_ascii=False)
+        # 等回复
+        reply = wait_for_reply(msg_id)
+        if reply:
+            log(f"[发送回复] id={msg_id}: {reply[:60]}")
+            try:
+                msg.reply_text(reply)
+            except Exception as e:
+                log(f"发送回复失败: {e}")
+        else:
+            log(f"[超时] id={msg_id} 未等到回复")
+            try:
+                msg.reply_text("老大，我这边处理超时了，你在 Muse App 里直接找我吧。")
+            except Exception:
+                pass
+
+    @bot.on_image
+    def handle_image(msg):
+        msg_id = next_msg_id()
+        save_context(msg)
+        log(f"[收到图片] id={msg_id} from={msg.from_user}")
+        img_path = os.path.join(INBOX_DIR, f"{msg_id}.jpg")
+        try:
+            msg.save(img_path)
+        except Exception as e:
+            log(f"保存图片失败: {e}")
+            img_path = None
+        inbox_file = os.path.join(INBOX_DIR, f"{msg_id}.json")
+        with open(inbox_file, 'w', encoding='utf-8') as f:
+            json.dump({
+                'id': msg_id,
+                'type': 'image',
+                'sender': str(msg.from_user),
+                'image_path': img_path,
+                'time': time.time(),
+            }, f, ensure_ascii=False)
+        reply = wait_for_reply(msg_id)
+        if reply:
+            try:
+                msg.reply_text(reply)
+            except Exception as e:
+                log(f"发送图片回复失败: {e}")
+
+    log("机器人启动，开始长轮询...")
+    bot.run()
+
+if __name__ == '__main__':
+    main()
+</pre>
+<div class="doc-body"><b>code/build.py</b></div>
+<pre># 合并 shell.html + data.html → index.html（部署文件）
+import re
+base = '/home/hatch/workspace/bridge-deploy/'
+shell = open(base + 'shell.html', encoding='utf-8').read()
+data = open(base + 'data.html', encoding='utf-8').read()
+a0 = data.index('&lt;article class="doc"&gt;')
+s0 = data.index('&lt;script&gt;')
+article = data[a0:data.index('&lt;/article&gt;') + len('&lt;/article&gt;')]
+script = data[s0:data.index('&lt;/script&gt;') + len('&lt;/script&gt;')]
+out = shell.replace('&lt;!--DATA-ARTICLE--&gt;', article).replace('&lt;!--DATA-SCRIPT--&gt;', script)
+open(base + 'index.html', 'w', encoding='utf-8').write(out)
+print('built index.html 字节:', len(out.encode()))
+</pre>
+<div class="doc-body"><b>code/connector_github.md</b></div>
+<pre>&lt;!--
+This is the template for a custom connector doc. Fill it in, then delete every comment like this one before you save.
+
+- Save it as ~/workspace/custom-connectors/custom.github/CONNECTOR.md beside its connector.yaml, using the same lowercase slug you gave `credentials.request_api_access`. The folder, the descriptor `id` and the registered connection then all read custom.github.
+
+- Once the user has finished connecting, /opt/muse/skills/custom-connector-setup/bin/scaffold-connector-docs --provider github copies this template and its descriptor into place with the slug, credential scheme and hosts filled in. It never replaces an existing doc.
+
+- A connector doc teaches how to operate this one service, with exact commands, inputs, outputs, IDs, pagination, limits and recovery. Put the method for a task in a skill and link it under Related skills.
+
+- Supporting Markdown files beside this doc are searchable too. Use them for long operation detail and link them from here.
+
+- To correct a system connector doc instead, write an amendment as /opt/muse/skills/custom-connector-setup/references/amendments.md explains.
+
+Metadata:
+
+- The connector's identity, title, description and listing choices live in connector.yaml beside this file, written from /opt/muse/skills/custom-connector-setup/templates/connector/connector.yaml. This file holds the instructions alone, with no frontmatter.
+
+How to write it:
+
+- Write to the agent in plain second person and start each instruction with the action. Make each instruction a `-` bullet with one blank line between bullets, one idea per bullet, in one to three short sentences.
+
+- Use `#` once for the title and `##` for sections. Put every command in a fenced code block.
+
+- Do not use semicolons, em or en dashes, curly quotes, tables, "Label: text" bullets, "Note:" prefixes or filler. Say "Muse" for the product and "the user" for the person.
+
+- Document only what you ran and saw. Label anything untested as untested, and leave out what you could not verify.
+--&gt;
+
+# Github
+
+&lt;!--
+Write one to three bullets on what the connector reaches, how it authenticates and which helpers exist, each by its full path.
+--&gt;
+
+- `custom.github` connects Muse to Github through its &lt;REST API or hosted MCP server&gt;. It authenticates with the registered `api_key` credential and calls only `api.github.com`.
+
+- Helpers live in `~/workspace/custom-connectors/custom.github/bin/`. &lt;Name each helper and what it does.&gt;
+
+## Connect
+
+&lt;!--
+Record the exact setup details, because a reconnect needs the same values and the placement cannot be read back later. For an API key, keep `placement` with the value you registered, one of `bearer_header`, `custom_header:&lt;Header-Name&gt;`, `query_param:&lt;name&gt;` or `url_path_segment:&lt;path containing {}&gt;`. For `oauth2_code`, keep the OAuth fields. Delete the fields that do not apply, and never record a key, token or client secret.
+--&gt;
+
+- The connection was registered with `credentials.request_api_access` and these details. Reuse them unchanged to reconnect:
+
+```json
+{
+  "provider": "github",
+  "auth_scheme": "api_key",
+  "placement": "&lt;placement&gt;",
+  "issuer_domain": "&lt;oauth issuer domain&gt;",
+  "authorization_url": "&lt;oauth authorize URL&gt;",
+  "token_url": "&lt;oauth token URL&gt;",
+  "token_endpoint_auth_method": "&lt;oauth client auth method&gt;",
+  "scopes": "&lt;oauth scopes&gt;",
+  "revoke_url": "&lt;oauth revoke URL, when offered&gt;",
+  "registration_url": "&lt;oauth dynamic registration URL, when offered&gt;",
+  "api_hosts": ["api.github.com"]
+}
+```
+
+- Before the first change in a conversation, prove access with a harmless read:
+
+```text
+python3 ~/workspace/custom-connectors/custom.github/bin/&lt;helper&gt;.py &lt;read-command&gt;
+```
+
+## Credentials
+
+&lt;!--
+Keep these bullets. They describe how every custom connector authenticates.
+--&gt;
+
+- The registered connection holds the credential. Helpers import `/opt/muse/skills/custom-connector-setup/bin/dynamic_credentials.py`, which returns an `hsurr:` surrogate and places it where the provider reads the key. Muse swaps in the real credential only on an approved request to a registered host.
+
+- Never put a key, token, password or cookie in this doc, a helper, a command argument, an environment variable or a log. Never ask the user to paste one in chat.
+
+- Keep redirects disabled on authenticated requests.
+
+- On a 401 or 403, check the request first. Confirm that the helper attached the credential, that the host is registered and that the placement and scopes match.
+
+- Only when a request that carried the credential is still rejected, call `credentials.request_api_access` with the details above and `"reconnect": true`.
+
+## &lt;Operation, named for what it does&gt;
+
+&lt;!--
+One section per verified operation, such as "Search records" or "Create an invoice". Give the exact command, the required inputs, the output fields to read, the IDs to keep and how pagination works. Say whether the operation reads or changes data.
+--&gt;
+
+- &lt;What the operation does and when to use it.&gt;
+
+```text
+python3 ~/workspace/custom-connectors/custom.github/bin/&lt;helper&gt;.py &lt;command&gt; --&lt;flag&gt; &lt;value&gt;
+```
+
+- &lt;Inputs, output fields, IDs and pagination.&gt;
+
+## Recover from errors
+
+&lt;!--
+The provider's error codes and what to do about each, its documented rate limits, and which calls are safe to retry.
+--&gt;
+
+- &lt;Error&gt; means &lt;cause&gt;. &lt;Recovery.&gt;
+
+- After a failed or timed-out change, check the current state with a read before trying again, because the first request may have completed.
+
+## Limits
+
+&lt;!--
+What this connector cannot do, the provider limits that are documented facts, and anything you have not verified.
+--&gt;
+
+- &lt;What the connector cannot do.&gt;
+
+## Related skills
+
+&lt;!--
+Link the skills that use this connector, whether custom skills at ~/workspace/custom-skills/&lt;skill_name&gt;/SKILL.md or system skills at /opt/muse/skills/&lt;dir&gt;/SKILL.md. Add the matching link under each custom skill's Available connectors. Keep the closing bullet exactly as written.
+--&gt;
+
+- [&lt;Skill Title&gt;](~/workspace/custom-skills/&lt;skill_name&gt;/SKILL.md)
+
+- Use `muse.skill_search` to find other skills and `muse.connector_search` to find other connectors.
+</pre>
+<div class="doc-body"><b>code/connector_okx.md</b></div>
+<pre># OKX (custom.okx) — local read-only helper
+
+Status: local helper, NOT a registered vault connector. Muse's secure
+connector flow declined OKX on 2026-10-23 because its API authenticates
+with HMAC-signed requests (API key + secret + passphrase). The user
+explicitly approved the alternative the same day: a read-only API key
+kept in a local file, used only by a local read-only script.
+
+## Helper
+- Script: `~/workspace/okx-trading/okx_read.py` (Python stdlib only)
+- Commands: `time` (public connectivity check), `balance`, `positions`, `fills`
+- Endpoints (GET only): /api/v5/public/time, /api/v5/account/balance,
+  /api/v5/account/positions, /api/v5/trade/fills
+- There are NO order/transfer/withdraw code paths. Do not add any without
+  the user's explicit new approval; real order placement stays governed
+  by the gated module rules in ~/workspace/okx-trading/SYSTEM.md.
+
+## Credential
+- The user's READ-ONLY OKX API key set (api_key, secret, passphrase) lives
+  in `~/workspace/okx-trading/.okx_readonly.json`, file mode 0600.
+- Never print, log, copy, or store the values anywhere else (not in this
+  doc, not in memory files, not in chat summaries).
+- The key must have the "read" permission only — no trade, no withdraw.
+- Rotation/revocation: the user manages keys in OKX (profile → API). To
+  rotate, replace the JSON file's values and keep mode 600.
+
+## Verified
+- 2026-10-23: script compiles; `time` returns code 0 from this VM
+  (www.okx.com requires a browser-like User-Agent header; urllib default
+  gets HTTP 403).
+- 2026-10-23 morning: authenticated reads VERIFIED end-to-end —
+  `balance` and `positions` return the user's real account (BTC-USDT-SWAP
+  long @ 82,349 matches his reported open). First passphrase attempt
+  failed with 50105 (a capital letter had been typed lowercase); the
+  exact passphrase is case-sensitive and is stored only in the creds
+  file. `fills` returned an empty list on first call (endpoint live,
+  no rows in default window).
+
+## Troubleshooting
+- 401 / code 50111-50113: wrong key/secret/passphrase or clock skew —
+  re-check values with the user; do not retry blindly.
+- HTTP 403 on public endpoints: User-Agent header missing.
+</pre>
+<div class="doc-body"><b>code/cron_asset-report-feb-end.md</b></div>
+<pre>---
+id: asset-report-feb-end
+title: 二月资产报告（28 号补月末）
+enabled: true
+owner: goal:super-interactive-bridge
+mode: task
+schedule:
+  kind: yearly
+  timezone: Asia/Shanghai
+  time: 20:06:00
+  dom: [28]
+  month: [2]
+delivery:
+  - chat_id: c6a95dc0-fa9a-447d-a16c-6b396d089426
+metadata:
+  tags: [cron:flexible-time]
+  originating_chat_context_json: '{"chat_id":"c6a95dc0-fa9a-447d-a16c-6b396d089426","origin_provider":"main","chat_kind":"direct","event_kind":"message","require_mention":false,"device_id":"a0cda498-bbc8-48fe-a0f2-e75515e63e70"}'
+  presentation_locale: zh-CN
+---
+二月资产报告（用户林志锋 2026-10-23 定下：每月底做资产报告；二月没有 30 号，用 28 号即二月最后一天补这一期，内容口径与每月 30 号的资产报告完全相同）。
+
+执行步骤：
+1. OKX 账户自读：运行 `python3 ~/workspace/okx-trading/okx_read.py balance` 和 `python3 ~/workspace/okx-trading/okx_read.py positions`，取账户总权益（USD）、各币种明细、未平仓持仓的浮盈亏。（只读接口 2026-10-23 已接通；失败则在报告里如实标注 OKX 数据未取到，不编造。）
+2. ETF 取价：他的持仓为标普500ETF博时 513500 ×300 份、纳指ETF广发 159941 ×100 份（份额以《个人交互数据桥》文档 1.12 的最新记录为准，如已变更按最新份额）。用 `curl -s 'https://qt.gtimg.cn/q=sh513500,sz159941'`（GBK 编码需转码）取当日收盘价（20:00 已收盘，最新价即收盘价），算人民币市值，并注明成本与浮盈（成本：513500 建仓 2.695、159941 建仓 1.634，同样以文档最新记录为准）。
+3. 汇率：取当日 USD/CNY 在岸价（新浪 fx_susdcny 或 Frankfurter 二选一，注明来源与日期）。
+4. 现金类：支付宝小荷包等用他最近一次报告的金额并标注报告日期（最近一次为 2026-10-20 的 ¥300；如文档里已有更新的数字，用新数）。不要在月中口径外向他追问余额；本报告在月底，属月度核对窗口。
+5. 汇总：总资产分别给出 USD 与 RMB 两个总数；每项列数量、单价、折算值；与上月报告比增减（报告存档在 ~/workspace/goals/super-interactive-bridge/hidden_files/asset-reports/）。另起一行备忘：自认债务余额（取桥文档当期口径）与净资产（资产−债务），与资产明细分开呈现。
+6. 存档：把报告全文存到 ~/workspace/goals/super-interactive-bridge/hidden_files/asset-reports/asset-report-YYYY-MM-DD.md。
+7. 文档同步：把本月快照按《个人交互数据桥》的文档更新流程并入 1.12 资产节（改 data.html → build → 渲染测试 → 部署 → 刷新 PDF）；若某步失败，在给用户的报告末尾如实标注未完成项，不要声称已完成。
+8. 交付：在主聊天把报告发给用户。只报数与计算过程，不给投资建议，不劝买卖。所有数字注明来源与时点；取不到的写「未取到」，绝不补造。
+</pre>
+<div class="doc-body"><b>code/cron_asset-report-monthly-30.md</b></div>
+<pre>---
+id: asset-report-monthly-30
+title: 每月资产报告（30 号）
+enabled: true
+owner: goal:super-interactive-bridge
+mode: task
+schedule:
+  kind: monthly
+  timezone: Asia/Shanghai
+  time: 20:06:00
+  dom: [30]
+delivery:
+  - chat_id: c6a95dc0-fa9a-447d-a16c-6b396d089426
+metadata:
+  tags: [cron:flexible-time]
+  originating_chat_context_json: '{"chat_id":"c6a95dc0-fa9a-447d-a16c-6b396d089426","origin_provider":"main","chat_kind":"direct","event_kind":"message","require_mention":false,"device_id":"a0cda498-bbc8-48fe-a0f2-e75515e63e70"}'
+  presentation_locale: zh-CN
+---
+每月资产报告（用户林志锋 2026-10-23 定下：每月底做资产报告，他持有的标的值多少钱，以美元和人民币双口径结算）。
+
+执行步骤：
+1. OKX 账户自读：运行 `python3 ~/workspace/okx-trading/okx_read.py balance` 和 `python3 ~/workspace/okx-trading/okx_read.py positions`，取账户总权益（USD）、各币种明细、未平仓持仓的浮盈亏。（只读接口 2026-10-23 已接通；失败则在报告里如实标注 OKX 数据未取到，不编造。）
+2. ETF 取价：他的持仓为标普500ETF博时 513500 ×300 份、纳指ETF广发 159941 ×100 份（份额以《个人交互数据桥》文档 1.12 的最新记录为准，如已变更按最新份额）。用 `curl -s 'https://qt.gtimg.cn/q=sh513500,sz159941'`（GBK 编码需转码）取当日收盘价（20:00 已收盘，最新价即收盘价），算人民币市值，并注明成本与浮盈（成本：513500 建仓 2.695、159941 建仓 1.634，同样以文档最新记录为准）。
+3. 汇率：取当日 USD/CNY 在岸价（新浪 fx_susdcny 或 Frankfurter 二选一，注明来源与日期）。
+4. 现金类：支付宝小荷包等用他最近一次报告的金额并标注报告日期（最近一次为 2026-10-20 的 ¥300；如文档里已有更新的数字，用新数）。不要在月中口径外向他追问余额；本报告在月底，属月度核对窗口。
+5. 汇总：总资产分别给出 USD 与 RMB 两个总数；每项列数量、单价、折算值；与上月报告比增减（报告存档在 ~/workspace/goals/super-interactive-bridge/hidden_files/asset-reports/，第一份无上月数据则注明首期）。另起一行备忘：自认债务余额（取桥文档当期口径）与净资产（资产−债务），与资产明细分开呈现。
+6. 存档：把报告全文存到 ~/workspace/goals/super-interactive-bridge/hidden_files/asset-reports/asset-report-YYYY-MM-DD.md。
+7. 文档同步：把本月快照按《个人交互数据桥》的文档更新流程并入 1.12 资产节（改 data.html → build → 渲染测试 → 部署 → 刷新 PDF）；若某步失败，在给用户的报告末尾如实标注未完成项，不要声称已完成。
+8. 交付：在主聊天把报告发给用户。只报数与计算过程，不给投资建议，不劝买卖。所有数字注明来源与时点；取不到的写「未取到」，绝不补造。
+</pre>
+<div class="doc-body"><b>code/cron_bank-broker-revisit-20270207.md</b></div>
+<pre>---
+id: bank-broker-revisit-20270207
+title: 境外银行卡与长桥问题春节后轻提醒
+enabled: true
+owner: goal:super-interactive-bridge
+mode: task
+schedule:
+  kind: runonce
+  timezone: Asia/Shanghai
+  at: 2027-02-07T10:00:00
+delivery:
+  - chat_id: c6a95dc0-fa9a-447d-a16c-6b396d089426
+metadata:
+  originating_chat_context_json: '{"chat_id":"c6a95dc0-fa9a-447d-a16c-6b396d089426","origin_provider":"main","chat_kind":"direct","event_kind":"message","require_mention":false,"device_id":"a0cda498-bbc8-48fe-a0f2-e75515e63e70"}'
+  presentation_locale: zh-CN
+---
+轻提醒（用户 2026-10-20 决定）：境外银行卡（开卡与入金路线，含华美/Velo/港卡）与长桥证券（券商）入金问题当时被推迟「至春节再说」，现在春节（2027-02-06）已过。向用户提一句：这两件当时说春节后再谈——境外银行卡那条线要不要重新看、长桥客服那三个问题（存量账户能否入金、内地登录买入是否受限、恢复条件）要不要现在问，由他决定；他不想谈就直接划掉，不要追问第二次。注意：不要问他国内银行卡余额——按他的规则，钱的问题除他主动报的外一律月底核对。语气简短，只提这一次。
+</pre>
+<div class="doc-body"><b>code/cron_bridge-backup-email-daily.md</b></div>
+<pre>---
+id: bridge-backup-email-daily
+title: 每晚文档备份邮件（23:00，当天有改才发）
+enabled: true
+owner: goal:super-interactive-bridge
+mode: task
+schedule:
+  kind: daily
+  timezone: '@user.current'
+  time: 23:00:00
+delivery:
+  - chat_id: c6a95dc0-fa9a-447d-a16c-6b396d089426
+metadata:
+  originating_chat_context_json: '{"chat_id":"c6a95dc0-fa9a-447d-a16c-6b396d089426","origin_provider":"main","chat_kind":"direct","event_kind":"message","require_mention":false,"device_id":"a0cda498-bbc8-48fe-a0f2-e75515e63e70"}'
+  presentation_locale: zh-CN
+---
+每晚 23:00 的《个人交互数据桥》备份邮件（用户 2026-10-22 定版：当天文档有改动才发，一天最多一封；当天没改动、或当天已经发过备份，就不发）。
+
+执行步骤：
+1. 判断今天文档有没有改动：看 ~/workspace/bridge-deploy/data.html 的修改日期是否为今天（Asia/Shanghai 本地日期）。不是今天 → 今天没有文档更新，什么都不发，直接结束，也不要在聊天里汇报。
+2. 防重复：用 Gmail 查最近的已发送邮件（/opt/hatch/bin/hatch_gws_cli gmail +triage --query 'in:sent 备份' --max 5 --format json），核对日期与主题；若今天已经发出过一封主题含《个人交互数据桥》备份的邮件 → 不再发，直接结束，不汇报。
+3. 是今天、且今天还没发过 → 先刷新常青 PDF：在 ~/workspace/bridge-deploy/pagetest/ 下运行 node export-pdf.js（不带路径参数），确认 PDF 已按最新 data.html 重新生成（成品在 ~/workspace/goals/super-interactive-bridge/files/personal-bridge-latest.pdf；~/workspace/your_files/personal-bridge-latest.pdf 是它的软链）。
+4. 用 Gmail 发备份邮件：/opt/hatch/bin/hatch_gws_cli gmail +send --to 'six26181@gmail.com' --subject '《个人交互数据桥》备份（当天日期 YYYY-MM-DD）' --body '《个人交互数据桥》备份（当天日期版）。附件1 PDF 是文档全文，手机上能打开看；附件2 data.html 是网站的全部数据母本，万一网站出问题靠它能完整恢复。' --attach /home/hatch/workspace/goals/super-interactive-bridge/files/personal-bridge-latest.pdf --attach /home/hatch/workspace/bridge-deploy/data.html。附件合计约 2.5MB，在 Gmail 25MB 上限内。
+5. 发送成功 → 不要在聊天里汇报（邮件本身就是通知，避免打扰）。发送失败 → 在主聊天简短告诉用户今晚的备份没发出去、失败在哪一步；不要重复发送，同一晚最多尝试一次发送。
+</pre>
+<div class="doc-body"><b>code/cron_bridge-pdf-weekly.md</b></div>
+<pre>---
+id: bridge-pdf-weekly
+title: 每周导出个人数据桥 PDF
+enabled: true
+owner: goal:super-interactive-bridge
+mode: task
+schedule:
+  kind: weekly
+  timezone: '@user.current'
+  time: 20:06:00
+  dow: [Tue]
+delivery:
+  - chat_id: c6a95dc0-fa9a-447d-a16c-6b396d089426
+metadata:
+  tags: [cron:flexible-time]
+  originating_chat_context_json: '{"chat_id":"c6a95dc0-fa9a-447d-a16c-6b396d089426","origin_provider":"main","chat_kind":"direct","event_kind":"message","require_mention":false,"device_id":"a0cda498-bbc8-48fe-a0f2-e75515e63e70"}'
+  presentation_locale: zh-CN
+---
+任务：每周导出最新版《个人交互数据桥》PDF 并发给用户保存（用户 2026-10-20 要求：「记得每周提醒我导出一份个人数据桥PDF版本」；形式定为由助手直接生成 PDF 发给他，他只需存到手机上）。2026-10-20 晚用户又确认新增「常驻最新版 PDF」：固定一份 ~/workspace/your_files/personal-bridge-latest.pdf，每次文档更新后都重新生成覆盖；本每周任务改为刷新并发送这一份常驻版。2026-10-20 晚用户再明确：他的文件区只保留 PDF 版，不要 HTML 文件——网站 HTML 主文件存放在助手工作区 ~/workspace/bridge-deploy/index.html，导出一律从该文件生成；用户文件区不得再放入任何 HTML 文档。
+
+做法（生成器已于 2026-10-20 实测通过，格式固定，不要另发明方法）：
+1. 运行：cd ~/workspace/bridge-deploy/pagetest &amp;&amp; node export-pdf.js（不带参数时自动用当天日期）。它从 ~/workspace/bridge-deploy/index.html 提取《个人交互数据桥》全文，套用已定稿的打印版式（A4、封面含导出日期与字数、每部分分页、表格跨页重复表头、页脚带页码），输出 dated PDF 到 ~/workspace/your_files/personal-bridge-YYYY-MM-DD.pdf，并自动把常驻版 ~/workspace/your_files/personal-bridge-latest.pdf 同步覆盖为同一内容（中间 HTML 只留在 bridge-deploy/pagetest 工作区，不进用户文件区）。
+2. 校验：pdfinfo 常驻版确认页数 &gt; 10、A4；pdftotext 抽查「个人交互数据桥」「统一分析标准」等关键词存在。校验不过就如实报告失败步骤，不要发坏文件。
+3. 把常驻版 PDF（personal-bridge-latest.pdf）作为附件发到主聊天，附一句话：本周数据桥 PDF 已刷新，存手机上吧；顺带报页数与当前字数。
+</pre>
+<div class="doc-body"><b>code/cron_expense-review-2026-10.md</b></div>
+<pre>---
+id: expense-review-2026-10
+title: 10月账单核对（含¥435买烟备忘）
+enabled: true
+owner: goal:super-interactive-bridge
+mode: task
+schedule:
+  kind: runonce
+  timezone: Asia/Shanghai
+  at: 2026-11-01T09:00:00
+delivery:
+  - chat_id: c6a95dc0-fa9a-447d-a16c-6b396d089426
+metadata:
+  originating_chat_context_json: '{"chat_id":"c6a95dc0-fa9a-447d-a16c-6b396d089426","origin_provider":"main","chat_kind":"direct","event_kind":"message","require_mention":false,"device_id":"a0cda498-bbc8-48fe-a0f2-e75515e63e70"}'
+  presentation_locale: zh-CN
+---
+今天是 2026-11-01，提醒老大做 2026 年 10 月的月度账单核对（他定的规矩：开支不每日记账，每月导出账单统一复盘一次）。
+
+提醒时带上这条他本人在 10-20 亲手标注的备忘，方便他在微信账单里对上号：
+- 2026-10-20 17:54，微信零钱通扫码付「庆」¥435，买两条烟（已记入文档模块二「月度账单核对备忘」）。他的固定开支表里「烟约 ¥600/月」，这笔 ¥435 占了大头，核对时问他一句这笔算不算进烟钱那一项、10 月烟钱总共花了多少。
+
+请他导出 10 月微信/支付宝账单发过来，一起逐项对。语气简短，别说教。
+</pre>
+<div class="doc-body"><b>code/cron_fitness-sleep-log-evening.md</b></div>
+<pre>---
+id: fitness-sleep-log-evening
+title: 健身登记＋睡眠登记（晚上）
+enabled: true
+owner: goal:super-interactive-bridge
+mode: task
+schedule:
+  kind: daily
+  timezone: '@user.current'
+  time: 22:17:00
+delivery:
+  - chat_id: c6a95dc0-fa9a-447d-a16c-6b396d089426
+metadata:
+  originating_chat_context_json: '{"chat_id":"c6a95dc0-fa9a-447d-a16c-6b396d089426","origin_provider":"main","chat_kind":"direct","event_kind":"message","require_mention":false,"device_id":"a0cda498-bbc8-48fe-a0f2-e75515e63e70"}'
+  presentation_locale: zh-CN
+---
+给用户的晚上登记提醒（中文、简短、像兄弟聊天），只问两件事：1）健身登记：今天练没练、练了哪个部位、动作组数次数、哑铃重量、开始结束时间、身体感受；没练就记休息日和原因。2）东鹏特饮喝了几瓶、最后一次几点喝的。不问步数——用户 2026-10-21 定的规矩：步数由主会话自己从 Apple Health 读，不再问他。不问"计划几点上床"——上床时间他睡前会主动报。午睡不问——午睡默认没有，只有他主动说了才记。让他直接把数据发过来，我会记到桥上。
+</pre>
+<div class="doc-body"><b>code/cron_iphone-shipment-check-20261031.md</b></div>
+<pre>---
+id: iphone-shipment-check-20261031
+title: iPhone发货跟进（10-30最晚发货日）
+enabled: true
+owner: goal:2027-3-2
+mode: task
+schedule:
+  kind: runonce
+  timezone: Asia/Shanghai
+  at: 2026-10-31T09:00:00
+delivery:
+  - chat_id: c6a95dc0-fa9a-447d-a16c-6b396d089426
+metadata:
+  originating_chat_context_json: '{"origin_provider":"main","chat_kind":"direct","event_kind":"message","require_mention":false}'
+  presentation_locale: zh-CN
+---
+老大，iPhone 18 Pro Max 的最晚发货日（2026-10-30）已经过了，问一句：手机发货了吗？
+
+- 如果发货/到货了：把物流状态、预计到手价/实际卖出价告诉我，我记到文档 7.3 和网站（个人盈利 + 交易日记相关）。
+  - 如果已经卖出、钱已到账：当场提醒他 2026-10-21 定的计划——¥3,000 对应金额现价买 BTC、¥2,000 对应金额现价买 USDT，买完转进他的冷钱包（买到多少标的他会告知，之后再入账；他明确过这事不记文档、只提醒）。
+  - 如果到货了但还没卖：回一句，让他卖出到账后告诉我一声，到时候我提醒他买入计划。
+- 如果还没发货：回一下新的预计发货时间，我更新记录。
+
+如果这次还没发货：再安排一次一次性的跟进，7 天后（2026-11-07 09:00）问一次；发货确认后这个跟进就停，不再打扰。
+</pre>
+<div class="doc-body"><b>code/cron_lease-delay-script-20261024.md</b></div>
+<pre>---
+id: lease-delay-script-20261024
+title: 10-25车贷延期话术包（一次性，10-24晚）
+enabled: true
+owner: goal:2027-3-2
+mode: task
+schedule:
+  kind: runonce
+  timezone: Asia/Shanghai
+  at: 2026-10-24T20:30:00
+delivery:
+  - chat_id: c6a95dc0-fa9a-447d-a16c-6b396d089426
+metadata:
+  originating_chat_context_json: '{"origin_provider":"main","chat_kind":"direct","event_kind":"message","require_mention":false}'
+  presentation_locale: zh-CN
+---
+10-25（周日）融资租赁 ¥2,473.50 原定还款日的前一晚，把延期话术放他手边。他 2026-10-19 已决定延期 3–5 天、接受约十几元滞纳金，并要求不再催——所以只发话术、一句话带过"放你手边，到期那两天用"，不展开讨论、不追问钱的事。
+
+按他的文档优先规则：先在文档 7.3 记一行"10-25 延期话术包已备好"（日期 2026-10-24），再发下面正文。
+
+正文：
+---
+老大，10-25 那笔 ¥2,473.50 的延期话术放你手边，到期那两天用：
+
+**大概率是他们打来（扣款失败后）：**
+"你好，我是[姓名]，合同尾号[XXXX]。10月25号这期2,473块5，我这边晚几天，[10月28/29/30号]前一定到账，滞纳金按合同来我认。麻烦确认三件事：第一，滞纳金一共多少；第二，最晚哪天到不影响征信、不触发拖车；第三，你说的发个短信或App内消息给我，我留个凭证。"
+
+**三问（必须拿到明确答案）：**
+1. 滞纳金确切金额——你以为十几块，以客服亲口说的为准
+2. 宽限到哪天——"几天"不能变"几周"，拖车线问清楚
+3. 文字确认——短信/App内消息，口头的不算
+
+**三不说：** 不提别的欠款；不报收入；不承诺做不到的日期。
+---
+
+背景（你自己把握，不发给他）：滞纳金"十几元"是他自己的估计，从未核实合同条款，所以话术让他当面确认；融资租赁拖成几周会被收车，所以让他问清触发线。资金从哪来他已拍板，今晚一个字不提。
+</pre>
+<div class="doc-body"><b>code/cron_sleep-log-morning.md</b></div>
+<pre>---
+id: sleep-log-morning
+title: 睡眠登记（早上）
+enabled: true
+owner: goal:super-interactive-bridge
+mode: task
+schedule:
+  kind: daily
+  timezone: '@user.current'
+  time: 08:06:00
+delivery:
+  - chat_id: c6a95dc0-fa9a-447d-a16c-6b396d089426
+metadata:
+  tags: [cron:flexible-time]
+  originating_chat_context_json: '{"chat_id":"c6a95dc0-fa9a-447d-a16c-6b396d089426","origin_provider":"main","chat_kind":"direct","event_kind":"message","require_mention":false,"device_id":"a0cda498-bbc8-48fe-a0f2-e75515e63e70"}'
+  presentation_locale: zh-CN
+---
+早上睡眠登记（中文、简短、像兄弟聊天）。2026-10-22 起睡眠数据由 Apple Health 自动写入桥，他的规矩是「以后自己去读」——所以先自己读、再开口：1）先自己从 Apple Health 读昨晚睡眠（入睡时间、起床时间、时长、夜醒次数）；2）再查桥（~/workspace/bridge-deploy/data.html）确认这条睡眠已记入，已在的数据一律不再问他。只问 Health 没有、只能他自己感受的两个事：昨晚睡得怎么样（质量感受）、今天白天精神怎么样。如果他说今天休息没练，也记下来。不问步数——步数由主会话自己读。不问计划几点上床——他睡前会自己报。午睡不问——默认没有。他回了之后按桥的格式记入文档。
+</pre>
+<div class="doc-body"><b>code/cron_training-session-20261026.md</b></div>
+<pre>---
+id: training-session-20261026
+title: 下周一（10-26）背+二头场次提醒
+enabled: true
+owner: goal:super-interactive-bridge
+mode: task
+schedule:
+  kind: runonce
+  timezone: Asia/Shanghai
+  at: 2026-10-25T20:00:00
+delivery:
+  - chat_id: c6a95dc0-fa9a-447d-a16c-6b396d089426
+metadata:
+  originating_chat_context_json: '{"origin_provider":"main","chat_kind":"direct","event_kind":"message","require_mention":false}'
+  presentation_locale: zh-CN
+---
+一次性提醒（用户健身计划的一部分，中文、简短、像兄弟聊天，只做这一件事）：
+
+背景（2026-10-21 用户亲口说的）：他 10-22～24 不练、陪女友，下周一（10-26）接着练。他还问过「我这样三天打渔两天晒网行吗」——对连贯性有点没底。助手已回复「下周一咱再接着来」。
+
+任务：把下周一这场按轮换直接排好发给他，他只管开练——
+「老大，下周一（10-26）接着练的那场，按轮换排好了：背＋二头——哑铃正手划船、哑铃反手划船、哑铃弯举、哑铃锤式弯举，各 4组×12次，共 16 组/192 次，约 1 小时。（10-13 胸、10-14 背、10-19 腿、10-20 胸，下一场轮到背。）
+歇了 6 天，第一场别硬顶：组间歇拉长点，实在吃力就降到 3 组，报给我记偏差就行。周一开练前跟我说一声。」
+
+先快速读一下最近聊天：如果他已经自己练过、或说过下周一不练、或女友行程延到下周一导致计划变了，就别硬发——按实际情况调整或安静跳过。不要重复 10-24 晚已发的车贷话术包，也不要提交易。
+</pre>
+<div class="doc-body"><b>code/cron_wechat-ilink-keepalive.md</b></div>
+<pre>---
+id: wechat-ilink-keepalive
+title: 微信 iLink 机器人保活
+enabled: true
+owner: goal:wechat-ilink
+mode: task
+schedule:
+  kind: interval
+  timezone: UTC
+  at: 2026-10-20T03:21:21
+  every: 10m
+metadata:
+  tags: [cron:automatic-interval-anchor]
+  originating_chat_context_json: '{"chat_id":"c6a95dc0-fa9a-447d-a16c-6b396d089426","origin_provider":"main","chat_kind":"direct","event_kind":"message","require_mention":false,"device_id":"a0cda498-bbc8-48fe-a0f2-e75515e63e70"}'
+  presentation_locale: zh-CN
+---
+微信 iLink 机器人保活检查。背景：用户 2026-10-20 要求搭建微信 iLink 机器人并已扫码绑定（bot 在线收发微信消息），守护进程为 ~/workspace/wechat-ilink/bot_daemon.py（Python 长轮询，收到消息写 inbox/、等主代理回写 outbox/ 再发回微信）。用户被承诺过 24 小时在线，但 VM 重启会杀掉进程。另有 BTC 突破哨兵 ~/workspace/btc-sentinel/sentinel.py（2026-10-20 上线，盯 OKX BTC 永续日线关键位，突破/跌破时借机器人通道主动发微信提醒），同样需要保活。
+
+每次运行做这四件事：
+1. 检查机器人进程：用 `pgrep -f '[b]ot_daemon.py'` 找 PID，再用 `ps -o cmd -p &lt;PID&gt;` 二次确认确实是 bot_daemon.py（不要直接信 pgrep，历史上出现过把自家 shell 误报成守护进程的情况）。如果进程不存在，先确认 ~/workspace/wechat-ilink/creds.json 存在，然后用 `cd ~/workspace/wechat-ilink &amp;&amp; nohup python3 bot_daemon.py &gt;&gt; daemon_stdout.log 2&gt;&amp;1 &amp;` 重启（若报 ModuleNotFoundError: weixin_ilink，先 `pip install --break-system-packages weixin-ilink` 再重启），并在 bot_daemon.log 追加一行带时间的重启记录。重启成功后向用户报告一次"机器人掉线已自动重启"。
+2. 查看最近 15 分钟的 bot_daemon.log 是否出现登录失效信号（关键词：登录过期 / expired / 401 / token 无效 / 扫码 / login）。如果出现，说明微信会话过期、需要用户重新扫码绑定——这是唯一需要打扰用户的情况，向用户报告"微信机器人登录过期，需要重新扫码"，并说明需要他配合扫码。
+3. 顺手检查哨兵进程：用 `ps aux | grep '[s]entinel.py'` 确认 ~/workspace/btc-sentinel/sentinel.py 在跑；不在时用 `cd ~/workspace/btc-sentinel &amp;&amp; nohup ./start_sentinel.sh &gt;&gt; sentinel_stdout.log 2&gt;&amp;1 &amp;` 重启（start_sentinel.sh 会自建 venv 并装 requests）。哨兵重启不单独打扰用户，sentinel.log 里有启动记录即可。如果 sentinel.log 最近 15 分钟反复出现"微信发送失败"，多半是 ~/workspace/wechat-ilink/context.json 里的通行证过期——用户下次给机器人发消息会自动刷新，不用打扰；只有同时命中第 2 条登录失效时才按第 2 条报告。
+4. 进程正常、日志无异常时保持完全安静，不要发任何消息。
+
+不要碰 creds.json 和 context.json 的内容，不要把凭据写入日志或报告。
+</pre>
+<div class="doc-body"><b>code/hook_btc_stop_watch.sh</b></div>
+<pre>#!/usr/bin/env bash
+set -euo pipefail
+source "$HATCH_HOOK_RUNTIME"
+
+STOP=80702
+
+resp="$(curl --fail --silent --show-error --max-time 10 'https://www.okx.com/api/v5/market/ticker?instId=BTC-USDT-SWAP' 2&gt;/dev/null || true)"
+
+if [[ -z "${resp}" ]]; then
+  log "fetch_failed" '{}'
+  silent "OKX ticker fetch failed; will retry next poll" '{}'
+else
+  last="$(printf '%s' "${resp}" | jq -r '.data[0].last // empty')"
+  if [[ -z "${last}" ]]; then
+    log "parse_failed" '{}'
+    silent "could not parse price; will retry next poll" '{}'
+  else
+    hit="$(awk -v p="${last}" -v s="${STOP}" 'BEGIN{print (p+0 &lt;= s+0) ? 1 : 0}')"
+    if [[ "${hit}" == "1" ]]; then
+      disable_after_run
+      wake "BTC price hit the hard stop 80702" "{\"price\": ${last}, \"stop\": ${STOP}, \"entry\": 82349}"
+    elif awk -v p="${last}" 'BEGIN{exit !(p+0 &lt;= 81500)}'; then
+      log "approaching_stop" "{\"price\": ${last}, \"stop\": ${STOP}}"
+      silent "price approaching stop; still watching" "{\"price\": ${last}}"
+    else
+      silent "price above stop" "{\"price\": ${last}}"
+    fi
+  fi
+fi
+</pre>
+<div class="doc-body"><b>code/hook_okx_position_watch.sh</b></div>
+<pre>#!/usr/bin/env bash
+set -euo pipefail
+source "$HATCH_HOOK_RUNTIME"
+
+out="$(python3 /home/hatch/workspace/okx-trading/okx_watch.py 2&gt;/dev/null || true)"
+
+if [[ -z "${out}" ]]; then
+  log "watch_failed" '{}'
+  silent "okx_watch.py produced no output; will retry next poll" '{}'
+else
+  infra="$(printf '%s' "${out}" | jq -r '.infra_error // empty')"
+  if [[ -n "${infra}" ]]; then
+    log "infra_error" "$(jq -nc --arg d "${infra}" '{detail: $d}')"
+    silent "okx watch infra error; staying silent" '{}'
+  else
+    count="$(printf '%s' "${out}" | jq '.events | length')"
+    if [[ "${count}" != "0" ]]; then
+      payload="$(printf '%s' "${out}" | jq -c '{events: .events}')"
+      wake "OKX position or system-rule events detected" "${payload}"
+    else
+      silent "no position changes, no rule events" '{}'
+    fi
+  fi
+fi
+</pre>
+<div class="doc-body"><b>code/hook_wechat-inbox-watch.sh</b></div>
+<pre>#!/usr/bin/env bash
+set -euo pipefail
+source "$HATCH_HOOK_RUNTIME"
+
+INBOX_DIR="$HOME/workspace/wechat-ilink/inbox"
+STATE_DIR="$HOME/hooks/state"
+STATE_FILE="$STATE_DIR/wechat-inbox-seen.txt"
+mkdir -p "$STATE_DIR"
+touch "$STATE_FILE"
+
+# 找收件箱里的 json 文件
+NEW_MESSAGES=()
+if [ -d "$INBOX_DIR" ]; then
+  for f in "$INBOX_DIR"/*.json; do
+    [ -e "$f" ] || continue
+    base=$(basename "$f")
+    if ! grep -qx "$base" "$STATE_FILE"; then
+      NEW_MESSAGES+=("$f")
+      # 非 dry run 时记录已见过
+      if [ "${HATCH_HOOK_DRY_RUN:-0}" != "1" ]; then
+        echo "$base" &gt;&gt; "$STATE_FILE"
+      fi
+    fi
+  done
+fi
+
+if [ ${#NEW_MESSAGES[@]} -eq 0 ]; then
+  silent "no new wechat messages" '{}'
+else
+  FIRST="${NEW_MESSAGES[0]}"
+  FIRST_BASE=$(basename "$FIRST")
+  COUNT=${#NEW_MESSAGES[@]}
+  # 用 jq 构造 payload，避免手工拼引号出错；不内嵌消息原文，worker 自己读文件
+  PAYLOAD=$(jq -n --arg file "$FIRST_BASE" --argjson count "$COUNT" '{"message_file": $file, "count": $count}')
+  LOGPAYLOAD=$(jq -n --arg file "$FIRST_BASE" --argjson count "$COUNT" '{"count": $count, "file": $file}')
+  log "new wechat message" "$LOGPAYLOAD"
+  wake "new WeChat message arrived" "$PAYLOAD"
+fi
+</pre>
+<div class="doc-body"><b>code/live_gated.py</b></div>
+<pre>#!/usr/bin/env python3
+"""
+OKX 带人工确认的实盘闸门模块（live_gated.py）
+
+定位：这是一个“闸门层”，不是自动交易机器人。
+- 默认模式永远是 PAPER（模拟），不会发真实订单。
+- 即使满足全部条件，本版本也不会真的向 OKX 发送下单请求：
+  真实下单的签名请求是故意留空的，需要你单独审阅、单独接线。
+  这样设计是为了保证：没有任何一次实盘订单会在“没看清”时发出去。
+- 没有自动交易，没有连续下单循环，没有自动重试。
+  每一笔实盘意向都必须走一次完整的：预览 -&gt; 手动输入确认词 -&gt; 发送前再验风控。
+
+实盘闸门（缺一不可，任一项不通过就拒绝）：
+  1) 环境变量 OKX_LIVE_ENABLED=1（默认没有这个变量 = PAPER，拒绝实盘）
+  2) API 凭证齐全：只从环境变量 OKX_API_KEY / OKX_API_SECRET /
+     OKX_API_PASSPHRASE 读取，或走 Secure Vault 模式注入环境变量。
+     绝不硬编码、绝不打印、绝不写进文件、绝不发到聊天里。
+     缺失任一项 -&gt; 拒绝实盘，并提示用环境变量 / Secure Vault。
+  3) 实盘前检查清单（preflight）：要求你亲手确认资金隔离与风险，
+     必须输入指定确认词才算通过。
+  4) 完整订单预览：品种、方向、数量、杠杆、入场、硬止损、最大亏损、
+     保证金占用 vs 半仓 50% 上限、回撤状态，全部打印出来给你看。
+  5) 手动确认：必须在终端亲手输入确切确认词 CONFIRM（区分大小写），
+     只给一次机会，输错 / 输别的 / 直接回车 = 拒绝，不重试、不循环追问。
+  6) 发送前再验风控：半仓 &lt;=50%、硬止损已绑定、杠杆 &lt;=5x（用户新规则）、
+     回撤 &lt;15%、资金隔离已确认。任一项失败 -&gt; 拒绝。
+     ⚠️ 5x 下强平缓冲约 19.5%，低于《天命》30% 目标，强平风险高于旧 3x 版本。
+
+用户修正规则（2026-10-16）：杠杆 5x；单笔保证金 = 总资金 10%（名义 50%）；
+硬止损 = 价格逆势 2%；单笔亏损 = 50% × 2% = 总资金的 1%。仅 BTC（BTC-USDT）。
+入场原则：只用价格 + 成交量，无任何指标线（抛弃所有指标，指标滞后，除了成交量；
+参考利弗莫尔）。突破必须放量，无放量不算有效突破。
+
+资金隔离（必须遵守，用户需在检查清单里亲手确认）：
+  - 实盘资金必须是独立子账户里的一笔小额隔离资金。
+  - 绝不是借贷资金、生活费、还款资金、应急储备。
+  - 交易 / 储备 / 生活资金 100% 隔离，严禁跨边界划转。
+  - 如果你无法确认以上任何一条，不要开实盘。
+
+用法（全部是演练，不发真实订单）：
+  python3 live_gated.py --dry-run      # 演练：PAPER 拒绝实盘 + 确认词输错拒绝
+  python3 live_gated.py --preflight    # 只跑实盘前检查清单（需手动输入确认词）
+  python3 live_gated.py --preview      # 只看一笔示例订单的预览与风控计算，不确认、不发送
+"""
+import argparse
+import os
+import sys
+from dataclasses import dataclass
+
+# ===== 闸门常量 =====
+# 确认词：必须一字不差输入 CONFIRM（区分大小写），只给一次机会。
+CONFIRM_PHRASE = "CONFIRM"
+# 检查清单确认词：必须一字不差输入“已确认资金隔离”。
+PREFLIGHT_PHRASE = "已确认资金隔离"
+# 实盘总开关：只有环境变量 OKX_LIVE_ENABLED=1 才算“想开实盘”，其余一律 PAPER。
+LIVE_ENV_VAR = "OKX_LIVE_ENABLED"
+
+# 风控上限（用户新规则，与 config.py 一致）
+# ⚠️ 5x 下强平缓冲约 19.5%，低于《天命》30% 目标，强平风险高于旧 3x 版本。
+MAX_LEVERAGE = 5            # 杠杆上限 5x（用户明确要求）
+PER_TRADE_MARGIN_RATIO = 0.10  # 单笔保证金 = 总资金 10%（名义 50%）
+MAX_MARGIN_RATIO = 0.50     # 半仓总上限：保证金占用 &lt;= 可用资金的 50%
+MAX_DRAWDOWN = 0.15         # 回撤 &lt;15%，达到即停机
+# 硬止损价格距离 2%：价格逆势 2% 即止损；单笔亏损 = 50% 名义 × 2% = 总资金的 1%
+DEFAULT_STOP_PCT = 0.02
+BTC_SYMBOL = "BTC-USDT"    # 仅 BTC
+
+
+@dataclass
+class LiveOrderIntent:
+    """一笔实盘意向（还不是订单）。止损必须在意向里就带上。"""
+    symbol: str               # 如 BTC-USDT
+    side: str                 # LONG 或 SHORT（多空双向，做空为做多的镜像）
+    qty: float                # 数量（币数）
+    entry: float              # 计划入场价
+    stop: float               # 硬止损价（必须随单绑定）
+    leverage: int             # 杠杆（&lt;=5x，用户修正规则）
+    balance: float            # 实盘子账户可用资金（USDT）
+    peak: float               # 子账户历史最高权益（用于算回撤）
+    existing_margin: float = 0.0   # 已有持仓占用的保证金
+    reason: str = ""          # 进场理由（一句话）
+
+
+class GateRefused(Exception):
+    """闸门拒绝：任一检查不通过时抛出，绝不继续往下走。"""
+
+
+# ===== 第 1 道闸：模式开关 =====
+def is_live_enabled() -&gt; bool:
+    """只有 OKX_LIVE_ENABLED=1 才算想开实盘；其余情况一律 PAPER。"""
+    return os.environ.get(LIVE_ENV_VAR, "") == "1"
+
+
+# ===== 第 2 道闸：API 凭证（只读环境变量，绝不打印值） =====
+def get_credentials_present() -&gt; bool:
+    """
+    只检查三个环境变量是否都非空，不返回、不打印、不记录它们的任何值。
+    凭证应由你在运行前通过环境变量或 Secure Vault 注入，例如：
+      export OKX_API_KEY=...   （不要把真实值写进代码 / 聊天）
+    返回 True 仅代表“都已设置”，不代表凭证正确。
+    """
+    key = os.environ.get("OKX_API_KEY", "")
+    secret = os.environ.get("OKX_API_SECRET", "")
+    passphrase = os.environ.get("OKX_API_PASSPHRASE", "")
+    return bool(key and secret and passphrase)
+
+
+# ===== 第 3 道闸：实盘前检查清单（必须亲手确认） =====
+def preflight_checklist(input_func=input) -&gt; None:
+    """
+    打印实盘前检查清单，要求亲手输入“已确认资金隔离”才算通过。
+    输错 / 输别的 / 空输入 = 拒绝。只问一次，不循环追问。
+    """
+    print("========== 实盘前检查清单（请逐条核对） ==========")
+    print("1) 实盘资金是独立子账户里的一笔小额隔离资金。")
+    print("2) 这笔钱绝不是借贷资金、生活费、还款资金、应急储备。")
+    print("3) 交易 / 储备 / 生活资金 100% 隔离，严禁跨边界划转。")
+    print("4) 我已在模拟盘完整验证过策略、风控、日志。")
+    print("5) 我清楚：加密货币合约交易可能快速亏损全部本金，")
+    print("   杠杆会放大亏损，回测结果不等于未来收益。")
+    print("6) API 凭证只通过环境变量 / Secure Vault 传入，")
+    print("   没有写进代码、没有发到聊天里。")
+    print("--------------------------------------------------")
+    print(f"如果你以上全部确认，请亲手输入：{PREFLIGHT_PHRASE}")
+    answer = input_func("输入确认词：").strip()
+    if answer != PREFLIGHT_PHRASE:
+        raise GateRefused("检查清单未确认：输入与确认词不一致，拒绝实盘。")
+
+
+# ===== 风控计算（纯计算，不联网、不下单） =====
+def calc_preview(order: LiveOrderIntent) -&gt; dict:
+    """算出一笔意向的全部关键数字，供预览与风控检查共用。"""
+    notional = order.qty * order.entry
+    new_margin = notional / order.leverage if order.leverage else float("inf")
+    total_margin = order.existing_margin + new_margin
+    margin_ratio = total_margin / order.balance if order.balance &gt; 0 else float("inf")
+    # 最大亏损 = 入场与硬止损之间的距离 x 数量（不含手续费/滑点，实盘只会更差）
+    max_loss = abs(order.entry - order.stop) * order.qty
+    drawdown = (order.peak - order.balance) / order.peak if order.peak &gt; 0 else 0.0
+    return {
+        "notional": notional,
+        "new_margin": new_margin,
+        "total_margin": total_margin,
+        "margin_ratio": margin_ratio,
+        "margin_cap": order.balance * MAX_MARGIN_RATIO,
+        "max_loss": max_loss,
+        "drawdown": drawdown,
+    }
+
+
+def check_risk(order: LiveOrderIntent) -&gt; dict:
+    """
+    发送前再验风控。返回预览字典；任一项不通过就抛 GateRefused。
+    注意：这个函数在“确认之后、发送之前”会再跑一次，
+    防止确认后市场/资金状态变化导致的风险超标。
+    """
+    errors = []
+    if order.symbol != BTC_SYMBOL:
+        errors.append(f"本套件只做 BTC（{BTC_SYMBOL}），拒绝品种：{order.symbol}")
+    if order.qty &lt;= 0 or order.entry &lt;= 0 or order.stop &lt;= 0 or order.balance &lt;= 0:
+        errors.append("数量 / 价格 / 止损 / 账户余额非法。")
+    if order.leverage &lt; 1 or order.leverage &gt; MAX_LEVERAGE:
+        errors.append(f"杠杆 {order.leverage}x 超过上限 {MAX_LEVERAGE}x。")
+    # 多空双向：做多或做空均可，做空为做多的镜像（久涨后跌破回抽做空）。
+    if order.side not in ("LONG", "SHORT"):
+        errors.append("方向非法：只接受 LONG 或 SHORT。")
+    # 硬止损必须随单绑定，且方向合理
+    if order.side == "LONG" and not (order.stop &lt; order.entry):
+        errors.append("做多意向的硬止损必须低于入场价，且必须随单绑定。")
+    if order.side == "SHORT" and not (order.stop &gt; order.entry):
+        errors.append("做空意向的硬止损必须高于入场价，且必须随单绑定。")
+    preview = calc_preview(order)
+    # 半仓
+    if preview["total_margin"] &gt; preview["margin_cap"] + 1e-9:
+        errors.append(
+            f"半仓不通过：已有保证金 {order.existing_margin:.2f} + 新单 {preview['new_margin']:.2f} "
+            f"= {preview['total_margin']:.2f} &gt; 上限 {preview['margin_cap']:.2f}（可用 {order.balance:.2f} 的 50%）"
+        )
+    # 回撤
+    if preview["drawdown"] &gt;= MAX_DRAWDOWN:
+        errors.append(f"回撤 {preview['drawdown'] * 100:.2f}% 已达 {MAX_DRAWDOWN * 100:.0f}% 上限，停机，拒绝新开仓。")
+    if errors:
+        raise GateRefused("风控检查不通过：" + "；".join(errors))
+    return preview
+
+
+# ===== 第 4 道闸：完整订单预览（全部数字摊开给你看） =====
+def show_preview(order: LiveOrderIntent, preview: dict) -&gt; None:
+    print("========== 订单预览（请仔细核对，确认前不会发送） ==========")
+    print(f"品种：{order.symbol}    方向：{order.side}    理由：{order.reason or '（未填）'}")
+    print(f"数量：{order.qty}    入场价：{order.entry:.2f}    硬止损：{order.stop:.2f}")
+    print(f"杠杆：{order.leverage}x（上限 {MAX_LEVERAGE}x）    名义价值：{preview['notional']:.2f} USDT")
+    print(f"本单保证金：{preview['new_margin']:.2f} USDT")
+    print(f"保证金占用：{preview['total_margin']:.2f} / 上限 {preview['margin_cap']:.2f} USDT"
+          f"（占比 {preview['margin_ratio'] * 100:.1f}% / 50%）")
+    print(f"最大亏损（按止损算，不含手续费/滑点）：约 {preview['max_loss']:.2f} USDT")
+    print(f"子账户可用：{order.balance:.2f} USDT    回撤：{preview['drawdown'] * 100:.2f}%（上限 15%）")
+    print("资金隔离：本单资金来自独立子账户小额隔离资金，不动用借贷 / 生活 / 还款 / 储备资金。")
+    print("================================================================")
+
+
+# ===== 第 5 道闸：手动确认（只给一次机会，不重试） =====
+def confirm_order(input_func=input) -&gt; None:
+    """
+    要求亲手输入确切确认词 CONFIRM。只问一次。
+    输错 / 输别的 / 空输入 / 直接回车 = 拒绝，不重试、不循环追问。
+    """
+    print(f"确认下单请输入确切确认词：{CONFIRM_PHRASE}（区分大小写，输错即拒绝，不重试）")
+    answer = input_func("输入确认词：").strip()
+    if answer != CONFIRM_PHRASE:
+        raise GateRefused("手动确认未通过：输入与确认词不一致，拒绝下单，不重试。")
+
+
+# ===== 完整闸门流程：预览 -&gt; 确认 -&gt; 再验风控 -&gt;（本版本不发送） =====
+def run_gated_order(order: LiveOrderIntent, input_func=input) -&gt; dict:
+    """
+    走完整个闸门流程。返回结果字典，绝不抛出以外的副作用。
+    成功时 status = "gated_ready_not_sent"：意思是“已通过全部闸门，
+    但本版本故意不发送真实订单”，真实下单请求需你单独审阅、单独接线。
+    """
+    # 第 1 道闸：模式开关
+    if not is_live_enabled():
+        return {
+            "status": "refused_paper_mode",
+            "message": "当前为 PAPER 模式（未设置 OKX_LIVE_ENABLED=1），拒绝实盘，未发送任何订单。",
+        }
+    # 第 2 道闸：凭证齐全（只检查是否设置，不打印值）
+    if not get_credentials_present():
+        return {
+            "status": "refused_missing_credentials",
+            "message": "API 凭证缺失：请通过环境变量 OKX_API_KEY / OKX_API_SECRET / "
+                       "OKX_API_PASSPHRASE 或 Secure Vault 注入，绝不写进代码 / 聊天。",
+        }
+    try:
+        # 第 3 道闸：检查清单
+        preflight_checklist(input_func)
+        # 预览前先验一次风控（提前拦截明显违规的意向）
+        preview = check_risk(order)
+        # 第 4 道闸：完整预览
+        show_preview(order, preview)
+        # 第 5 道闸：手动确认（一次机会）
+        confirm_order(input_func)
+        # 第 6 道闸：发送前再验风控（确认后、发送前最后一次）
+        preview = check_risk(order)
+    except GateRefused as e:
+        return {"status": "refused", "message": str(e)}
+    # 全部闸门通过，但本版本故意不发送真实订单。
+    return {
+        "status": "gated_ready_not_sent",
+        "message": "已通过全部闸门，但本版本未接入真实下单请求，未发送任何订单。"
+                   "如需真正下单，请单独审阅并接线 OKX 签名下单接口，绝不要跳过任一闸门。",
+        "preview": {
+            "symbol": order.symbol,
+            "side": order.side,
+            "qty": order.qty,
+            "entry": order.entry,
+            "stop": order.stop,
+            "leverage": order.leverage,
+            "notional": round(preview["notional"], 2),
+            "new_margin": round(preview["new_margin"], 2),
+            "total_margin": round(preview["total_margin"], 2),
+            "margin_cap": round(preview["margin_cap"], 2),
+            "max_loss": round(preview["max_loss"], 2),
+            "drawdown_pct": round(preview["drawdown"] * 100, 2),
+        },
+    }
+
+
+def _sample_order() -&gt; LiveOrderIntent:
+    """演练用示例意向：符合用户修正规则。数字仅用于演示。"""
+    # 子账户 10000 USDT，BTC 90000，单笔保证金 10% = 1000，5x -&gt; 名义 5000（= 50%，顶到半仓上限）
+    # qty = 5000 / 90000 ≈ 0.055556；止损 88200（价格 -2%），最大亏损约 100 USDT（= 总资金 1%）
+    return LiveOrderIntent(
+        symbol="BTC-USDT", side="LONG", qty=0.055556,
+        entry=90000.0, stop=88200.0, leverage=5,
+        balance=10000.0, peak=10000.0, existing_margin=0.0,
+        reason="dry-run 演示",
+    )
+
+
+def dry_run() -&gt; None:
+    """演练（不发真实订单，不需要凭证）：演示两类拒绝。"""
+    print("========== 演练模式 dry-run（不发真实订单） ==========")
+    # 演练 1：PAPER 模式下直接拒绝实盘
+    os.environ.pop(LIVE_ENV_VAR, None)
+    result = run_gated_order(_sample_order(), input_func=lambda _prompt: CONFIRM_PHRASE)
+    print(f"[演练 1] PAPER 模式：{result['status']} — {result['message']}")
+    # 演练 2：模拟已开 LIVE 开关但凭证缺失 -&gt; 拒绝（不打印凭证值）
+    os.environ[LIVE_ENV_VAR] = "1"
+    os.environ.pop("OKX_API_KEY", None)
+    os.environ.pop("OKX_API_SECRET", None)
+    os.environ.pop("OKX_API_PASSPHRASE", None)
+    result = run_gated_order(_sample_order(), input_func=lambda _prompt: CONFIRM_PHRASE)
+    print(f"[演练 2] LIVE 开关已开但凭证缺失：{result['status']} — {result['message']}")
+    # 演练 3：凭证齐全（用假占位值，仅演练流程），检查清单通过，
+    # 但下单确认词输错（CONFIRN）-&gt; 拒绝，不重试。
+    # 注意输入顺序：先是检查清单确认词，再是下单确认词。
+    os.environ["OKX_API_KEY"] = "DUMMY_PLACEHOLDER_NOT_REAL"
+    os.environ["OKX_API_SECRET"] = "DUMMY_PLACEHOLDER_NOT_REAL"
+    os.environ["OKX_API_PASSPHRASE"] = "DUMMY_PLACEHOLDER_NOT_REAL"
+    drill3_answers = iter([PREFLIGHT_PHRASE, "CONFIRN"])
+    result = run_gated_order(
+        _sample_order(),
+        input_func=lambda _prompt: next(drill3_answers),
+    )
+    print(f"[演练 3] 下单确认词输错：{result['status']} — {result['message']}")
+    # 演练 4：风控违规意向（杠杆 6x，超过 5x 上限）-&gt; 检查清单通过后，
+    # 在预览前风控检查即拒绝，根本走不到下单确认。
+    bad = _sample_order()
+    bad.leverage = 6
+    drill4_answers = iter([PREFLIGHT_PHRASE])
+    result = run_gated_order(
+        bad, input_func=lambda _prompt: next(drill4_answers),
+    )
+    print(f"[演练 4] 杠杆 6x 超上限：{result['status']} — {result['message']}")
+    # 演练 5：做空（SHORT）意向通过风控检查 + 预览（做空为做多的镜像，
+    # 止损在入场价上方）。只做风控 + 预览，不走手动确认、不发送。
+    short = LiveOrderIntent(
+        symbol="BTC-USDT", side="SHORT", qty=0.055556,
+        entry=90000.0, stop=91800.0, leverage=5,
+        balance=10000.0, peak=10000.0, existing_margin=0.0,
+        reason="dry-run 演示 SHORT",
+    )
+    try:
+        short_preview = check_risk(short)
+        print(f"[演练 5] 做空 SHORT 通过风控：保证金 {short_preview['new_margin']:.2f}，"
+              f"最大亏损约 {short_preview['max_loss']:.2f} USDT（总资金 1%）")
+        show_preview(short, short_preview)
+    except GateRefused as e:
+        print(f"[演练 5] 做空 SHORT 被拒绝：{e}")
+    # 清理演练用的假占位凭证与开关，避免污染后续真实运行环境
+    for k in (LIVE_ENV_VAR, "OKX_API_KEY", "OKX_API_SECRET", "OKX_API_PASSPHRASE"):
+        os.environ.pop(k, None)
+    print("演练结束：全程未发送任何真实订单，未调用任何 OKX 实盘接口。")
+
+
+if __name__ == "__main__":
+    ap = argparse.ArgumentParser(description="OKX 带人工确认的实盘闸门模块（默认 PAPER，不自动下单）")
+    ap.add_argument("--dry-run", action="store_true", help="演练：演示 PAPER 拒绝 + 凭证缺失拒绝 + 确认词输错拒绝 + 风控拒绝")
+    ap.add_argument("--preflight", action="store_true", help="只跑实盘前检查清单（需手动输入确认词）")
+    ap.add_argument("--preview", action="store_true", help="只看示例订单预览与风控计算，不确认、不发送")
+    args = ap.parse_args()
+    if args.dry_run:
+        dry_run()
+    elif args.preflight:
+        try:
+            preflight_checklist()
+            print("检查清单通过。")
+        except GateRefused as e:
+            print(f"拒绝：{e}")
+            sys.exit(1)
+    elif args.preview:
+        order = _sample_order()
+        try:
+            preview = check_risk(order)
+            show_preview(order, preview)
+            print("预览结束：未确认、未发送。")
+        except GateRefused as e:
+            print(f"拒绝：{e}")
+            sys.exit(1)
+    else:
+        print("默认 PAPER 模式，不发真实订单。")
+        print("演练：python3 live_gated.py --dry-run")
+        print("检查清单：python3 live_gated.py --preflight")
+        print("只看预览：python3 live_gated.py --preview")
+</pre>
+<div class="doc-body"><b>code/okx_SYSTEM.md</b></div>
+<pre># 交易系统（用户定稿 2026-10-17）
+
+理念：轻仓，顺势，止损。盈利单绝不变成亏损单。尽量少做，多做多错。交易是概率游戏。
+
+## 1. 只做 BTC
+- 主动交易（加杠杆）只做 BTC-USDT，不做其他币。
+- 外汇、黄金、ETF、纳指、标普 500 等是定投长期资产，不走这套杠杆交易系统，两摊分开。（用户 2026-10-23 澄清：2026-10-17 晚的「多市场」更正把定投长期资产和杠杆交易混在一起，以本次澄清为准。）
+
+## 2. 轻仓
+- 单笔保证金 = 总资金的 10%，5 倍杠杆后名义 50%。
+- 拿 10000 打比方：保证金 1000，名义 5000。
+- 一笔亏多少算轻：亏总资金的 1% 叫轻，亏 5% 就不叫轻了。
+
+## 3. 顺势（突破支撑 / 阻力）
+- 入场不是“跌久了就做多”，是跌破 / 突破支撑阻力才做。
+- 做多：价格涨超以前的阻力位 → 试着做多。
+- 做空：价格跌破以前的支撑位 → 试着做空。
+- 周线定方向，日线找进场：周线看大方向，日线等突破支撑 / 阻力那一下才进。
+- 看不懂就不做。没波动、不确定就不做，有波动才能判断。
+
+## 4. 止损
+- 硬止损：价格逆势 2% 就止损，单笔亏 = 总资金的 1%。
+- 进场就绑定止损，不扩宽、不硬扛。
+
+## 5. 止盈（盈利单绝不变成亏损单）
+- 盈利到 2%（1 倍止损）：止损移到入场价，保本，这笔最多不亏。
+- 盈利到 4%（2 倍止损）：平一半，落袋一半。
+- 剩下一半：用移动止损跟着走，周线翻方向了就全出。
+
+## 6. 持仓时间
+- 一笔最多拿 1 个月，到时间就出，不拿 6 个月。
+
+## 7. 资金隔离
+- 交易资金跟还款 / 生活费 100% 隔离，亏完也不影响还债。
+- 不用借来的钱、不用生活费、不用还款的钱交易。
+
+## 8. 少做
+- 一年就做几笔看得懂的，不天天做。
+
+</pre>
+<div class="doc-body"><b>code/okx_read.py</b></div>
+<pre>#!/usr/bin/env python3
+"""OKX read-only account reader (user-approved 2026-10-23).
+
+Reads the user's OKX account via the official REST API using a READ-ONLY
+API key (key + secret + passphrase, HMAC-SHA256 signed requests).
+This script implements GET read endpoints ONLY. It has no order-placement,
+transfer, or withdrawal code paths and never will.
+
+Credentials live in ./.okx_readonly.json (file mode 0600, same directory
+as this script). Never print, log, or copy the credential values anywhere.
+"""
+import base64
+import hashlib
+import hmac
+import json
+import os
+import sys
+import urllib.request
+from datetime import datetime, timezone
+
+BASE = "https://www.okx.com"
+CREDS_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".okx_readonly.json")
+
+
+def load_creds():
+    if not os.path.exists(CREDS_PATH):
+        sys.exit("ERROR: credentials file not installed yet (.okx_readonly.json missing)")
+    mode = oct(os.stat(CREDS_PATH).st_mode)[-3:]
+    if mode != "600":
+        sys.exit(f"ERROR: credentials file permissions are {mode}, expected 600 — refusing to use")
+    with open(CREDS_PATH, encoding="utf-8") as f:
+        c = json.load(f)
+    for k in ("api_key", "secret", "passphrase"):
+        if not c.get(k):
+            sys.exit(f"ERROR: credentials file missing field: {k}")
+    return c
+
+
+def timestamp() -&gt; str:
+    now = datetime.now(timezone.utc)
+    return now.strftime("%Y-%m-%dT%H:%M:%S.") + f"{now.microsecond // 1000:03d}Z"
+
+
+def sign(secret: str, ts: str, method: str, path: str, body: str = "") -&gt; str:
+    prehash = f"{ts}{method}{path}{body}"
+    digest = hmac.new(secret.encode(), prehash.encode(), hashlib.sha256).digest()
+    return base64.b64encode(digest).decode()
+
+
+class NoRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, *args):
+        raise RuntimeError("redirect refused")
+
+
+def get(path: str, auth: bool = True) -&gt; dict:
+    headers = {"Content-Type": "application/json", "User-Agent": "Mozilla/5.0"}
+    if auth:
+        creds = load_creds()
+        ts = timestamp()
+        headers.update({
+            "OK-ACCESS-KEY": creds["api_key"],
+            "OK-ACCESS-SIGN": sign(creds["secret"], ts, "GET", path),
+            "OK-ACCESS-TIMESTAMP": ts,
+            "OK-ACCESS-PASSPHRASE": creds["passphrase"],
+        })
+    req = urllib.request.Request(BASE + path, headers=headers, method="GET")
+    try:
+        with urllib.request.build_opener(NoRedirect()).open(req, timeout=30) as resp:
+            return json.loads(resp.read().decode("utf-8"))
+    except urllib.error.HTTPError as e:
+        body = e.read().decode("utf-8", errors="replace")
+        sys.exit(f"HTTP {e.code}: {body}")
+
+
+def cmd_time():
+    out = get("/api/v5/public/time", auth=False)
+    print(json.dumps(out, ensure_ascii=False))
+
+
+def cmd_balance():
+    out = get("/api/v5/account/balance")
+    if out.get("code") != "0":
+        sys.exit(f"OKX error: {out.get('code')} {out.get('msg')}")
+    for acct in out.get("data", []):
+        print(f"totalEq (USD): {acct.get('totalEq')}")
+        for d in acct.get("details", []):
+            if float(d.get("eq") or 0) != 0:
+                print(f"  {d.get('ccy')}: eq={d.get('eq')} avail={d.get('availBal')} frozen={d.get('frozenBal')}")
+
+
+def cmd_positions():
+    out = get("/api/v5/account/positions")
+    if out.get("code") != "0":
+        sys.exit(f"OKX error: {out.get('code')} {out.get('msg')}")
+    rows = [p for p in out.get("data", []) if float(p.get("pos") or 0) != 0]
+    if not rows:
+        print("no open positions")
+    for p in rows:
+        print(f"{p.get('instId')} {p.get('posSide')} pos={p.get('pos')} avgPx={p.get('avgPx')} "
+              f"lever={p.get('lever')} mgnMode={p.get('mgnMode')} upl={p.get('upl')} uplRatio={p.get('uplRatio')} "
+              f"liqPx={p.get('liqPx')} markPx={p.get('markPx')}")
+
+
+def cmd_fills():
+    out = get("/api/v5/trade/fills?limit=20")
+    if out.get("code") != "0":
+        sys.exit(f"OKX error: {out.get('code')} {out.get('msg')}")
+    for f in out.get("data", []):
+        ts = datetime.fromtimestamp(int(f.get("ts", "0")) / 1000, timezone.utc).isoformat()
+        print(f"{ts} {f.get('instId')} {f.get('side')} px={f.get('fillPx')} sz={f.get('fillSz')} "
+              f"fee={f.get('fee')} {f.get('feeCcy')} pnl={f.get('fillPnl')}")
+
+
+def cmd_algo():
+    rows = []
+    for t in ("conditional", "oco", "trigger", "move_order_stop"):
+        out = get(f"/api/v5/trade/orders-algo-pending?ordType={t}")
+        if out.get("code") != "0":
+            sys.exit(f"OKX error: {out.get('code')} {out.get('msg')}")
+        rows.extend(out.get("data", []))
+    if not rows:
+        print("no pending conditional (stop/take-profit) orders")
+    for o in rows:
+        print(f"{o.get('instId')} {o.get('side')} sz={o.get('sz')} slTriggerPx={o.get('slTriggerPx')} "
+              f"tpTriggerPx={o.get('tpTriggerPx')} ordType={o.get('ordType')} state={o.get('state')}")
+
+
+if __name__ == "__main__":
+    cmd = sys.argv[1] if len(sys.argv) &gt; 1 else "balance"
+    {"time": cmd_time, "balance": cmd_balance, "positions": cmd_positions, "fills": cmd_fills,
+     "algo": cmd_algo}.get(
+        cmd, lambda: sys.exit(f"unknown command: {cmd} (use time|balance|positions|fills|algo)"))()
+</pre>
+<div class="doc-body"><b>code/okx_watch.py</b></div>
+<pre>#!/usr/bin/env python3
+"""OKX position watcher + system-rule auditor (user-approved 2026-10-23).
+
+Polls the user's OKX account through the read-only helper (okx_read.py),
+diffs positions against the last snapshot, and audits open positions
+against the user's final trading system (~/workspace/okx-trading/SYSTEM.md):
+
+  - single-trade margin ~10% of total equity (flag if &gt; 11%)
+  - leverage &lt;= 5x
+  - hard stop: an exchange-side conditional SL order should exist;
+    for a fresh position its trigger should sit ~2% from entry
+    (flag if missing entirely, or if distance &gt; 3%)
+  - +2% rule: if a position's mark gain peaked &gt;= +2% and later falls
+    back below entry with no SL order at/above entry, flag it
+    (profitable trade must never become a loser)
+  - max hold 1 month (flag beyond 30 days)
+
+Output: one JSON object on stdout: {"events": [ {type, detail, ...} ]}
+Empty events = nothing to report. Infrastructure failures (no creds,
+API errors) produce {"events": [], "infra_error": "..."} so the caller
+stays silent — never wake the user for our own plumbing problems.
+
+State: ./.okx_watch_state.json next to this script (positions snapshot,
+first-seen timestamps, peak gains). Not a credential file.
+"""
+import json
+import os
+import sys
+from datetime import datetime, timezone
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import okx_read  # noqa: E402
+
+STATE_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".okx_watch_state.json")
+
+
+def f(x, default=0.0):
+    try:
+        return float(x)
+    except (TypeError, ValueError):
+        return default
+
+
+def load_state():
+    if os.path.exists(STATE_PATH):
+        with open(STATE_PATH, encoding="utf-8") as fh:
+            return json.load(fh)
+    return {"positions": {}}
+
+
+def save_state(state):
+    tmp = STATE_PATH + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as fh:
+        json.dump(state, fh, ensure_ascii=False, indent=1)
+    os.replace(tmp, STATE_PATH)
+
+
+def main():
+    try:
+        bal = okx_read.get("/api/v5/account/balance")
+        pos = okx_read.get("/api/v5/account/positions")
+        algo = {"data": []}
+        for t in ("conditional", "oco"):
+            part = okx_read.get(f"/api/v5/trade/orders-algo-pending?ordType={t}")
+            if part.get("code") != "0":
+                raise RuntimeError(f"algo {t} code {part.get('code')}")
+            algo["data"].extend(part.get("data", []))
+    except SystemExit as e:
+        print(json.dumps({"events": [], "infra_error": str(e)}))
+        return
+    except Exception as e:  # network etc. — stay silent
+        print(json.dumps({"events": [], "infra_error": f"{type(e).__name__}: {e}"}))
+        return
+    if bal.get("code") != "0" or pos.get("code") != "0":
+        print(json.dumps({"events": [], "infra_error": f"okx codes bal={bal.get('code')} pos={pos.get('code')}"}))
+        return
+
+    total_eq = f(bal["data"][0].get("totalEq")) if bal.get("data") else 0.0
+    algo_by_inst = {}
+    for o in algo.get("data", []):
+        algo_by_inst.setdefault(o.get("instId"), []).append(o)
+
+    now = datetime.now(timezone.utc).isoformat()
+    state = load_state()
+    old = state.get("positions", {})
+    new = {}
+    events = []
+
+    for p in pos.get("data", []):
+        if f(p.get("pos")) == 0:
+            continue
+        key = f"{p.get('instId')}|{p.get('posSide')}"
+        avg = f(p.get("avgPx"))
+        mark = f(p.get("markPx"))
+        gain = (mark - avg) / avg if avg else 0.0
+        if p.get("posSide") == "short":
+            gain = -gain
+        prev = old.get(key)
+        peak = max(prev.get("peak_gain", gain), gain) if prev else gain
+        new[key] = {
+            "instId": p.get("instId"), "posSide": p.get("posSide"),
+            "pos": p.get("pos"), "avgPx": avg, "lever": f(p.get("lever")),
+            "mgnMode": p.get("mgnMode"), "margin": f(p.get("margin")),
+            "upl": f(p.get("upl")), "markPx": mark,
+            "first_seen": prev.get("first_seen", now) if prev else now,
+            "peak_gain": peak,
+        }
+
+        if prev is None:
+            events.append({"type": "NEW_POSITION", "key": key, **new[key]})
+        elif prev.get("pos") != p.get("pos"):
+            events.append({"type": "SIZE_CHANGED", "key": key,
+                           "old_pos": prev.get("pos"), **new[key]})
+
+        # --- rule audit (only on new/changed positions, plus the +2% and hold checks) ---
+        audit = prev is None or prev.get("pos") != p.get("pos")
+        margin_share = (f(p.get("margin")) / total_eq) if total_eq else 0.0
+        if audit and total_eq and margin_share &gt; 0.11:
+            events.append({"type": "RULE_MARGIN", "key": key,
+                           "margin_share": round(margin_share, 4), "totalEq": total_eq})
+        if audit and f(p.get("lever")) &gt; 5:
+            events.append({"type": "RULE_LEVER", "key": key, "lever": f(p.get("lever"))})
+        orders = algo_by_inst.get(p.get("instId"), [])
+        sl_prices = [f(o.get("slTriggerPx")) for o in orders if f(o.get("slTriggerPx")) &gt; 0]
+        if audit:
+            if not sl_prices:
+                events.append({"type": "RULE_NO_EXCHANGE_SL", "key": key, "avgPx": avg})
+            else:
+                for sl in sl_prices:
+                    dist = abs(avg - sl) / avg if avg else 0.0
+                    if dist &gt; 0.03:
+                        events.append({"type": "RULE_SL_FAR", "key": key,
+                                       "avgPx": avg, "slTriggerPx": sl, "dist": round(dist, 4)})
+        # +2% -&gt; back below entry, without a protective SL at/above entry
+        if peak &gt;= 0.02 and gain &lt; 0:
+            protected = False
+            for sl in sl_prices:
+                if p.get("posSide") == "long" and sl &gt;= avg:
+                    protected = True
+                if p.get("posSide") == "short" and 0 &lt; sl &lt;= avg:
+                    protected = True
+            if not protected and not new[key].get("flagged_2pct"):
+                events.append({"type": "RULE_2PCT_GIVEBACK", "key": key,
+                               "peak_gain": round(peak, 4), "gain_now": round(gain, 4)})
+                new[key]["flagged_2pct"] = True
+        if prev and prev.get("flagged_2pct"):
+            new[key]["flagged_2pct"] = True
+        # hold &gt; 30 days
+        first_seen = new[key]["first_seen"]
+        try:
+            age_days = (datetime.now(timezone.utc) - datetime.fromisoformat(first_seen)).days
+        except ValueError:
+            age_days = 0
+        if age_days &gt; 30 and not new[key].get("flagged_hold"):
+            events.append({"type": "RULE_HOLD_30D", "key": key, "age_days": age_days})
+            new[key]["flagged_hold"] = True
+        if prev and prev.get("flagged_hold"):
+            new[key]["flagged_hold"] = True
+
+    for key, prev in old.items():
+        if key not in new:
+            events.append({"type": "CLOSED", "key": key,
+                           "avgPx": prev.get("avgPx"), "last_upl": prev.get("upl"),
+                           "first_seen": prev.get("first_seen")})
+
+    state["positions"] = new
+    state["last_check"] = now
+    state["totalEq"] = total_eq
+    save_state(state)
+    print(json.dumps({"events": events}, ensure_ascii=False))
+
+
+if __name__ == "__main__":
+    main()
+</pre>
+<div class="doc-body"><b>code/pagetest_export-pdf.js</b></div>
+<pre>// 《个人交互数据桥》PDF 导出器
+// 用法: node export-pdf.js [YYYY-MM-DD]  （缺省用今天）
+// 从 space-2.html 提取文档容器 → 生成带打印样式的独立 HTML → 调无头 Chrome 打成 PDF
+const fs = require('fs');
+const { JSDOM } = require('jsdom');
+const { execFileSync } = require('child_process');
+
+const SRC = '/home/hatch/workspace/bridge-deploy/data.html';
+const OUTDIR = '/home/hatch/workspace/your_files';
+const WORKDIR = '/home/hatch/workspace/bridge-deploy/pagetest';
+const date = process.argv[2] || new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Shanghai' });
+
+const html = fs.readFileSync(SRC, 'utf8');
+const dom = new JSDOM(html);
+const d = dom.window.document;
+let container = d.querySelector('article.doc');
+if (!container || !container.querySelector('#doc-m7-4')) { console.error('找不到文档容器'); process.exit(1); }
+const chars = container.textContent.replace(/\s+/g, '').length;
+
+const css = `
+@page { size: A4; margin: 18mm 16mm 16mm 16mm; @bottom-center { content: "个人交互数据桥 · 第 " counter(page) " 页"; font-size: 8pt; color: #999; } }
+* { box-sizing: border-box; }
+body { font-family: "Noto Sans CJK SC", "Source Han Sans SC", sans-serif; font-size: 10.5pt; line-height: 1.7; color: #1c1c1e; margin: 0; }
+.cover { border-bottom: 2.5px solid #0a5cff; padding-bottom: 14px; margin-bottom: 22px; }
+.cover h1 { font-size: 24pt; margin: 0 0 6px 0; letter-spacing: 1px; }
+.cover .meta { color: #555; font-size: 10pt; }
+h3.doc-part { font-size: 16pt; color: #0a5cff; border-bottom: 1.5px solid #d7e3ff; padding-bottom: 5px; margin: 26px 0 12px 0; page-break-before: always; }
+h3.doc-part:first-of-type { page-break-before: avoid; }
+h4 { font-size: 12.5pt; margin: 18px 0 8px 0; color: #111; }
+h5.doc-sub { font-size: 11pt; margin: 14px 0 6px 0; color: #333; }
+.doc-body { white-space: pre-wrap; margin: 6px 0 12px 0; }
+.doc-table-wrap { overflow: visible; margin: 8px 0 16px 0; }
+table { border-collapse: collapse; width: 100%; font-size: 9.3pt; line-height: 1.55; }
+th, td { border: 0.6pt solid #c9ccd4; padding: 4px 6px; vertical-align: top; text-align: left; }
+th { background: #eef3ff; font-weight: 600; }
+thead { display: table-header-group; }
+tr { page-break-inside: avoid; }
+a { color: #0a5cff; text-decoration: none; }
+.doc-nav, nav { font-size: 9.5pt; color: #555; line-height: 1.9; }
+ul, ol { margin: 6px 0 10px 0; }
+`;
+
+const out = `&lt;!DOCTYPE html&gt;
+&lt;html lang="zh-CN"&gt;&lt;head&gt;&lt;meta charset="utf-8"&gt;
+&lt;title&gt;个人交互数据桥（${date}）&lt;/title&gt;&lt;style&gt;${css}&lt;/style&gt;&lt;/head&gt;
+&lt;body&gt;
+&lt;div class="cover"&gt;&lt;h1&gt;个人交互数据桥&lt;/h1&gt;
+&lt;div class="meta"&gt;个人数据档案（离线存档版）&lt;br&gt;导出日期：${date}　|　正文字数：约 ${chars.toLocaleString()} 字　|　内容与网站「我的文档」一致，文档为唯一事实源&lt;/div&gt;&lt;/div&gt;
+${container.innerHTML}
+&lt;/body&gt;&lt;/html&gt;`;
+
+const htmlPath = `${WORKDIR}/personal-bridge-${date}.html`;
+const pdfPath = `${OUTDIR}/personal-bridge-${date}.pdf`;
+fs.writeFileSync(htmlPath, out, 'utf8');
+execFileSync('/home/hatch/assets/artifacts/headless-shell/chrome-headless-shell', ['--disable-gpu', '--no-sandbox', '--disable-dev-shm-usage', '--no-pdf-header-footer', `--print-to-pdf=${pdfPath}`, `file://${htmlPath}`], { stdio: 'pipe' });
+const sz = fs.statSync(pdfPath).size;
+fs.copyFileSync(pdfPath, `${OUTDIR}/personal-bridge-latest.pdf`);
+console.log(`PDF 已生成: ${pdfPath} (${(sz / 1024).toFixed(0)} KB, 正文 ${chars} 字)，常驻版 personal-bridge-latest.pdf 已同步刷新`);
+</pre>
+<div class="doc-body"><b>code/pagetest_test.js</b></div>
+<pre>// Bridge 网站真渲染测试：node test.js &lt;html文件路径&gt;
+// 场景A 全新存储 / 场景B 本地存储被空数组污染；断言零脚本错误 + 各模块关键数字
+const fs = require('fs');
+const { JSDOM } = require('jsdom');
+const path = process.argv[2];
+if (!path) { console.error('用法: node test.js &lt;html路径&gt;'); process.exit(2); }
+const html = fs.readFileSync(path, 'utf8');
+
+function run(label, poison) {
+  const errors = [];
+  const dom = new JSDOM(html, {
+    url: 'https://lin35635.github.io/bridge/',
+    runScripts: 'dangerously',
+    pretendToBeVisual: true,
+    beforeParse(window) {
+      window.addEventListener('error', e =&gt; errors.push('window.onerror: ' + e.message));
+      if (poison) {
+        const keys = ['bridge_debts_v4','bridge_trades_v4','bridge_lifes_v4','bridge_reverses_v4','bridge_expenses_v4','bridge_incomes_v4','bridge_sleeps_v4','bridge_reviews_v4'];
+        keys.forEach(k =&gt; window.localStorage.setItem(k, '[]'));
+      }
+    }
+  });
+  const d = dom.window.document;
+  const txt = id =&gt; { const el = d.getElementById(id); return el ? el.textContent.trim() : '(无此元素)'; };
+  const count = id =&gt; { const el = d.getElementById(id); return el ? el.children.length : -1; };
+  console.log('==== ' + label + ' ====');
+  console.log('脚本错误:', errors.length ? errors : '无');
+  console.log('债务剩余 remainNum:', txt('remainNum'));
+  console.log('到账 本月/累计/条数:', txt('iMonthTotal'), '/', txt('iAllTotal'), '/', txt('iAllCount'), '| 明细条数:', count('incomeEntries'));
+  console.log('睡眠 已记录晚数:', txt('sCount'), '| 近7天平均:', txt('sAvg'), '| 明细条数:', count('sleepEntries'));
+  console.log('交易 明细条数:', count('tradeEntries'));
+  console.log('健身 明细条数:', count('lifeEntries'));
+  dom.window.close();
+}
+run('场景A：全新浏览器（无本地存储）', false);
+run('场景B：本地存储被空数组污染', true);
+</pre>
+<div class="doc-body"><b>code/reorder-doc.py</b></div>
+<pre>#!/usr/bin/env python3
+# 文档按日期倒序重排：日志型块（睡眠日记录、健身训练小节、7.3、7.4 表格行）从新到旧
+import re, sys
+
+SRC = sys.argv[1]
+html = open(SRC, encoding='utf-8').read()
+orig_len = len(html)
+
+def split_h5_blocks(text, start_marker, end_marker):
+    """切出 start_marker 到 end_marker 之间的区域，按 &lt;h5 边界切块，返回 (前缀, [块...], 后缀全串起止)"""
+    i = text.index(start_marker)
+    j = text.index(end_marker)
+    region = text[i:j]
+    parts = re.split(r'(?=&lt;h5 )', region)
+    head, blocks = parts[0], [p for p in parts[1:] if p.strip()]
+    return i, j, head, blocks
+
+def replace_region(text, i, j, new_region):
+    return text[:i] + new_region + text[j:]
+
+# ---------- 第六部分 睡眠：条目倒序 ----------
+i, j, head, blocks = split_h5_blocks(html, '&lt;h5 class="doc-sub" id="doc-p6-1"&gt;', '&lt;h5 class="doc-sub" id="doc-p6-6"&gt;')
+assert len(blocks) == 7, f'睡眠条目数异常: {len(blocks)}'
+blocks.reverse()
+# “一、每日睡眠记录｜”前缀：从 10-14 块移到 10-20 块
+for k, b in enumerate(blocks):
+    if '2026年10月14日' in b:
+        blocks[k] = b.replace('一、每日睡眠记录｜2026年10月14日', '2026年10月14日')
+    if '2026年10月20日' in b:
+        blocks[k] = b.replace('2026年10月20日', '一、每日睡眠记录（按日期从新到旧）｜2026年10月20日')
+html = replace_region(html, i, j, head + ''.join(blocks))
+print('睡眠：7 条已倒序（10-20 在前）')
+
+# ---------- 第五部分 健身：训练小节倒序 ----------
+i, j, head, blocks = split_h5_blocks(html, '&lt;h5 class="doc-sub" id="doc-p5-4"&gt;', '&lt;h5 class="doc-sub" id="doc-p5-6"&gt;')
+assert len(blocks) == 3, f'健身小节数异常: {len(blocks)}'
+blocks.reverse()
+for k, b in enumerate(blocks):
+    if '10月13日' in b:
+        blocks[k] = b.replace('二、已完成的力量训练｜2026年10月13日', '2026年10月13日')
+    if '10月19日' in b:
+        blocks[k] = b.replace('2026年10月19日', '二、已完成的力量训练（按日期从新到旧）｜2026年10月19日')
+html = replace_region(html, i, j, head + ''.join(blocks))
+print('健身：3 个训练小节已倒序（10-19 在前）')
+
+# ---------- 表格行倒序（7.3 / 7.4） ----------
+def reverse_table_rows(text, anchor_id):
+    k = text.index(f'id="{anchor_id}"')
+    t0 = text.index('&lt;tbody&gt;', k)
+    t1 = text.index('&lt;/tbody&gt;', t0)
+    body = text[t0 + len('&lt;tbody&gt;'):t1]
+    parts = re.split(r'(&lt;tr(?:\s[^&gt;]*)?&gt;.*?&lt;/tr&gt;)', body, flags=re.S)
+    rows = [p for p in parts if p.lstrip().startswith('&lt;tr')]
+    seps = [p for p in parts if not p.lstrip().startswith('&lt;tr')]
+    residue = ''.join(seps)
+    assert len(rows) &gt;= 3, f'{anchor_id} 行数异常: {len(rows)}'
+    assert residue.strip() == '', f'{anchor_id} 仍有行外残留，停止重排: {residue.strip()[:80]}'
+    pre, post, mids = seps[0], seps[-1], seps[1:-1]
+    units = []
+    for idx, r in enumerate(rows):
+        units.append(r + (mids[idx] if idx &lt; len(mids) else ''))
+    units.reverse()
+    new_body = pre + ''.join(units) + post
+    return text[:t0 + len('&lt;tbody&gt;')] + new_body + text[t1:], len(rows)
+
+html, n73 = reverse_table_rows(html, 'doc-m7-4')
+print(f'7.3：{n73} 行已倒序')
+html, n74 = reverse_table_rows(html, 'doc-m7-5')
+print(f'7.4：{n74} 行已倒序')
+
+# ---------- 导航链接顺序同步（第五、六部分） ----------
+def reverse_nav_links(text, part_id, ids):
+    k = text.index(f'id="{part_id}"')
+    n0 = text.index('&lt;nav', k)
+    n1 = text.index('&lt;/nav&gt;', n0)
+    nav = text[n0:n1]
+    found = {}
+    for link_id in ids:
+        m = re.search(r'&lt;a href="#' + link_id + r'"&gt;[^&lt;]*&lt;/a&gt;', nav)
+        assert m, f'导航链接缺失: {link_id}'
+        found[link_id] = m.group(0)
+    rev = list(ids)[::-1]
+    # 用占位符逐个替换，避免互相覆盖
+    for idx, link_id in enumerate(ids):
+        nav = nav.replace(found[link_id], f'\x00{idx}\x00')
+    for idx, link_id in enumerate(ids):
+        nav = nav.replace(f'\x00{idx}\x00', found[rev[idx]])
+    return text[:n0] + nav + text[n1:]
+
+html = reverse_nav_links(html, 'part-6', ['doc-p6-1', 'doc-p6-2', 'doc-p6-3', 'doc-p6-4', 'doc-p6-5', 'doc-p6-5b', 'doc-p6-5c'])
+html = reverse_nav_links(html, 'part-5', ['doc-p5-4', 'doc-p5-5', 'doc-p5-11'])
+print('导航：第五、六部分日期链接已倒序')
+
+# 睡眠 p6-0 记录范围补到 10-20
+html = html.replace('记录日期：2026年10月14日—10月18日', '记录日期：2026年10月14日—10月20日')
+
+open(SRC, 'w', encoding='utf-8').write(html)
+print(f'完成。总长度 {orig_len} → {len(html)}（差 {len(html)-orig_len}，应仅为小注文字）')
+</pre>
+<div class="doc-body"><b>code/sentinel.py</b></div>
+<pre>#!/usr/bin/env python3
+"""
+BTC 突破哨兵（按用户 2026-10-17 定稿交易系统）
+- 只看 K 线：日线前 20 根已收盘 K 线的最高点=阻力、最低点=支撑
+- 价格上穿阻力 → 微信提醒「突破」；下穿支撑 → 微信提醒「跌破」
+- 周线只做方向标注（多头/空头/震荡），不做过滤
+- 同一关键位同一天只报一次；只报信，永不下单；只用公共行情，无需 API 密钥
+"""
+
+import json
+import os
+import sys
+import time
+from datetime import datetime, timezone, timedelta
+
+sys.path.insert(0, '/usr/local/lib/python3.12/dist-packages')
+
+WORK_DIR = os.path.expanduser("~/workspace/btc-sentinel")
+CREDS_FILE = os.path.expanduser("~/workspace/wechat-ilink/creds.json")
+STATE_FILE = os.path.join(WORK_DIR, "state.json")
+LOG_FILE = os.path.join(WORK_DIR, "sentinel.log")
+ALERTS_FILE = os.path.join(WORK_DIR, "alerts.jsonl")
+HEARTBEAT_FILE = os.path.join(WORK_DIR, "heartbeat.txt")
+
+SYMBOL = "BTC/USDT:USDT"
+LOOKBACK_DAYS = 20
+POLL_SECONDS = 60
+BRIEF_INTERVAL = 1800  # 行情播报间隔：30 分钟
+BRIEF_HOUR_START = 7   # 播报时段（CST）：工作日 07:00–次日 01:00（本人 2026-10-20 晚调整）
+BRIEF_HOUR_END = 1     # 次日凌晨 1 点（算前一工作日的晚上）
+# 当前持仓（2026-10-20 回归第一单；本人报告平仓后删除此段）
+POSITION = {"entry": 82349, "stop": 80702}
+CST = timezone(timedelta(hours=8))
+
+
+def log(msg):
+    line = f"[{datetime.now(CST).strftime('%Y-%m-%d %H:%M:%S')}] {msg}"
+    print(line, flush=True)
+    try:
+        with open(LOG_FILE, "a", encoding="utf-8") as f:
+            f.write(line + "\n")
+    except Exception:
+        pass
+
+
+def load_state():
+    try:
+        with open(STATE_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return {}
+
+
+def save_state(state):
+    try:
+        with open(STATE_FILE, "w", encoding="utf-8") as f:
+            json.dump(state, f, ensure_ascii=False)
+    except Exception as e:
+        log(f"保存状态失败: {e}")
+
+
+def _okx_get(path, params):
+    import requests
+    r = requests.get("https://www.okx.com" + path, params=params, timeout=20,
+                     headers={"User-Agent": "Mozilla/5.0"})
+    r.raise_for_status()
+    return r.json()["data"]
+
+
+def _candles(bar, limit):
+    """返回已收盘 K 线（旧→新）：每条为 dict(o,h,l,c)。"""
+    data = _okx_get("/api/v5/market/candles",
+                    {"instId": "BTC-USDT-SWAP", "bar": bar, "limit": str(limit)})
+    rows = [{"o": float(x[1]), "h": float(x[2]), "l": float(x[3]), "c": float(x[4])}
+            for x in data if x[8] == "1"]
+    rows.reverse()
+    return rows
+
+
+def compute_levels():
+    """返回 (阻力, 支撑)：最近 LOOKBACK_DAYS 根已收盘日线的高/低点。"""
+    recent = _candles("1D", LOOKBACK_DAYS + 3)[-LOOKBACK_DAYS:]
+    resistance = max(c["h"] for c in recent)
+    support = min(c["l"] for c in recent)
+    return resistance, support
+
+
+def weekly_trend():
+    """周线方向标注：看最近 3 根已收盘周线的收盘与高点走向。"""
+    closed = _candles("1W", 6)
+    if len(closed) &lt; 3:
+        return "未知"
+    last3 = closed[-3:]
+    closes = [c["c"] for c in last3]
+    highs = [c["h"] for c in last3]
+    if closes[-1] &gt; closes[0] and highs[-1] &gt;= highs[0]:
+        return "多头"
+    if closes[-1] &lt; closes[0] and highs[-1] &lt;= highs[0]:
+        return "空头"
+    return "震荡"
+
+
+def fetch_price():
+    data = _okx_get("/api/v5/market/ticker", {"instId": "BTC-USDT-SWAP"})
+    return float(data[0]["last"])
+
+
+def detect_cross(prev_price, price, resistance, support):
+    """返回 'breakout' / 'breakdown' / None。纯函数，可回放测试。"""
+    if prev_price is None:
+        return None
+    if prev_price &lt;= resistance and price &gt; resistance:
+        return "breakout"
+    if prev_price &gt;= support and price &lt; support:
+        return "breakdown"
+    return None
+
+
+def send_wechat(text):
+    from weixin_ilink import WeixinBot
+    ctx_file = os.path.expanduser("~/workspace/wechat-ilink/context.json")
+    with open(ctx_file, "r", encoding="utf-8") as f:
+        ctx = json.load(f)
+    bot = WeixinBot(credentials_file=CREDS_FILE)
+    bot.send_text(ctx["userId"], text, context_token=ctx["context_token"])
+
+
+def format_alert(kind, price, level, trend):
+    now = datetime.now(CST).strftime("%H:%M")
+    if kind == "breakout":
+        return (
+            f"🚨 BTC 突破提醒\n"
+            f"现价 {price:,.0f}，已上穿前{LOOKBACK_DAYS}日阻力 {level:,.0f}\n"
+            f"周线方向：{trend}\n"
+            f"时间 {now}\n"
+            f"哨兵只报信，做不做你定。"
+        )
+    return (
+        f"📉 BTC 跌破提醒\n"
+        f"现价 {price:,.0f}，已下穿前{LOOKBACK_DAYS}日支撑 {level:,.0f}\n"
+        f"周线方向：{trend}\n"
+        f"时间 {now}\n"
+        f"哨兵只报信，做不做你定。"
+    )
+
+
+def format_stop_alert(price, stop):
+    now = datetime.now(CST).strftime("%H:%M")
+    return (
+        f"🚨 止损线提醒\n"
+        f"现价 {price:,.0f}，已打到你多单的硬止损 {stop:,}\n"
+        f"时间 {now}\n"
+        f"按你的规则：硬止损到了就离场，别加仓别硬扛。"
+    )
+
+
+def fetch_day_open():
+    data = _okx_get("/api/v5/market/candles",
+                    {"instId": "BTC-USDT-SWAP", "bar": "1D", "limit": "1"})
+    return float(data[0][1])
+
+
+def compose_brief(price, resistance, support, trend):
+    now = datetime.now(CST)
+    try:
+        day_open = fetch_day_open()
+        day_chg = (price - day_open) / day_open * 100
+        chg_txt = f"今日 {day_chg:+.1f}%"
+    except Exception:
+        chg_txt = "今日涨跌暂缺"
+    up = (resistance - price) / price * 100
+    dn = (price - support) / price * 100
+    lines = [
+        "📊 BTC 行情播报",
+        f"现价 {price:,.0f}（{chg_txt}）",
+        f"阻力 {resistance:,.0f}（+{up:.1f}%）｜支撑 {support:,.0f}（-{dn:.1f}%）",
+        f"周线方向：{trend}",
+    ]
+    if POSITION:
+        pnl = (price - POSITION["entry"]) / POSITION["entry"] * 100
+        to_stop = (price - POSITION["stop"]) / price * 100
+        lines.append(
+            f"你的多单 {POSITION['entry']:,}：价格浮动 {pnl:+.1f}%，距止损 {POSITION['stop']:,} 还有 {to_stop:.1f}%"
+        )
+    lines.append(f"{now.strftime('%H:%M')} · 哨兵播报（每30分钟）")
+    return "\n".join(lines)
+
+
+def main():
+    state = load_state()
+    resistance, support = compute_levels()
+    day_key = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    state.update({"resistance": resistance, "support": support, "day": day_key})
+    save_state(state)
+    log(f"哨兵启动：阻力 {resistance:,.0f} / 支撑 {support:,.0f}")
+
+    prev_price = None
+    while True:
+        try:
+            price = fetch_price()
+            # 跨天则重算关键位并重置当日去重
+            today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+            if today != state.get("day"):
+                resistance, support = compute_levels()
+                state.update({"resistance": resistance, "support": support, "day": today})
+                save_state(state)
+                log(f"新的一天，重算关键位：阻力 {resistance:,.0f} / 支撑 {support:,.0f}")
+            kind = detect_cross(prev_price, price, resistance, support)
+            if kind:
+                dedupe_key = f"alerted_{today}_{kind}"
+                if not state.get(dedupe_key) and not state.get("pending_alert"):
+                    trend = weekly_trend()
+                    level = resistance if kind == "breakout" else support
+                    state["pending_alert"] = {
+                        "date": today, "kind": kind, "price": price,
+                        "level": level, "trend": trend,
+                    }
+                    save_state(state)
+            # 持仓硬止损：价格打到止损位就排队发提醒（同天只发一次）
+            if POSITION and price &lt;= POSITION["stop"]:
+                dedupe_key = f"alerted_{today}_stop"
+                if not state.get(dedupe_key) and not state.get("pending_alert"):
+                    state["pending_alert"] = {
+                        "date": today, "kind": "stop", "price": price,
+                        "level": POSITION["stop"], "trend": "",
+                    }
+                    save_state(state)
+                    log(f"价格 {price:,.0f} 打到止损 {POSITION['stop']:,}，已排队提醒")
+            # 有待发报警就尝试发送；成功才记账并去重，失败下分钟重试
+            pending = state.get("pending_alert")
+            if pending and pending.get("date") == today:
+                if pending["kind"] == "stop":
+                    text = format_stop_alert(pending["price"], pending["level"])
+                else:
+                    text = format_alert(pending["kind"], pending["price"],
+                                        pending["level"], pending["trend"])
+                try:
+                    send_wechat(text)
+                    log(f"已发送提醒：{pending['kind']} 现价 {pending['price']:,.0f}")
+                    with open(ALERTS_FILE, "a", encoding="utf-8") as f:
+                        f.write(json.dumps({
+                            "time": datetime.now(CST).isoformat(),
+                            "kind": pending["kind"], "price": pending["price"],
+                            "level": pending["level"], "trend": pending["trend"],
+                        }, ensure_ascii=False) + "\n")
+                    state[f"alerted_{today}_{pending['kind']}"] = True
+                    state["pending_alert"] = None
+                    save_state(state)
+                except Exception as e:
+                    log(f"微信发送失败（下分钟重试）：{e}")
+            prev_price = price
+            # 行情播报：每 BRIEF_INTERVAL 秒、仅在播报时段内发送；失败就跳过本轮（旧行情没价值）
+            now_cst = datetime.now(CST)
+            last_brief = float(state.get("brief_last", 0))
+            wd = now_cst.weekday()
+            in_window = ((BRIEF_HOUR_START &lt;= now_cst.hour and wd &lt; 5)
+                         or (now_cst.hour &lt; BRIEF_HOUR_END and 1 &lt;= wd &lt;= 5))
+            if (time.time() - last_brief &gt;= BRIEF_INTERVAL and in_window):
+                try:
+                    trend = weekly_trend()
+                    send_wechat(compose_brief(price, resistance, support, trend))
+                    log(f"行情播报已发送：现价 {price:,.0f}")
+                except Exception as e:
+                    log(f"行情播报发送失败（跳过本轮）：{e}")
+                state["brief_last"] = time.time()
+                save_state(state)
+            with open(HEARTBEAT_FILE, "w", encoding="utf-8") as f:
+                f.write(datetime.now(CST).isoformat() + f" price={price}")
+        except Exception as e:
+            log(f"轮询出错（继续运行）：{e}")
+        time.sleep(POLL_SECONDS)
+
+
+if __name__ == "__main__":
+    main()
+</pre>
+<div class="doc-body"><b>code/shell.html</b></div>
+<pre>&lt;!doctype html&gt;
+&lt;!--
+  维护约定：个人档案正文是事实来源。更新数据时，先更新档案并标注日期、保留旧值与状态；
+  再同步首页摘要和对应模块的默认数据。模块表单新增记录保存在当前浏览器，不会自动回写档案。
+--&gt;
+&lt;html lang="zh-CN"&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8" /&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" /&gt;
+    &lt;meta name="color-scheme" content="light dark" /&gt;
+    &lt;link rel="icon" href="data:," /&gt;
+    &lt;meta name="description" content="LINZHIFENG 的公开个人数据中枢：记录财务、健康、目标、交易与个人档案。" /&gt;
+    &lt;meta name="theme-color" content="#edf4fc" /&gt;
+    &lt;title&gt;个人中枢 · LINZHIFENG&lt;/title&gt;
+    &lt;style&gt;
+      :root {
+        --bg: #FAFAF8;
+        --surface: #FFFFFF;
+        --surface-2: #F5F5F3;
+        --text: #1D1D1F;
+        --text-2: #6E6E73;
+        --text-3: #86868B;
+        --line: #E8E8E6;
+        --accent: #0064E0;
+        --accent-soft: rgba(0, 100, 224, 0.08);
+        --good: #2e7d4f;
+        --warn: #b06f14;
+        --danger: #c03a2e;
+        --bar-track: #e7e4db;
+        --radius: 14px;
+        color-scheme: light;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #000000;
+          --surface: #1C1C1E;
+          --surface-2: #2C2C2E;
+          --text: #F5F5F7;
+          --text-2: #98989D;
+          --text-3: #636366;
+          --line: #38383A;
+          --accent: #0A84FF;
+          --accent-soft: rgba(10, 132, 255, 0.15);
+          --good: #57b97e;
+          --warn: #e0a458;
+          --danger: #e07a6c;
+          --bar-track: #29261f;
+          color-scheme: dark;
+        }
+      }
+      * { box-sizing: border-box; }
+      html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+      [hidden] { display: none !important; }
+      button { font: inherit; }
+      :focus-visible { outline: 2px solid var(--text-3); outline-offset: 2px; }
+
+      /* ---------- Top bar ---------- */
+      .topbar {
+        position: sticky; top: 0; z-index: 50;
+        background: var(--bg);
+        border-bottom: 1px solid var(--line);
+      }
+      .topbar-in {
+        max-width: 1180px; margin: 0 auto; padding: 0 24px;
+        height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      }
+      .brand {
+        appearance: none; background: none; border: 0; cursor: pointer; padding: 6px 0;
+        font-size: 13px; font-weight: 700; letter-spacing: 0.34em; color: var(--text);
+        white-space: nowrap;
+      }
+      .brand span { color: var(--text-3); font-weight: 500; }
+      .topnav { display: flex; gap: 26px; align-items: center; }
+      .topnav button {
+        appearance: none; background: none; border: 0; cursor: pointer; padding: 6px 0;
+        font-size: 13.5px; color: var(--text-2); transition: color .15s ease;
+      }
+      .topnav button:hover { color: var(--text); }
+      @media (max-width: 720px) {
+        .topnav { gap: 18px; }
+        .topnav .dom-link { display: none; }
+        .brand { letter-spacing: 0.26em; }
+      }
+
+      /* ---------- Views ---------- */
+      .view { animation: viewIn .38s ease both; }
+      @keyframes viewIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+      /* ---------- Hero ---------- */
+      .hero {
+        max-width: 1180px; margin: 0 auto; padding: 104px 24px 84px; text-align: center;
+      }
+      .kicker {
+        font-size: 12px; font-weight: 600; letter-spacing: 0.44em; color: var(--text-2);
+        margin: 0 0 26px; text-indent: 0.44em;
+      }
+      .hero h1 {
+        font-size: clamp(42px, 7.4vw, 78px); font-weight: 700; line-height: 1.16;
+        letter-spacing: -0.015em; margin: 0 0 22px;
+      }
+      .hero .sub {
+        font-size: clamp(16px, 2.2vw, 19px); color: var(--text-2); line-height: 1.75;
+        margin: 0 auto; max-width: 32em;
+      }
+      .hero .motto {
+        margin: 44px 0 0; font-size: 11.5px; font-weight: 600;
+        letter-spacing: 0.4em; text-indent: 0.4em; color: var(--text-3);
+      }
+      @media (max-width: 720px) { .hero { padding: 68px 22px 56px; } }
+      .hero-compact { padding: 40px 24px 28px; max-width: 1180px; margin: 0 auto; text-align: left; }
+      .hero-compact h1 { font-size: clamp(28px, 4vw, 32px); font-weight: 700; letter-spacing: -0.01em; margin: 0 0 8px; color: var(--text); }
+      .hero-compact .hero-sub { font-size: 15px; color: var(--text-2); margin: 0; line-height: 1.6; }
+      @media (max-width: 720px) { .hero-compact { padding: 32px 20px 24px; } }
+
+      /* ---------- Domains ---------- */
+      .domains { max-width: 1180px; margin: 0 auto; padding: 8px 24px 30px; }
+      .domains-head { text-align: center; margin-bottom: 54px; }
+      .domains-head .kicker { margin-bottom: 14px; }
+      .domains-head h2 { font-size: clamp(26px, 4vw, 34px); font-weight: 700; letter-spacing: -0.01em; margin: 0; }
+      .domain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 58px 72px; }
+      @media (max-width: 820px) { .domain-grid { grid-template-columns: 1fr; gap: 46px; } }
+      .domain { scroll-margin-top: 84px; }
+      .domain-head { margin-bottom: 6px; }
+      .domain-en { font-size: 11px; font-weight: 600; letter-spacing: 0.32em; color: var(--text-3); margin: 0 0 7px; }
+      .domain-name { font-size: 21px; font-weight: 700; margin: 0; display: inline; }
+      .domain-desc { font-size: 13.5px; color: var(--text-2); margin-left: 12px; }
+      .mod-list { margin-top: 10px; }
+      .mod {
+        appearance: none; background: none; border: 0; cursor: pointer; text-align: left;
+        width: 100%; display: flex; align-items: center; gap: 14px;
+        padding: 17px 14px; margin: 0 -14px; width: calc(100% + 28px);
+        border-top: 1px solid var(--line);
+        transition: background .18s ease;
+      }
+      .mod:last-child { border-bottom: 1px solid var(--line); }
+      .mod:hover { background: var(--surface); }
+      .mod:active { background: var(--surface-2); }
+      .mod .mod-main { flex: 1; min-width: 0; }
+      .mod .mod-name { display: block; font-size: 17px; font-weight: 600; color: var(--text); line-height: 1.35; }
+      .mod .mod-desc { display: block; font-size: 13.5px; color: var(--text-2); margin-top: 2px; }
+      .mod .arrow {
+        flex: 0 0 auto; font-size: 20px; font-weight: 300; color: var(--text-3);
+        transition: transform .18s ease, color .18s ease;
+      }
+      .mod:hover .arrow { transform: translateX(3px); color: var(--text); }
+
+      /* ---------- About ---------- */
+      .about { max-width: 780px; margin: 0 auto; padding: 84px 24px 10px; }
+      .about h2 { font-size: 20px; font-weight: 700; margin: 0 0 16px; }
+      .about p { font-size: 15.5px; line-height: 1.9; color: var(--text); margin: 0 0 12px; }
+      .about .about-h { font-size: 16px; font-weight: 700; margin: 30px 0 6px; }
+      .about ul { margin: 0; padding: 0; list-style: none; }
+      .about li {
+        font-size: 15px; line-height: 1.75; color: var(--text-2);
+        padding: 10px 2px; border-bottom: 1px solid var(--line);
+      }
+      .about li:first-child { border-top: 1px solid var(--line); }
+
+      .home-foot {
+        max-width: 1180px; margin: 76px auto 0; padding: 26px 24px 44px;
+        border-top: 1px solid var(--line);
+        display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap;
+        font-size: 12.5px; color: var(--text-3);
+      }
+      .home-foot .fbrand { letter-spacing: 0.3em; font-weight: 600; color: var(--text-2); }
+
+      /* ---------- Module view ---------- */
+      .module-wrap { max-width: 900px; margin: 0 auto; padding: 0 22px 90px; }
+      .backrow { padding: 20px 0 4px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+      .backbtn {
+        appearance: none; background: none; border: 0; cursor: pointer; padding: 8px 10px 8px 0;
+        font-size: 15px; font-weight: 500; color: var(--text-2);
+        display: inline-flex; align-items: center; gap: 5px; transition: color .15s ease;
+      }
+      .backbtn:hover { color: var(--text); }
+      .backbtn .chev { font-size: 19px; font-weight: 300; line-height: 1; }
+      .backrow .where { font-size: 11px; font-weight: 600; letter-spacing: 0.3em; color: var(--text-3); }
+
+      /* Tabs (module switcher) */
+      .tabs {
+        display: flex; gap: 4px;
+        overflow-x: auto; scrollbar-width: none;
+        padding: 12px 0 12px;
+        border-bottom: 1px solid var(--line);
+      }
+      .tabs::-webkit-scrollbar { display: none; }
+      .tab {
+        flex: 1 0 auto; white-space: nowrap;
+        appearance: none; border: 0; cursor: pointer;
+        background: transparent; color: var(--text-2);
+        font: inherit; font-size: 14.5px; font-weight: 500;
+        padding: 8px 10px; border-radius: 999px;
+        transition: background .15s ease, color .15s ease;
+      }
+      .tab:hover { color: var(--text); }
+      .tab[aria-selected="true"] { background: var(--surface-2); color: var(--text); font-weight: 600; }
+      @media (max-width: 560px) {
+        .tabs { flex-wrap: wrap; overflow-x: visible; row-gap: 2px; }
+        .tab { flex: 1 0 22%; font-size: 14px; padding: 8px 2px; }
+      }
+
+      section.panel { display: none; padding-top: 38px; }
+      section.panel.active { display: block; animation: viewIn .3s ease both; }
+
+      .panel h1 { font-size: 14px; font-weight: 600; color: var(--text-2); margin: 0 0 8px; letter-spacing: 0.06em; }
+      .panel h2 { font-size: 20px; font-weight: 700; margin: 42px 0 14px; letter-spacing: -0.005em; }
+      .panel h2:first-of-type { margin-top: 10px; }
+      .panel p { margin: 0; }
+      .muted { color: var(--text-2); font-size: 14px; }
+
+      /* Big number */
+      .big { font-size: clamp(46px, 9vw, 66px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.08; font-variant-numeric: tabular-nums; }
+      .big .unit { font-size: .45em; font-weight: 600; color: var(--text-2); margin-right: 4px; }
+      .progress-row { display: flex; justify-content: space-between; align-items: baseline; margin: 18px 0 8px; font-size: 14px; color: var(--text-2); flex-wrap: wrap; gap: 6px; }
+      .progress-row strong { color: var(--text); font-size: 15px; }
+      .bar { height: 8px; border-radius: 999px; background: var(--bar-track); overflow: hidden; }
+      .bar &gt; div { height: 100%; width: 0%; background: var(--text); border-radius: 999px; transition: width .45s ease; }
+
+      /* Breakdown */
+      .breakdown { margin-top: 28px; display: grid; gap: 10px; }
+      .bd-row {
+        display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+        background: var(--surface); border-radius: var(--radius); padding: 15px 18px;
+      }
+      .bd-row .name { font-weight: 600; }
+      .bd-row .sub { display: block; font-weight: 400; font-size: 13px; color: var(--text-2); margin-top: 2px; }
+      .bd-row .amt { font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
+      .bd-row .amt small { display: block; text-align: right; font-weight: 400; font-size: 13px; color: var(--text-2); }
+
+      /* Facts list */
+      .facts { margin: 28px 0 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+      .facts div { display: flex; gap: 16px; padding: 12px 2px; border-bottom: 1px solid var(--line); font-size: 15px; }
+      .facts dt { flex: 0 0 108px; color: var(--text-2); }
+      .facts dd { margin: 0; }
+
+      /* Forms */
+      .panel form { margin-top: 16px; display: grid; gap: 12px; }
+      .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      @media (max-width: 560px) { .grid2 { grid-template-columns: 1fr; } }
+      .panel label { display: block; font-size: 13px; color: var(--text-2); margin-bottom: 5px; }
+      .panel input, .panel select, .panel textarea {
+        width: 100%; font: inherit; font-size: 15px; color: var(--text);
+        background: var(--surface); border: 1px solid transparent; border-radius: 10px;
+        padding: 11px 13px; outline: none;
+        transition: border-color .15s ease, background .15s ease;
+      }
+      .panel input:focus, .panel select:focus, .panel textarea:focus { border-color: var(--text-3); background: var(--bg); }
+      .panel textarea { resize: vertical; min-height: 64px; }
+      .btn {
+        appearance: none; border: 0; cursor: pointer; font: inherit; font-weight: 600; font-size: 15px;
+        background: var(--text); color: var(--bg); border-radius: 999px; padding: 11px 26px;
+        justify-self: start; transition: opacity .15s ease, transform .1s ease;
+      }
+      .btn:hover { opacity: .86; }
+      .btn:active { transform: scale(.98); }
+      .seg { display: flex; gap: 6px; flex-wrap: wrap; }
+      .seg button {
+        appearance: none; cursor: pointer; font: inherit; font-size: 14px;
+        border: 1px solid var(--line); background: var(--bg); color: var(--text-2);
+        border-radius: 999px; padding: 7px 14px; transition: all .15s ease;
+      }
+      .seg button.on { background: var(--accent-soft); border-color: var(--text-3); color: var(--text); font-weight: 600; }
+
+      /* Entries */
+      .entries { margin-top: 18px; display: grid; gap: 10px; }
+      .entry {
+        display: flex; gap: 14px; align-items: flex-start;
+        background: var(--surface); border-radius: var(--radius); padding: 15px 18px;
+      }
+      .entry .main { flex: 1; min-width: 0; }
+      .entry .top { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+      .entry .date { font-size: 13px; color: var(--text-2); font-variant-numeric: tabular-nums; }
+      .entry .cat { font-weight: 600; }
+      .entry .amt { font-weight: 700; font-variant-numeric: tabular-nums; }
+      .entry .note { font-size: 14px; color: var(--text-2); margin-top: 3px; overflow-wrap: anywhere; }
+      .cpy {
+        appearance: none; cursor: pointer; background: #fff; border: 1px solid #dbe3ee;
+        color: var(--text-2); font-size: 12px; line-height: 1; padding: 5px 9px; border-radius: 8px;
+        align-self: flex-start; white-space: nowrap; transition: color .15s ease, border-color .15s ease;
+      }
+      .cpy:hover { color: var(--text); border-color: #b9c6da; }
+      .empty { color: var(--text-2); font-size: 14px; padding: 18px 2px; }
+      .tag { font-size: 12px; font-weight: 600; border-radius: 999px; padding: 2px 9px; }
+      .tag.long { background: rgba(46,125,79,.13); color: var(--good); }
+      .tag.short { background: rgba(192,58,46,.11); color: var(--danger); }
+      .tag.done { background: rgba(46,125,79,.13); color: var(--good); }
+      .tag.late { background: rgba(176,111,20,.13); color: var(--warn); }
+      .tag.yes { background: var(--accent-soft); color: var(--accent); }
+      .tag.no { background: rgba(192,58,46,.11); color: var(--danger); }
+      .tag.doing { background: var(--accent-soft); color: var(--accent); }
+
+      /* Reverse decision chain */
+      .stage-label { font-size: 14px; font-weight: 700; margin-top: 6px; }
+      .stage-label span { font-weight: 400; color: var(--text-2); font-size: 13px; }
+      .chain { margin-top: 10px; display: grid; gap: 7px; }
+      .chain-row { display: flex; gap: 10px; align-items: baseline; font-size: 14px; }
+      .chain-stage {
+        flex: 0 0 auto; font-size: 12px; font-weight: 600; color: var(--text-2);
+        background: var(--surface-2); border-radius: 999px; padding: 2px 9px;
+      }
+      .chain-row.now .chain-stage { background: var(--text); color: var(--bg); }
+      .chain-row.now .chain-text { font-weight: 600; }
+      .chain-text { min-width: 0; overflow-wrap: anywhere; }
+      .chain-text .k2 { color: var(--text-2); }
+      .linklike {
+        appearance: none; background: none; border: 0; padding: 0; cursor: pointer;
+        font: inherit; color: var(--text); text-decoration: underline; text-underline-offset: 3px;
+        text-decoration-color: var(--text-3); text-align: left;
+      }
+
+      /* Rules */
+      .rules { display: grid; gap: 10px; }
+      .rule { background: var(--surface); border-radius: var(--radius); padding: 17px 19px; }
+      .rule h3 { margin: 0 0 6px; font-size: 16px; }
+      .rule p { font-size: 15px; color: var(--text); }
+      .rule p + p { margin-top: 4px; }
+      .rule .k { color: var(--text); font-weight: 700; }
+
+      .stat-row { display: flex; gap: 30px; flex-wrap: wrap; margin-top: 6px; }
+      .stat b { font-size: 26px; font-variant-numeric: tabular-nums; display: block; line-height: 1.2; letter-spacing: -0.01em; }
+      .stat span { font-size: 13px; color: var(--text-2); }
+
+      /* Documents */
+      .doc { margin-top: 44px; }
+      .doc-title { font-size: 20px; font-weight: 700; margin: 0 0 4px; }
+      .doc-date { font-size: 13px; color: var(--text-2); margin: 0 0 14px; }
+      .doc-body {
+        background: var(--surface); border-radius: var(--radius);
+        padding: 20px; font-size: 14.5px; line-height: 1.75;
+        white-space: pre-wrap; overflow-wrap: anywhere;
+      }
+      .doc-source-link { display: inline-flex; margin: 0 0 12px; color: var(--accent); font-size: 14px; font-weight: 650; }
+      .doc-source-original { margin: 0 0 28px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); overflow: hidden; }
+      .doc-source-original summary { padding: 15px 18px; cursor: pointer; font-weight: 650; }
+      .doc-source-original pre { margin: 0; padding: 18px; border-top: 1px solid var(--line); white-space: pre-wrap; overflow-wrap: anywhere; font: 12px/1.75 ui-monospace, SFMono-Regular, Menlo, monospace; }
+      .doc-table-wrap {
+        background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius);
+        padding: 6px 18px 12px; margin: 12px 0; overflow-x: auto;
+      }
+      .doc-table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 13.5px; line-height: 1.6; }
+      .doc-table th, .doc-table td {
+        padding: 8px 10px; text-align: left; vertical-align: top;
+        border-bottom: 1px solid var(--line); overflow-wrap: anywhere;
+      }
+      .doc-table thead th { font-weight: 700; border-bottom: 2px solid var(--line); }
+      .doc-table tbody tr:last-child td { border-bottom: 0; }
+      .doc-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+      .doc-table thead th.num { text-align: right; }
+      .doc-table tbody tr.total td { font-weight: 700; }
+      @media (max-width: 560px) {
+        .doc-table-wrap { padding: 4px 10px 8px; }
+        .doc-table { font-size: 12.5px; }
+        .doc-table th, .doc-table td { padding: 7px 6px; }
+        .doc-table-wrap.dense { padding: 4px 6px 8px; }
+        .doc-table-wrap.dense .doc-table { font-size: 12px; }
+        .doc-table-wrap.dense th, .doc-table-wrap.dense td { padding: 7px 4px; }
+      }
+      .doc-rules {
+        background: var(--accent-soft); border-radius: var(--radius);
+        padding: 16px 20px; font-size: 14.5px; line-height: 1.75;
+        display: grid; gap: 8px; margin-bottom: 4px;
+      }
+      .doc-rules p { margin: 0; }
+      .doc-part { font-size: 17px; font-weight: 700; margin: 30px 0 10px; scroll-margin-top: 84px; }
+      .doc-part-main { font-size: 19px; margin-top: 46px; padding-top: 28px; border-top: 1px solid var(--line); }
+      .doc-module { font-size: 16px; font-weight: 700; margin: 26px 0 10px; scroll-margin-top: 84px; }
+      .doc-sub { font-size: 15px; font-weight: 700; margin: 24px 0 8px; scroll-margin-top: 84px; }
+      .doc-nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 2px; }
+      .doc-nav.sub { margin: 10px 0 2px; gap: 6px; }
+      .doc-nav.sub a { font-size: 12.5px; padding: 5px 10px; }
+      .doc-nav a {
+        font-size: 13.5px; line-height: 1.3; padding: 6px 12px; border-radius: 999px;
+        background: var(--surface); border: 1px solid var(--line);
+        color: var(--text); text-decoration: none; transition: background .15s ease;
+      }
+      .doc-nav a:hover { background: var(--surface-2); }
+      .doc-nav a:active { background: var(--accent-soft); }
+      .doc-nav.doc-parts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 18px 0 27px; }
+      .doc-nav.doc-parts a { min-height: 92px; position: relative; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 3px; padding: 14px 16px; border-radius: 16px; background: var(--surface); box-shadow: 0 4px 15px rgba(25, 34, 53, .035); }
+      .doc-nav.doc-parts a &gt; span { position: absolute; right: 13px; top: 12px; color: var(--accent); font-size: 9px; font-weight: 700; letter-spacing: .12em; }
+      .doc-nav.doc-parts a strong { font-size: 12px; font-weight: 650; }
+      .doc-nav.doc-parts a small { color: var(--text-2); font-size: 10px; }
+      .doc-nav.doc-parts a:hover { border-color: color-mix(in srgb, var(--accent) 25%, var(--line)); background: var(--accent-soft); }
+
+      .module-foot { margin-top: 70px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--text-2); font-size: 13px; }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        .view, section.panel.active { animation: none; }
+        * { transition: none !important; }
+      }
+
+      /* ---------- LINZHIFENG redesign ---------- */
+      :root {
+        --bg: #edf4fc;
+        --surface: #fcfdff;
+        --surface-2: #e7eff9;
+        --text: #1d2b40;
+        --text-2: #586b84;
+        --text-3: #8293a9;
+        --line: rgba(43, 75, 117, .13);
+        --accent: #2f6fdf;
+        --accent-soft: rgba(47, 111, 223, .11);
+        --good: #3478c8;
+        --warn: #a96d2a;
+        --danger: #b64e52;
+        --bar-track: #dce7f4;
+        --radius: 20px;
+        color-scheme: light;
+      }
+      html[data-theme="dark"] {
+        --bg: #101927;
+        --surface: #19263a;
+        --surface-2: #22344d;
+        --text: #f1f6ff;
+        --text-2: #b4c3da;
+        --text-3: #8498b5;
+        --line: rgba(213, 229, 250, .13);
+        --accent: #92b8ff;
+        --accent-soft: rgba(120, 166, 244, .17);
+        --good: #83b6ff;
+        --warn: #e2b36d;
+        --danger: #f18a88;
+        --bar-track: #2d3d54;
+        color-scheme: dark;
+      }
+      html { scroll-padding-top: 88px; }
+      body {
+        background: radial-gradient(ellipse at 12% 0%, rgba(177, 207, 246, .5), transparent 37%), radial-gradient(ellipse at 90% 8%, rgba(211, 228, 250, .48), transparent 35%), var(--bg);
+        color: var(--text);
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Source Han Sans SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+        font-size: 15px;
+        line-height: 1.68;
+        font-feature-settings: "kern" 1, "liga" 1;
+        font-optical-sizing: auto;
+        text-rendering: optimizeLegibility;
+      }
+      html[data-theme="dark"] body {
+        background: radial-gradient(ellipse at 12% 0%, rgba(61, 111, 187, .22), transparent 37%), radial-gradient(ellipse at 90% 8%, rgba(76, 117, 180, .16), transparent 35%), var(--bg);
+      }
+      button { -webkit-tap-highlight-color: transparent; }
+      .topbar { background: color-mix(in srgb, var(--bg) 88%, transparent); border-bottom-color: var(--line); backdrop-filter: saturate(180%) blur(18px); -webkit-backdrop-filter: saturate(180%) blur(18px); }
+      .topbar-in { max-width: 1280px; height: 68px; padding: 0 32px; }
+      .brand { font-size: 12px; letter-spacing: .32em; }
+      .topnav { gap: 25px; }
+      .topnav button { font-size: 13px; font-weight: 500; }
+      .theme-toggle { width: 36px; height: 36px; padding: 0 !important; border: 1px solid var(--line) !important; border-radius: 50%; display: grid; place-items: center; color: var(--text) !important; font-size: 18px !important; background: var(--surface) !important; }
+      .theme-toggle:hover { transform: rotate(-12deg); }
+      .view { animation-duration: .45s; }
+      .hero.hero-compact { max-width: 1280px; min-height: 560px; padding: 65px 32px 52px; display: grid; grid-template-columns: minmax(0, 1.03fr) minmax(350px, .97fr); align-items: center; gap: 40px; text-align: left; }
+      .hero-copy { max-width: 600px; position: relative; z-index: 1; }
+      .hero-kicker, .eyebrow { margin: 0 0 18px; color: var(--text-2); font-size: 10px; font-weight: 700; letter-spacing: .22em; }
+      .hero-kicker span { color: var(--accent); padding: 0 6px; }
+      .hero h1 { margin: 0; font-size: clamp(48px, 6.2vw, 78px); line-height: 1.08; letter-spacing: -.065em; font-weight: 650; }
+      .hero h1 span { color: var(--accent); }
+      .hero .hero-sub { max-width: 34em; margin: 24px 0 0; color: var(--text-2); font-size: 17px; line-height: 1.85; }
+      .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 29px; }
+      .hero-primary, .hero-secondary { min-height: 46px; border-radius: 999px; padding: 0 20px; font-size: 13px; font-weight: 600; cursor: pointer; transition: transform .2s ease, background .2s ease, box-shadow .2s ease; }
+      .hero-primary { color: #fff; background: #20242d; border: 1px solid #20242d; box-shadow: 0 8px 20px rgba(20, 27, 40, .14); }
+      .hero-primary span { margin-left: 14px; font-size: 16px; }
+      .hero-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(20, 27, 40, .2); }
+      .hero-secondary { color: var(--text); background: var(--surface); border: 1px solid var(--line); }
+      .hero-secondary:hover { background: var(--surface-2); }
+      .hero-note { display: flex; align-items: center; gap: 9px; margin: 26px 0 0; color: var(--text-3); font-size: 12px; letter-spacing: .02em; }
+      .live-dot { width: 7px; height: 7px; border-radius: 50%; background: #48b885; box-shadow: 0 0 0 4px rgba(72, 184, 133, .12); }
+      .hero-art { position: relative; min-height: 404px; border-radius: 32px; overflow: hidden; isolation: isolate; background: radial-gradient(ellipse at 48% 45%, #fff 0, #f2f4fb 48%, #e9edf8 100%); }
+      .hero-art:after { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .38; background: radial-gradient(circle at 16% 18%, #bed1ff 0, transparent 28%), radial-gradient(circle at 84% 82%, #d5c9ff 0, transparent 32%); }
+      .art-grid { position: absolute; inset: 0; opacity: .24; background-image: linear-gradient(rgba(77, 97, 145, .12) 1px, transparent 1px), linear-gradient(90deg, rgba(77, 97, 145, .12) 1px, transparent 1px); background-size: 42px 42px; mask-image: radial-gradient(ellipse, #000 15%, transparent 75%); }
+      .orbit { position: absolute; left: 50%; top: 47%; border: 1px solid rgba(74, 94, 148, .16); border-radius: 50%; transform: translate(-50%, -50%); }
+      .orbit-one { width: 190px; height: 190px; background: rgba(255,255,255,.42); box-shadow: 0 24px 70px rgba(45, 67, 122, .08), inset 0 0 24px rgba(255,255,255,.75); }
+      .orbit-two { width: 300px; height: 300px; }
+      .orbit-three { width: 390px; height: 390px; border-style: dashed; border-color: rgba(74, 94, 148, .11); }
+      .orbit-core { position: absolute; left: 50%; top: 47%; width: 112px; height: 112px; transform: translate(-50%, -50%); border-radius: 32px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(145deg, #4a79ff, #3159d8); color: #fff; box-shadow: 0 18px 48px rgba(61, 100, 220, .34), inset 0 1px 1px rgba(255,255,255,.35); text-align: center; }
+      .orbit-core span { margin-bottom: 4px; font-size: 9px; letter-spacing: .24em; opacity: .78; }
+      .orbit-core strong { font-size: 18px; line-height: 1.2; letter-spacing: .02em; }
+      .orbit-node { position: absolute; min-width: 64px; padding: 8px 13px; border: 1px solid rgba(255,255,255,.8); border-radius: 999px; color: #454d60; background: rgba(255,255,255,.78); box-shadow: 0 8px 22px rgba(32, 48, 88, .1); text-align: center; font-size: 12px; font-weight: 600; backdrop-filter: blur(12px); }
+      .node-finance { left: 15%; top: 23%; }.node-body { right: 11%; top: 32%; }.node-goal { left: 17%; bottom: 21%; }.node-record { right: 15%; bottom: 18%; }
+      .art-caption { position: absolute; right: 22px; bottom: 19px; color: rgba(57, 69, 100, .48); font-size: 8px; font-weight: 700; letter-spacing: .24em; }
+      .snapshot, .domains { max-width: 1280px; margin: 0 auto; padding: 48px 32px 74px; }
+      .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 32px; margin-bottom: 25px; }
+      .section-heading .eyebrow { margin-bottom: 8px; color: var(--accent); }
+      .section-heading h2, .about h2 { margin: 0; font-size: clamp(27px, 3.4vw, 38px); line-height: 1.2; letter-spacing: -.045em; font-weight: 650; }
+      .section-intro { max-width: 390px; margin: 0 0 3px; color: var(--text-2); font-size: 13px; line-height: 1.8; }
+      .snapshot-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+      .snapshot-card { min-height: 178px; position: relative; overflow: hidden; border: 1px solid var(--line); border-radius: 22px; padding: 20px; text-align: left; cursor: pointer; color: var(--text); transition: transform .22s ease, box-shadow .22s ease; }
+      .snapshot-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(27, 39, 64, .1); }
+      .snapshot-blue { background: linear-gradient(145deg, #edf2ff, #f8f9ff); }
+      .snapshot-lilac { background: linear-gradient(145deg, #f2efff, #faf9ff); }
+      .snapshot-green { background: linear-gradient(145deg, #eaf5ef, #f7fbf8); }
+      .snapshot-sand { background: linear-gradient(145deg, #f7f1e7, #fdfbf7); }
+      html[data-theme="dark"] .snapshot-blue { background: linear-gradient(145deg, #202a40, #1d222d); }
+      html[data-theme="dark"] .snapshot-lilac { background: linear-gradient(145deg, #29243d, #1d222d); }
+      html[data-theme="dark"] .snapshot-green { background: linear-gradient(145deg, #20362f, #1d222d); }
+      html[data-theme="dark"] .snapshot-sand { background: linear-gradient(145deg, #3a3022, #1d222d); }
+      .snapshot-label { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--text-2); font-size: 11px; font-weight: 600; }
+      .snapshot-label span { padding: 3px 7px; border-radius: 999px; background: rgba(255,255,255,.56); color: var(--text-3); font-size: 9px; font-weight: 600; }
+      html[data-theme="dark"] .snapshot-label span { background: rgba(255,255,255,.08); }
+      .snapshot-card strong { display: block; margin: 18px 0 4px; font-size: clamp(27px, 3vw, 36px); line-height: 1; letter-spacing: -.05em; font-weight: 650; font-variant-numeric: tabular-nums; }
+      .snapshot-card strong i { font-style: normal; font-size: 14px; letter-spacing: 0; color: var(--text-2); }
+      .snapshot-caption { display: block; max-width: 94%; color: var(--text-2); font-size: 10px; line-height: 1.5; }
+      .snapshot-arrow { position: absolute; right: 17px; bottom: 14px; color: var(--text-3); font-size: 13px; }
+      .snapshot-foot { display: flex; align-items: center; gap: 8px; margin: 14px 0 0; color: var(--text-3); font-size: 11px; }
+      .info-mark { width: 16px; height: 16px; border: 1px solid var(--text-3); border-radius: 50%; display: inline-grid; place-items: center; font-size: 9px; font-weight: 700; flex: 0 0 auto; }
+      .domains { padding-top: 66px; }
+      .domains-heading { margin-bottom: 30px; }
+      .domain-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+      .domain { scroll-margin-top: 92px; padding: 27px 28px 12px; border: 1px solid var(--line); border-radius: 24px; background: var(--surface); box-shadow: 0 8px 25px rgba(25, 34, 53, .025); transition: transform .2s ease, box-shadow .2s ease; }
+      .domain:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(25, 34, 53, .06); }
+      .domain-head { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 17px; }
+      .domain-index { flex: 0 0 auto; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 12px; background: var(--accent-soft); color: var(--accent); font-size: 10px; font-weight: 700; }
+      .domain-en { margin: 0 0 3px; color: var(--text-3); font-size: 9px; font-weight: 700; letter-spacing: .17em; }
+      .domain-name { display: block; font-size: 20px; line-height: 1.25; letter-spacing: -.025em; }
+      .domain-desc { display: block; margin: 4px 0 0; color: var(--text-2); font-size: 11px; }
+      .mod-list { margin: 0; }
+      .mod { width: 100%; display: flex; align-items: center; gap: 12px; margin: 0; padding: 14px 0; border: 0; border-top: 1px solid var(--line); background: transparent; }
+      .mod:hover, .mod:active { background: transparent; }
+      .mod-symbol { flex: 0 0 auto; width: 31px; height: 31px; border-radius: 10px; display: grid; place-items: center; background: var(--surface-2); color: var(--text-2); font-size: 14px; }
+      .mod .mod-name { font-size: 13px; font-weight: 650; }
+      .mod .mod-desc { margin-top: 2px; font-size: 11px; }
+      .mod .arrow { font-size: 14px; color: var(--text-3); }
+      .mod:hover .arrow { color: var(--accent); transform: translate(2px,-2px); }
+      .about { max-width: 1216px; margin: 8px auto 0; padding: 43px 38px; display: grid; grid-template-columns: .8fr 1.2fr; gap: 54px; border: 1px solid var(--line); border-radius: 28px; background: linear-gradient(120deg, var(--surface), color-mix(in srgb, var(--surface) 84%, var(--accent-soft))); }
+      .about-title .eyebrow { margin-bottom: 10px; color: var(--accent); }
+      .about-title p:last-child { max-width: 360px; margin: 16px 0 0; color: var(--text-2); font-size: 13px; line-height: 1.85; }
+      .principles-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 22px; }
+      .principles-list div { position: relative; padding: 13px 0 14px 34px; border-bottom: 1px solid var(--line); }
+      .principles-list span { position: absolute; left: 0; top: 15px; color: var(--accent); font-size: 10px; font-weight: 700; }
+      .principles-list strong { font-size: 12px; font-weight: 650; }
+      .principles-list p { margin: 3px 0 0; color: var(--text-2); font-size: 10px; line-height: 1.6; }
+      .home-foot { max-width: 1280px; margin-top: 54px; padding: 24px 32px 38px; border-top-color: var(--line); font-size: 10px; }
+      .home-foot .fbrand { color: var(--text-2); font-size: 9px; letter-spacing: .2em; }
+      .home-foot .fbrand i { color: var(--accent); font-style: normal; }
+      .module-wrap { max-width: 1000px; padding: 0 28px 90px; }
+      .backrow { padding: 22px 0 7px; }
+      .backbtn { font-size: 12px; }
+      .backrow .where { font-size: 9px; letter-spacing: .22em; }
+      .tabs { gap: 5px; padding: 9px 0 12px; border-bottom-color: var(--line); }
+      .tab { font-size: 12px; padding: 8px 12px; border-radius: 999px; }
+      .tab[aria-selected="true"] { background: var(--text); color: var(--bg); }
+      section.panel { padding-top: 39px; }
+      .panel h1 { color: var(--accent); font-size: 10px; font-weight: 700; letter-spacing: .18em; }
+      .panel &gt; p[style*="font-size:22px"] { margin-top: 9px !important; font-size: clamp(27px, 4.2vw, 38px) !important; line-height: 1.22 !important; letter-spacing: -.045em; }
+      .panel h2 { margin: 39px 0 13px; font-size: 18px; letter-spacing: -.025em; }
+      .panel .muted { font-size: 12px; line-height: 1.8; }
+      .panel form { margin-top: 15px; padding: 22px; gap: 14px; border: 1px solid var(--line); border-radius: 20px; background: var(--surface); }
+      .panel input, .panel select, .panel textarea { border: 1px solid var(--line); border-radius: 12px; padding: 11px 13px; font-size: 13px; }
+      .panel input:focus, .panel select:focus, .panel textarea:focus { border-color: var(--accent); background: var(--surface); box-shadow: 0 0 0 3px var(--accent-soft); }
+      .panel label { font-size: 11px; }
+      .btn { background: var(--accent); color: #fff; font-size: 12px; padding: 10px 20px; }
+      .btn:hover { opacity: 1; filter: brightness(1.06); }
+      .stat-row { gap: 23px; }
+      .stat b { font-size: 22px; }
+      .stat span { font-size: 10px; }
+      .breakdown { gap: 8px; }
+      .bd-row, .entry, .rule { border: 1px solid var(--line); border-radius: 15px; background: var(--surface); }
+      .bd-row { padding: 14px 16px; }
+      .entry { padding: 14px 16px; }
+      .entry .note { font-size: 12px; line-height: 1.75; }
+      .rules { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+      .rule { padding: 17px 18px; }
+      .rule h3 { font-size: 13px; }
+      .rule p { font-size: 12px; line-height: 1.75; }
+      .doc { margin-top: 30px; }
+      .doc-title { font-size: 24px; letter-spacing: -.03em; }
+      .doc-date { font-size: 11px; line-height: 1.75; }
+      .doc-rules { padding: 17px 20px; border: 1px solid var(--line); border-radius: 16px; font-size: 12px; }
+      .doc-part-main { margin-top: 38px; padding-top: 28px; font-size: 21px; letter-spacing: -.03em; }
+      .doc-module { font-size: 17px; margin-top: 32px; }
+      .doc-sub { font-size: 14px; margin-top: 26px; }
+      .doc-body { padding: 19px 21px; border: 1px solid var(--line); border-radius: 15px; font-size: 12px; line-height: 1.9; }
+      .doc-table-wrap { border-radius: 15px; background: var(--surface); }
+      .doc-table { font-size: 11px; }
+      .doc-table th, .doc-table td { padding: 9px 8px; }
+      .doc-nav { gap: 6px; margin: 15px 0 4px; }
+      .doc-nav a { padding: 6px 10px; border-radius: 999px; font-size: 11px; background: var(--surface); }
+      .doc-nav.sub a { padding: 5px 9px; font-size: 10px; }
+      .module-foot { margin-top: 48px; padding: 17px 0 0; font-size: 10px; line-height: 1.8; }
+      @media (max-width: 920px) {
+        .topbar-in { padding: 0 22px; }
+        .hero.hero-compact { min-height: 500px; grid-template-columns: minmax(0, 1fr) minmax(280px, .82fr); gap: 20px; padding: 52px 24px; }
+        .hero-art { min-height: 350px; }
+        .snapshot, .domains { padding-right: 24px; padding-left: 24px; }
+        .snapshot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .about { margin-right: 24px; margin-left: 24px; padding: 34px; gap: 28px; }
+      }
+      @media (max-width: 700px) {
+        .topbar-in { height: 58px; padding: 0 18px; }
+        .topnav { gap: 15px; }
+        .topnav .dom-link { display: none; }
+        .brand { font-size: 10px; letter-spacing: .25em; }
+        .hero.hero-compact { display: flex; min-height: unset; flex-direction: column; align-items: stretch; gap: 26px; padding: 53px 21px 34px; }
+        .hero-kicker { margin-bottom: 16px; font-size: 9px; }
+        .hero h1 { font-size: clamp(47px, 12vw, 64px); }
+        .hero .hero-sub { max-width: 31em; margin-top: 16px; font-size: 14px; }
+        .hero-actions { margin-top: 22px; }
+        .hero-art { min-height: 300px; border-radius: 25px; }
+        .orbit-three { width: 290px; height: 290px; }
+        .orbit-two { width: 224px; height: 224px; }
+        .orbit-one { width: 150px; height: 150px; }
+        .orbit-core { width: 88px; height: 88px; border-radius: 26px; }
+        .orbit-core strong { font-size: 15px; }
+        .node-finance { left: 9%; top: 18%; }.node-body { right: 7%; top: 27%; }.node-goal { left: 9%; bottom: 15%; }.node-record { right: 8%; bottom: 15%; }
+        .snapshot, .domains { padding: 39px 20px 50px; }
+        .section-heading { display: block; margin-bottom: 19px; }
+        .section-heading h2, .about h2 { font-size: 27px; }
+        .section-intro { margin-top: 10px; font-size: 12px; }
+        .snapshot-grid { gap: 9px; }
+        .snapshot-card { min-height: 151px; padding: 15px 14px; border-radius: 17px; }
+        .snapshot-card strong { margin-top: 17px; font-size: clamp(25px, 7vw, 31px); }
+        .snapshot-label { font-size: 10px; }
+        .snapshot-label span { font-size: 8px; }
+        .snapshot-caption { font-size: 9px; }
+        .snapshot-foot { align-items: flex-start; font-size: 10px; line-height: 1.6; }
+        .domain-grid { grid-template-columns: 1fr; gap: 11px; }
+        .domain { padding: 23px 21px 10px; border-radius: 20px; }
+        .about { display: block; margin: 0 20px; padding: 26px 23px; border-radius: 22px; }
+        .principles-list { margin-top: 20px; gap: 4px 16px; }
+        .principles-list div { padding-left: 27px; }
+        .principles-list strong { font-size: 11px; }
+        .principles-list p { font-size: 9px; }
+        .home-foot { margin-top: 32px; padding: 19px 20px 28px; }
+        .home-foot span { font-size: 9px; }
+        .module-wrap { padding: 0 17px 60px; }
+        .backrow { padding-top: 14px; }
+        .tabs { overflow-x: auto; flex-wrap: nowrap; gap: 3px; margin: 0 -17px; padding: 9px 17px 12px; }
+        .tab { flex: 0 0 auto; font-size: 10px; padding: 8px 10px; }
+        section.panel { padding-top: 30px; }
+        .panel form { padding: 17px; border-radius: 17px; }
+        .rules { grid-template-columns: 1fr; }
+        .doc-nav { gap: 5px; }
+        .doc-nav.doc-parts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+        .doc-nav.doc-parts a { min-height: 82px; padding: 12px; }
+        .doc-nav.doc-parts a strong { font-size: 11px; }
+        .doc-nav.doc-parts a small { font-size: 9px; }
+        .doc-body { padding: 15px; font-size: 11px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .hero-primary, .hero-secondary, .snapshot-card, .domain { transition: none; }
+      }
+      /* Refined palette: cool white, layered ice blue, and clear azure accents. */
+      .hero h1 { letter-spacing: -.045em; }
+      .hero-primary { background: var(--accent); border-color: var(--accent); box-shadow: 0 9px 23px rgba(43, 103, 197, .22); }
+      .hero-primary:hover { box-shadow: 0 13px 27px rgba(43, 103, 197, .28); }
+      .hero-art { background: radial-gradient(ellipse at 48% 45%, #fcfdff 0, #e6f0fc 48%, #dce9f8 100%); }
+      .hero-art:after { background: radial-gradient(circle at 16% 18%, #b8d3fa 0, transparent 29%), radial-gradient(circle at 84% 82%, #d2e5fb 0, transparent 34%); }
+      .art-grid { background-image: linear-gradient(rgba(57, 97, 155, .12) 1px, transparent 1px), linear-gradient(90deg, rgba(57, 97, 155, .12) 1px, transparent 1px); }
+      .orbit { border-color: rgba(57, 97, 155, .17); }
+      .orbit-one { box-shadow: 0 24px 70px rgba(51, 91, 146, .1), inset 0 0 24px rgba(255,255,255,.82); }
+      .orbit-three { border-color: rgba(57, 97, 155, .12); }
+      .orbit-core { background: linear-gradient(145deg, #67a5ff, #2865d4); box-shadow: 0 18px 48px rgba(43, 101, 203, .32), inset 0 1px 1px rgba(255,255,255,.4); }
+      .orbit-node { border-color: rgba(255,255,255,.9); color: #354b68; background: rgba(252,253,255,.86); box-shadow: 0 8px 22px rgba(47, 74, 113, .1); }
+      .art-caption { color: rgba(57, 80, 113, .52); }
+      .snapshot-blue { background: linear-gradient(145deg, #e2edfb, #f4f8fe); }
+      .snapshot-lilac { background: linear-gradient(145deg, #e9ebf9, #f6f7fc); }
+      .snapshot-green { background: linear-gradient(145deg, #e1f0f7, #f2f9fc); }
+      .snapshot-sand { background: linear-gradient(145deg, #e7effa, #f7f9fd); }
+      html[data-theme="dark"] .hero-art { background: radial-gradient(ellipse at 48% 45%, #233b5c 0, #19263a 52%, #172237 100%); }
+      html[data-theme="dark"] .hero-art:after { background: radial-gradient(circle at 16% 18%, rgba(91, 145, 224, .42) 0, transparent 30%), radial-gradient(circle at 84% 82%, rgba(92, 126, 190, .25) 0, transparent 34%); }
+      html[data-theme="dark"] .orbit-node { color: #e4edfb; border-color: rgba(221, 234, 252, .17); background: rgba(31, 49, 75, .86); }
+      html[data-theme="dark"] .art-caption { color: rgba(214, 230, 251, .55); }
+      html[data-theme="dark"] .snapshot-blue { background: linear-gradient(145deg, #243a59, #19263a); }
+      html[data-theme="dark"] .snapshot-lilac { background: linear-gradient(145deg, #303750, #19263a); }
+      html[data-theme="dark"] .snapshot-green { background: linear-gradient(145deg, #203b50, #19263a); }
+      html[data-theme="dark"] .snapshot-sand { background: linear-gradient(145deg, #2b3c54, #19263a); }
+      .live-dot { background: #4d8ee8; box-shadow: 0 0 0 4px rgba(77, 142, 232, .13); }
+      .domain, .panel form, .bd-row, .entry, .rule, .doc-body, .doc-table-wrap { box-shadow: 0 7px 22px rgba(48, 69, 101, .04); }
+      html[data-theme="dark"] .domain, html[data-theme="dark"] .panel form, html[data-theme="dark"] .bd-row, html[data-theme="dark"] .entry, html[data-theme="dark"] .rule, html[data-theme="dark"] .doc-body, html[data-theme="dark"] .doc-table-wrap { box-shadow: 0 7px 22px rgba(0, 0, 0, .16); }
+    &lt;/style&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;header class="topbar"&gt;
+      &lt;div class="topbar-in"&gt;
+        &lt;button class="brand" id="brandHome" type="button" aria-label="LINZHIFENG 首页"&gt;LINZHIFENG&lt;/button&gt;
+        &lt;nav class="topnav" aria-label="主导航"&gt;
+          &lt;button type="button" data-nav="home"&gt;总览&lt;/button&gt;
+          &lt;button type="button" class="dom-link" data-nav="domain-finance"&gt;财务&lt;/button&gt;
+          &lt;button type="button" class="dom-link" data-nav="domain-body"&gt;健康&lt;/button&gt;
+          &lt;button type="button" class="dom-link" data-nav="domain-goals"&gt;目标与行动&lt;/button&gt;
+          &lt;button type="button" class="dom-link" data-nav="domain-system"&gt;个人档案&lt;/button&gt;
+          &lt;button type="button" class="theme-toggle" id="themeToggle" aria-label="切换深色模式" title="切换深色模式"&gt;&lt;span aria-hidden="true"&gt;◐&lt;/span&gt;&lt;/button&gt;
+        &lt;/nav&gt;
+      &lt;/div&gt;
+    &lt;/header&gt;
+
+    &lt;!-- ================= 首页 ================= --&gt;
+    &lt;div class="view" id="view-home"&gt;
+      &lt;section class="hero hero-compact" aria-labelledby="hero-title"&gt;
+        &lt;div class="hero-copy"&gt;
+          &lt;p class="hero-kicker"&gt;LINZHIFENG &lt;span&gt;·&lt;/span&gt; PERSONAL DATA SYSTEM&lt;/p&gt;
+          &lt;h1 id="hero-title"&gt;把生活的脉络，&lt;br /&gt;&lt;span&gt;看得清楚。&lt;/span&gt;&lt;/h1&gt;
+          &lt;p class="hero-sub"&gt;一个持续更新的个人中枢。记录真实发生的事，理解正在变化的生活，再把下一步安排好。&lt;/p&gt;
+          &lt;div class="hero-actions"&gt;
+            &lt;button class="hero-primary" type="button" data-goto="reverse"&gt;从目标开始 &lt;span aria-hidden="true"&gt;↗&lt;/span&gt;&lt;/button&gt;
+            &lt;button class="hero-secondary" type="button" data-goto="docs"&gt;浏览完整档案&lt;/button&gt;
+          &lt;/div&gt;
+          &lt;p class="hero-note"&gt;&lt;span class="live-dot" aria-hidden="true"&gt;&lt;/span&gt; 公开档案 · 持续整理中&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class="hero-art" aria-hidden="true"&gt;
+          &lt;div class="art-grid"&gt;&lt;/div&gt;
+          &lt;div class="orbit orbit-one"&gt;&lt;/div&gt;&lt;div class="orbit orbit-two"&gt;&lt;/div&gt;
+          &lt;div class="orbit orbit-three"&gt;&lt;/div&gt;
+          &lt;div class="orbit-core"&gt;&lt;span&gt;LIN&lt;/span&gt;&lt;strong&gt;个人&lt;br /&gt;中枢&lt;/strong&gt;&lt;/div&gt;
+          &lt;span class="orbit-node node-finance"&gt;财务&lt;/span&gt;
+          &lt;span class="orbit-node node-body"&gt;身体&lt;/span&gt;
+          &lt;span class="orbit-node node-goal"&gt;目标&lt;/span&gt;
+          &lt;span class="orbit-node node-record"&gt;记录&lt;/span&gt;
+          &lt;span class="art-caption"&gt;LIFE, IN CLEAR VIEW&lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+
+      &lt;section class="snapshot" aria-labelledby="snapshot-title"&gt;
+        &lt;div class="section-heading"&gt;
+          &lt;div&gt;&lt;p class="eyebrow"&gt;01 / PUBLIC SNAPSHOT&lt;/p&gt;&lt;h2 id="snapshot-title"&gt;一眼看见全局&lt;/h2&gt;&lt;/div&gt;
+          &lt;p class="section-intro"&gt;从公开档案中整理出的基准信息。每个数字都附有时间口径，历史记录继续保留。&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class="snapshot-grid"&gt;
+          &lt;button class="snapshot-card snapshot-blue" type="button" data-goto="debt"&gt;
+            &lt;span class="snapshot-label"&gt;财务基准 &lt;span&gt;2026.10&lt;/span&gt;&lt;/span&gt;
+            &lt;strong&gt;¥15,313&lt;/strong&gt;&lt;span class="snapshot-caption"&gt;本人当前自认债务（2026-10-20，当晚修正） · 历史明细保留备查&lt;/span&gt;&lt;span class="snapshot-arrow"&gt;↗&lt;/span&gt;
+          &lt;/button&gt;
+          &lt;button class="snapshot-card snapshot-lilac" type="button" data-goto="income"&gt;
+            &lt;span class="snapshot-label"&gt;固定月工资 &lt;span&gt;已确认&lt;/span&gt;&lt;/span&gt;
+            &lt;strong&gt;¥6,500&lt;/strong&gt;&lt;span class="snapshot-caption"&gt;档案基准 · 实际到账按记录核对&lt;/span&gt;&lt;span class="snapshot-arrow"&gt;↗&lt;/span&gt;
+          &lt;/button&gt;
+          &lt;button class="snapshot-card snapshot-green" type="button" data-goto="sleep"&gt;
+            &lt;span class="snapshot-label"&gt;睡眠日志 &lt;span&gt;2026.10&lt;/span&gt;&lt;/span&gt;
+            &lt;strong&gt;06 &lt;i&gt;晚&lt;/i&gt;&lt;/strong&gt;&lt;span class="snapshot-caption"&gt;已归档记录 · 10 月 14 日至 19 日&lt;/span&gt;&lt;span class="snapshot-arrow"&gt;↗&lt;/span&gt;
+          &lt;/button&gt;
+          &lt;button class="snapshot-card snapshot-sand" type="button" data-goto="docs"&gt;
+            &lt;span class="snapshot-label"&gt;个人档案 &lt;span&gt;持续更新&lt;/span&gt;&lt;/span&gt;
+            &lt;strong&gt;06 &lt;i&gt;部分&lt;/i&gt;&lt;/strong&gt;&lt;span class="snapshot-caption"&gt;主档案、交易系统、决策与生活记录&lt;/span&gt;&lt;span class="snapshot-arrow"&gt;↗&lt;/span&gt;
+          &lt;/button&gt;
+        &lt;/div&gt;
+        &lt;p class="snapshot-foot"&gt;&lt;span class="info-mark"&gt;i&lt;/span&gt; 档案基准整理至 2026 年 10 月 19 日。页面交互录入保存在当前浏览器，不会自动同步给其他访客。&lt;/p&gt;
+      &lt;/section&gt;
+
+      &lt;section class="domains" aria-label="个人中枢模块"&gt;
+        &lt;div class="section-heading domains-heading"&gt;
+          &lt;div&gt;&lt;p class="eyebrow"&gt;02 / EXPLORE&lt;/p&gt;&lt;h2&gt;按生活的脉络，逐项展开&lt;/h2&gt;&lt;/div&gt;
+          &lt;p class="section-intro"&gt;从财务和身体，到目标、交易与个人档案。每个模块都有自己的记录方式。&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class="domain-grid"&gt;
+          &lt;div class="domain" id="domain-finance"&gt;
+            &lt;div class="domain-head"&gt;&lt;span class="domain-index"&gt;01&lt;/span&gt;&lt;div&gt;&lt;p class="domain-en"&gt;MONEY &amp; FLOW&lt;/p&gt;&lt;h3 class="domain-name"&gt;财务&lt;/h3&gt;&lt;span class="domain-desc"&gt;流入 · 负债 · 月度开支&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+            &lt;div class="mod-list"&gt;
+              &lt;button class="mod" type="button" data-goto="debt"&gt;&lt;span class="mod-symbol"&gt;↘&lt;/span&gt;&lt;span class="mod-main"&gt;&lt;span class="mod-name"&gt;负债与还款&lt;/span&gt;&lt;span class="mod-desc"&gt;查看余额、分项与还款记录&lt;/span&gt;&lt;/span&gt;&lt;span class="arrow" aria-hidden="true"&gt;↗&lt;/span&gt;&lt;/button&gt;
+              &lt;button class="mod" type="button" data-goto="income"&gt;&lt;span class="mod-symbol"&gt;＋&lt;/span&gt;&lt;span class="mod-main"&gt;&lt;span class="mod-name"&gt;到账记录&lt;/span&gt;&lt;span class="mod-desc"&gt;收入、借入和其他流入分类查看&lt;/span&gt;&lt;/span&gt;&lt;span class="arrow" aria-hidden="true"&gt;↗&lt;/span&gt;&lt;/button&gt;
+              &lt;button class="mod" type="button" data-goto="expense"&gt;&lt;span class="mod-symbol"&gt;▤&lt;/span&gt;&lt;span class="mod-main"&gt;&lt;span class="mod-name"&gt;月度开支&lt;/span&gt;&lt;span class="mod-desc"&gt;按月复盘支出与类别变化&lt;/span&gt;&lt;/span&gt;&lt;span class="arrow" aria-hidden="true"&gt;↗&lt;/span&gt;&lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class="domain" id="domain-body"&gt;
+            &lt;div class="domain-head"&gt;&lt;span class="domain-index"&gt;02&lt;/span&gt;&lt;div&gt;&lt;p class="domain-en"&gt;BODY &amp; RHYTHM&lt;/p&gt;&lt;h3 class="domain-name"&gt;身体与节律&lt;/h3&gt;&lt;span class="domain-desc"&gt;训练 · 睡眠 · 日常状态&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+            &lt;div class="mod-list"&gt;
+              &lt;button class="mod" type="button" data-goto="life"&gt;&lt;span class="mod-symbol"&gt;✳&lt;/span&gt;&lt;span class="mod-main"&gt;&lt;span class="mod-name"&gt;训练记录&lt;/span&gt;&lt;span class="mod-desc"&gt;记录计划、完成情况与时长&lt;/span&gt;&lt;/span&gt;&lt;span class="arrow" aria-hidden="true"&gt;↗&lt;/span&gt;&lt;/button&gt;
+              &lt;button class="mod" type="button" data-goto="sleep"&gt;&lt;span class="mod-symbol"&gt;☾&lt;/span&gt;&lt;span class="mod-main"&gt;&lt;span class="mod-name"&gt;睡眠记录&lt;/span&gt;&lt;span class="mod-desc"&gt;查看睡眠时长与主观质量&lt;/span&gt;&lt;/span&gt;&lt;span class="arrow" aria-hidden="true"&gt;↗&lt;/span&gt;&lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class="domain" id="domain-goals"&gt;
+            &lt;div class="domain-head"&gt;&lt;span class="domain-index"&gt;03&lt;/span&gt;&lt;div&gt;&lt;p class="domain-en"&gt;DIRECTION &amp; ACTION&lt;/p&gt;&lt;h3 class="domain-name"&gt;目标与行动&lt;/h3&gt;&lt;span class="domain-desc"&gt;逆向拆解 · 交易规则&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+            &lt;div class="mod-list"&gt;
+              &lt;button class="mod" type="button" data-goto="reverse"&gt;&lt;span class="mod-symbol"&gt;⌁&lt;/span&gt;&lt;span class="mod-main"&gt;&lt;span class="mod-name"&gt;逆向决策&lt;/span&gt;&lt;span class="mod-desc"&gt;从终点倒推阶段、条件和当下行动&lt;/span&gt;&lt;/span&gt;&lt;span class="arrow" aria-hidden="true"&gt;↗&lt;/span&gt;&lt;/button&gt;
+              &lt;button class="mod" type="button" data-goto="trade"&gt;&lt;span class="mod-symbol"&gt;⌗&lt;/span&gt;&lt;span class="mod-main"&gt;&lt;span class="mod-name"&gt;交易系统&lt;/span&gt;&lt;span class="mod-desc"&gt;规则核对、交易日记与结果复盘&lt;/span&gt;&lt;/span&gt;&lt;span class="arrow" aria-hidden="true"&gt;↗&lt;/span&gt;&lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class="domain" id="domain-system"&gt;
+            &lt;div class="domain-head"&gt;&lt;span class="domain-index"&gt;04&lt;/span&gt;&lt;div&gt;&lt;p class="domain-en"&gt;REVIEW &amp; ARCHIVE&lt;/p&gt;&lt;h3 class="domain-name"&gt;复盘与档案&lt;/h3&gt;&lt;span class="domain-desc"&gt;每周整理 · 长期留存&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+            &lt;div class="mod-list"&gt;
+              &lt;button class="mod" type="button" data-goto="review"&gt;&lt;span class="mod-symbol"&gt;↻&lt;/span&gt;&lt;span class="mod-main"&gt;&lt;span class="mod-name"&gt;每周复盘&lt;/span&gt;&lt;span class="mod-desc"&gt;回看结果、阻碍与下一步重点&lt;/span&gt;&lt;/span&gt;&lt;span class="arrow" aria-hidden="true"&gt;↗&lt;/span&gt;&lt;/button&gt;
+              &lt;button class="mod" type="button" data-goto="docs"&gt;&lt;span class="mod-symbol"&gt;▧&lt;/span&gt;&lt;span class="mod-main"&gt;&lt;span class="mod-name"&gt;完整个人档案&lt;/span&gt;&lt;span class="mod-desc"&gt;六部分原文、更新说明与历史记录&lt;/span&gt;&lt;/span&gt;&lt;span class="arrow" aria-hidden="true"&gt;↗&lt;/span&gt;&lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+
+      &lt;section class="about" aria-label="关于这个空间"&gt;
+        &lt;div class="about-title"&gt;&lt;p class="eyebrow"&gt;03 / PRINCIPLES&lt;/p&gt;&lt;h2&gt;让每条记录，都说得清楚。&lt;/h2&gt;&lt;p&gt;这是 Lin 志锋的公开个人数据中枢。记录不只是保存数字，也要保留它发生的时间、来源和变化。&lt;/p&gt;&lt;/div&gt;
+        &lt;div class="principles-list"&gt;
+          &lt;div&gt;&lt;span&gt;01&lt;/span&gt;&lt;strong&gt;真实收入与借入分开&lt;/strong&gt;&lt;p&gt;借款、资产变现和退款不计入收入。&lt;/p&gt;&lt;/div&gt;
+          &lt;div&gt;&lt;span&gt;02&lt;/span&gt;&lt;strong&gt;保留历史，不覆盖旧值&lt;/strong&gt;&lt;p&gt;每项记录尽可能带日期，变化能够回看。&lt;/p&gt;&lt;/div&gt;
+          &lt;div&gt;&lt;span&gt;03&lt;/span&gt;&lt;strong&gt;事实、计划与判断分开&lt;/strong&gt;&lt;p&gt;不把估算写成已确认，也不把猜测当事实。&lt;/p&gt;&lt;/div&gt;
+          &lt;div&gt;&lt;span&gt;04&lt;/span&gt;&lt;strong&gt;持续核对，再做调整&lt;/strong&gt;&lt;p&gt;用复盘发现变化，把下一步落到行动上。&lt;/p&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+
+      &lt;footer class="home-foot"&gt;
+        &lt;span class="fbrand"&gt;LINZHIFENG &lt;i&gt;·&lt;/i&gt; PERSONAL DATA SYSTEM&lt;/span&gt;
+        &lt;span&gt;真实记录 · 清晰判断 · 稳步行动&lt;/span&gt;
+      &lt;/footer&gt;
+    &lt;/div&gt;
+
+    &lt;!-- ================= 模块页 ================= --&gt;
+    &lt;div class="view" id="view-module" hidden&gt;
+      &lt;div class="module-wrap"&gt;
+        &lt;div class="backrow"&gt;
+          &lt;button class="backbtn" id="backHome" type="button"&gt;&lt;span class="chev" aria-hidden="true"&gt;‹&lt;/span&gt;返回首页&lt;/button&gt;
+          &lt;span class="where"&gt;LINZHIFENG&lt;/span&gt;
+        &lt;/div&gt;
+
+        &lt;nav class="tabs" role="tablist" aria-label="模块切换"&gt;
+          &lt;button class="tab" role="tab" aria-selected="true" data-tab="debt"&gt;还款&lt;/button&gt;
+          &lt;button class="tab" role="tab" aria-selected="false" data-tab="expense"&gt;开支&lt;/button&gt;
+          &lt;button class="tab" role="tab" aria-selected="false" data-tab="income"&gt;到账&lt;/button&gt;
+          &lt;button class="tab" role="tab" aria-selected="false" data-tab="trade"&gt;交易&lt;/button&gt;
+          &lt;button class="tab" role="tab" aria-selected="false" data-tab="life"&gt;训练&lt;/button&gt;
+          &lt;button class="tab" role="tab" aria-selected="false" data-tab="sleep"&gt;睡眠记录&lt;/button&gt;
+          &lt;button class="tab" role="tab" aria-selected="false" data-tab="reverse"&gt;逆向决策&lt;/button&gt;
+          &lt;button class="tab" role="tab" aria-selected="false" data-tab="review"&gt;每周复盘&lt;/button&gt;
+          &lt;button class="tab" role="tab" aria-selected="false" data-tab="docs"&gt;档案&lt;/button&gt;
+        &lt;/nav&gt;
+
+&lt;!-- ============ 还款记账 ============ --&gt;
+      &lt;section class="panel active" id="panel-debt" role="tabpanel"&gt;
+        &lt;h1&gt;剩余债务&lt;/h1&gt;
+        &lt;div class="big"&gt;&lt;span class="unit"&gt;¥&lt;/span&gt;&lt;span id="remainNum"&gt;15,313&lt;/span&gt;&lt;/div&gt;
+        &lt;div class="progress-row"&gt;
+          &lt;span&gt;目标：2027 年 3 月前还清&lt;/span&gt;
+          &lt;span&gt;已还 &lt;strong id="paidNum"&gt;¥0&lt;/strong&gt; · &lt;strong id="pctNum"&gt;0%&lt;/strong&gt;&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class="bar" aria-hidden="true"&gt;&lt;div id="barFill"&gt;&lt;/div&gt;&lt;/div&gt;
+
+        &lt;p class="muted" style="margin-top:14px;"&gt;每还一笔，在下方填写日期、类别和金额，剩余债务与还款进度会自动更新。&lt;/p&gt;
+
+        &lt;div class="breakdown" id="breakdown"&gt;&lt;/div&gt;
+
+        &lt;dl class="facts"&gt;
+          &lt;div&gt;&lt;dt&gt;工资&lt;/dt&gt;&lt;dd&gt;¥6,500 / 月，每月 1 号左右到账&lt;/dd&gt;&lt;/div&gt;
+          &lt;div&gt;&lt;dt&gt;10 月还款&lt;/dt&gt;&lt;dd&gt;约 ¥3,674（融资租赁 ¥2,474 + 网贷及分期约 ¥1,200）&lt;/dd&gt;&lt;/div&gt;
+          &lt;div&gt;&lt;dt&gt;融资租赁&lt;/dt&gt;&lt;dd&gt;2026 年 11 月 25 日最后一笔，之后每月还款降至约 ¥1,200&lt;/dd&gt;&lt;/div&gt;
+          &lt;div&gt;&lt;dt&gt;朋友欠款&lt;/dt&gt;&lt;dd&gt;约好过年还；谁着急，先还谁&lt;/dd&gt;&lt;/div&gt;
+          &lt;div&gt;&lt;dt&gt;基数说明&lt;/dt&gt;&lt;dd&gt;2026-10-20 本人确认：自认债务约 ¥15,313（朋友 ¥8,566 + 融资租赁 ¥4,947 + 微信分付/招联等约 ¥1,800；分付/招联原估 ¥1,487，当晚本人修正为约 ¥1,800，总额由约 ¥15,000 相应修正）。已停还的借呗、花呗、抖音（¥14,000）、京东白条/金条，本人明确不认，不计入本人口径；历史总额 ¥19,697（2026-10-13 估算）及逐笔记录保留备查&lt;/dd&gt;&lt;/div&gt;
+        &lt;/dl&gt;
+
+        &lt;!-- &lt;h2&gt;记一笔还款&lt;/h2&gt; removed --&gt;
+        &lt;!-- debtForm removed (public version, data via chat only) --&gt;
+
+        &lt;h2&gt;还款记录&lt;/h2&gt;
+        &lt;div class="entries" id="debtEntries"&gt;&lt;/div&gt;
+        &lt;p class="empty" id="debtEmpty"&gt;还没有记录。在上面记下第一笔还款，剩余债务和进度会立刻更新。&lt;/p&gt;
+      &lt;/section&gt;
+
+      &lt;!-- ============ 开支复盘 ============ --&gt;
+      &lt;section class="panel" id="panel-expense" role="tabpanel"&gt;
+        &lt;h1&gt;开支复盘&lt;/h1&gt;
+        &lt;p style="font-size:22px;font-weight:700;line-height:1.4;"&gt;不记每天的，每月看一次账单。&lt;/p&gt;
+        &lt;p class="muted" style="margin-top:8px;"&gt;2026-10-18 本人决定：不再记每日开支，改为按月复盘——每月把账单流水导出来，看一次总支出和分类合计。流水口径约 ¥9,500 与开支表的差约 ¥2,372 已于 2026-10-18 核对清楚：是找别人借又还给别人的周转，流水虚高，实际开支按开支表 ¥7,128 算。&lt;/p&gt;
+
+        &lt;div class="stat-row" style="margin-top:24px;"&gt;
+          &lt;div class="stat"&gt;&lt;b id="erCount"&gt;0&lt;/b&gt;&lt;span&gt;已复盘月份&lt;/span&gt;&lt;/div&gt;
+          &lt;div class="stat"&gt;&lt;b id="erLatest"&gt;—&lt;/b&gt;&lt;span&gt;最近一月总支出&lt;/span&gt;&lt;/div&gt;
+          &lt;div class="stat"&gt;&lt;b&gt;¥7,128&lt;/b&gt;&lt;span&gt;10 月基准（本人开支表）&lt;/span&gt;&lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;h2&gt;10 月基准参考（本人 2026-10-12 开支表，合计约 ¥7,128/月）&lt;/h2&gt;
+        &lt;div class="breakdown" id="expenseBaseline"&gt;&lt;/div&gt;
+
+        &lt;!-- &lt;h2&gt;记一次月度复盘&lt;/h2&gt; removed --&gt;
+        &lt;!-- expenseForm removed (public version, data via chat only) --&gt;
+
+        &lt;h2&gt;复盘记录&lt;/h2&gt;
+        &lt;div class="entries" id="expenseEntries"&gt;&lt;/div&gt;
+        &lt;p class="empty" id="expenseEmpty"&gt;还没有复盘记录。等月底导出账单流水后，在上面记第一次。&lt;/p&gt;
+      &lt;/section&gt;
+
+      &lt;!-- ============ 个人盈利 ============ --&gt;
+      &lt;section class="panel" id="panel-income" role="tabpanel"&gt;
+        &lt;h1&gt;资金流入&lt;/h1&gt;
+        &lt;p style="font-size:22px;font-weight:700;line-height:1.4;"&gt;到账要记录，收入与借入分开算。&lt;/p&gt;
+        &lt;p class="muted" style="margin-top:8px;"&gt;只登记实际到账的款项。工资、交易盈利等计入收入；借入款单列，不计入收入；资产出售、退款与转账也保留各自口径。未到账的款项不记作现有资金。&lt;/p&gt;
+
+        &lt;div class="stat-row" style="margin-top:24px;"&gt;
+          &lt;div class="stat"&gt;&lt;b id="iMonthTotal"&gt;¥0&lt;/b&gt;&lt;span&gt;本月真实收入&lt;/span&gt;&lt;/div&gt;
+          &lt;div class="stat"&gt;&lt;b id="iAllTotal"&gt;¥0&lt;/b&gt;&lt;span&gt;累计真实收入&lt;/span&gt;&lt;/div&gt;
+          &lt;div class="stat"&gt;&lt;b id="iBorrowedTotal"&gt;¥0&lt;/b&gt;&lt;span&gt;本月借入（单列）&lt;/span&gt;&lt;/div&gt;
+          &lt;div class="stat"&gt;&lt;b id="iAllCount"&gt;0&lt;/b&gt;&lt;span&gt;全部流入记录&lt;/span&gt;&lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- &lt;h2&gt;新增一笔到账&lt;/h2&gt; removed --&gt;
+        &lt;!-- incomeForm removed (public version, data via chat only) --&gt;
+
+        &lt;h2&gt;到账明细&lt;/h2&gt;
+        &lt;div class="entries" id="incomeEntries"&gt;&lt;/div&gt;
+        &lt;p class="empty" id="incomeEmpty"&gt;还没有流入记录。到账后选择类别，再登记金额和备注。&lt;/p&gt;
+      &lt;/section&gt;
+
+      &lt;!-- ============ 交易参考 ============ --&gt;
+      &lt;section class="panel" id="panel-trade" role="tabpanel"&gt;
+        &lt;h1&gt;我的交易系统&lt;/h1&gt;
+        &lt;p style="font-size:22px;font-weight:700;line-height:1.4;"&gt;轻仓，顺势，止损。&lt;br /&gt;盈利单绝不变成亏损单。&lt;/p&gt;
+        &lt;p class="muted" style="margin-top:8px;"&gt;交易是概率游戏。尽量少做，多做多错。不清楚，就不做。&lt;/p&gt;
+
+        &lt;h2&gt;规则&lt;/h2&gt;
+        &lt;div class="rules"&gt;
+          &lt;div class="rule"&gt;
+            &lt;h3&gt;轻仓&lt;/h3&gt;
+            &lt;p&gt;单笔保证金占总资金 &lt;span class="k"&gt;10%&lt;/span&gt;，杠杆 &lt;span class="k"&gt;5 倍&lt;/span&gt;（名义仓位 50%）。&lt;/p&gt;
+            &lt;p&gt;单笔止损亏损控制在总资金的 &lt;span class="k"&gt;1%&lt;/span&gt;。&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class="rule"&gt;
+            &lt;h3&gt;顺势：只做突破&lt;/h3&gt;
+            &lt;p&gt;周线判断方向，日线找入场点。&lt;/p&gt;
+            &lt;p&gt;价格突破前高阻力 → 试多；跌破前低支撑 → 试空。&lt;/p&gt;
+            &lt;p&gt;方向不清楚，不做。&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class="rule"&gt;
+            &lt;h3&gt;止损&lt;/h3&gt;
+            &lt;p&gt;价格 &lt;span class="k"&gt;2%&lt;/span&gt; 硬止损，触发就走，&lt;span class="k"&gt;绝不放宽&lt;/span&gt;。&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class="rule"&gt;
+            &lt;h3&gt;止盈&lt;/h3&gt;
+            &lt;p&gt;盈利 2% → 止损移到保本，盈利单绝不变成亏损单。&lt;/p&gt;
+            &lt;p&gt;盈利 4% → 先出一半，剩余用跟踪止损。&lt;/p&gt;
+            &lt;p&gt;周线方向反转 → 全部出场。最长持仓 1 个月。&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class="rule"&gt;
+            &lt;h3&gt;资金隔离&lt;/h3&gt;
+            &lt;p&gt;交易资金与还款、生活资金 &lt;span class="k"&gt;100% 隔离&lt;/span&gt;。&lt;/p&gt;
+            &lt;p&gt;绝不用还款的钱、生活的钱、借来的钱交易。只用闲钱。&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class="rule"&gt;
+            &lt;h3&gt;不看指标&lt;/h3&gt;
+            &lt;p&gt;不看均线、MACD、斐波那契等任何指标线，不用成交量等附加过滤。只看价格与前高前低。&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;h2&gt;交易日记&lt;/h2&gt;
+        &lt;div class="stat-row"&gt;
+          &lt;div class="stat"&gt;&lt;b id="tCount"&gt;0&lt;/b&gt;&lt;span&gt;已记录&lt;/span&gt;&lt;/div&gt;
+          &lt;div class="stat"&gt;&lt;b id="tFollow"&gt;—&lt;/b&gt;&lt;span&gt;按系统执行&lt;/span&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;!-- tradeForm removed (public version, data via chat only) --&gt;
+
+        &lt;h2&gt;日记记录&lt;/h2&gt;
+        &lt;div class="entries" id="tradeEntries"&gt;&lt;/div&gt;
+        &lt;p class="empty" id="tradeEmpty"&gt;还没有日记。每笔交易记下来：为什么进、结果如何、有没有按系统执行。&lt;/p&gt;
+      &lt;/section&gt;
+
+      &lt;!-- ============ 健身打卡 ============ --&gt;
+      &lt;section class="panel" id="panel-life" role="tabpanel"&gt;
+        &lt;h1&gt;健身 / 生活打卡&lt;/h1&gt;
+        &lt;p style="font-size:22px;font-weight:700;line-height:1.4;"&gt;固定节奏：周一、周二、周四。&lt;/p&gt;
+        &lt;p class="muted" style="margin-top:8px;"&gt;也可以记其他日子的活动。完成就记完成，排不开就记推迟，不用补、不用欠。&lt;/p&gt;
+
+        &lt;div class="stat-row" style="margin-top:24px;"&gt;
+          &lt;div class="stat"&gt;&lt;b id="lDone"&gt;0&lt;/b&gt;&lt;span&gt;完成次数&lt;/span&gt;&lt;/div&gt;
+          &lt;div class="stat"&gt;&lt;b id="lLate"&gt;0&lt;/b&gt;&lt;span&gt;推迟次数&lt;/span&gt;&lt;/div&gt;
+          &lt;div class="stat"&gt;&lt;b id="lMins"&gt;0&lt;/b&gt;&lt;span&gt;累计分钟&lt;/span&gt;&lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- &lt;h2&gt;记一次&lt;/h2&gt; removed --&gt;
+        &lt;!-- lifeForm removed (public version, data via chat only) --&gt;
+
+        &lt;h2&gt;打卡记录&lt;/h2&gt;
+        &lt;div class="entries" id="lifeEntries"&gt;&lt;/div&gt;
+        &lt;p class="empty" id="lifeEmpty"&gt;还没有打卡记录。&lt;/p&gt;
+      &lt;/section&gt;
+
+      &lt;!-- ============ 睡眠记录 ============ --&gt;
+      &lt;section class="panel" id="panel-sleep" role="tabpanel"&gt;
+        &lt;h1&gt;睡眠记录&lt;/h1&gt;
+        &lt;p style="font-size:22px;font-weight:700;line-height:1.4;"&gt;目标：每晚睡够约 8 小时。&lt;/p&gt;
+        &lt;p class="muted" style="margin-top:8px;"&gt;睡眠目标约 8 小时，来自档案模块四 4.1。填入睡和起床时间，时长自动算。&lt;/p&gt;
+        &lt;p class="muted" style="margin-top:8px;"&gt;已归档的睡眠记录与原始说明见&lt;button type="button" class="linklike" id="sDocLink"&gt;《个人交互数据桥》第六部分&lt;/button&gt;；新记录可在下方继续添加。&lt;/p&gt;
+
+        &lt;div class="stat-row" style="margin-top:24px;"&gt;
+          &lt;div class="stat"&gt;&lt;b id="sAvg"&gt;—&lt;/b&gt;&lt;span&gt;近 7 天平均时长&lt;/span&gt;&lt;/div&gt;
+          &lt;div class="stat"&gt;&lt;b id="sQuality"&gt;—&lt;/b&gt;&lt;span&gt;近 7 天平均质量&lt;/span&gt;&lt;/div&gt;
+          &lt;div class="stat"&gt;&lt;b id="sCount"&gt;0&lt;/b&gt;&lt;span&gt;已记录晚数&lt;/span&gt;&lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- &lt;h2&gt;记一晚&lt;/h2&gt; removed --&gt;
+        &lt;!-- sleepForm removed (public version, data via chat only) --&gt;
+
+        &lt;h2&gt;睡眠记录&lt;/h2&gt;
+        &lt;div class="entries" id="sleepEntries"&gt;&lt;/div&gt;
+        &lt;p class="empty" id="sleepEmpty"&gt;还没有睡眠记录。&lt;/p&gt;
+      &lt;/section&gt;
+
+      &lt;!-- ============ 逆向决策 ============ --&gt;
+      &lt;section class="panel" id="panel-reverse" role="tabpanel"&gt;
+        &lt;h1&gt;逆向决策&lt;/h1&gt;
+        &lt;p style="font-size:22px;font-weight:700;line-height:1.4;"&gt;想不清第一步怎么走，&lt;br /&gt;先定终点，倒着往前推。&lt;/p&gt;
+        &lt;p class="muted" style="margin-top:8px;"&gt;决策公式：现在的价值 = 眼前的收获 + 之后的价值。放弃眼前的局部最优，只选对终点有积累、对全局有价值的那一步。&lt;/p&gt;
+
+        &lt;h2&gt;我的拆解模型&lt;/h2&gt;
+        &lt;div class="rules"&gt;
+          &lt;div class="rule"&gt;
+            &lt;h3&gt;终点目标&lt;/h3&gt;
+            &lt;p&gt;摆脱高强度劳动，建立持续的个人系统与时间自主权。&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class="rule"&gt;
+            &lt;h3&gt;阶段三 · 终点前一步&lt;/h3&gt;
+            &lt;p&gt;前置必要条件：能够自由选择工作或尝试新方向。&lt;/p&gt;
+            &lt;p&gt;关键指标：拥有 &lt;span class="k"&gt;3–6 个月&lt;/span&gt;的生存应急缓冲金，且无任何消费类网贷 / 高息负债催缴。&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class="rule"&gt;
+            &lt;h3&gt;阶段二 · 中期过渡&lt;/h3&gt;
+            &lt;p&gt;前置必要条件：债务规模持续缩减，现金流恢复健康。&lt;/p&gt;
+            &lt;p&gt;关键指标：变现闲置或分期资产优先清算网贷；固定开支严格控制；不增加新的借贷。&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class="rule"&gt;
+            &lt;h3&gt;阶段一 · 当前脚下唯一动作&lt;/h3&gt;
+            &lt;p&gt;前置必要条件：保护基本盘与体力。&lt;/p&gt;
+            &lt;p&gt;关键指标：守住固定工资收入，不无准备裸辞；手机到货后第一时间卖掉清算网贷；保证睡眠与健身恢复，不盲目同时开启多个副业或高风险交易。&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class="rule"&gt;
+            &lt;h3&gt;行动心法&lt;/h3&gt;
+            &lt;p&gt;拒绝盲目试错：不贪图眼前的短期快感，只做对终点有积累的事。&lt;/p&gt;
+            &lt;p&gt;记录最优节点：把每一步的确定性拿到手——&lt;span class="k"&gt;不把口头承诺和未到账的收入算作已有资产&lt;/span&gt;（第一原则）。&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class="stat-row" style="margin-top:28px;"&gt;
+          &lt;div class="stat"&gt;&lt;b id="rCount"&gt;0&lt;/b&gt;&lt;span&gt;已拆解&lt;/span&gt;&lt;/div&gt;
+          &lt;div class="stat"&gt;&lt;b id="rDone"&gt;0&lt;/b&gt;&lt;span&gt;当前步已完成&lt;/span&gt;&lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- &lt;h2&gt;拆一个目标&lt;/h2&gt; removed --&gt;
+        &lt;!-- reverseForm removed (public version, data via chat only) --&gt;
+
+        &lt;h2&gt;我的拆解&lt;/h2&gt;
+        &lt;div class="entries" id="reverseEntries"&gt;&lt;/div&gt;
+        &lt;p class="empty" id="reverseEmpty"&gt;还没有拆解。在上面写下一个终点目标，从终点倒推到脚下这一步。&lt;/p&gt;
+
+        &lt;p class="muted" style="margin-top:28px;"&gt;完整原文：&lt;button type="button" class="linklike" id="rDocLink"&gt;《个人交互数据桥》第三部分｜动态规划思维：从终点倒推的逆向决策法&lt;/button&gt;&lt;/p&gt;
+      &lt;/section&gt;
+
+      &lt;!-- ============ 每周复盘 ============ --&gt;
+      &lt;section class="panel" id="panel-review" role="tabpanel"&gt;
+        &lt;h1&gt;每周复盘&lt;/h1&gt;
+        &lt;p style="font-size:22px;font-weight:700;line-height:1.4;"&gt;按档案里的复盘模板，一周对一次。&lt;/p&gt;
+        &lt;p class="muted" style="margin-top:8px;"&gt;模板来自主档案模块一 1.2「每周复盘模板」：本周完成了什么？有什么可验证的结果？最大的阻碍是什么？哪个任务应停止、缩减或继续？下周最重要的 1–3 件事是什么？&lt;/p&gt;
+
+        &lt;div class="stat-row" style="margin-top:24px;"&gt;
+          &lt;div class="stat"&gt;&lt;b id="wCount"&gt;0&lt;/b&gt;&lt;span&gt;已复盘周数&lt;/span&gt;&lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;h2&gt;写本周复盘&lt;/h2&gt;
+        &lt;!-- reviewForm removed (public version, data via chat only) --&gt;
+
+        &lt;h2&gt;复盘记录&lt;/h2&gt;
+        &lt;div class="entries" id="reviewEntries"&gt;&lt;/div&gt;
+        &lt;p class="empty" id="reviewEmpty"&gt;还没有复盘记录。&lt;/p&gt;
+      &lt;/section&gt;
+
+      &lt;!-- ============ 我的文档 ============ --&gt;
+      &lt;section class="panel" id="panel-docs" role="tabpanel"&gt;
+        &lt;h1&gt;完整个人档案&lt;/h1&gt;
+        &lt;p style="font-size:22px;font-weight:700;line-height:1.4;"&gt;一份主档案，五个区。&lt;/p&gt;
+        &lt;p class="muted" style="margin-top:8px;"&gt;总规矩与总览在前，正文分五区：活账、日常、脑子、档案、归档。目录按区整理，点任一主题跳到原文位置。&lt;/p&gt;
+                &lt;!--DATA-ARTICLE--&gt;
+&lt;!--DATA-SCRIPT--&gt;
+        
+      &lt;/section&gt;
+
+        &lt;footer class="module-foot"&gt;完整档案内容为公开页面。表单新增的交互记录保存在当前浏览器中，刷新后仍可查看，但不会自动同步到其他访客的设备。¥19,697 为档案中的历史负债基数，实际余额以明细记录为准。&lt;/footer&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;script&gt;
+      (function () {
+        "use strict";
+        var fmt = function (n) {
+          return n.toLocaleString("zh-CN", { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+        };
+        var money = function (n) { return "¥" + fmt(n); };
+        var today = function () {
+          var d = new Date();
+          var m = String(d.getMonth() + 1).padStart(2, "0");
+          var day = String(d.getDate()).padStart(2, "0");
+          return d.getFullYear() + "-" + m + "-" + day;
+        };
+        var esc = function (s) {
+          return String(s).replace(/[&amp;&lt;&gt;"']/g, function (c) {
+            return { "&amp;": "&amp;amp;", "&lt;": "&amp;lt;", "&gt;": "&amp;gt;", '"': "&amp;quot;", "'": "&amp;#39;" }[c];
+          });
+        };
+        /*
+         * 数据同步顺序：先更新上方 panel-docs 中的档案正文，再更新首页摘要和下方模块默认值。
+         * 档案保留旧口径与日期；模块里的用户新增记录属于本机 localStorage，不作为档案事实来源。
+         */
+        /* ---------- localStorage persistence ---------- */
+        var loadStore = function (key, fallback) {
+          try {
+            var raw = localStorage.getItem(key);
+            if (raw) {
+              var parsed = JSON.parse(raw);
+              if (Array.isArray(parsed) &amp;&amp; parsed.length) return parsed;
+            }
+          } catch (e) {}
+          return fallback;
+        };
+        var saveStore = function (key, arr) {
+          try {
+            localStorage.setItem(key, JSON.stringify(arr));
+          } catch (e) {}
+        };
+
+        /* ---------- Tabs ---------- */
+        var tabs = document.querySelectorAll(".tab");
+        tabs.forEach(function (t) {
+          t.addEventListener("click", function () {
+            tabs.forEach(function (x) { x.setAttribute("aria-selected", "false"); });
+            t.setAttribute("aria-selected", "true");
+            document.querySelectorAll(".panel").forEach(function (p) { p.classList.remove("active"); });
+            document.getElementById("panel-" + t.dataset.tab).classList.add("active");
+            window.scrollTo({ top: 0 });
+          });
+        });
+
+        /* ---------- Segmented controls ---------- */
+        function seg(id) {
+          var box = document.getElementById(id);
+          if (!box) return function () { return ""; };
+          var btns = box.querySelectorAll("button");
+          btns.forEach(function (b) {
+            b.addEventListener("click", function () {
+              btns.forEach(function (x) { x.classList.remove("on"); });
+              b.classList.add("on");
+            });
+          });
+          return function () {
+            var on = box.querySelector("button.on");
+            return on ? (on.dataset.dir || on.dataset.follow || on.dataset.day || on.dataset.status || on.dataset.quality || on.dataset.adjust) : "";
+          };
+        }
+        var getDir = seg("tDirSeg");
+        var getFollow = seg("tFollowSeg");
+        var getDay = seg("lDaySeg");
+        var getStatus = seg("lStatusSeg");
+        var getRStatus = seg("rStatusSeg");
+        var getQuality = seg("sQualitySeg");
+        var getAdjust = seg("wAdjustSeg");
+
+        /* ---------- 还款记账 ---------- */
+        var BASE = 15313; /* 2026-10-20 本人确认口径：自认债务约 ¥15,313（当晚由 ¥15,000 修正：分付/招联 ¥1,487→约 ¥1,800）；停还网贷本人口径清零，历史记录保留 */
+        var CATS = {
+          friend: { name: "欠朋友", base: 8566, sub: "只记总额，不分人（2026-10-19 猪已清，剩 5 人）" },
+          lease: { name: "融资租赁", base: 4947, sub: "还剩 2 期，2026-11-25 结束" },
+          other: { name: "微信分付/招联等", base: 1800, sub: "本人估计口径（2026-10-20 晚修正，原估 ¥1,487），未逐笔核对" }
+        };
+        var debts = loadStore("bridge_debts_v4", window.BRIDGE_DEFAULTS["bridge_debts_v4"]);
+
+        function renderBreakdown() {
+          var html = "";
+          Object.keys(CATS).forEach(function (k) {
+            var paid = debts.filter(function (e) { return e.cat === k; })
+              .reduce(function (s, e) { return s + e.amt; }, 0);
+            var left = Math.max(0, CATS[k].base - paid);
+            html += '&lt;div class="bd-row"&gt;&lt;div&gt;&lt;span class="name"&gt;' + CATS[k].name + "&lt;/span&gt;" +
+              (CATS[k].sub ? '&lt;span class="sub"&gt;' + CATS[k].sub + "&lt;/span&gt;" : "") +
+              '&lt;/div&gt;&lt;div class="amt"&gt;' + money(left) +
+              "&lt;small&gt;原 " + money(CATS[k].base) + (paid &gt; 0 ? " · 已还 " + money(paid) : "") + "&lt;/small&gt;&lt;/div&gt;&lt;/div&gt;";
+          });
+          document.getElementById("breakdown").innerHTML = html;
+        }
+
+        function copyLine(text, btn) {
+          function done() { if (btn) { var t = btn.textContent; btn.textContent = "已复制"; setTimeout(function () { btn.textContent = t; }, 1200); } }
+          function fallback() {
+            try {
+              var ta = document.createElement("textarea");
+              ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+              document.body.appendChild(ta); ta.select();
+              document.execCommand("copy");
+              document.body.removeChild(ta); done();
+            } catch (e) { /* 复制不可用时不打扰页面 */ }
+          }
+          try {
+            if (navigator.clipboard &amp;&amp; navigator.clipboard.writeText) { navigator.clipboard.writeText(text).then(done, fallback); }
+            else { fallback(); }
+          } catch (e) { fallback(); }
+        }
+        function renderDebt() {
+          var paid = debts.reduce(function (s, e) { return s + e.amt; }, 0);
+          var remain = Math.max(0, BASE - paid);
+          var pct = Math.min(100, (paid / BASE) * 100);
+          document.getElementById("remainNum").textContent = fmt(remain);
+          document.getElementById("paidNum").textContent = money(paid);
+          document.getElementById("pctNum").textContent = (Math.round(pct * 10) / 10) + "%";
+          document.getElementById("barFill").style.width = pct + "%";
+          renderBreakdown();
+
+          var box = document.getElementById("debtEntries");
+          document.getElementById("debtEmpty").style.display = debts.length ? "none" : "block";
+          box.innerHTML = debts.map(function (e, i) {
+            return '&lt;div class="entry"&gt;&lt;div class="main"&gt;&lt;div class="top"&gt;' +
+              '&lt;span class="date"&gt;' + esc(e.date) + '&lt;/span&gt;' +
+              '&lt;span class="cat"&gt;' + CATS[e.cat].name + '&lt;/span&gt;' +
+              '&lt;span class="amt"&gt;' + money(e.amt) + "&lt;/span&gt;&lt;/div&gt;" +
+              (e.note ? '&lt;div class="note"&gt;' + esc(e.note) + "&lt;/div&gt;" : "") +
+              '&lt;/div&gt;&lt;button class="cpy" data-i="' + i + '"&gt;复制&lt;/button&gt;&lt;/div&gt;';
+          }).join("");
+          box.querySelectorAll(".cpy").forEach(function (b) {
+            b.addEventListener("click", function () {
+              var e = debts[Number(b.dataset.i)];
+              if (e) copyLine("还款记账｜" + e.date + "｜" + CATS[e.cat].name + "｜" + money(e.amt) + (e.note ? "｜" + e.note : ""), b);
+            });
+          });
+        }
+
+        var dDate = document.getElementById("dDate");
+        if (dDate) dDate.value = today();
+        /* debtForm listener removed (form deleted) */
+        renderDebt();
+
+        /* ---------- 交易日记 ---------- */
+        var trades = loadStore("bridge_trades_v4", window.BRIDGE_DEFAULTS["bridge_trades_v4"]);
+        function renderTrade() {
+          document.getElementById("tCount").textContent = trades.length;
+          if (trades.length) {
+            var yes = trades.filter(function (e) { return e.follow === "是"; }).length;
+            document.getElementById("tFollow").textContent = Math.round((yes / trades.length) * 100) + "%";
+          } else {
+            document.getElementById("tFollow").textContent = "—";
+          }
+          var box = document.getElementById("tradeEntries");
+          document.getElementById("tradeEmpty").style.display = trades.length ? "none" : "block";
+          box.innerHTML = trades.map(function (e, i) {
+            return '&lt;div class="entry"&gt;&lt;div class="main"&gt;&lt;div class="top"&gt;' +
+              '&lt;span class="date"&gt;' + esc(e.date) + '&lt;/span&gt;' +
+              '&lt;span class="cat"&gt;' + esc(e.market) + "&lt;/span&gt;" +
+              '&lt;span class="tag ' + (e.dir === "做多" ? "long" : "short") + '"&gt;' + e.dir + "&lt;/span&gt;" +
+              '&lt;span class="tag ' + (e.follow === "是" ? "yes" : "no") + '"&gt;按系统：' + e.follow + "&lt;/span&gt;&lt;/div&gt;" +
+              '&lt;div class="note"&gt;入场理由：' + esc(e.reason) + "&lt;/div&gt;" +
+              (e.result ? '&lt;div class="note"&gt;结果：' + esc(e.result) + "&lt;/div&gt;" : "") +
+              '&lt;/div&gt;&lt;/div&gt;';
+          }).join("");
+        }
+        var tDate = document.getElementById("tDate");
+        if (tDate) tDate.value = today();
+        /* tradeForm listener removed (form deleted) */
+        renderTrade();
+
+        /* ---------- 健身打卡 ---------- */
+        /* 预填：用户 2026-10-18 提供的健身档案与训练日志（文档第五部分），只记已完成与已登记的休息日 */
+        var lifes = loadStore("bridge_lifes_v4", window.BRIDGE_DEFAULTS["bridge_lifes_v4"]);
+        /* 将 2026-10-19 已核对训练同步到已有浏览器记录，保留同日已有的个人修改。 */
+        if (!lifes.some(function (e) { return e.date === "2026-10-19"; })) {
+          lifes.unshift({ date: "2026-10-19", day: "周一", status: "完成", mins: 63, note: "腿部＋肩部（20:17–21:20）：哑铃深蹲、哑铃外侧深蹲、侧平举、哑铃推肩，各 4 组×12 次，共 16 组 192 次；补上周缺的腿部训练。当日步数 10,848 步" });
+          saveStore("bridge_lifes_v4", lifes);
+        }
+        /* 将 2026-10-20 已核对训练同步到已有浏览器记录。 */
+        if (!lifes.some(function (e) { return e.date === "2026-10-20"; })) {
+          lifes.unshift({ date: "2026-10-20", day: "周二", status: "完成", mins: 52, note: "胸＋肱三头肌（补周一，20:12–21:04，约 52 分钟）：标准俯卧撑、上斜俯卧撑、窄距俯卧撑，各 4 组×12 次，共 12 组 144 次；当日步数 9,215 步" });
+          saveStore("bridge_lifes_v4", lifes);
+        }
+        /* 2026-10-20 训练完成信息补丁：时长与结束时间。 */
+        (function () { var e = lifes.find(function (x) { return x.date === "2026-10-20"; }); if (e &amp;&amp; (!e.mins || e.note.indexOf("步数") &lt; 0)) { e.mins = 52; e.note = "胸＋肱三头肌（补周一，20:12–21:04，约 52 分钟）：标准俯卧撑、上斜俯卧撑、窄距俯卧撑，各 4 组×12 次，共 12 组 144 次；当日步数 9,215 步"; saveStore("bridge_lifes_v4", lifes); } })();
+        function renderLife() {
+          var done = lifes.filter(function (e) { return e.status === "完成"; });
+          document.getElementById("lDone").textContent = done.length;
+          document.getElementById("lLate").textContent = lifes.length - done.length;
+          document.getElementById("lMins").textContent = done.reduce(function (s, e) { return s + (e.mins || 0); }, 0);
+          var box = document.getElementById("lifeEntries");
+          document.getElementById("lifeEmpty").style.display = lifes.length ? "none" : "block";
+          box.innerHTML = lifes.map(function (e, i) {
+            return '&lt;div class="entry"&gt;&lt;div class="main"&gt;&lt;div class="top"&gt;' +
+              '&lt;span class="date"&gt;' + esc(e.date) + '&lt;/span&gt;' +
+              '&lt;span class="cat"&gt;' + esc(e.day) + "&lt;/span&gt;" +
+              '&lt;span class="tag ' + (e.status === "完成" ? "done" : "late") + '"&gt;' + e.status + "&lt;/span&gt;" +
+              (e.mins ? '&lt;span class="date"&gt;' + e.mins + " 分钟&lt;/span&gt;" : "") + "&lt;/div&gt;" +
+              (e.note ? '&lt;div class="note"&gt;' + esc(e.note) + "&lt;/div&gt;" : "") +
+              '&lt;/div&gt;&lt;button class="cpy" data-i="' + i + '"&gt;复制&lt;/button&gt;&lt;/div&gt;';
+          }).join("");
+          box.querySelectorAll(".cpy").forEach(function (b) {
+            b.addEventListener("click", function () {
+              var e = lifes[Number(b.dataset.i)];
+              if (e) copyLine("健身记录｜" + e.date + " " + e.day + "｜" + e.status + (e.mins ? "｜" + e.mins + " 分钟" : "") + (e.note ? "｜" + e.note : ""), b);
+            });
+          });
+        }
+        var lDate = document.getElementById("lDate");
+        if (lDate) lDate.value = today();
+        /* lifeForm listener removed (form deleted) */
+        renderLife();
+
+        /* ---------- 逆向决策 ---------- */
+        /* 预填：用户逆向决策文档（第三部分）中的个人逆向拆解模型，与上方「我的拆解模型」为同一份 */
+        var reverses = loadStore("bridge_reverses_v4", window.BRIDGE_DEFAULTS["bridge_reverses_v4"]);
+        function chainRow(stage, main, key, now) {
+          if (!main &amp;&amp; !key) return "";
+          var text = "";
+          if (main) text += esc(main);
+          if (key) text += (main ? '&lt;span class="k2"&gt;｜关键指标：&lt;/span&gt;' : '&lt;span class="k2"&gt;关键指标：&lt;/span&gt;') + esc(key);
+          return '&lt;div class="chain-row' + (now ? " now" : "") + '"&gt;&lt;span class="chain-stage"&gt;' + stage +
+            '&lt;/span&gt;&lt;span class="chain-text"&gt;' + text + "&lt;/span&gt;&lt;/div&gt;";
+        }
+        function renderReverse() {
+          document.getElementById("rCount").textContent = reverses.length;
+          document.getElementById("rDone").textContent =
+            reverses.filter(function (e) { return e.status === "已完成"; }).length;
+          var box = document.getElementById("reverseEntries");
+          document.getElementById("reverseEmpty").style.display = reverses.length ? "none" : "block";
+          box.innerHTML = reverses.map(function (e, i) {
+            return '&lt;div class="entry"&gt;&lt;div class="main"&gt;&lt;div class="top"&gt;' +
+              '&lt;span class="date"&gt;' + esc(e.date) + '&lt;/span&gt;' +
+              '&lt;span class="cat"&gt;终点：' + esc(e.goal) + "&lt;/span&gt;" +
+              '&lt;span class="tag ' + (e.status === "已完成" ? "done" : "doing") + '"&gt;' + e.status + "&lt;/span&gt;&lt;/div&gt;" +
+              '&lt;div class="chain"&gt;' +
+              chainRow("阶段三 · 终点前一步", e.s3cond, e.s3key, false) +
+              chainRow("阶段二 · 中期过渡", e.s2cond, e.s2key, false) +
+              chainRow("阶段一 · 当前唯一动作", e.s1act, e.s1key, true) +
+              "&lt;/div&gt;" +
+              '&lt;/div&gt;&lt;/div&gt;';
+          }).join("");
+        }
+        var rDate = document.getElementById("rDate");
+        if (rDate) rDate.value = today();
+        /* reverseForm listener removed (form deleted) */
+        renderReverse();
+
+        /* ---------- 开支复盘 ---------- */
+        /* 2026-10-18 本人决定：不记每日开支，改为每月导出账单流水复盘一次 */
+        var EXP_CATS = ["吃饭", "烟", "水", "话费", "房租水电", "油费", "给家里", "女友", "网购", "其他"];
+        /* 10 月基准参考：用户本人 2026-10-12 列的每月固定开支表（主档案模块二 2.3，合计约 ¥7,128/月） */
+        var EXP_BASE = [
+          { cat: "给家里", amt: 2000, note: "固定，用于还房子的债" },
+          { cat: "房租水电", amt: 1450, note: "房租，固定" },
+          { cat: "房租水电", amt: 400, note: "水电" },
+          { cat: "吃饭", amt: 1000, note: "" },
+          { cat: "女友", amt: 1000, note: "送礼、请吃饭等，每月至少 1,000" },
+          { cat: "烟", amt: 600, note: "" },
+          { cat: "油费", amt: 330, note: "摩托车油费（流水核对：2025-12 至 2026-09 月均）" },
+          { cat: "水", amt: 300, note: "每天约 ¥10，按 30 天算" },
+          { cat: "话费", amt: 40, note: "" },
+          { cat: "其他", amt: 8, note: "汽水音乐" }
+        ];
+        document.getElementById("expenseBaseline").innerHTML = EXP_BASE.map(function (e) {
+          return '&lt;div class="bd-row"&gt;&lt;div&gt;&lt;span class="name"&gt;' + esc(e.cat) + "&lt;/span&gt;" +
+            (e.note ? '&lt;span class="sub"&gt;' + esc(e.note) + "&lt;/span&gt;" : "") +
+            '&lt;/div&gt;&lt;div class="amt"&gt;' + money(e.amt) + "&lt;/div&gt;&lt;/div&gt;";
+        }).join("");
+        var erCatsBox = document.getElementById("erCats");
+        if (erCatsBox) erCatsBox.innerHTML = EXP_CATS.map(function (c, idx) {
+          return '&lt;div&gt;&lt;label for="erCat' + idx + '"&gt;' + esc(c) + '（¥）&lt;/label&gt;' +
+            '&lt;input type="number" id="erCat' + idx + '" class="er-cat" data-cat="' + esc(c) + '" min="0" step="0.01" inputmode="decimal" placeholder="0" /&gt;&lt;/div&gt;';
+        }).join("");
+        var expReviews = loadStore("bridge_expenses_v4", window.BRIDGE_DEFAULTS["bridge_expenses_v4"]);
+        function renderExpense() {
+          document.getElementById("erCount").textContent = expReviews.length;
+          document.getElementById("erLatest").textContent = expReviews.length ? money(expReviews[0].total) : "—";
+          var box = document.getElementById("expenseEntries");
+          document.getElementById("expenseEmpty").style.display = expReviews.length ? "none" : "block";
+          box.innerHTML = expReviews.map(function (r, i2) {
+            var sum = EXP_CATS.reduce(function (s2, c) { return s2 + (r.cats[c] || 0); }, 0);
+            var rows = EXP_CATS.filter(function (c) { return r.cats[c] &gt; 0; }).map(function (c) {
+              return '&lt;div class="note"&gt;' + esc(c) + "：" + money(r.cats[c]) + "&lt;/div&gt;";
+            }).join("");
+            return '&lt;div class="entry"&gt;&lt;div class="main"&gt;&lt;div class="top"&gt;' +
+              '&lt;span class="date"&gt;' + esc(r.month) + '&lt;/span&gt;' +
+              '&lt;span class="cat"&gt;账单总支出&lt;/span&gt;' +
+              '&lt;span class="amt"&gt;' + money(r.total) + "&lt;/span&gt;&lt;/div&gt;" +
+              (sum &gt; 0 ? '&lt;div class="note"&gt;分类合计 ' + money(sum) + "&lt;/div&gt;" + rows : "") +
+              (r.note ? '&lt;div class="note"&gt;' + esc(r.note) + "&lt;/div&gt;" : "") +
+              '&lt;/div&gt;&lt;/div&gt;';
+          }).join("");
+        }
+        var erMonth = document.getElementById("erMonth");
+        if (erMonth) erMonth.value = today().slice(0, 7);
+        /* expenseForm listener removed (form deleted) */
+        renderExpense();
+
+        /* ---------- 资金流入：真实收入与借入款分开统计 ---------- */
+        /* 历史流入记录保持原样；借入款根据原类别与备注单独归类，不纳入收入合计。 */
+        var incomes = loadStore("bridge_incomes_v4", window.BRIDGE_DEFAULTS["bridge_incomes_v4"]);
+        function flowType(e) {
+          var src = String(e.src || ""), note = String(e.note || "");
+          if (/借入|借款/.test(src + note) || /白条|金条|放心借/.test(src)) return "borrow";
+          if (/出售资产|卖手机|资产变现/.test(src)) return "asset";
+          if (/退款|转入/.test(src)) return "other";
+          return "income";
+        }
+        function renderIncome() {
+          var month = today().slice(0, 7);
+          var inMonth = incomes.filter(function (e) { return e.date.slice(0, 7) === month; });
+          var mTotal = inMonth.filter(function (e) { return flowType(e) === "income"; }).reduce(function (s2, e) { return s2 + e.amt; }, 0);
+          var aTotal = incomes.filter(function (e) { return flowType(e) === "income"; }).reduce(function (s2, e) { return s2 + e.amt; }, 0);
+          var borrowedTotal = inMonth.filter(function (e) { return flowType(e) === "borrow"; }).reduce(function (s2, e) { return s2 + e.amt; }, 0);
+          document.getElementById("iMonthTotal").textContent = money(mTotal);
+          document.getElementById("iAllTotal").textContent = money(aTotal);
+          document.getElementById("iBorrowedTotal").textContent = money(borrowedTotal);
+          document.getElementById("iAllCount").textContent = incomes.length;
+          var box = document.getElementById("incomeEntries");
+          document.getElementById("incomeEmpty").style.display = incomes.length ? "none" : "block";
+          box.innerHTML = incomes.map(function (e, i2) {
+            var type = flowType(e);
+            var typeLabel = type === "borrow" ? "借入 · 不计收入" : (type === "asset" ? "资产变现" : (type === "other" ? "其他流入" : "真实收入"));
+            var tagClass = type === "borrow" ? "late" : (type === "income" ? "yes" : "doing");
+            return '&lt;div class="entry"&gt;&lt;div class="main"&gt;&lt;div class="top"&gt;' +
+              '&lt;span class="date"&gt;' + esc(e.date) + '&lt;/span&gt;' +
+              '&lt;span class="cat"&gt;' + esc(e.src) + '&lt;/span&gt;' +
+              '&lt;span class="tag ' + tagClass + '"&gt;' + typeLabel + '&lt;/span&gt;' +
+              '&lt;span class="amt"&gt;' + money(e.amt) + "&lt;/span&gt;&lt;/div&gt;" +
+              (e.note ? '&lt;div class="note"&gt;' + esc(e.note) + "&lt;/div&gt;" : "") +
+              '&lt;/div&gt;&lt;/div&gt;';
+          }).join("");
+        }
+        var iDate = document.getElementById("iDate");
+        if (iDate) iDate.value = today();
+        /* incomeForm listener removed (form deleted) */
+        renderIncome();
+
+        /* ---------- 睡眠记录 ---------- */
+        /* 预填：用户 2026-10-18 提供的睡眠记录 2026-10-14 至 10-18 共 5 晚（文档第六部分）；原记录质量「中」对应本表「一般」，「不好」对应「差」；时长按入睡/起床时间计算，与原记录的估计时长一致 */
+        var SLEEP_NOTE = "东鹏特饮 500ml×2 瓶/天；午睡 0 次";
+        var sleeps = loadStore("bridge_sleeps_v4", window.BRIDGE_DEFAULTS["bridge_sleeps_v4"]);
+        var SLEEP_GOAL = 8 * 60;
+        function fmtDur(mins) {
+          var h = Math.floor(mins / 60), m = mins % 60;
+          return h + " 小时" + (m ? " " + m + " 分" : "");
+        }
+        function sleepMins(start, end) {
+          var sp = start.split(":"), ep = end.split(":");
+          var sm = Number(sp[0]) * 60 + Number(sp[1]);
+          var em = Number(ep[0]) * 60 + Number(ep[1]);
+          if (em &lt;= sm) em += 24 * 60;
+          return em - sm;
+        }
+        function renderSleep() {
+          var cutoff = new Date();
+          cutoff.setDate(cutoff.getDate() - 6);
+          var cm = String(cutoff.getMonth() + 1).padStart(2, "0");
+          var cd = String(cutoff.getDate()).padStart(2, "0");
+          var cutStr = cutoff.getFullYear() + "-" + cm + "-" + cd;
+          var t = today();
+          var recent = sleeps.filter(function (e) { return e.date &gt;= cutStr &amp;&amp; e.date &lt;= t; });
+          document.getElementById("sCount").textContent = sleeps.length;
+          if (recent.length) {
+            var avg = recent.reduce(function (s2, e) { return s2 + e.mins; }, 0) / recent.length;
+            document.getElementById("sAvg").textContent = fmtDur(Math.round(avg));
+            var qScore = { "好": 3, "一般": 2, "差": 1 };
+            var qa = recent.reduce(function (s2, e) { return s2 + qScore[e.quality]; }, 0) / recent.length;
+            document.getElementById("sQuality").textContent = qa &gt;= 2.5 ? "好" : (qa &gt;= 1.5 ? "一般" : "差");
+          } else {
+            document.getElementById("sAvg").textContent = "—";
+            document.getElementById("sQuality").textContent = "—";
+          }
+          var box = document.getElementById("sleepEntries");
+          document.getElementById("sleepEmpty").style.display = sleeps.length ? "none" : "block";
+          box.innerHTML = sleeps.map(function (e, i) {
+            var tagCls = e.quality === "好" ? "done" : (e.quality === "差" ? "late" : "doing");
+            return '&lt;div class="entry"&gt;&lt;div class="main"&gt;&lt;div class="top"&gt;' +
+              '&lt;span class="date"&gt;' + esc(e.date) + '&lt;/span&gt;' +
+              '&lt;span class="cat"&gt;' + esc(e.start) + " 入睡 → " + esc(e.end) + " 起床&lt;/span&gt;" +
+              '&lt;span class="amt"&gt;' + fmtDur(e.mins) + "&lt;/span&gt;" +
+              '&lt;span class="tag ' + tagCls + '"&gt;' + e.quality + "&lt;/span&gt;&lt;/div&gt;" +
+              '&lt;div class="note"&gt;目标 8 小时：' + (e.mins &gt;= SLEEP_GOAL ? "已达到" : "还差 " + fmtDur(SLEEP_GOAL - e.mins)) + "&lt;/div&gt;" +
+              (e.note ? '&lt;div class="note"&gt;' + esc(e.note) + "&lt;/div&gt;" : "") +
+              '&lt;/div&gt;&lt;/div&gt;';
+          }).join("");
+        }
+        var sDate = document.getElementById("sDate");
+        if (sDate) sDate.value = today();
+        function updSleepPreview() {
+          var st = document.getElementById("sStart").value, en = document.getElementById("sEnd").value;
+          document.getElementById("sDurPreview").textContent = (st &amp;&amp; en) ? fmtDur(sleepMins(st, en)) : "—";
+        }
+        var sStartEl = document.getElementById("sStart"), sEndEl = document.getElementById("sEnd");
+        if (sStartEl) sStartEl.addEventListener("change", updSleepPreview);
+        if (sEndEl) sEndEl.addEventListener("change", updSleepPreview);
+        /* sleepForm listener removed (form deleted) */
+        renderSleep();
+
+        /* ---------- 每周复盘 ---------- */
+        /* 预填：2026-10-12 至 10-18 这一周已确认的事实汇总（健身日志、睡眠记录与 2026-10-18 核对记录） */
+        var reviews = loadStore("bridge_reviews_v4", window.BRIDGE_DEFAULTS["bridge_reviews_v4"]);
+        function renderReview() {
+          document.getElementById("wCount").textContent = reviews.length;
+          var box = document.getElementById("reviewEntries");
+          document.getElementById("reviewEmpty").style.display = reviews.length ? "none" : "block";
+          box.innerHTML = reviews.map(function (e, i) {
+            var tagCls = e.adjust === "停止" ? "no" : (e.adjust === "缩减" ? "late" : "done");
+            return '&lt;div class="entry"&gt;&lt;div class="main"&gt;&lt;div class="top"&gt;' +
+              '&lt;span class="date"&gt;' + esc(e.date) + ' 那一周&lt;/span&gt;' +
+              (e.task ? '&lt;span class="cat"&gt;' + esc(e.task) + '&lt;/span&gt;&lt;span class="tag ' + tagCls + '"&gt;' + e.adjust + "&lt;/span&gt;" : "") + "&lt;/div&gt;" +
+              (e.done ? '&lt;div class="note"&gt;本周完成：' + esc(e.done) + "&lt;/div&gt;" : "") +
+              (e.block ? '&lt;div class="note"&gt;最大阻碍：' + esc(e.block) + "&lt;/div&gt;" : "") +
+              (e.next ? '&lt;div class="note"&gt;下周最重要：' + esc(e.next) + "&lt;/div&gt;" : "") +
+              '&lt;/div&gt;&lt;/div&gt;';
+          }).join("");
+        }
+        var wDate = document.getElementById("wDate");
+        if (wDate) wDate.value = today();
+        /* reviewForm listener removed (form deleted) */
+        renderReview();
+
+        /* 文档原文跳转：切到「我的文档」并定位第三部分 */
+        document.getElementById("rDocLink").addEventListener("click", function () {
+          document.querySelector('.tab[data-tab="docs"]').click();
+          setTimeout(function () {
+            var el = document.getElementById("part-3");
+            if (el) el.scrollIntoView();
+          }, 60);
+        });
+
+        /* 睡眠历史跳转：切到「我的文档」并定位第六部分 */
+        document.getElementById("sDocLink").addEventListener("click", function () {
+          document.querySelector('.tab[data-tab="docs"]').click();
+          setTimeout(function () {
+            var el = document.getElementById("part-6");
+            if (el) el.scrollIntoView();
+          }, 60);
+        });
+      })();
+    
+    &lt;/script&gt;
+
+    &lt;script&gt;
+      (function () {
+        "use strict";
+        var home = document.getElementById("view-home");
+        var moduleView = document.getElementById("view-module");
+
+        function showHome() {
+          moduleView.hidden = true;
+          home.hidden = false;
+          window.scrollTo({ top: 0 });
+        }
+        function openModule(key) {
+          home.hidden = true;
+          moduleView.hidden = false;
+          // Directly activate the right tab and panel instead of relying on click()
+          document.querySelectorAll(".tab").forEach(function (t) {
+            var isTarget = t.dataset.tab === key;
+            t.setAttribute("aria-selected", isTarget ? "true" : "false");
+          });
+          document.querySelectorAll(".panel").forEach(function (p) {
+            p.classList.toggle("active", p.id === "panel-" + key);
+          });
+          window.scrollTo({ top: 0 });
+        }
+
+        document.querySelectorAll("[data-goto]").forEach(function (b) {
+          b.addEventListener("click", function () { openModule(b.dataset.goto); });
+        });
+        document.getElementById("backHome").addEventListener("click", showHome);
+        document.getElementById("brandHome").addEventListener("click", showHome);
+        document.querySelectorAll("[data-nav]").forEach(function (b) {
+          b.addEventListener("click", function () {
+            var target = b.dataset.nav;
+            if (target === "home") { showHome(); return; }
+            var wasModule = !moduleView.hidden;
+            showHome();
+            var el = document.getElementById(target);
+            if (el) {
+              if (wasModule) { setTimeout(function () { el.scrollIntoView({ block: "start" }); }, 60); }
+              else { el.scrollIntoView({ block: "start" }); }
+            }
+          });
+        });
+        /* 文档内的「查看文档」类链接会程序化点击 tab，确保模块页可见 */
+        document.querySelectorAll(".tab").forEach(function (t) {
+          t.addEventListener("click", function () {
+            if (moduleView.hidden) { home.hidden = true; moduleView.hidden = false; }
+          });
+        });
+      })();
+    &lt;/script&gt;
+    &lt;script&gt;
+      (function () {
+        var root = document.documentElement;
+        var toggle = document.getElementById("themeToggle");
+        if (!toggle) return;
+        try {
+          if (localStorage.getItem("linzhifeng_theme_v1") === "dark") root.dataset.theme = "dark";
+        } catch (e) {}
+        function updateLabel() {
+          var dark = root.dataset.theme === "dark";
+          toggle.setAttribute("aria-label", dark ? "切换浅色模式" : "切换深色模式");
+          toggle.title = dark ? "切换浅色模式" : "切换深色模式";
+          toggle.innerHTML = '&lt;span aria-hidden="true"&gt;' + (dark ? "☼" : "◐") + "&lt;/span&gt;";
+        }
+        toggle.addEventListener("click", function () {
+          var dark = root.dataset.theme !== "dark";
+          if (dark) root.dataset.theme = "dark";
+          else delete root.dataset.theme;
+          try { localStorage.setItem("linzhifeng_theme_v1", dark ? "dark" : "light"); } catch (e) {}
+          updateLabel();
+        });
+        updateLabel();
+      })();
+    &lt;/script&gt;
+  &lt;script&gt;
+document.querySelectorAll("[data-days-since]").forEach(function(el){
+  var p = el.getAttribute("data-days-since").split("-");
+  var start = new Date(+p[0], +p[1] - 1, +p[2]);
+  var now = new Date();
+  var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  var d = Math.round((today - start) / 86400000);
+  if (!isNaN(d) &amp;&amp; d &gt;= 0) { el.textContent = d; }
+});
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<div class="doc-body"><b>code/skill_discretionary_trading_fidelity.md</b></div>
+<pre># Discretionary Trading Method Fidelity
+
+## Keep the stated method verbatim
+
+- Record the user's method in their own words before you add anything.
+
+- Add no indicator, filter, confirmation, or named pattern the user did not state.
+
+- Treat an example or a chart explanation as an explanation, not as a new rule.
+
+- Ask for explicit approval before you turn a discretionary method into code or a scored system.
+
+- Stop adding structure after a correction and remove the added rule instead of defending it.
+
+- Present the method back and wait for confirmation when the user corrects it twice.
+
+## Use one risk definition
+
+- Write each risk quantity once in one place with its unit and its base.
+
+- Distinguish margin from nominal exposure and price move from account loss.
+
+- Show the arithmetic from margin through leverage and stop to account loss in one place.
+
+- Recompute from that single definition when a number changes and never restate a derived number from memory.
+
+- Ask which definition the user means when margin and nominal could differ, and wait for the answer before you trade or test.
+
+## Test a method honestly
+
+- State the holding cap, costs, funding, liquidation, and benchmark before you report a result.
+
+- Count a trade that would have exceeded the holding cap as exited at the cap, not as held to a later win.
+
+- Compare the result with holding the underlying asset over the same period.
+
+- Report trades, win rate, drawdown, and the largest win separately, and name any single trade that drives the total.
+
+- Label a result as untested when costs, funding, or liquidation are missing, and do not present it as a live expectation.
+
+- Refuse a guaranteed return target when no verified method supports it, and offer the honest comparison instead.
+
+## Keep code and configuration in parity
+
+- Read the configuration and the code that uses it before you report a signal or a test.
+
+- Change a threshold in one place and verify that every consumer reads the same value.
+
+- Reproduce a rejected signal with the same inputs the live code used, and name the threshold that rejected it.
+
+- Keep a demo or fallback signal labeled as demo until live data replaces it, and do not present fallback output as market data.
+
+- Retire a coded system the user discards, and do not keep tuning it or reintroduce its rules under a new name.
+
+## Available connectors
+
+- Use `muse.connector_search` to find other connectors and `muse.skill_search` to find related skills.
+
+- If nothing here fits, look on the web for a maintained API or MCP server and set it up with [Custom Connectors and MCPs](/opt/muse/skills/custom-connector-setup/SKILL.md), or build a custom connector.
+
+## Alternatives for better results
+
+- Offer a trade diary that records the setup, the decision, and the outcome in the user's own words.
+
+- Offer a checklist for one manual review instead of a coded system when the method stays discretionary.
+
+- Offer a simple arithmetic check for one proposed trade before any broader test.
+</pre>
+<div class="doc-body"><b>code/skill_okx_stop_protection_audit.md</b></div>
+<pre># OKX Exchange-Side Stop Protection Audit
+
+## Query every conditional order type first
+
+- Treat "no stop on the exchange" as a claim that needs a complete query, not a default reading of an empty result.
+
+- Query all conditional order types the venue supports before you conclude anything. On OKX that means conditional orders, OCO orders, trigger orders, and move_order_stop orders together.
+
+- Remember that an OKX trade-page 止盈止损 order is ordType OCO. A query that only asks for conditional orders will miss it and produce a confident false negative.
+
+- Use the read-only helper documented in the connector doc below instead of hand-rolling API queries, and read its stop-audit output before you report.
+
+## Report what you found
+
+- Name the stop you found with its trigger price, order type, side, and time placed.
+
+- Compare the trigger distance against the position's own stop rule and show the arithmetic.
+
+- Distinguish exchange-side protection from a mental stop or a chat promise. Only an order resting on the exchange counts.
+
+- Say exactly which order types you checked when the complete query finds nothing, so the absence is verifiable.
+
+## Present facts against the user's rules
+
+- Report the numbers first, then flag deviations such as a missing stop or a stop placed farther than the rule allows.
+
+- Never soften a partial query into a verified absence, and never present an unchecked order type as checked.
+
+- When the user corrects you, concede the miss, name the order type you skipped, and fix the query the same day.
+
+## Available connectors
+
+- [OKX (custom.okx)](~/workspace/custom-connectors/custom.okx/CONNECTOR.md) for the local read-only helper that reads balances, positions, fills, and conditional orders.
+
+- Use `muse.connector_search` to find other connectors and `muse.skill_search` to find related skills.
+
+- If nothing here fits, look on the web for a maintained API or MCP server and set it up with [Custom Connectors and MCPs](/opt/muse/skills/custom-connector-setup/SKILL.md), or build a custom connector.
+
+## Alternatives for better results
+
+- Cross-check the venue's trade page when the API result is ambiguous, and treat the page as the tiebreaker only after the full order-type query.
+
+- Ask the user for a screenshot of the open stop order when neither the query nor the page resolves it, instead of asserting that no stop exists.
+</pre>
+<div class="doc-body"><b>code/skill_site_data_update_verification.md</b></div>
+<pre># Site Data Update Verification
+
+## Sync before you edit
+
+- Pull the latest remote version before you touch any file, since other editors can change the same site without telling you.
+
+- Read the pulled files and confirm the current data is intact before you plan the change.
+
+- Record the remote commit or version you started from so you can roll back to it.
+
+## Change safely and preview locally
+
+- Back up the file you are about to edit, then make the change.
+
+- Re-read the edited file and confirm every confirmed number, label and status is still present and unchanged except for the intended edit.
+
+- Open the edited page in a local browser preview and click through the changed area, the surrounding modules and the stored data path.
+
+- When the site uses browser storage, bump the storage key version on schema changes so old cached data cannot mask the new deploy.
+
+## Publish and wait for the live build
+
+- Push the change through the channel that works here, such as the connector API or the browser, and capture the commit or push result.
+
+- Wait for the hosting platform's build to finish before you check anything, since the live URL lags the repository by minutes.
+
+- Never announce completion from a local preview or a successful push alone.
+
+## Verify the live site before you announce
+
+- Load the live URL in a fresh session with caches cleared and confirm the new data renders on screen.
+
+- Compare the live page against the intended change, including data the user reported missing before.
+
+- Only after the live check passes, tell the user the update is done and name what you verified.
+
+- If the live page still shows old data, diagnose cache, build lag or an incomplete edit yourself instead of asking the user to test.
+
+## Available connectors
+
+- [GitHub](/opt/hatch/connectors/github/CONNECTOR.md) for reading and changing repository files, commits and pull requests.
+
+- [custom.github](~/workspace/custom-connectors/custom.github/CONNECTOR.md) for the registered GitHub API route when it is reachable from this environment.
+
+- Use `muse.connector_search` to find other connectors and `muse.skill_search` to find related skills.
+
+- If nothing here fits, look on the web for a maintained API or MCP server and set it up with [Custom Connectors and MCPs](/opt/muse/skills/custom-connector-setup/SKILL.md), or build a custom connector.
+
+## Websites
+
+- [GitHub](https://github.com/) for pushing changes when the API is unreachable from this environment. Carry the repository name, branch and exact file path into `browser.browse`, and verify the commit appears in the repository history.
+
+- The site's own live URL for the final check. Carry the exact page and the expected data into `browser.browse`, and verify the data renders in a fresh load.
+
+## Alternatives for better results
+
+- When the platform offers deploy previews, check the preview link before merging so the live check rarely surprises you.
+
+- Ask the user to hard refresh only as a diagnostic after you have confirmed the deploy is live, never as the fix itself.
+
+- Keep a short log of commit, build time and live check result so a repeat report is easy to trace.
+</pre>
+<div class="doc-body"><b>code/start_sentinel.sh</b></div>
+<pre>#!/usr/bin/env bash
+# BTC 哨兵启动器：单实例锁（防保活与手动同时拉起两个）；确保 venv 存在，然后运行哨兵。
+set -e
+cd "$HOME/workspace/btc-sentinel"
+exec 9&gt;"$HOME/workspace/btc-sentinel/sentinel.lock"
+if ! flock -n 9; then
+  echo "已有哨兵在运行，本次启动退出" &gt;&amp;2
+  exit 0
+fi
+if [ ! -x "venv/bin/python" ]; then
+  python3 -m venv venv
+  ./venv/bin/pip install -q requests
+fi
+exec ./venv/bin/python sentinel.py
+</pre>
 </article>
 <script>
 window.sleepMins = window.sleepMins || function (start, end) { var sp = start.split(":"), ep = end.split(":"); var sm = Number(sp[0]) * 60 + Number(sp[1]); var em = Number(ep[0]) * 60 + Number(ep[1]); if (em <= sm) em += 24 * 60; return em - sm; };
