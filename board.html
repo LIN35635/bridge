@@ -106,6 +106,32 @@
 </section>
 
 <section>
+  <div class="sec-t"><span>历史单</span><span class="r">线1 台账 · 净值扣全成本</span></div>
+  <div class="line-card">
+    <div class="kv"><span>第 1 单 · 2026-10-24 平仓</span><b style="color:var(--red)">−$1.59</b></div>
+    <div class="kv"><span>第 2 单 · 2026-10-28 于 80,500 平仓</span><b style="color:var(--green)">+$0.33</b></div>
+    <div class="kv"><span>已平合计</span><b>−$1.26</b></div>
+    <div class="kv"><span>第 3 单 · 进行中</span><b>0.07 张 · 均价 77,785.7</b></div>
+    <div class="note">新规矩下完成样本只有 2 单，这本账只记事实，不下结论。</div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-t"><span>影子账</span><span class="r">假钱验证 · 不动真钱</span></div>
+  <div class="line-card"><h3>长拿线影子账</h3>
+    <div class="kv"><span>已记</span><b>0 笔</b></div>
+    <div class="note">等第一个信号才开记。验收：先看 10 笔且满 12 周（净赚、回撤小于 20%），最终 20 笔且满 6 个月，去掉最大赢家也要算。</div>
+  </div>
+  <div class="line-card"><h3>创钱包线影子账</h3>
+    <div class="kv"><span>虚拟本金</span><b>$1,000</b></div>
+    <div class="kv"><span>现金 / 持仓 BTC</span><b>$1,000 / 0</b></div>
+    <div class="kv"><span>三档触发</span><b>均未触发</b></div>
+    <div class="kv"><span>记账至 2026-11-06</span><b>收盘 75,848.1 · 回撤 12.43%</b></div>
+    <div class="note">基准价 76,467.8（2026-11-05 定格）；验收要满 6 个月且至少真触发一次 20% 档。</div>
+  </div>
+</section>
+
+<section>
   <div class="sec-t"><span>持仓</span><span class="r">创名下三摊 · 按标的本身记，不换算</span></div>
   <div id="holds"></div>
 </section>
@@ -119,7 +145,7 @@
 <script>
 var ATH=126080, HP90=86618;
 var FALLBACK={px:75869.5,chg:0.24,high:76378.7,low:74887.9,vol:545300000,fng:25,fngY:28};
-var ORDER3={contracts:0.07,btc:0.0007,avg:77785.7,inRisk:4.36,inRiskPct:0.88,liq:52181.9,
+var ORDER3={contracts:0.07,btc:0.0007,avg:77785.7,inRisk:4.36,inRiskPct:0.88,liq:52201.4,
   lots:[["第一笔","0.02 张 · 78,500","止损 72,220"],["补仓","0.05 张 · 77,500","止损 71,300"]]};
 var TIERS=[["第一档",-20,69294],["第二档",-30,60633],["第三档",-40,51971]];
 var IDX={spx:null,ndq:null,gold:null};
@@ -155,7 +181,10 @@ function renderLines(px){
     +'<div class="kv"><span>BTC</span><b>0.00496387</b></div>'
     +'<div class="kv"><span>IMX</span><b>21</b></div>'
     +'<div class="kv"><span>USDT</span><b>≈ 0.4</b></div>'
-    +'<div class="note">只买不卖的长持线：回撤三档见上方盯盘线，到档由本人自己在钱包买入。</div></div>';
+    +'<div class="kv"><span>影子账（虚拟 $1,000）</span><b>现金 $1,000 · 三档未触发</b></div>'
+    +'<div class="kv"><span>基准价（2026-11-05 定格）</span><b>$76,467.8</b></div>'
+    +'<div class="kv"><span>影子记账至 2026-11-06</span><b>收盘 75,848.1 · 回撤 12.43%</b></div>'
+    +'<div class="note">只买不卖的长持线：回撤三档见上方盯盘线（实时回撤按现价算），到档由本人自己在钱包买入；影子账先行验证，满 6 个月且至少真触发一次 20% 档才算验完。</div></div>';
   h+='<div class="line-card"><h3>线3 · 标普 500 <span class="tag idle">已立线 · 未投钱</span></h3>'
     +'<div class="kv"><span>标普 500 指数</span><b id="spxPx">'+(IDX.spx?fmt(IDX.spx,1):"—")+'</b></div>'
     +'<div class="note">定投篮子成员（标普＋纳指＋黄金），过年后再启动，现在只看价。</div></div>';
@@ -176,10 +205,11 @@ function renderHolds(){
     +'<div class="kv"><span>IMX</span><b>21</b></div>'
     +'<div class="kv"><span>USDT</span><b>≈ 0.4</b></div></div>';
   h+='<div class="line-card"><h3>OKX 交易资金</h3>'
-    +'<div class="kv"><span>交易账户</span><b>$74.07</b></div>'
-    +'<div class="kv"><span>简单赚币（活期）</span><b>$420.59</b></div>'
-    +'<div class="kv"><span>合计</span><b>$494.66</b></div>'
-    +'<div class="note">读数日期 2026-11-05；闲置资金只放活期，三个口袋分开记。</div></div>';
+    +'<div class="kv"><span>交易账户</span><b>$71.82</b></div>'
+    +'<div class="kv"><span>简单赚币（活期）</span><b>$420.82</b></div>'
+    +'<div class="kv"><span>赚币累计利息</span><b>$0.82</b></div>'
+    +'<div class="kv"><span>合计</span><b>$492.64</b></div>'
+    +'<div class="note">读数日期 2026-11-07（只读自查）；闲置资金只放活期，三个口袋分开记。</div></div>';
   h+='<div class="line-card"><h3>国金证券账户</h3>'
     +'<div class="kv"><span>标普500ETF博时 513500</span><b>300 份 · 成本 2.695</b></div>'
     +'<div class="kv"><span>纳指ETF广发 159941</span><b>100 份 · 成本 1.634</b></div>'
